@@ -260,7 +260,7 @@ input[type="checkbox"] {
 <div class="header">
 <div class="container">
   <h1>Star Tools</h1>
-  <div class="badge">Versi 1.6.0</div>
+  <div class="badge">Versi 1.7</div>
 </div>
 
 
@@ -285,13 +285,11 @@ input[type="checkbox"] {
 <!-- SMK -->
 <div id="kelas10" class="mode" style="display:none">
   <h2>Semester 1</h2>
-  <button onclick="showCard('nilai')">Konversi Nilai</button>
-  <button onclick="showCard('trigo')">Trigonometri</button>
-  <button onclick="showCard('linearCard')">Persamaan Linear</button>
-  <button onclick="showCard('pertidaksamaanCard')">Pertidaksamaan Linear</button>
+  <button onclick="showCard('nilai')">Kalkulator Konversi Nilai</button>
+  <button onclick="showCard('trigo')">Kalkulator Trigonometri</button>
   <h2>Semester 2</h2>
-  <button onclick="showCard('kosong')">Kosong</button>
-  <button onclick="showCard('kosong')">Kosong</button>
+  <button onclick="showCard('linearCard')">Kalkulator Persamaan Linear</button>
+  <button onclick="showCard('pertidaksamaanCard')">Kalkulator Pertidaksamaan Linear</button>
   <h2>Kembali Pilih Kelas</h2>
   <button onclick="backToMode()">Kembali</button>
 </div>
@@ -307,8 +305,8 @@ input[type="checkbox"] {
 <div class="label-checkbox">Tampilkan Cara
   <input type="checkbox" id="modeNilai">
 </div>
-<button onclick="calcNilai()">Konversi</button>
-<button onclick="copyNilai()">Copy Hasil</button>
+<button onclick="calcNilai()">Hitung</button>
+<button onclick="copyNilai()">Salin Hasil</button>
 <button onclick="resetNilai()">Reset</button>
 <div class="result" id="hasilNilai"></div>
 <div class="result" id="caraNilai" style="font-size:14px;color:white"></div>
@@ -326,7 +324,7 @@ input[type="checkbox"] {
   <input type="checkbox" id="modeTrigo">
 </div>
 <button onclick="calcTrigo()">Hitung</button>
-<button onclick="copyTrigo()">Copy Hasil</button>
+<button onclick="copyTrigo()">Salin Hasil</button>
 <button onclick="resetTrigo()">Reset</button>
 <div class="result" id="hasilTrigo"></div>
 <div class="result" id="caraTrigo" style="font-size:14px;color:white"></div>
@@ -353,7 +351,7 @@ x − y + z = 2<br>
 <button class="linear-btn" onclick="showLinear3()">3 Variabel</button>
 </div>
 <div id="formLinear"></div>
-<button onclick="copyformLinear()">Copy Hasil</button>
+<button onclick="copyformLinear()">Salin Hasil</button>
 <button onclick="resetformLinear()">Reset</button>
 <div class="result" id="hasil"></div>
 <div class="result" id="cara"></div>
@@ -370,7 +368,7 @@ x − y + z = 2<br>
 <div id="menuPertidaksamaan">
     <button onclick="showPertidaksamaan2()">2 Variabel</button>
  <div id="formPertidaksamaan"></div>
-<button onclick="copyPertidaksamaan()">Copy Hasil</button>
+<button onclick="copyPertidaksamaan()">Salin Hasil</button>
 <button onclick="resetPertidaksamaan()">Reset</button>
  <div id="phasil" class="result"></div>
  <div id="pcara" class="result"></div>
@@ -382,11 +380,10 @@ x − y + z = 2<br>
 <!-- SMK -->
 <div id="kelas11" class="mode" style="display:none">
   <h2>Semester 1</h2>
-  <button onclick="showCard('turunanCard')">Derivatif</button>
-  <button onclick="showCard('Polinomial')">Polinomial</button>
+  <button onclick="showCard('turunanCard')">Kalkulator Derivatif</button>
+  <button onclick="showCard('Polinomial')">Kalkulator Polinomial</button>
   <h2>Semester 2</h2>
-  <button onclick="showCard('kosong')">Kosong</button>
-  <button onclick="showCard('kosong')">Kosong</button>
+  <button onclick="showCard('integralCard')">Kalkulator Integral</button>
   <h2>Kembali Pilih Kelas</h2>
   <button onclick="backToMode()">Kembali</button>
 </div>
@@ -396,7 +393,7 @@ x − y + z = 2<br>
   <h2>Turunan</h2>
   <input type="text" id="turunanInput" placeholder="Masukkan f(x)">
   <button id="turunanHitung">Hitung</button>
-  <button onclick="copyTurunan()">Copy</button>
+  <button onclick="copyTurunan()">Salin Hasil</button>
   <button id="turunanReset">Reset</button>
   <div class="result" id="turunanHasil"></div>
   <div class="result" id="turunanCara"></div>
@@ -411,9 +408,17 @@ x − y + z = 2<br>
     <input type="number" id="nilaiX" placeholder="Masukkan x">
 
     <button onclick="hitungPolinomial()">Hitung</button>
-    <button onclick="copyPolinomial()">Copy Hasil</button>
+    <button onclick="copyPolinomial()">Salin Hasil</button>
     <button onclick="resetPolinomial()">Reset</button>
     <div class="result" id="hasilPolinomial"></div>
+</div>
+
+<!-- Integral -->
+<div class="card" id="integralCard">
+<h2>Integral Sederhana</h2>
+<input type="text" id="integralInput" placeholder="Contoh: 2x">
+<button onclick="hitungIntegral()">Hitung</button>
+<div class="result" id="hasilIntegral"></div>
 </div>
 
 
@@ -424,7 +429,7 @@ x − y + z = 2<br>
   <button onclick="showCard('peluang')">Peluang</button>
   <button onclick="showCard('limitCard')">Limit Trigonometri</button>
   <h2>Semester 2</h2>
-  <button onclick="showCard('kosong')">Kosong</button>
+  <button onclick="showCard('barisan12')">Kalkulator Barisan & Deret</button>
   <button onclick="showCard('kosong')">Kosong</button>
   <h2>Kembali Pilih Kelas</h2>
   <button onclick="backToMode()">Kembali</button>
@@ -443,7 +448,7 @@ x − y + z = 2<br>
   <input type="checkbox" id="modePeluang">
 </div>
 <button onclick="calcPeluang()">Hitung</button>
-<button onclick="copyPeluang()">Copy Hasil</button>
+<button onclick="copyPeluang()">Salin Hasil</button>
 <button onclick="resetPeluang()">Reset</button>
 <div class="result" id="hasilPeluang"></div>
 <div class="result" id="caraPeluang" style="font-size:14px;color:white"></div>
@@ -458,11 +463,20 @@ x − y + z = 2<br>
   <input type="number" id="xLimit" placeholder="Masukkan nilai x, misal 0">
 
   <button onclick="hitungLimit()">Hitung</button>
-  <button onclick="copyLimit()">Copy Hasil</button>
+  <button onclick="copyLimit()">Salin Hasil</button>
   <button onclick="resetLimit()">Reset</button>
   <p id="hasilLimit" class="result"><p>
 </div>
 
+<!-- Barisan -->
+<div class="card" id="barisan12">
+<h2>Barisan Aritmatika</h2>
+<input type="number" id="a12" placeholder="Suku pertama">
+<input type="number" id="b12" placeholder="Beda">
+<input type="number" id="n12" placeholder="Suku ke-n">
+<button onclick="hitungBarisan()">Hitung</button>
+<div class="result" id="hasilBarisan"></div>
+</div>
 
 <div class="footer-wrapper">
   <div class="sponsor">Developed By <strong>Star Prosperous</strong></div>
@@ -556,48 +570,6 @@ function resetTrigo(){document.getElementById('deg').value='';document.getElemen
 
 function copyTrigo() {
   let el = document.getElementById("hasilTrigo");
-  let text = el.innerText || el.textContent;
-
-  if(!text || text.trim() === ""){
-    alert("Belum ada hasil untuk dicopy");
-    return;
-  }
-
-  let temp = document.createElement("textarea");
-  temp.value = text;
-  document.body.appendChild(temp);
-  temp.select();
-  temp.setSelectionRange(0,99999);
-
-  document.execCommand("copy");
-  document.body.removeChild(temp);
-
-  alert("Hasil berhasil dicopy");
-}
-
-//PELUANG
-function calcPeluang(){
-let a=Number(document.getElementById('a').value);
-let b=Number(document.getElementById('b').value);
-let hasil=(a/b*100).toFixed(2)+'%';
-document.getElementById('hasilPeluang').innerText="Hasil = "+hasil;
-let cara=`Rumus Peluang:<br>
-Peluang digunakan untuk mengetahui kemungkinan suatu kejadian.<br>
-<br>
-Langkah-langkah:<br>
-1. Tentukan jumlah kejadian yang diinginkan<br>
-2. Tentukan jumlah seluruh kejadian<br>
-3. Gunakan rumus:<br>
-   Peluang = kejadian / total kejadian<br>
-4. Hitung hasil peluangnya<br>
-<br>
-= ${a} ÷ ${b} = ${hasil}`;
-document.getElementById('caraPeluang').innerHTML=document.getElementById('modePeluang').checked?cara:'';
-}
-function resetPeluang(){document.getElementById('a').value='';document.getElementById('b').value='';document.getElementById('hasilPeluang').innerText='';document.getElementById('caraPeluang').innerText='';}
-
-function copyPeluang() {
-  let el = document.getElementById("hasilPeluang");
   let text = el.innerText || el.textContent;
 
   if(!text || text.trim() === ""){
@@ -1037,6 +1009,59 @@ function copyLimit() {
   alert("Hasil berhasil dicopy");
 }
 
+function hitungIntegral(){
+let input = document.getElementById("integralInput").value;
+if(input.includes("x")){
+let angka = parseInt(input);
+let hasil = (angka/2) + "x²";
+document.getElementById("hasilIntegral").innerText = hasil + " + C";
+}else{
+document.getElementById("hasilIntegral").innerText = "Format belum didukung";
+}
+}
+
+//PELUANG
+function calcPeluang(){
+let a=Number(document.getElementById('a').value);
+let b=Number(document.getElementById('b').value);
+let hasil=(a/b*100).toFixed(2)+'%';
+document.getElementById('hasilPeluang').innerText="Hasil = "+hasil;
+let cara=`Rumus Peluang:<br>
+Peluang digunakan untuk mengetahui kemungkinan suatu kejadian.<br>
+<br>
+Langkah-langkah:<br>
+1. Tentukan jumlah kejadian yang diinginkan<br>
+2. Tentukan jumlah seluruh kejadian<br>
+3. Gunakan rumus:<br>
+   Peluang = kejadian / total kejadian<br>
+4. Hitung hasil peluangnya<br>
+<br>
+= ${a} ÷ ${b} = ${hasil}`;
+document.getElementById('caraPeluang').innerHTML=document.getElementById('modePeluang').checked?cara:'';
+}
+function resetPeluang(){document.getElementById('a').value='';document.getElementById('b').value='';document.getElementById('hasilPeluang').innerText='';document.getElementById('caraPeluang').innerText='';}
+
+function copyPeluang() {
+  let el = document.getElementById("hasilPeluang");
+  let text = el.innerText || el.textContent;
+
+  if(!text || text.trim() === ""){
+    alert("Belum ada hasil untuk dicopy");
+    return;
+  }
+
+  let temp = document.createElement("textarea");
+  temp.value = text;
+  document.body.appendChild(temp);
+  temp.select();
+  temp.setSelectionRange(0,99999);
+
+  document.execCommand("copy");
+  document.body.removeChild(temp);
+
+  alert("Hasil berhasil dicopy");
+}
+
 //POLINOMIAL
 function hitungPolinomial() {
       const polyInput = document.getElementById('polinom').value;
@@ -1082,6 +1107,14 @@ function copyPolinomial() {
     alert("Hasil berhasil dicopy");
 }
 
+function hitungBarisan(){
+let a = Number(a12.value);
+let b = Number(b12.value);
+let n = Number(n12.value);
+
+let hasil = a + (n-1)*b;
+document.getElementById("hasilBarisan").innerText = hasil;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 

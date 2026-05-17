@@ -3,7 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Star Tools V1.6.1</title>
+<title>Star Tools V1.7.0</title>
+
+<link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
+
+<meta property="og:image" content="https://www.stools.web.id/logo.png">
+<meta name="twitter:image" content="https://www.stools.web.id/logo.png">
+
+<!-- Google Logo -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebSite",
+ "name": "Star Tools",
+ "url": "https://www.stools.web.id/",
+ "image": "https://www.stools.web.id/logo.png"
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -180,18 +198,14 @@ body::before {
   position: absolute;
   top: 20px;
   right: 20px;
-
   padding: 8px 16px;
   border-radius: 999px;
-
   background: rgba(255,255,255,0.1);
   color: white;
   font-size: 14px;
   font-weight: 600;
-
   border: 1px solid rgba(255,255,255,0.2);
   backdrop-filter: blur(10px);
-
   cursor: pointer;
   transition: 0.25s;
 }
@@ -208,17 +222,53 @@ body::before {
   transform: scale(0.95);
 }
 
+.nita-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+/* hover */
+.nita-btn:hover {
+  background: #4fc3f7;
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* klik */
+.nita-btn:active {
+  transform: scale(0.95);
+}
+
+.hidden {
+  display: none;
+}
+
 </style>
 </head>
 <body>
 
- <div class="auth-btn" id="loginBtn" onclick="goLogin()">
-    Sign In
-  </div>
+<div class="auth-btn" id="authBtn" onclick="goLogin()">
+  Sign In
+</div>
+
+<div class="nita-btn hidden" id="nitaBtn" onclick="goNita()">
+  Nita AI
+</div>
 
 <div class="header">
   <h1>Star Tools</h1>
-  <div class="badge">Versi 1.6.0</div>
+  <div class="badge">Versi 1.7</div>
 </div>
 
 
@@ -289,46 +339,35 @@ firebase.initializeApp(firebaseConfig);
 let isLogin = false;
 
 firebase.auth().onAuthStateChanged(user => {
-  if(user){
-    isLogin = true;
+  isLogin = !!user;
 
-    // sembunyiin tombol login
-    document.getElementById("loginBtn").style.display = "none";
+  const authBtn = document.getElementById("authBtn");
+  const nitaBtn = document.getElementById("nitaBtn");
 
+  if(isLogin){
+    authBtn.classList.add("hidden");
+    nitaBtn.classList.remove("hidden");
   } else {
-    isLogin = false;
-
-    // tampilkan tombol login
-    document.getElementById("loginBtn").style.display = "block";
-  }
-});
-
-firebase.auth().onAuthStateChanged(user => {
-  if(user){
-    isLogin = true;
-  } else {
-    isLogin = false;
+    authBtn.classList.remove("hidden");
+    nitaBtn.classList.add("hidden");
   }
 });
 
 // pindah halaman
 function goMapel(page){
 
-  // fitur pendukung wajib login
-  if(page === "pendukung.html" && !isLogin){
+  const protectedPage = ["pendukung.html"];
 
-    // simpan tujuan
+  if(!isLogin && protectedPage.includes(page)){
     localStorage.setItem("redirectAfterLogin", page);
-
-    alert("Harap Login Terlebih Dahulu Untuk Bisa Mengakses Fitur Ini");
-
+    alert("Harap login terlebih dahulu untuk akses fitur tersebut!");
     window.location.href = "login.html";
     return;
   }
 
-  // kalau aman
   window.location.href = page;
 }
+
 
 // logout
 function logout(){
@@ -342,6 +381,10 @@ function goLogin(){
   window.location.href = "login.html";
 }
 
+
+function goNita(){
+  window.location.href = "nita.html";
+}
 
 </script>
 </body>

@@ -260,7 +260,7 @@ input[type="checkbox"] {
 <div class="header">
 <div class="container">
   <h1>Star Tools</h1>
-  <div class="badge">Versi 1.6.0</div>
+  <div class="badge">Versi 1.7</div>
 </div>
 
 
@@ -285,22 +285,20 @@ input[type="checkbox"] {
 <!-- SMP -->
 <div id="kelas7" class="mode" style="display:none">
   <h2>Semester 1</h2>
-  <button onclick="showCard('bilanganBulatFeature')">Bilangan Bulat</button>
-  <button onclick="showCard('aljabar-card')">Bentuk Aljabar</button>
+  <button onclick="showCard('bilanganBulatFeature')">Kalkulator Bilangan Bulat</button>
+  <button onclick="showCard('aljabar-card')">Kalkulator Bentuk Aljabar</button>
   <h2>Semester 2</h2>
-  <button onclick="showCard('kosong')">Kosong</button>
-  <button onclick="showCard('kosong')">Kosong</button>
+  <button onclick="showCard('persentase7')">Kalkulator Persentase</button>
   <h2>Kembali Pilih Kelas</h2>
   <button onclick="backToMode()">Kembali</button>
 </div>
-
 
 <!-- Aljabar -->
 <div class="card" id="aljabar-card">
   <h2>Bentuk Aljabar</h2>
   <input type="text" id="aljabar-input" placeholder="Masukkan bentuk aljabar, misal 2x + 3x - 5">
-  <button onclick="sederhanakanAljabar()">Sederhanakan</button>
-  <button onclick="copyAljabar()">Copy Hasil</button>
+  <button onclick="sederhanakanAljabar()">Jawaban</button>
+  <button onclick="copyAljabar()">Salin Hasil</button>
   <button onclick="resetAljabar()">Reset</button>
   <div id="aljabar-result" class="result"></div>
 </div>
@@ -325,15 +323,23 @@ input[type="checkbox"] {
   <div class="result" id="result_bulat"></div>
 </div>
 
+<!-- Persentase -->
+<div class="card" id="persentase7">
+<h2>Persentase</h2>
+<input type="number" id="nilai7" placeholder="Nilai">
+<input type="number" id="persen7" placeholder="Persen (%)">
+<button onclick="hitungPersen7()">Hitung</button>
+<div class="result" id="hasilPersen7"></div>
+</div>
+
 
 <!-- SMP -->
 <div id="kelas8" class="mode" style="display:none">
   <h2>Semester 1</h2>
-  <button onclick="showCard('bangunRuangLengkung')">Ruang Lengkung</button>
-  <button onclick="showCard('cartesius')">Kordinat Cartsesius</button>
+  <button onclick="showCard('bangunRuangLengkung')">Kalkulator Ruang Lengkung</button>
+  <button onclick="showCard('cartesius')">Kalkulator Kordinat Cartsesius</button>
   <h2>Semester 2</h2>
-  <button onclick="showCard('kosong')">Kosong</button>
-  <button onclick="showCard('kosong')">Kosong</button>
+  <button onclick="showCard('teorema8')">Kalkulator Teorema Pythagoras</button>
   <h2>Kembali Pilih Kelas</h2>
   <button onclick="backToMode()">Kembali</button>
 </div>
@@ -355,7 +361,7 @@ input[type="checkbox"] {
   <div class="result" id="hasilCart"></div>
   <div class="result" id="caraCart" style="font-size:14px;color:white"></div>
   <button onclick="hitungCartesius()">Tampilkan Titik</button>
-  <button onclick="copyCart()">Copy Hasil</button>
+  <button onclick="copyCart()">Salin Hasil</button>
   <button onclick="resetCart()">Reset</button>
 </div>
 
@@ -373,20 +379,28 @@ input[type="checkbox"] {
   <label>Tinggi (t) - kosongkan jika bola:</label>
   <input type="number" id="tinggiLengkung" placeholder="Masukkan tinggi">
   <button onclick="hitungLengkung()">Hitung</button>
-  <button onclick="copyLengkung()">Copy Hasil</button>
+  <button onclick="copyLengkung()">Salin Hasil</button>
   <button onclick="resetLengkung()">Reset</button>
   <div class="result" id="hasilLengkung"></div>
+</div>
+
+<!-- Pythagoras -->
+<div class="card" id="teorema8">
+<h2>Pythagoras</h2>
+<input type="number" id="a8" placeholder="Sisi a">
+<input type="number" id="b8" placeholder="Sisi b">
+<button onclick="hitungPythagoras()">Hitung</button>
+<div class="result" id="hasilPytha"></div>
 </div>
 
 
 <!-- SMP -->
 <div id="kelas9" class="mode" style="display:none">
   <h2>Semester 1</h2>
-  <button onclick="showCard('transformasi')">Transformasi Geometri</button>
-  <button onclick="showCard('persamaanKuadrat')">Persamaan Kuadrat</button>
+  <button onclick="showCard('transformasi')">Kalkulator Transformasi Geometri</button>
+  <button onclick="showCard('persamaanKuadrat')">Kalkulator Persamaan Kuadrat</button>
   <h2>Semester 2</h2>
-  <button onclick="showCard('kosong')">Kosong</button>
-  <button onclick="showCard('kosong')">Kosong</button>
+  <button onclick="showCard('statistika9')">Kalkulator Statistika</button>
   <h2>Kembali Pilih Kelas</h2>
   <button onclick="backToMode()">Kembali</button>
 </div>
@@ -408,7 +422,7 @@ input[type="checkbox"] {
   <label for="parameter">Parameter (misal: dx, dy / sudut / skala):</label>
   <input type="text" id="parameter" placeholder="Isi sesuai transformasi">
   <button onclick="hitungTransformasi()">Hitung</button>
-  <button onclick="copyTransformasi()">Copy Hasil</button>
+  <button onclick="copyTransformasi()">Salin Hasil</button>
   <button onclick="resetTransformasi()">Reset</button>
   <div class="result" id="hasilTransformasi"></div>
 </div>
@@ -423,9 +437,17 @@ input[type="checkbox"] {
   <label>c:</label>
   <input type="number" id="c_quad" placeholder="Masukkan c"><br><br>
   <button onclick="hitungKuadrat()">Hitung</button>
-  <button onclick="copyKuadrat()">Copy Hasil</button>
+  <button onclick="copyKuadrat()">Salin Hasil</button>
   <button onclick="resetKuadrat()">Reset</button>
   <div class="result" id="hasilKuadrat"></div>
+</div>
+
+<!-- Statistika -->
+<div class="card" id="statistika9">
+<h2>Rata-rata</h2>
+<input type="text" id="data9" placeholder="Contoh: 1,2,3,4">
+<button onclick="hitungRata()">Hitung</button>
+<div class="result" id="hasilRata"></div>
 </div>
 
 
@@ -483,7 +505,6 @@ function copyAljabar() {
   alert("Hasil berhasil dicopy");
 }
 
-
 //BILANGAN BULAT
 function calculateBulat() {
   const num1 = parseInt(document.getElementById('num1_bulat').value);
@@ -535,6 +556,17 @@ function copycalculateBulat() {
 
   alert("Hasil berhasil dicopy");
 }
+
+// Hitung Persen
+function hitungPersen7(){
+let n = Number(document.getElementById('nilai7').value);
+let p = Number(document.getElementById('persen7').value);
+if(!n || !p) return;
+let hasil = (n*p)/100;
+document.getElementById('hasilPersen7').innerText = hasil;
+}
+
+
 
 //KORDINAT CARTESIUS
 function hitungCartesius(){
@@ -703,6 +735,16 @@ function copyLengkung(){
   alert("Hasil berhasil dicopy");
 }
 
+// Pythagoras
+function hitungPythagoras(){
+let a = Number(document.getElementById('a8').value);
+let b = Number(document.getElementById('b8').value);
+if(!a || !b) return;
+let c = Math.sqrt(a*a + b*b);
+document.getElementById('hasilPytha').innerText = c;
+}
+
+
 //TRANSFORMASI GEOMETRI
 function hitungTransformasi() {
   let x = parseFloat(document.getElementById('koordinatX').value);
@@ -818,6 +860,20 @@ function copyKuadrat(){
   document.body.removeChild(temp);
   alert("Hasil berhasil dicopy");
 }
+
+// Hitung Rata Rata
+function hitungRata(){
+let data = document.getElementById('data9').value.split(',');
+let total = 0;
+
+for(let i=0;i<data.length;i++){
+total += Number(data[i]);
+}
+
+let rata = total / data.length;
+document.getElementById('hasilRata').innerText = rata;
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
