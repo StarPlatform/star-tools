@@ -20,463 +20,1402 @@
  "image": "https://www.stools.web.id/logo.png"
 }
 </script>
+<style>
+body { margin: 0; font-family: Arial, sans-serif; touch-action: pan-y; }
+html, body { overflow-x: hidden; }
+.home-container {
+  background: #111;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 15px;
+}
+.header { display: flex; background: #111; color: white; padding: 15px; font-size: 18px; align-items: center; justify-content: space-between; }
+.title { font-weight: bold; font-size: 20px; letter-spacing: 1px; }
+.menu-btn { font-size: 22px; margin-right: 15px; cursor: pointer; }
+.sidebar { position: fixed; top: 0; left: -250px; width: 250px; height: 100%; background: #1e1e1e; padding-top: 60px; transition: 0.3s; z-index: 1000; }
+.sidebar.active { left: 0; }
+.sidebar a { display: block; color: #ccc; padding: 15px 20px 15px 30px; text-decoration: none; border-bottom: 1px solid #333; }
+.sidebar a:hover { background: #333; color: white; }
+.close-btn { position: absolute; top: 15px; right: 15px; width: 25px; height: 25px; cursor: pointer; }
+.close-btn::before, .close-btn::after { content: ''; p/osition: absolute; width: 25px; height: 3px; background: white; top: 11px; left: 0; }
+.close-btn::before { transform: rotate(45deg); }
+.close-btn::after { transform: rotate(-45deg); }
+.content { display: none; padding: 20px; }
+.banner {
+  cursor: pointer;
+  transition: 0.2s;
+  min-width: 100%;
+  height: 150px;
+  border-radius: 15px;
+  margin-top: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.banner-container { width: 100%; overflow: hidden; margin-bottom: 10px; }
+.banner-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
+.banner:active { transform: scale(0.97); }
+.banner h2 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: bold;
+}
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+.banner p {
+  margin-top: 6px;
+  font-size: 13px;
+  opacity: 0.9;
+  line-height: 1.4;
+  max-width: 90%; 
+}
+.container { background: #111; padding: 20px; border-radius: 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); }
+#welcomeText {
+  text-align: center;
+  font-size: 20px;
+  color: white;
+}
+
+.subtext {
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
+}
+#searchBox { width: 92%; padding: 12px; border-radius: 10px; border: 1px solid #ccc; margin-bottom: 20px; }
+.wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.feature-btn { touch-action: manipulation; background: #1e1e1e; padding: 20px; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer; transition: 0.2s; }
+.feature-btn:hover { transform: translateY(-3px);}
+.feature-btn svg { width: 45px; height: 45px; fill: none; stroke-width: 2; }
+.feature-btn span { font-weight: 600; font-size: 14px; color: white; }
+.mtk { stroke: #c0392b; }
+.ekonomi { stroke: #27ae60; }
+.sains { stroke: #2980b9; }
+.coding { stroke: #8e44ad; }
+.bahasa { stroke: #e67e22; }
+.pendukung { stroke: #2c3e50; }
+.visi-container { background: #f1f3f5; color: black; padding: 20px; border-radius: 15px; margin-top: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); }
+.visi-container h2 { margin-top: 10px; margin-bottom: 10px; }
+.visi-container p { line-height: 1.6; }
+.visi-container ul { padding-left: 20px; }
+.visi-container li { margin-bottom: 8px; }
+.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 10px 0; z-index: 9999; }
+.bottom-nav .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: white; font-size: 12px; cursor: pointer; transition: 0.2s; }
+.bottom-nav svg { width: 24px; height: 24px; stroke: white; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: 0.2s; }
+.bottom-nav .nav-item.active { color: #f1c40f; }
+.bottom-nav .nav-item.active svg { stroke: #f1c40f; }
+.footer { display: flex; text-align: center;  background: #1e1e1e; color: white; padding: 20px 10px; margin-top: -50px; margin-bottom: 60px; }
+.footer p { margin: 5px 0; font-size: 14px; }
+.news-container { padding: 15px; }
+.news-container h2 { color: white; margin-bottom: 15px; }
+#filterNews { width: 100%; padding: 10px; border-radius: 10px; border: none; margin-bottom: 20px; margin-top: 5px; background: #1a1a1a; color: white; }
+.news-card { background: #111; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: 0.2s; }
+.news-card:hover { transform: translateY(-3px); }
+.news-card h3 { color: white; font-size: 16px; margin-bottom: 8px; }
+.news-card p { color: #ccc; font-size: 14px; margin-bottom: 10px; }
+.news-card a { color: #f1c40f; text-decoration: none; font-size: 13px; }
+.news-card span { display: block; font-size: 12px; color: #888; margin-top: 5px; }
+body { margin: 0; font-family: Arial, sans-serif; overflow-x: hidden; }
+.page { border-radius: 20px; transition: transform 0.25s ease; will-change: transform; position: relative; display: none; padding-bottom: 100px;  }
+.page.active { display: block; }
+.premium-container { padding: 20px; }
+.premium-title { color: #111; margin-bottom: 15px; text-align: center; }
+.premium-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.premium-card { background: #111; padding: 20px; border-radius: 15px; text-align: center; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: 0.2s; }
+.premium-card:hover { transform: translateY(-5px); }
+.premium-card svg { width: 40px; height: 40px; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: 0.2s; }
+.premium-card h3 { margin-bottom: 8px; }
+.premium-card p { font-size: 13px; color: #ccc; margin-bottom: 10px; }
+.premium-card h4 { margin-bottom: 10px; color: #f1c40f; }
+.premium-card button { width: 100%; padding: 10px; border: none; border-radius: 8px; background: #f1c40f; color: black; font-weight: bold; cursor: pointer; }
+.best { border: 1px solid #f1c40f; }
+.old { text-decoration: line-through; color: #888; font-size: 13px; margin-right: 5px; }
+.crown { stroke: #f1c40f; fill: none; stroke-width: 2;}
+.premium-header { background: #111; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); }
+.premium-header h2 { color: white; margin-bottom: 5px; text-align: center; }
+.premium-header p { color: #bbb; font-size: 14px; text-align: center; }
+.slide-out-left { animation: slideOutLeft 0.35s ease forwards; }
+@keyframes slideOutLeft { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+.slide-out-right { animation: slideOutRight 0.35s ease forwards; }
+@keyframes slideOutRight { from { transform: translateX(0); } to { transform: translateX(100%); } }
+
+.account-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* HEADER */
+.account-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-pic {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #2c3e50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 30px;
+  color: white;
+}
+
+.account-header h2 {
+  color: white;
+  margin-bottom: 5px;
+}
+
+.account-header .sub {
+  color: #aaa;
+  font-size: 15px;
+  margin-bottom: -10px;
+}
+
+/* GRID */
+.account-grid {
+  display: grid;
+  margin-top: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  width: 100%;
+}
+
+/* BUTTON */
+.account-btn {
+  background: #1e1e1e;
+  height: 80px;
+  width: 120px;
+  padding: 15px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  font-weight: 600; 
+  font-size: 14px; 
+  transition: 0.2s;
+}
+
+.account-btn:hover {
+  transform: translateY(-3px);
+}
+
+/* LOGOUT */
+.logout {
+  background: #c0392b;
+}
+
+.account-wrapper {
+  background: #111;
+  margin-top: 20px;
+  height: 600px;
+  padding: 20px;
+  padding-bottom: 90px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.6),
+    inset 0 0 10px rgba(255,255,255,0.03);
+}
+
+.account-btn svg {
+  width: 100px;
+  height: 50px;
+  fill: none; 
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* OVERLAY */
+.alert-overlay {
+  position: fixed;
+  pointer-events: all;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  backdrop-filter: blur(5px)
+}
+
+/* BOX */
+.alert-box {
+  background: #111;
+  padding: 20px;
+  border-radius: 15px;
+  width: 85%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* TEXT */
+.alert-box p {
+  color: white;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* BUTTON WRAPPER */
+.alert-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* BUTTON */
+.alert-actions button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #1e1e1e;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.alert-actions button:hover {
+  transform: scale(1.05);
+}
+
+body.alert-open {
+  overflow: hidden;
+}
+
+.about-container {
+  padding: 20px;
+  margin-top: 20px;
+  color: white;
+  background: #111;
+  min-height: 100vh;
+  border-radius: 15px;
+}
+
+.about-title {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.version {
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.about-box {
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.about-box h3 {
+  margin-bottom: 10px;
+}
+
+.about-box ul {
+  padding-left: 20px;
+}
+
+.about-box li {
+  margin-bottom: 8px;
+}
+
+.about-footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #f1c40f;
+  font-weight: bold;
+}
+
+.no-swipe {
+  touch-action: pan-y;
+}
+
+.banner-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.banner-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.3);
+  transition: 0.3s;
+}
+
+.banner-dots span.active {
+  width: 18px;
+  border-radius: 10px;
+  background: #000;
+}
+
+/* CONTAINER UTAMA */
+#editProfilePage.active {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 80px 15px 20px;
+  min-height: auto;
+  margin-top: -80px;
+  margin-bottom: 80px;
+}
+
+/* BOX */
+#editProfilePage .about-container {
+  width: 100%;
+  max-width: 400px;
+  background: #111;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ANIMASI */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* JUDUL */
+#editProfilePage h2 {
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+/* SUBTITLE */
+.edit-sub {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+/* INPUT */
+
+/* FOCUS */
+#editProfilePage input:focus {
+  background: #222;
+  box-shadow: 0 0 0 1px #333;
+}
+
+/* PLACEHOLDER */
+#editProfilePage input::placeholder {
+  color: #777;
+}
+
+/* BUTTON */
+#editProfilePage button {
+  width: 100%;
+  padding: 13px;
+  background: #1e1e1e;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* HOVER */
+#editProfilePage button:hover {
+  background: #2a2a2a;
+}
+
+/* CLICK */
+#editProfilePage button:active {
+  transform: scale(0.97);
+}
+
+/* ACTIVE PAGE */
+#editProfilePage.active {
+  display: flex;
+}
+
+.profile-pic-edit {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #2c3e50;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#fotoPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #333;
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bio {
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #ddd;
+
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+
+  display: inline-block;
+  max-width: 80%;
+  text-align: center;
+  box-shadow: 0 0 8px rgba(255,255,255,0.05);
+}
+
+.custom-alert {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  
+  background: #1e1e1e;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+
+.custom-alert.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* SUCCESS */
+.custom-alert.success {
+  border-left: 4px solid #2ecc71;
+}
+
+/* ERROR */
+.custom-alert.error {
+  border-left: 4px solid #e74c3c;
+}
+
+.payment-container{
+  padding:20px;
+  text-align:center;
+  color: white;
+  background: #111;
+  border-radius: 20px;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.payment-code{
+  font-size:20px;
+  font-weight:bold;
+  color:#f1c40f;
+  margin:10px 0;
+}
+
+.payment-price{
+  font-size:22px;
+  margin-bottom:15px;
+}
+
+.payment-step{
+  font-size:14px;
+  opacity:0.8;
+  margin-bottom:20px;
+}
+
+.payment-methods{
+  display:flex;
+  gap:15px;
+  justify-content:center;
+}
+
+.pay-card {
+ background:#1e1e1e;
+  padding:15px;
+  border-radius:15px;
+  width:90px;
+  cursor:pointer;
+  transition:0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pay-card:hover{
+  transform:scale(1.05);
+  background:#2a2a2a;
+}
+
+.pay-card p{
+  font-size:12px;
+  margin-top:15px;
+  min-height: 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.payment-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+
+.pay-card svg {
+  transform: scale(1.5) translateY(-2px);
+}
+
+.btn-kirim{
+  margin-top:10px;
+  padding:12px;
+  width:100%;
+  border:none;
+  border-radius:10px;
+  background:#f1c40f;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn-kirim:hover{
+  background:#d4ac0d;
+  transform:scale(1.02);
+}
+
+.pay-box{
+  background:#1a1a1a;
+  padding:15px;
+  border-radius:15px;
+  margin-bottom:15px;
+}
+
+.pay-label{
+  font-size:13px;
+  opacity:0.7;
+}
+
+.pay-number{
+  font-size:20px;
+  font-weight:bold;
+  margin:8px 0;
+  letter-spacing:1px;
+}
+
+.pay-steps{
+  font-size:14px;
+  opacity:0.9;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.pay-info{
+  margin-top:10px;
+  font-size:13px;
+  opacity:0.7;
+  line-height:1.4;
+  border-top:1px solid rgba(255,255,255,0.1);
+  padding-top:8px;;
+}
+
+.custom-select{
+  width: 100%;
+  position: relative;
+}
+
+.about-container input,
+.select-box {
+  width: 100%;
+  padding: 14px;
+  border-radius: 15px;
+  border: none;
+  background: #1e1e1e;
+  color: white;
+  font-size: 14px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* BIAR TEXT GAK KE TENGAH */
+.select-box {
+  display: flex;
+  align-items: center;
+}
+
+/* DROPDOWN */
+.options {
+  display: none; 
+  position: absolute;
+  width: 100%;
+  background: #1e1e1e;
+  border-radius: 15px;
+  margin-top: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.options.active {
+  display: block;
+}
+
+.options div {
+  padding: 12px;
+}
+
+.options div:hover {
+  background: #2a2a2a;
+}
+
+/* Container utama */
+.setting-container {
+  background-color: #111;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  font-family: sans-serif;
+}
+
+/* Judul */
+.setting-container h2 {
+  margin-bottom: 5px;
+}
+
+/* Subjudul */
+.setting-container .sub {
+  color: #aaa;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Item setting */
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e1e1e;
+  padding: 12px 15px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.setting-item:hover {
+  background-color: #2a2a2a;
+}
+
+/* Tombol */
+.setting-item button {
+  background-color: #111;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.setting-item button:hover {
+  background-color: #222;
+  border-color: #666;
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Bingkai Gede QRIS */
+.qr-frame {
+  background: white;
+  padding: 15px;
+  border-radius: 20px;
+  margin: 20px auto;
+  width: 230px;
+  height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+
+.qr-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.btn-download {
+  margin-top: 10px;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background: #2ecc71;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-download:hover {
+  background: #27ae60;
+  transform: scale(1.02);
+}
+
+</style>
+</head>
+<body>
+
+
+<!-- APP -->
+<div class="header" id="header">
+  <span class="menu-btn" onclick="openSidebar()">☰</span>
+  <span class="title">Star Tools</span>
+</div>
+<div class="sidebar" id="sidebar">
+  <div class="close-btn" onclick="closeSidebar()"></div>
+<a href="#" onclick="goPage('homePage', this)">Utama</a>
+<a href="#" onclick="goPage('newsPage', this)">Berita</a>
+<a href="#" onclick="goPage('premiumPage', this)">Premium</a>
+<a href="#" onclick="goPage('accountPage', this)">Akun</a>
+  <a href="#" onclick="logout()">Logout</a>
+</div>
+
+
+<div id="loadingOverlay">
+  <div class="loader"></div>
+</div>
+
+<!-- Home -->
+<div id="homePage" class="page active">
+<div class="banner-container">
+  
+  <div class="banner-wrapper" id="bannerWrapper">
+    <div class="banner" style="background: #ff8c42;" onclick="goBanner('nita')">
+      <h2>Butuh Bantuan?, Chat Dengan<br>Nita | AI Asisten</h2>
+      <p>Asisten AI yang siap membantu pertanyaan, belajar, dan kebutuhan kamu kapan saja secara cepat dan interaktif.</p>
+    </div>
+
+    <div class="banner" style="background: #2ecc71;" onclick="goBanner('premium')">
+      <h2>Upgrade Premium Untuk Belajar Tanpa Batas</h2>
+      <p>Dapatkan akses tanpa batas ke seluruh fitur, materi lengkap, dan pengalaman belajar yang lebih optimal.</p>
+    </div>
+
+    <div class="banner" style="background: #3498db;" onclick="goBanner('pendukung')">
+      <h2>Mulai Kelola Data Absensi Dan Keuangan Secara Digital</h2>
+      <p>Kelola absensi dan keuangan secara transparan dan real-time dengan sistem yang praktis dan terstruktur.</p>
+    </div>
+  </div>
+
+  <div class="banner-dots" id="bannerDots"></div>
+
+</div>
+
+<div class="container">
+  <h2 id="welcomeText">Selamat Datang, User</h2>
+  <p class="subtext">Lanjutkan Belajar Atau Jelajahi Fitur Fitur Star Tools</p>
+  <input type="text" id="searchBox" placeholder="">
+<div class="wrapper" id="featureWrapper">
+
+  <div class="feature-btn" onclick="trackBelajar('Matematika'); window.location.href='matematika.html'">
+     <svg viewBox="0 0 24 24" class="mtk">
+      <path d="M3 12h3l3-9 4 18 3-9h5"/>
+    </svg>
+    <span>Matematika</span>
+  </div>
+
+  <div class="feature-btn" onclick="trackBelajar('Ekonomi'); window.location.href='ekonomi.html'">
+     <svg viewBox="0 0 24 24" class="ekonomi">
+      <line x1="12" y1="20" x2="12" y2="10"/>
+      <line x1="18" y1="20" x2="18" y2="4"/>
+      <line x1="6" y1="20" x2="6" y2="16"/>
+    </svg>
+    <span>Ekonomi</span>
+  </div>
+
+  <div class="feature-btn" onclick="trackBelajar('Sains'); window.location.href='sains.html'">
+    <svg viewBox="0 0 24 24" class="sains">
+      <circle cx="12" cy="12" r="3"/>
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)"/>
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-45 12 12)"/>
+    </svg>
+    <span>Sains</span>
+  </div>
+
+  <div class="feature-btn" onclick="trackBelajar('Coding'); window.location.href='coding.html'">
+    <svg viewBox="0 0 24 24" class="coding">
+      <polyline points="16 18 22 12 16 6"/>
+      <polyline points="8 6 2 12 8 18"/>
+    </svg>
+    <span>Coding</span>
+  </div>
+
+  <div class="feature-btn" onclick="trackBelajar('Bahasa'); window.location.href='bahasa.html'">
+    <svg viewBox="0 0 24 24" class="bahasa">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14z"/>
+      <path d="M9 7h6"/>
+      <path d="M9 11h6"/>
+    </svg>
+    <span>Bahasa</span>
+  </div>
+
+  <div class="feature-btn" onclick="trackBelajar('Pendukung'); window.location.href='pendukung.html'">
+    <svg viewBox="0 0 24 24" class="pendukung">
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="12" cy="12" r="4"/>
+    </svg>
+    <span>Pendukung</span>
+  </div>
+</div>
+</div>
+
+
+<div class="visi-container">
+  <h2>Visi</h2>
+  <p>
+    Menjadi platform pendidikan hybrid yang merata, inovatif, dan transparan dalam menciptakan generasi yang cerdas, berpikir kritis, serta siap menghadapi dunia kerja maupun membangun usaha secara mandiri.
+  </p>
+  <h2>Misi</h2>
+  <ul>
+    <li>Menyediakan sistem pembelajaran hybrid yang fleksibel dan dapat diakses oleh semua kalangan.</li>
+    <li>Mendorong pemerataan pendidikan melalui teknologi yang inklusif dan mudah digunakan.</li>
+    <li>Mengembangkan pola pikir kritis, kreatif, dan solutif pada setiap pengguna.</li>
+    <li>Mempersiapkan generasi yang siap kerja maupun mampu menciptakan peluang usaha sendiri.</li>
+    <li>Meningkatkan transparansi dalam ekosistem pendidikan, khususnya di lingkungan sekolah.</li>
+    <li>Menghadirkan fitur pembelajaran yang relevan dengan kebutuhan dunia nyata dan perkembangan teknologi.</li>
+  </ul>
+</div>
+</div>
+</div>
+
+
+<!-- News -->
+<div id="newsPage" class="page">
+<div class="news-container">
+  <!-- FILTER -->
+  <select id="filterNews">
+    <option value="new">Terbaru</option>
+    <option value="old">Terlama</option>
+  </select>
+  <div id="newsList">
+    <div class="news-card" data-date="2026-03-06">
+      <h3>Pemulihan Pembelajaran di Daerah Terdampak Bencana</h3>
+      <p>Kemendikdasmen melakukan langkah strategis untuk memulihkan kegiatan belajar di daerah terdampak.</p>
+      <a href="https://puslapdik.kemendikdasmen.go.id/" target="_blank">Baca Selengkapnya</a>
+      <span>2026-03-06</span>
+      <span>Source: Kemendikdasmen</span>
+    </div>
+
+    <div class="news-card" data-date="2026-02-09">
+      <h3>Digitalisasi Pendidikan Dipercepat di Seluruh Indonesia</h3>
+      <p>Sekolah didorong mengadopsi pembelajaran digital untuk meningkatkan kualitas pendidikan.</p>
+      <a href="https://www.kemendikdasmen.go.id/" target="_blank">Baca Selengkapnya</a>
+      <span>2026-02-09</span>
+      <span>Source: Kemendikdasmen</span>
+    </div>
+
+    <div class="news-card" data-date="2026-02-09">
+      <h3>Program Wajib Belajar 13 Tahun Didorong Pemerintah</h3>
+      <p>Pemerintah terus memperluas akses pendidikan hingga 13 tahun wajib belajar.</p>
+      <a href="https://www.kemendikdasmen.go.id/" target="_blank">Baca Selengkapnya</a>
+      <span>2026-02-09</span>
+      <span>Source: Kemendikdasmen</span>
+    </div>
+
+    <div class="news-card" data-date="2026-01-23">
+      <h3>Kesejahteraan Guru Jadi Prioritas 2026</h3>
+      <p>Pemerintah berkomitmen meningkatkan kesejahteraan guru sebagai bagian dari pembangunan SDM.</p>
+      <a href="https://puslapdik.kemendikdasmen.go.id/" target="_blank">Baca Selengkapnya</a>
+      <span>2026-01-23</span>
+      <span>Source: Kemendikdasmen</span>
+    </div>
+
+    <div class="news-card" data-date="2026-01-22">
+      <h3>Program Indonesia Pintar Diperluas</h3>
+      <p>Bantuan pendidikan diperluas untuk menjangkau lebih banyak siswa.</p>
+      <a href="https://puslapdik.kemendikdasmen.go.id/" target="_blank">Baca Selengkapnya</a>
+      <span>2026-01-22</span>
+      <span>Source: Kemendikdasmen</span>
+    </div>
+
+    <div class="news-card" data-date="2026-01-22">
+      <h3>Insentif Guru Non-ASN Ditingkatkan</h3>
+      <p>Pemerintah menaikkan insentif sebagai bentuk apresiasi terhadap guru non-ASN.</p>
+      <a href="https://puslapdik.kemendikdasmen.go.id/" target="_blank">Baca Selengkapnya</a>
+      <span>2026-01-22</span>
+      <span>Source: Kemendikdasmen</span>
+    </div>
+
+    <div class="news-card" data-date="2026-02-09">
+      <h3>Simulasi Tes Kemampuan Akademik Diperkenalkan</h3>
+      <p>TKA digunakan sebagai alat evaluasi kemampuan siswa, bukan penentu kelulusan.</p>
+      <a href="https://www.kemendikdasmen.go.id/" target="_blank">Baca Selengkapnya</a>
+      <span>2026-02-09</span>
+      <span>Source: Kemendikdasmen</span>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- Premium -->
+<div id="premiumPage" class="page">
+  <div class="premium-container">
+    <div class="premium-header">
+    <h2>Upgrade Premium</h2>
+    <p>Pilih paket terbaik untuk upgrade skill tanpa batas</p>
+    </div>
+    <!-- GRID -->
+    <div class="premium-grid">
+
+      <!-- EKONOMI -->
+      <div class="premium-card">
+        <svg viewBox="0 0 24 24" class="ekonomi">
+          <line x1="12" y1="20" x2="12" y2="10"/>
+          <line x1="18" y1="20" x2="18" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="16"/>
+        </svg>
+        <h3>Ekonomi</h3>
+        <p>Upgrade ekonomi agar bisa belajar tanpa batas & unlock semua materi.</p>
+        <h4>Rp12K</h4>
+        <button onclick="goPayment('ekonomi')">Upgrade</button>
+      </div>
+
+      <!-- SAINS -->
+      <div class="premium-card">
+        <svg viewBox="0 0 24 24" class="sains">
+          <circle cx="12" cy="12" r="3"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)"/>
+          <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-45 12 12)"/>
+        </svg>
+        <h3>Sains</h3>
+        <p>Akses eksperimen & pembahasan lengkap tanpa batas.</p>
+        <h4>Rp12K</h4>
+        <button onclick="goPayment('sains')">Upgrade</button>
+      </div>
+
+      <!-- CODING -->
+      <div class="premium-card">
+        <svg viewBox="0 0 24 24" class="coding">
+          <polyline points="16 18 22 12 16 6"/>
+          <polyline points="8 6 2 12 8 18"/>
+        </svg>
+        <h3>Coding</h3>
+        <p>Buka semua project & latihan real world coding.</p>
+        <h4>Rp12K</h4>
+        <button onclick="goPayment('coding')">Upgrade</button>
+      </div>
+
+      <!-- ALL IN ONE -->
+      <div class="premium-card best">
+        <svg viewBox="0 0 24 24" class="crown">
+          <path d="M2 7l5 5 5-8 5 8 5-5-2 13H4z"/>
+        </svg>
+        <h3>All Premium</h3>
+        <p>Unlock semua fitur tanpa batas + prioritas akses.</p>
+        <h4>
+          <span class="old">Rp36K</span> Rp26K
+        </h4>
+        <button onclick="goPayment('All Premium')">Upgrade</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Payment Page (Pilihan Metode) -->
+<div id="paymentPage" class="page">
+  <div class="payment-container">
+
+    <!-- KODE -->
+    <h2 id="paymentTitle">Pembelian</h2>
+    <p class="payment-code" id="paymentCode">STR-000</p>
+
+    <!-- HARGA -->
+    <p class="payment-price" id="paymentPrice">Rp 0</p>
+
+    <!-- CARA -->
+    <div class="payment-step">
+      <p>1. Pilih metode pembayaran</p>
+      <p>2. Scan QRIS dan transfer sesuai nominal</p>
+      <p>3. Kirim bukti pembayaran ke email:</p>
+      <b>starprosperous13@gmail.com</b>
+    </div>
+
+    <!-- METODE -->
+    <div class="payment-methods">
+      <!-- QRIS ONLY -->
+      <div class="pay-card" onclick="selectPayment('qris')" style="width: 120px;">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="6" height="6" rx="1"/>
+          <rect x="15" y="3" width="6" height="6" rx="1"/>
+          <rect x="3" y="15" width="6" height="6" rx="1"/>
+          <path d="M15 15h2v2h-2zM19 15h2v6h-6v-2h4z"/>
+        </svg>
+        <p>QRIS</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Payment Detail Page -->
+<div id="paymentDetailPage" class="page">
+  <div class="payment-container">
+    <h2 id="detailTitle">Pembayaran</h2>
+    <p class="payment-code" id="detailCode">STR-000</p>
+    <p class="payment-price" id="detailPrice">Rp 0</p>
+    
+    <!-- DINAMIS QRIS -->
+    <div id="paymentContent"></div>
+  </div>
+</div>
+
+<div id="accountPage" class="page">
+  <!-- HEADER USER -->
+<div class="account-wrapper">
+<div class="account-container">
+  <div class="account-header">
+    <div class="profile-pic" id="profilePic">
+      <span id="initial">G</span>
+    </div>
+     <h2>
+  <span id="accountName">Guest</span>
+  <span id="verifiedBadge"></span>
+     </h2>
+    <p id="bioText" class="bio"></p>
+    <p class="sub">Kelola akun & pengaturan</p>
+  </div>
+
+  <!-- MENU -->
+<div class="account-grid">
+<div class="account-btn" onclick="showPage('editProfilePage', this)">
+  <svg viewBox="0 0 24 24" style="stroke:#3498db;">
+  <circle cx="12" cy="8" r="4"/>
+  <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+</svg>
+<span>Edit Profil</span>
+</div>
+
+<div class="account-btn" onclick="showPage('settingPage', this)">
+<svg viewBox="0 0 24 24" style="stroke:#9b59b6;">
+  <circle cx="12" cy="12" r="3"/>
+  <path d="
+    M19.14 12.94 a7.49 7.49 0 0 0 .05-.94 a7.49 7.49 0 0 0-.05-.94 l2.03-1.58 a.5.5 0 0 0 .12-.64 l-1.92-3.32 a.5.5 0 0 0-.6-.22 l-2.39.96 a7.28 7.28 0 0 0-1.63-.94
+    l-.36-2.54 a.5.5 0 0 0-.5-.42 h-3.84 a.5.5 0 0 0-.5.42 l-.36 2.54 a7.28 7.28 0 0 0-1.63.94 l-2.39-.96 a.5.5 0 0 0-.6.22 L2.71 8.84 a.5.5 0 0 0 .12.64 l2.03 1.58 a7.49 7.49 0 0 0-.05.94 a7.49 7.49 0 0 0 .05.94 l-2.03 1.58 a.5.5 0 0 0-.12.64 l1.92 3.32 a.5.5 0 0 0 .6.22 l2.39-.96 a7.28 7.28 0 0 0 1.63.94
+    l.36 2.54 a.5.5 0 0 0 .5.42 h3.84 a.5.5 0 0 0 .5-.42 l.36-2.54 a7.28 7.28 0 0 0 1.63-.94 l2.39.96 a.5.5 0 0 0 .6-.22 l1.92-3.32 a.5.5 0 0 0-.12-.64 l-2.03-1.58 z " fill="none"/>
+</svg>
+<span>Pengaturan</span>
+</div>
+
+
+<div class="account-btn" onclick="showPage('historyPage', this)">
+<svg viewBox="0 0 24 24" style="stroke:#2ecc71;" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 12a9 9 0 1 0 3-6"/>
+  <polyline points="3 3 3 9 9 9"/>
+  <polyline points="12,7 12,12 16,14"/>
+</svg>
+<span>Riwayat Belajar</span>
+</div>
+
+<div class="account-btn" onclick="window.location.href='nita.html'">
+<svg viewBox="0 0 24 24" style="stroke:#e67e22;" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="2" y="6" width="20" height="12"/>
+  <path d="M2 6l10 7 10-7"/>
+</svg>
+<span>Nita | AI Asisten</span>
+</div>
+
+<div class="account-btn" onclick="showPage('aboutPage', this)">
+<svg viewBox="0 0 24 24" style="stroke:#f1c40f;" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="9"/>
+  <path d="M12 10v6"/>
+  <path d="M12 7h.01"/>
+</svg>
+<span>Tentang App</span>
+</div>
+
+<div class="account-btn" onclick="showLogoutAlert()">
+<svg viewBox="0 0 24 24" style="stroke:#e74c3c;" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+  <polyline points="16,17 21,12 16,7"/>
+  <line x1="21" y1="12" x2="9" y2="12"/>
+</svg>
+<span>Logout</span>
+</div>
+
+  </div>
+</div>
+</div>
+</div>
+
+
+<!-- EDIT PROFIL -->
+<div id="editProfilePage" class="page">
+  <div class="about-container">
+    <h2>Edit Profil</h2>
+    <p class="edit-sub">Kelola data pribadi kamu</p>
+<div class="profile-pic-edit" onclick="document.getElementById('fotoInput').click()">
+  <img id="fotoPreview" style="display:none;">
+  <span id="initialPreview">B</span>
+</div>
+
+<input type="file" id="fotoInput" accept="image/*" hidden>
+    <input type="text" id="namaInput" placeholder="Nama">
+    <input type="text" id="bioInput" placeholder="Bio (contoh: Aku Sedang Disekolah)">
+    <input type="text" id="tglInput" placeholder="Tanggal Lahir" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'">
+    <input type="text" id="sekolahInput" placeholder="Asal Sekolah">
+    <input type="text" id="kelasInput" placeholder="Kelas">
+    
+<div class="custom-select">
+  <div class="select-box" onclick="toggleSelect()">
+    <span id="selectedJurusan">Pilih Jurusan</span>
+  </div>
+
+  <div class="options" id="optionList">
+<div onclick="chooseJurusan('TKJ')">TKJ</div>
+<div onclick="chooseJurusan('RPL')">RPL</div>
+<div onclick="chooseJurusan('DKV')">DKV</div>
+<div onclick="chooseJurusan('Multimedia')">Multimedia</div>
+<div onclick="chooseJurusan('SIJA')">SIJA</div>
+<div onclick="chooseJurusan('Animasi')">Animasi</div>
+<div onclick="chooseJurusan('TKR')">TKR</div>
+<div onclick="chooseJurusan('TBSM')">TBSM</div>
+<div onclick="chooseJurusan('Teknik Mesin')">Teknik Mesin</div>
+<div onclick="chooseJurusan('Pengelasan')">Pengelasan</div>
+<div onclick="chooseJurusan('Elektronika Industri')">Elektronika Industri</div>
+<div onclick="chooseJurusan('Listrik')">Instalasi Tenaga Listrik</div>
+<div onclick="chooseJurusan('BDP')">BDP</div>
+<div onclick="chooseJurusan('OTKP')">OTKP</div>
+<div onclick="chooseJurusan('AKL')">AKL</div>
+<div onclick="chooseJurusan('Perhotelan')">Perhotelan</div>
+<div onclick="chooseJurusan('Tata Boga')">Tata Boga</div>
+<div onclick="chooseJurusan('Tata Busana')">Tata Busana</div>
+<div onclick="chooseJurusan('Kecantikan')">Tata Kecantikan</div>
+<div onclick="chooseJurusan('Agribisnis')">Agribisnis</div>
+<div onclick="chooseJurusan('Perikanan')">Perikanan</div>
+<div onclick="showCustomInput()">Lainnya</div>
+  </div>
+</div>
+<!-- input custom -->
+<input id="customJurusan" placeholder="Tulis jurusan..." style="display:none;">
+    <input type="text" id="mapelInput" placeholder="Mapel Favorit">
+    <button onclick="saveProfile()">Simpan</button>
+  </div>
+</div>
+
+
+<!-- HALAMAN SETTING -->
+<div id="settingPage" class="page">
+  <div class="about-container">
+    <h2 class="about-title">Pengaturan</h2>
+    <p class="version">Kelola preferensi aplikasi</p>
+
+    <!-- Notifikasi -->
+    <div class="setting-item">
+      <span>Notifikasi</span>
+      <button id="toggleNotif">ON / OFF</button>
+    </div>
+
+    <!-- Data & Privasi -->
+    <div class="setting-item">
+      <span>Reset Data Lokal</span>
+      <button id="resetData">Reset</button>
+    </div>
+
+    <!-- Lainnya -->
+    <div class="setting-item">
+      <span>Tentang Aplikasi</span>
+      <button onclick="showPage('aboutPage')">Lihat</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- RIWAYAT BELAJAR -->
+<div id="historyPage" class="page">
+<div class="about-container">
+    <h2 class="about-title">Riwayat Belajar</h2>
+    <p class="version">Aktivitas belajar terakhir kamu</p>
+  <div id="riwayatList" class="riwayat-list"></div>
+</div>
+</div>
+
+
+<!-- TENTANG APLIKASI -->
+<div id="aboutPage" class="page no-swipe">
+  <div class="about-container">
+    <h2 class="about-title">Tentang Aplikasi</h2>
+    <p class="version">Versi: 2.0.0</p>
+    <div class="about-box">
+      <p>
+        Star Tools adalah platform pembelajaran digital yang dirancang untuk membantu siswa belajar dengan cara yang lebih fleksibel, modern, dan relevan dengan kebutuhan zaman sekarang.
+      </p>
+      <p>
+        Aplikasi ini dibuat untuk menjadi jembatan antara dunia pendidikan dan dunia nyata, dimana pengguna tidak hanya belajar teori, tetapi juga mengembangkan skill yang bisa langsung diterapkan.
+      </p>
+      <p>
+        Dengan tampilan sederhana namun powerful, Star Tools memberikan pengalaman belajar yang nyaman, cepat, dan tidak membingungkan.
+      </p>
+    </div>
+    <div class="about-box">
+      <h3>Tujuan Dibuat</h3>
+      <ul>
+        <li>Membantu siswa memahami materi dengan cara yang lebih mudah</li>
+        <li>Menyediakan tools belajar dalam satu platform</li>
+        <li>Meningkatkan skill yang relevan dengan dunia kerja</li>
+        <li>Mendorong siswa untuk berkembang secara mandiri</li>
+      </ul>
+    </div>
+    <div class="about-box">
+      <h3>Keunggulan</h3>
+      <ul>
+        <li>UI sederhana & nyaman di mata</li>
+        <li>Akses cepat tanpa ribet</li>
+        <li>Fitur terus berkembang</li>
+        <li>Dibuat langsung oleh pelajar untuk pelajar</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div id="customAlert" class="alert-overlay">
+  <div class="alert-box">
+    <p id="alertText">Apakah anda yakin ingin logout?</p>
+    <div class="alert-actions">
+      <button onclick="closeAlert()">Kembali</button>
+      <button onclick="confirmLogout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Navigasi -->
+<div class="bottom-nav">
+  <div class="nav-item active" data-page="homePage" onclick="showPage('homePage', this)">
+    <svg viewBox="0 0 24 24">
+      <path d="M4 10.5L12 4l8 6.5"/>
+      <path d="M6 10v9h5v-5h2v5h5v-9"/>
+    </svg>
+    <span>Utama</span>
+  </div>
+
+  <div class="nav-item" data-page="newsPage" onclick="showPage('newsPage', this)">
+    <svg viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="16" rx="2"/>
+      <line x1="7" y1="8" x2="17" y2="8"/>
+      <line x1="7" y1="12" x2="17" y2="12"/>
+      <line x1="7" y1="16" x2="13" y2="16"/>
+    </svg>
+    <span>Berita</span>
+  </div>
+
+  <div class="nav-item" data-page="premiumPage" onclick="showPage('premiumPage', this)">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 2l2.5 6H21l-5 3.5L18 18l-6-4-6 4 2-6.5L3 8h6.5z"/>
+    </svg>
+    <span>Premium</span>
+  </div>
+
+  <div class="nav-item" data-page="accountPage" onclick="showPage('accountPage', this)">
+    <svg viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+    </svg>
+    <span>Akun</span>
+  </div>
+</div>
+
+
+<!-- Footer -->
+<div class="footer">
+  <p>Created By Star Platform</p>
+  <p>©2026 Star Tools</p>
+  <br>
+  <br>
+</div>
+
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-<style>
-/* SKEMA WARNA PREMIUM (DEFAULT DARK - TRUE BLACK/CHARCOAL) */
-:root {
-  --primary: #ffd369;
-  --primary-hover: #ffc233;
-  --dark-bg: #0b0f19;
-  --card-bg: #111827;
-  --card-border: rgba(255, 255, 255, 0.05);
-  --text-main: #f3f4f6;
-  --text-muted: #9ca3af;
-  --btn-mapel: #1f2937;
-  --btn-mapel-border: rgba(255, 255, 255, 0.08);
-  --shadow: rgba(0, 0, 0, 0.4);
-  --icon-bg: rgba(255, 211, 105, 0.1);
-  --icon-color: #ffd369;
-  --verified-blue: #3b82f6;
-  --task-bg: rgba(16, 185, 129, 0.1);
-  --task-color: #10b981;
-}
-
-/* SKEMA WARNA MODE TERANG */
-body.light {
-  --dark-bg: #f8fafc;
-  --card-bg: #ffffff;
-  --card-border: rgba(0, 0, 0, 0.06);
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --btn-mapel: #f1f5f9;
-  --btn-mapel-border: rgba(0, 0, 0, 0.04);
-  --shadow: rgba(15, 23, 42, 0.04);
-  --icon-bg: rgba(37, 99, 235, 0.08);
-  --icon-color: #2563eb;
-  --verified-blue: #1d9bf0;
-  --task-bg: rgba(16, 185, 129, 0.08);
-  --task-color: #059669;
-}
-
-* { 
-  box-sizing: border-box; 
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; 
-}
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--dark-bg);
-  color: var(--text-main);
-  overflow-x: hidden;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 40px;
-  background: var(--card-bg);
-  border-bottom: 1px solid var(--card-border);
-  box-shadow: 0 4px 20px var(--shadow);
-  z-index: 10;
-}
-
-@media (max-width: 600px) {
-  .navbar { padding: 16px 20px; }
-}
-
-.nav-brand {
-  font-weight: 800;
-  font-size: 20px;
-  letter-spacing: -0.5px;
-  color: var(--text-main);
-}
-
-.nav-brand span {
-  color: var(--primary);
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* BANNER REALTIME */
-.banner-container {
-  max-width: 1000px;
-  width: 100%;
-  margin: 24px auto 0;
-  padding: 0 20px;
-  animation: fadeDown 0.6s ease;
-}
-
-.promo-banner {
-  width: 100%;
-  background: linear-gradient(135deg, #1e1b4b, #311042);
-  border: 1px solid rgba(255, 211, 105, 0.15);
-  border-radius: 20px;
-  padding: 20px;
-  display: none; /* Dikontrol via Firebase */
-  align-items: center;
-  gap: 20px;
-  box-shadow: 0 8px 25px var(--shadow);
-}
-
-body.light .promo-banner {
-  background: linear-gradient(135deg, #eff6ff, #f5f3ff);
-  border: 1px solid rgba(37, 99, 235, 0.1);
-}
-
-.banner-img-placeholder {
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 211, 105, 0.1);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--primary);
-  flex-shrink: 0;
-}
-
-.banner-text h4 {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.banner-text p {
-  margin: 4px 0 0;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-.header {
-  text-align: center;
-  padding: 30px 20px 25px;
-  animation: fadeDown 0.6s ease;
-}
-
-.header h1 {
-  font-size: 42px;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: -1px;
-}
-
-body:not(.light) .header h1 {
-  background: linear-gradient(to right, #ffffff, var(--primary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-body.light .header h1 {
-  color: #0f172a;
-}
-
-.badge {
-  background: var(--primary);
-  color: #0f172a;
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 11px;
-  display: inline-block;
-  margin-top: 12px;
-  box-shadow: 0 4px 15px rgba(255, 211, 105, 0.2);
-}
-
-.container {
-  max-width: 1000px;
-  width: 100%;
-  margin: 0 auto auto;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 24px;
-}
-
-@media (max-width: 850px) {
-  .container { grid-template-columns: 1fr; }
-}
-
-.card {
-  background: var(--card-bg);
-  padding: 30px;
-  border-radius: 24px;
-  border: 1px solid var(--card-border);
-  box-shadow: 0 10px 30px var(--shadow);
-  opacity: 0;
-  animation: fadeUp 0.6s ease forwards;
-}
-
-.card h3 {
-  margin-top: 0;
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 24px;
-  border-left: 4px solid var(--primary);
-  padding-left: 10px;
-}
-
-/* LIVE UPDATE / BROADCAST COMPONENT */
-.update-broadcast {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px dashed var(--card-border);
-  border-radius: 16px;
-  padding: 18px;
-  margin-top: 24px;
-}
-
-body.light .update-broadcast { background: #f8fafc; }
-
-.broadcast-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-
-.broadcast-name { font-weight: 700; font-size: 14px; }
-
-.verified-badge {
-  color: var(--verified-blue);
-  display: inline-flex;
-  align-items: center;
-}
-
-.broadcast-time {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-left: auto;
-}
-
-.broadcast-content {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin: 0;
-  white-space: pre-line;
-}
-
-/* INFO TUGAS COMPONENT */
-.task-broadcast {
-  background: var(--task-bg);
-  border: 1px solid rgba(16, 185, 129, 0.15);
-  border-radius: 16px;
-  padding: 18px;
-  margin-top: 14px;
-}
-
-.task-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-
-.task-badge-title {
-  background: var(--task-color);
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 6px;
-}
-
-.task-time {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-left: auto;
-}
-
-.task-content {
-  font-size: 13px;
-  color: var(--text-main);
-  line-height: 1.6;
-  margin: 0;
-  white-space: pre-line;
-}
-
-.hero h2 { font-size: 24px; font-weight: 700; margin-top: 0; }
-.visi-misi p { color: var(--text-muted); line-height: 1.6; font-size: 14px; }
-.visi-misi ul { padding-left: 20px; color: var(--text-muted); font-size: 14px; line-height: 1.7; }
-.visi-misi li { margin-bottom: 8px; }
-
-.mapel-btn {
-  width: 100%; padding: 16px; margin-bottom: 14px; border-radius: 18px;
-  border: 1px solid var(--btn-mapel-border); background: var(--btn-mapel);
-  color: var(--text-main); display: flex; align-items: center; text-align: left; gap: 16px; cursor: pointer;
-}
-
-.mapel-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px var(--shadow); border-color: var(--icon-color); }
-
-.mapel-icon-wrapper {
-  width: 48px; height: 48px; border-radius: 14px; background: var(--icon-bg);
-  color: var(--icon-color); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.mapel-icon-wrapper svg { width: 24px; height: 24px; }
-.mapel-info { display: flex; flex-direction: column; }
-.mapel-title { font-size: 15px; font-weight: 600; margin: 0; }
-.mapel-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-
-.logout-btn {
-  width: 100%; padding: 14px; margin-top: 10px; border-radius: 16px;
-  border: 1px solid rgba(239, 68, 68, 0.2); background: rgba(239, 68, 68, 0.05); color: #ef4444; font-weight: 600; cursor: pointer;
-}
-.logout-btn:hover { background: #ef4444; color: white; }
-
-.theme-switch {
-  background: transparent; border: 1px solid var(--card-border); color: var(--text-main);
-  padding: 10px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px;
-}
-.theme-switch svg { width: 20px; height: 20px; }
-
-.auth-btn, .nita-btn { padding: 10px 20px; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; }
-.auth-btn { background: var(--text-main); color: var(--dark-bg); }
-.nita-btn { background: linear-gradient(135deg, #a855f7, #7c3aed); color: white; }
-
-.report-container { margin-bottom: 15px; }
-.report-link {
-  color: var(--text-muted); text-decoration: none; font-size: 12px; font-weight: 500;
-  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border: 1px solid var(--card-border); border-radius: 12px;
-}
-.report-link:hover { color: #ef4444; border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.05); }
-
-.footer-wrapper { padding: 40px 20px; text-align: center; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--card-border); background: var(--card-bg); }
-.sponsor { font-size: 14px; margin-bottom: 6px; }
-.sponsor strong { color: var(--primary); }
-
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-.hidden { display: none !important; }
-</style>
-</head>
-<body>
-
-<nav class="navbar">
-  <div class="nav-brand">Star<span>Tools</span></div>
-  <div class="nav-actions">
-    <button class="theme-switch" onclick="toggleTheme()" id="themeBtn">
-      <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-      </svg>
-      <svg id="icon-sun" class="hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21M4.22 4.22l1.59 1.59m12.38 12.38l1.59 1.59M3 12h2.25m13.5 0H21M4.22 19.78l1.59-1.59M17.62 6.38l1.59-1.59M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    </button>
-    <button class="auth-btn" id="authBtn" onclick="goLogin()">Sign In</button>
-    <button class="nita-btn hidden" id="nitaBtn" onclick="goNita()">Nita AI</button>
-  </div>
-</nav>
-
-<div class="banner-container">
-  <div class="promo-banner" id="promoBanner">
-    <div class="banner-img-placeholder">
-      <svg style="width: 28px; height: 28px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-      </svg>
-    </div>
-    <div class="banner-text">
-      <h4 id="bannerTitle">Memuat info banner...</h4>
-      <p id="bannerDesc">Harap tunggu...</p>
-    </div>
-  </div>
-</div>
-
-<div class="header">
-  <h1>Platform Edukasi Modern</h1>
-  <div class="badge">PRO VERSION 1.9</div>
-</div>
-
-<div class="container">
-  <div class="card">
-    <div class="hero">
-      <h2>Pilar Pendidikan Masa Depan</h2>
-      <div class="visi-misi">
-        <p><strong>Visi:</strong> Menjadi platform pendidikan hybrid yang merata, inovatif, dan transparan dalam menciptakan generasi yang cerdas, berpikir kritis, serta siap menghadapi dunia kerja maupun membangun usaha secara mandiri.</p>
-        <p><strong>Misi:</strong></p>
-        <ul>
-          <li>Menyediakan sistem pembelajaran hybrid yang fleksibel dan dapat diakses oleh semua kalangan.</li>
-          <li>Mendorong pemerataan pendidikan melalui teknologi yang inklusif dan mudah digunakan.</li>
-          <li>Mengembangkan pola pikir kritis, kreatif, dan solutif pada setiap pengguna.</li>
-          <li>Mempersiapkan generasi yang siap kerja maupun mampu menciptakan peluang usaha sendiri.</li>
-          <li>Meningkatkan transparansi dalam ekosistem pendidikan, khususnya di lingkungan sekolah.</li>
-          <li>Menghadirkan fitur pembelajaran yang relevan dengan kebutuhan dunia nyata dan perkembangan teknologi.</li>
-        </ul>
-      </div>
-    </div>
-    
-    <!-- BROADCAST UPDATE -->
-    <div class="update-broadcast">
-      <div class="broadcast-header">
-        <span class="broadcast-name">Star Tools</span>
-        <span class="verified-badge" title="Verified">
-          <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-          </svg>
-        </span>
-        <span class="broadcast-time" id="broadcastTime">Memuat...</span>
-      </div>
-      <p class="broadcast-content" id="broadcastContent">Menghubungkan ke database...</p>
-    </div>
-   </div>
-
-  <div class="card">
-    <h3>Akses Pembelajaran</h3>
-    <button class="mapel-btn" onclick="goMapel('mtk.html')">
-      <div class="mapel-icon-wrapper">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 002-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-        </svg>
-      </div>
-      <div class="mapel-info">
-        <span class="mapel-title">Matematika</span>
-        <span class="mapel-desc">Rumus, latihan soal, & pembahasan dasar.</span>
-      </div>
-    </button>
-
-    <button class="mapel-btn" onclick="goMapel('pendukung.html')">
-      <div class="mapel-icon-wrapper">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-      </div>
-      <div class="mapel-info">
-        <span class="mapel-title">Pendukung</span>
-        <span class="mapel-desc">Modul tambahan dan dokumen penunjang.</span>
-      </div>
-    </button>
-
-    <button class="logout-btn" onclick="logout()">Keluar Akun</button>
-  </div>
-</div>
-
-<div class="footer-wrapper">
-  <div class="report-container">
-    <a href="mailto:starprosperous13@gmail.com?subject=Laporkan Bug Pada Star Tools" class="report-link">
-      <svg style="width:16px; height:16px;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-      </svg>
-      Laporkan Masalah Sistem (Bug)
-    </a>
-  </div>
-  <div class="sponsor">Developed By <strong>Star Prosperous</strong></div>
-  <p>© 2026 Star Tools. All rights reserved.</p>
-</div>
+<div id="toastAlert" class="custom-alert"></div>
 
 <script>
+let currentUser = null;
+// =======================
+//  FIREBASE CONFIG (ISI PUNYA LU)
+// =======================
 const firebaseConfig = {
   apiKey: "AIzaSyDgr_nHqvpMsiG4lBkYckzxRErkskXj_6E",
   authDomain: "laporanstartools-c18b2.firebaseapp.com",
@@ -484,110 +1423,932 @@ const firebaseConfig = {
   projectId: "laporanstartools-c18b2",
   storageBucket: "laporanstartools-c18b2.firebasestorage.app",
   messagingSenderId: "596585220522",
-  appId: "1:596585220522:web:d61e13c60daff6daca43d3"
+  appId: "1:596585220522:web:d61e13c60daff6daca43d3",
+  measurementId: "G-L22M87LZY4"
 };
 
+// INIT
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-let isLogin = false;
 
+let isGuest = localStorage.getItem("isGuest") === "true";
+
+// LOGOUT ALERT
+let isAlertOpen = false;
+function showLogoutAlert() {
+  document.body.classList.add("no-scroll");
+  document.getElementById("customAlert").style.display = "flex";
+  document.body.classList.add("alert-open");
+  isAlertOpen = true;
+}
+
+function closeAlert() {
+  document.getElementById("customAlert").style.display = "none";
+  document.body.classList.remove("alert-open");
+  document.body.classList.remove("no-scroll");
+  isAlertOpen = false;
+}
+
+// CONFIRM LOGOUT
+function confirmLogout() {
+  firebase.auth().signOut().then(() => {
+
+    // hapus local data (kalau ada)
+    localStorage.removeItem("user");
+
+    // reset tampilan
+    document.getElementById("header").style.display = "none";
+    document.querySelector(".bottom-nav").style.display = "none";
+    document.querySelector(".footer").style.display = "none";
+
+    document.querySelectorAll(".page").forEach(p => {
+      p.classList.remove("active");
+    });
+
+    // redirect ke login
+    window.location.href = "login.html";
+
+  }).catch(err => {
+    alert("Logout gagal: " + err.message);
+  });
+
+  closeAlert();
+}
+
+
+// SIDEBAR
+function openSidebar() {
+  document.getElementById("sidebar").classList.add("active");
+}
+function closeSidebar() {
+  document.getElementById("sidebar").classList.remove("active");
+}
+
+
+// SEARCH FILTER
+const searchBox = document.getElementById("searchBox");
+const items = document.querySelectorAll(".feature-btn");
+
+if (searchBox) {
+  searchBox.addEventListener("input", () => {
+    const value = searchBox.value.toLowerCase();
+    items.forEach(item => {
+      if (item.innerText.toLowerCase().includes(value)) {
+        item.style.display = "block";
+      } else {
+        item.style.display = "none";
+      }
+    });
+  });
+}
+
+// ANIMASI NGETIK PLACEHOLDER
+let typingTimer = null;
+let i = 0;
+let isDeleting = false;
+const text = "Cari Mapel...";
+
+function startTyping() {
+  //  cegah dobel loop
+  if (typingTimer) return;
+
+  function loop() {
+    const input = document.getElementById("searchBox");
+
+    // kalau belum ada element → coba lagi nanti (biar aman pas login page)
+    if (!input) {
+      typingTimer = setTimeout(loop, 500);
+      return;
+    }
+
+    if (!isDeleting) {
+      input.setAttribute("placeholder", text.substring(0, i++));
+      if (i > text.length) {
+        isDeleting = true;
+        typingTimer = setTimeout(loop, 1000); // jeda pas full
+        return;
+      }
+    } else {
+      input.setAttribute("placeholder", text.substring(0, i--));
+      if (i < 0) {
+        isDeleting = false;
+      }
+    }
+
+    typingTimer = setTimeout(loop, isDeleting ? 70 : 120);
+  }
+
+  loop();
+}
+
+// SET ACTIVE 
+function setActive(el) {
+  const items = document.querySelectorAll(".bottom-nav .nav-item");
+  items.forEach(item => item.classList.remove("active"));
+  el.classList.add("active");
+}
+
+
+// FILTER BERITA
+const filter = document.getElementById("filterNews");
+const container = document.getElementById("newsList");
+
+if (filter && container) {
+  filter.addEventListener("change", () => {
+    const cards = Array.from(container.children);
+    cards.sort((a, b) => {
+      const dateA = new Date(a.getAttribute("data-date"));
+      const dateB = new Date(b.getAttribute("data-date"));
+      return filter.value === "new"
+        ? dateB - dateA
+        : dateA - dateB;
+    });
+    container.innerHTML = "";
+    cards.forEach(card => container.appendChild(card));
+  });
+}
+
+
+// ANIMASI SLIDE
+let currentPage = "homePage";
+const pageOrder = ["homePage", "newsPage", "premiumPage", "accountPage"];
+
+function showPage(pageId, el) {
+//  kalau masuk edit profil → tampilkan loading dulu
+if(pageId === "editProfilePage"){
+  showLoading();
+
+  loadProfile().then(()=>{
+    hideLoading();
+  });
+}
+
+if(pageId === "accountPage"){
+  loadProfile();
+}
+
+if (pageId === "historyPage") {
+  loadRiwayatBelajar();
+}
+
+  if (pageId === currentPage) return;
+
+  const current = document.getElementById(currentPage);
+  const next = document.getElementById(pageId);
+
+
+  // RESET SEMUA POSISI
+  document.querySelectorAll(".page").forEach(p => {
+    p.style.transform = "translateX(0)";
+  });
+
+  const currentIndex = pageOrder.indexOf(currentPage);
+  const nextIndex = pageOrder.indexOf(pageId);
+
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.remove(
+      "slide-in-left",
+      "slide-in-right",
+      "slide-out-left",
+      "slide-out-right",
+      "active"
+    );
+  });
+
+  if (nextIndex > currentIndex) {
+    current.classList.add("slide-out-left");
+    next.classList.add("active", "slide-in-right");
+  } else {
+    current.classList.add("slide-out-right");
+    next.classList.add("active", "slide-in-left");
+  }
+
+  document.querySelectorAll(".nav-item").forEach(item => {
+    item.classList.remove("active");
+  });
+
+el.classList.add("active");
+
+if (pageId === "csPage") {
+  loadChat();
+}
+
+currentPage = pageId;
+}
+
+
+// TOUCH SWIPE
+let startTime = 0;
+let startX = 0;
+let endX = 0;
+let isDragging = false;
+
+document.addEventListener("touchstart", e => {
+  if (!localStorage.getItem("user")) return;
+  if (document.getElementById(currentPage).classList.contains("no-swipe")) return;
+  if (e.target.closest("button, .account-btn, .feature-btn, a")) return;
+  if (e.target.closest(".banner-container")) return;
+
+  isDragging = true;
+  startX = e.touches[0].clientX;
+  startTime = new Date().getTime();
+});
+
+document.addEventListener("touchmove", e => {
+  if (!isDragging) return;
+if (document.getElementById(currentPage).classList.contains("no-swipe")) return;
+
+  const currentX = e.touches[0].clientX;
+  const dx = (currentX - startX) * 0.5;
+
+  const current = document.getElementById(currentPage);
+  current.style.transform = `translateX(${dx}px)`;
+});
+
+document.addEventListener("touchend", e => {
+  if (!isDragging) return;
+if (document.getElementById(currentPage).classList.contains("no-swipe")) return;
+
+  isDragging = false;
+
+  endX = e.changedTouches[0].clientX;
+  const dx = endX - startX;
+
+  const endTime = new Date().getTime();
+  const dt = endTime - startTime;
+
+  const velocity = Math.abs(dx) / dt;
+
+  const threshold = 80;
+  const fastSwipe = velocity > 0.3;
+
+  let currentIndex = pageOrder.indexOf(currentPage);
+
+  if ((dx < -threshold || (fastSwipe && dx < 0)) && currentIndex < pageOrder.length - 1) {
+    navigator.vibrate(10);
+    showPage(pageOrder[currentIndex + 1], document.querySelectorAll(".nav-item")[currentIndex + 1]);
+
+  } else if ((dx > threshold || (fastSwipe && dx > 0)) && currentIndex > 0) {
+    navigator.vibrate(10);
+    showPage(pageOrder[currentIndex - 1], document.querySelectorAll(".nav-item")[currentIndex - 1]);
+  }
+
+
+  // reset posisi biar balik smooth
+  const current = document.getElementById(currentPage);
+  current.style.transform = "translateX(0)";
+});
+
+
+// =======================
+// PAYMENT PROCESS
+// =======================
+function goPayment(product){
+
+  let harga = 0;
+  let title = "";
+
+  if(product === "ekonomi"){
+    harga = 12000;
+    title = "Pembelian Ekonomi";
+  }
+
+  if(product === "sains"){
+    harga = 12000;
+    title = "Pembelian Sains";
+  }
+
+  if(product === "coding"){
+    harga = 12000;
+    title = "Pembelian Coding";
+  }
+
+  if(product === "All Premium"){
+    harga = 26000;
+    title = "Pembelian All Premium";
+  }
+
+  const kode = "STR-" + Math.floor(100 + Math.random() * 900);
+
+  currentPayment = { product, kode, harga };
+
+  // tampil halaman pertama (pilih metode)
+  showPage("paymentPage", document.querySelectorAll(".nav-item")[2]);
+
+  document.getElementById("paymentTitle").innerText = title;
+  document.getElementById("paymentCode").innerText = kode;
+  document.getElementById("paymentPrice").innerText =
+    "Rp " + harga.toLocaleString("id-ID");
+}
+
+// =======================
+// PILIH PAYMENT
+// =======================
+function selectPayment(method){
+  const code = document.getElementById("paymentCode").innerText;
+  const price = document.getElementById("paymentPrice").innerText;
+
+  document.getElementById("detailCode").innerText = code;
+  document.getElementById("detailPrice").innerText = price;
+
+  if(method === "qris"){
+    renderQRIS();
+  }
+
+  showPage("paymentDetailPage", document.querySelectorAll(".nav-item")[2]);
+}
+
+// =======================
+// RENDER HALAMAN QRIS
+// =======================
+function renderQRIS(){
+  document.getElementById("detailTitle").innerText = "Pembayaran QRIS";
+  
+  const qrImageUrl = "qris.jpg"; 
+
+  document.getElementById("paymentContent").innerHTML = `
+    <div class="pay-box">
+      <p class="pay-label">Silakan Scan atau Download QRIS di bawah ini:</p>
+      
+      <!-- BINGKAI BESAR QRIS -->
+      <div class="qr-frame">
+        <img id="qrisImage" src="${qrImageUrl}" alt="QRIS Code Star Tools">
+      </div>
+
+      <div class="pay-info">
+        <p>1. Scan QR dan transfer sesuai nominal yang tertera.</p>
+      </div>
+      <div class="pay-info">
+        <p>2. Ambil screenshot bukti pembayaran sukses.</p>
+      </div>
+      <div class="pay-info">
+        <p>3. Kirim bukti gambar tersebut ke email: starprosperous13@gmail.com</p>
+      </div>
+    </div>
+
+    <button class="btn-download" onclick="downloadQRIS('${qrImageUrl}')">
+      Download QRIS
+    </button>
+
+    <button class="btn-kirim" onclick="sendEmail()" style="margin-top:10px;">
+      Kirim Bukti Pembayaran
+    </button>
+  `;
+}
+
+// =======================
+// FUNGSI DOWNLOAD QRIS
+// =======================
+function downloadQRIS(url) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "QRIS_StarTools.jpg"; 
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  showAlert("Mulai mengunduh QRIS...", "success");
+}
+
+// =======================
+//  KIRIM EMAIL OTOMATIS
+// =======================
+function sendEmail(){
+  let title = document.getElementById("detailTitle").innerText;
+  const code = document.getElementById("detailCode").innerText;
+
+  title = title.replace("Pembayaran ", "");
+
+  const subject = encodeURIComponent("Pembayaran " + title);
+
+  const body = encodeURIComponent(
+`Halo Admin,
+
+Saya sudah melakukan pembayaran via QRIS.
+
+Metode: ${title}
+Kode: ${code}
+
+Mohon verifikasi ya.
+
+Foto pembayaran saya:
+(Tempelkan atau lampirkan bukti screenshot di sini)`
+  );
+
+  window.location.href = `mailto:starprosperous13@gmail.com?subject=${subject}&body=${body}`;
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
 firebase.auth().onAuthStateChanged(user => {
-  isLogin = !!user;
-  const authBtn = document.getElementById("authBtn");
-  const nitaBtn = document.getElementById("nitaBtn");
-  if(isLogin){
-    authBtn.classList.add("hidden");
-    nitaBtn.classList.remove("hidden");
-  } else {
-    authBtn.classList.remove("hidden");
-    nitaBtn.classList.add("hidden");
+  if (user) {
+    localStorage.removeItem("isGuest");
+    showApp(user);
+  } 
+  else if (isGuest) {
+    showGuestApp();
+  } 
+  else {
+    window.location.href = "login.html";
   }
 });
-
-// REALTIME LISTENER PESAN UTAMA
-db.ref('system_update').on('value', (snapshot) => {
-  const data = snapshot.val();
-  const contentEl = document.getElementById("broadcastContent");
-  const timeEl = document.getElementById("broadcastTime");
-  if (data) {
-    contentEl.textContent = data.text || "Tidak ada detail info terbaru.";
-    timeEl.textContent = data.timestamp || "Baru saja";
-  } else {
-    contentEl.textContent = "Belum ada info terbaru dari Star Tools.";
-    timeEl.textContent = "-";
-  }
 });
 
-// REALTIME LISTENER INFO TUGAS
-db.ref('system_task').on('value', (snapshot) => {
-  const data = snapshot.val();
-  const contentEl = document.getElementById("taskContent");
-  const timeEl = document.getElementById("taskTime");
-  if (data) {
-    contentEl.textContent = data.text || "Belum ada tugas baru.";
-    timeEl.textContent = data.timestamp || "";
-  } else {
-    contentEl.textContent = "Hore! Belum ada tugas baru yang dipublish.";
-    timeEl.textContent = "-";
-  }
-});
+function showGuestApp() {
+  currentUser = null;
 
-// REALTIME LISTENER BANNER ATAS
-db.ref('system_banner').on('value', (snapshot) => {
-  const data = snapshot.val();
-  const titleEl = document.getElementById("bannerTitle");
-  const descEl = document.getElementById("bannerDesc");
-  const bannerEl = document.getElementById("promoBanner");
-  if (data && data.active !== false) {
-    bannerEl.style.display = "flex";
-    titleEl.textContent = data.title || "Star Tools Info";
-    descEl.textContent = data.desc || "";
-  } else {
-    bannerEl.style.display = "none";
-  }
-});
+  closeAlert();
 
-function toggleTheme() {
-  const body = document.body;
-  const iconMoon = document.getElementById("icon-moon");
-  const iconSun = document.getElementById("icon-sun");
-  body.classList.toggle("light");
-  if(body.classList.contains("light")){
-    iconMoon.classList.add("hidden");
-    iconSun.classList.remove("hidden");
-    localStorage.setItem("theme", "light");
-  } else {
-    iconSun.classList.add("hidden");
-    iconMoon.classList.remove("hidden");
-    localStorage.setItem("theme", "dark");
+  document.getElementById("header").style.display = "flex";
+  document.querySelector(".bottom-nav").style.display = "flex";
+  document.querySelector(".footer").style.display = "block";
+
+  document.getElementById("homePage").classList.add("active");
+
+  document.getElementById("welcomeText").innerText = "Selamat Datang, Guest";
+
+  startTyping();
+}
+
+function checkPremiumAccess(){
+  if(isGuest){
+    showAlert("Harap login terlebih dahulu untuk akses Premium!", "error");
+    return false;
+  }
+  return true;
+}
+
+function openPremium(){
+  if(!checkPremiumAccess()) return;
+
+  showPage("premiumPage");
+}
+
+// SHOW APP USER
+function showApp(user) {
+  currentUser = user.uid;
+  loadProfile();
+  closeAlert();
+
+  //  TAMPILIN UI
+  document.getElementById("header").style.display = "flex";
+  document.querySelector(".bottom-nav").style.display = "flex";
+  document.querySelector(".footer").style.display = "block";
+
+  // RESET PAGE
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.remove("active");
+  });
+
+  document.getElementById("homePage").classList.add("active");
+
+  // NAV ACTIVE
+  const navItems = document.querySelectorAll(".nav-item");
+  navItems.forEach(item => item.classList.remove("active"));
+  navItems[0].classList.add("active");
+
+  currentPage = "homePage";
+
+  // =========================
+  //  AMBIL NAMA DARI EMAIL
+  // =========================
+let nama = "User";
+
+if (user.email) {
+  nama = user.email.split("@")[0];
+}
+
+document.getElementById("welcomeText").innerText =
+  "Selamat Datang, " + nama;
+
+document.getElementById("accountName").innerText = nama;
+
+document.getElementById("initial").innerText =
+  nama.charAt(0).toUpperCase();
+
+
+  //  START ANIMASI
+  startTyping();
+
+  //  HANDLE TARGET PAGE
+  const target = localStorage.getItem("targetPage");
+
+  if (target) {
+    document.querySelectorAll(".page").forEach(p => {
+      p.classList.remove("active");
+    });
+
+    const targetEl = document.getElementById(target);
+    if (targetEl) {
+      targetEl.classList.add("active");
+      currentPage = target;
+    }
+
+    document.querySelectorAll(".nav-item").forEach(n => {
+      n.classList.remove("active");
+    });
+
+    const nav = document.querySelector(`.nav-item[data-page="${target}"]`);
+    if (nav) nav.classList.add("active");
+
+    localStorage.removeItem("targetPage");
+  }
+}
+
+
+function goPage(pageId, el) {
+  // pindah halaman
+  showPage(pageId, document.querySelector(`.nav-item[onclick*="${pageId}"]`));
+
+  // tutup sidebar
+  closeSidebar();
+}
+
+function goBanner(type) {
+  if (type === "nita") {
+    window.location.href = "nita.html";
+  } 
+  else if (type === "premium") {
+    showPage("premiumPage");
+  } 
+  else if (type === "pendukung") {
+    window.location.href = "pendukung.html";
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("theme");
-  if(savedTheme === "light") {
-    document.body.classList.add("light");
-    document.getElementById("icon-moon").classList.add("hidden");
-    document.getElementById("icon-sun").classList.remove("hidden");
+
+  let currentSlide = 0;
+  const wrapper = document.getElementById("bannerWrapper");
+  const banners = document.querySelectorAll(".banner");
+  const dotsContainer = document.getElementById("bannerDots");
+
+  if (!wrapper || banners.length === 0) return;
+
+  let autoSlide;
+
+  //  BUAT DOT
+  banners.forEach((_, i) => {
+    const dot = document.createElement("span");
+    if (i === 0) dot.classList.add("active");
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = dotsContainer.querySelectorAll("span");
+
+  function updateSlide() {
+    wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    dots.forEach(d => d.classList.remove("active"));
+    dots[currentSlide].classList.add("active");
+  }
+
+  function startAutoSlide() {
+    autoSlide = setInterval(() => {
+      currentSlide = (currentSlide + 1) % banners.length;
+      updateSlide();
+    }, 3000);
+  }
+
+  function stopAutoSlide() {
+    clearInterval(autoSlide);
+  }
+
+  startAutoSlide();
+
+  // SWIPE
+  let startX = 0;
+  let endX = 0;
+
+  wrapper.addEventListener("touchstart", e => {
+    stopAutoSlide();
+    startX = e.touches[0].clientX;
+  });
+
+  wrapper.addEventListener("touchend", e => {
+    endX = e.changedTouches[0].clientX;
+
+    let diff = startX - endX;
+
+    if (diff > 50) {
+      currentSlide = (currentSlide + 1) % banners.length;
+    } else if (diff < -50) {
+      currentSlide = (currentSlide - 1 + banners.length) % banners.length;
+    }
+
+    updateSlide();
+    startAutoSlide();
+  });
+
+});
+
+
+function showLoading(){
+  const el = document.getElementById("loadingOverlay");
+  if(el) el.style.display = "flex";
+}
+
+function hideLoading(){
+  const el = document.getElementById("loadingOverlay");
+  if(el) el.style.display = "none";
+}
+
+
+// =======================
+//  SAVE PROFILE
+// =======================
+function saveProfile(){
+  if(!currentUser){
+    alert("User belum siap");
+    return;
+  }
+
+  showLoading();
+
+  const btn = document.querySelector("#editProfilePage button");
+  if(btn){
+    btn.disabled = true;
+    btn.innerText = "Menyimpan...";
+  }
+
+const jurusan =
+  document.getElementById("customJurusan")?.value ||
+  document.getElementById("selectedJurusan")?.innerText ||
+  "";
+
+  const data = {
+    nama: document.getElementById("namaInput")?.value || "",
+    tgl: document.getElementById("tglInput")?.value || "",
+    sekolah: document.getElementById("sekolahInput")?.value || "",
+    kelas: document.getElementById("kelasInput")?.value || "",
+    mapel: document.getElementById("mapelInput")?.value || "",
+    bio: document.getElementById("bioInput")?.value || "",
+    jurusan: jurusan
+  };
+
+  if(fotoBase64){
+    data.foto = fotoBase64;
+  }
+
+  db.ref("users/"+currentUser+"/profile").update(data)
+    .then(()=>{
+      hideLoading();
+
+      if(btn){
+        btn.disabled = false;
+        btn.innerText = "Simpan";
+      }
+
+      showAlert("Profil berhasil disimpan!", "success");
+      loadProfile(); //  refresh semua UI
+    })
+    .catch(err=>{
+      hideLoading();
+
+      if(btn){
+        btn.disabled = false;
+        btn.innerText = "Simpan";
+      }
+
+      showAlert("Error: " + err.message, "error");
+    });
+}
+
+
+// =======================
+// LOAD PROFILE
+// =======================
+function loadProfile(){
+  if(!currentUser) return Promise.resolve();
+
+  return db.ref("users/"+currentUser+"/profile").once("value").then(snap=>{
+    const data = snap.val();
+    if(!data) return;
+
+    // =======================
+    //  FOTO ACCOUNT PAGE
+    // =======================
+    const profilePic = document.getElementById("profilePic");
+
+    if(data.foto && profilePic){
+      profilePic.innerHTML = `
+        <img src="${data.foto}" 
+        style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+      `;
+    } else if(profilePic){
+      profilePic.innerHTML = `
+        <span id="initial">
+          ${data.nama ? data.nama.charAt(0).toUpperCase() : "U"}
+        </span>
+      `;
+    }
+
+    // =======================
+    //  EDIT PROFILE FOTO
+    // =======================
+    const fotoPreview = document.getElementById("fotoPreview");
+    const initialPreview = document.getElementById("initialPreview");
+
+    if(data.foto && fotoPreview){
+      fotoPreview.src = data.foto;
+      fotoPreview.style.display = "block";
+
+      if(initialPreview) initialPreview.style.display = "none";
+    }
+
+    // =======================
+    //  FORM INPUT
+    // =======================
+    const namaInput = document.getElementById("namaInput");
+    if(namaInput) namaInput.value = data.nama || "";
+
+    const tglInput = document.getElementById("tglInput");
+    if(tglInput) tglInput.value = data.tgl || "";
+
+    const sekolahInput = document.getElementById("sekolahInput");
+    if(sekolahInput) sekolahInput.value = data.sekolah || "";
+
+    const kelasInput = document.getElementById("kelasInput");
+    if(kelasInput) kelasInput.value = data.kelas || "";
+
+    const mapelInput = document.getElementById("mapelInput");
+    if(mapelInput) mapelInput.value = data.mapel || "";
+
+    const bioInput = document.getElementById("bioInput");
+    if(bioInput) bioInput.value = data.bio || "";
+
+const jurusanText = document.getElementById("selectedJurusan");
+const customInput = document.getElementById("customJurusan");
+
+if(data.jurusan){
+  // kalau jurusan custom (tidak ada di list)
+  if(customInput && jurusanText){
+    customInput.style.display = "none";
+    jurusanText.innerText = data.jurusan;
+  }
+}
+    // =======================
+    //  UI TEXT
+    // =======================
+    if(data.nama){
+const accountName = document.getElementById("accountName");
+
+if(accountName){
+  accountName.innerHTML = `
+    ${data.nama || "User"}
+    ${data.verified ? `
+      <svg viewBox="0 0 24 24" width="20" height="20" style="vertical-align:middle; transform: translateY(-2px);">
+        <path d="M12 2l2.2 2 3-.5.8 2.9 2.9.8-.5 3 2 2-2 2 .5 3-2.9.8-.8 2.9-3-.5-2.2 2-2.2-2-3 .5-.8-2.9-2.9-.8.5-3-2-2 2-2-.5-3 2.9-.8.8-2.9 3 .5z" fill="#4fc3f7"/>
+        <path d="M8 12.5l2.5 2.5 5.5-6" 
+              fill="none" 
+              stroke="white" 
+              stroke-width="2" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"/>
+      </svg>
+    ` : ""}
+  `;
+}
+      const initial = document.getElementById("initial");
+      if(initial) initial.innerText = data.nama.charAt(0).toUpperCase();
+
+      const welcome = document.getElementById("welcomeText");
+      if(welcome) welcome.innerText = "Selamat Datang, " + data.nama;
+
+      const bioText = document.getElementById("bioText");
+      if(bioText){
+      bioText.innerText = data.bio || "";
+}
+    }
+  });
+}
+
+// =======================
+// FOTO INPUT
+// =======================
+let fotoBase64 = "";
+
+const fotoInput = document.getElementById("fotoInput");
+
+if(fotoInput){
+  fotoInput.addEventListener("change", function(e){
+    const file = e.target.files[0];
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+      fotoBase64 = event.target.result;
+
+      const img = document.getElementById("fotoPreview");
+      if(img){
+        img.src = fotoBase64;
+        img.style.display = "block";
+      }
+
+      const initialPreview = document.getElementById("initialPreview");
+      if(initialPreview){
+        initialPreview.style.display = "none";
+      }
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+function showAlert(message, type = "success"){
+  const alertBox = document.getElementById("toastAlert");
+
+  alertBox.innerText = message;
+  alertBox.className = "custom-alert show " + type;
+
+  setTimeout(() => {
+    alertBox.classList.remove("show");
+  }, 2500);
+}
+
+function toggleSelect(){
+  const list = document.getElementById("optionList");
+  list.style.display = list.style.display === "block" ? "none" : "block";
+}
+
+function chooseJurusan(value){
+  document.getElementById("selectedJurusan").innerText = value;
+  document.getElementById("optionList").style.display = "none";
+
+  // hide input custom
+  document.getElementById("customJurusan").style.display = "none";
+}
+
+function showCustomInput(){
+  document.getElementById("customJurusan").style.display = "block";
+  document.getElementById("optionList").style.display = "none";
+}
+
+
+// Toggle Tema
+document.getElementById("toggleTema").addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  document.body.classList.toggle("light");
+});
+
+// Toggle Notifikasi (dummy)
+let notifOn = true;
+document.getElementById("toggleNotif").addEventListener("click", () => {
+  notifOn = !notifOn;
+  document.getElementById("toggleNotif").innerText = notifOn ? "ON" : "OFF";
+});
+
+// Reset Data Lokal
+document.getElementById("resetData").addEventListener("click", () => {
+  if(confirm("Yakin ingin reset semua data lokal?")) {
+    localStorage.clear();
+    alert("Data lokal berhasil direset!");
   }
 });
 
-function goMapel(page){
-  const protectedPage = ["pendukung.html"];
-  if(!isLogin && protectedPage.includes(page)){
-    localStorage.setItem("redirectAfterLogin", page);
-    alert("Harap login terlebih dahulu untuk akses fitur tersebut!");
-    window.location.href = "login.html";
-    return;
+
+function trackBelajar(mapel) {
+  let data = JSON.parse(localStorage.getItem("riwayatBelajar")) || [];
+
+  // tambah data baru ke depan
+  data.unshift({
+    mapel: mapel,
+    waktu: new Date().toLocaleString("id-ID")
+  });
+
+  // batasi max 10 riwayat (biar gak numpuk)
+  if (data.length > 10) {
+    data = data.slice(0, 10);
   }
-  window.location.href = page;
+
+  localStorage.setItem("riwayatBelajar", JSON.stringify(data));
 }
 
-function logout(){
-  firebase.auth().signOut().then(()=>{ window.location.href = "login.html"; });
+function loadRiwayatBelajar() {
+  const box = document.getElementById("riwayatList");
+  if (!box) return;
+
+  const data = JSON.parse(localStorage.getItem("riwayatBelajar")) || [];
+
+  if (data.length === 0) {
+    box.innerHTML = `<div class="about-box">Belum ada riwayat belajar</div>`;
+    return;
+  }
+
+  let html = "";
+
+  data.forEach(item => {
+    html += `
+      <div class="about-box">
+        <h3>${item.mapel}</h3>
+        <p style="opacity:0.7;font-size:13px">${item.waktu}</p>
+      </div>
+    `;
+  });
+
+  box.innerHTML = html;
 }
-function goLogin(){ window.location.href = "login.html"; }
-function goNita(){ window.location.href = "nita.html"; }
+
 </script>
 </body>
 </html>
