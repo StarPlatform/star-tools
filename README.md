@@ -1,2 +1,2 @@
-#star tools school 
-Web sederhana untuk menyelesaikan masalah matematika 
+STools
+Website atau aplikasi untuk pendidikan digital
