@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Total Nilai - Star Tools</title>
+<title>Hitung Nilai Rata - Star Tools</title>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
@@ -67,36 +67,17 @@
     color: #64748B;
   }
 
-  body.dark .table-wrap {
-    border-color: #334155;
+  body.dark .result-box {
+    background: #0F172A;
   }
 
-  body.dark .table-wrap table th {
-    background: #1E293B;
-    color: #F1F5F9;
-    border-color: #334155;
-  }
-
-  body.dark .table-wrap table td {
+  body.dark .result-text {
     color: #E2E8F0;
-    border-color: #334155;
   }
 
   body.dark .footer-app {
     color: #94A3B8;
     border-top-color: #1E293B;
-  }
-
-  body.dark .rank-1 {
-    color: #FBBF24;
-  }
-
-  body.dark .rank-2 {
-    color: #94A3B8;
-  }
-
-  body.dark .rank-3 {
-    color: #CD7F32;
   }
 
   .app-container {
@@ -329,7 +310,7 @@
     border: 1px solid #E2E8F0;
     color: #0F172A;
     padding: 12px;
-    margin: 2px 0;
+    margin: 0px 0;
     width: 100%;
     border-radius: 12px;
     cursor: pointer;
@@ -398,7 +379,7 @@
     font-size: 12px;
     width: auto;
     display: inline-flex;
-    margin: 2px 0;
+    margin: 4px 0;
   }
 
   .input-modern {
@@ -432,50 +413,64 @@
     color: #64748B;
   }
 
-  .input-group {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-  .input-group .input-modern {
-    flex: 1;
-    margin-bottom: 0;
-  }
-
-  .table-wrap {
-    border: 1px solid #E2E8F0;
-    border-radius: 14px;
-    overflow: hidden;
-    margin-top: 8px;
-  }
-
-  .table-wrap table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
-  .table-wrap table th {
-    padding: 10px 12px;
-    border: 1px solid #E2E8F0;
-    font-weight: 700;
-    text-align: center;
+  .result-box {
     background: #F8FAFE;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-top: 8px;
+    min-height: 40px;
   }
 
-  body.dark .table-wrap table th {
-    background: #1E293B;
+  body.dark .result-box {
+    background: #0F172A;
   }
 
-  .table-wrap table td {
-    padding: 10px 12px;
-    border: 1px solid #E2E8F0;
+  .result-text {
+    color: #0F172A;
+    font-size: 14px;
+    white-space: pre-line;
+  }
+
+  body.dark .result-text {
+    color: #E2E8F0;
+  }
+
+  .text-muted {
+    color: #64748B;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  body.dark .text-muted {
+    color: #94A3B8;
+  }
+
+  .text-center {
     text-align: center;
   }
 
-  .table-wrap table tr:last-child td {
-    border-bottom: none;
+  .text-success {
+    color: #059669;
+  }
+
+  .text-danger {
+    color: #DC2626;
+  }
+
+  .text-primary {
+    color: #2563EB;
+  }
+
+  .text-warning {
+    color: #D97706;
+  }
+
+  .footer-app {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: #64748B;
+    border-top: 1px solid #E2E8F0;
   }
 
   .flex {
@@ -486,8 +481,24 @@
     gap: 8px;
   }
 
+  .gap-12 {
+    gap: 12px;
+  }
+
+  .items-center {
+    align-items: center;
+  }
+
+  .justify-between {
+    justify-content: space-between;
+  }
+
   .flex-wrap {
     flex-wrap: wrap;
+  }
+
+  .flex-1 {
+    flex: 1;
   }
 
   .mt-8 {
@@ -498,37 +509,27 @@
     margin-top: 12px;
   }
 
-  .text-center {
-    text-align: center;
+  .mt-16 {
+    margin-top: 16px;
   }
 
-  .text-muted {
-    color: #64748B;
-    font-size: 13px;
+  .hidden {
+    display: none !important;
   }
 
-  body.dark .text-muted {
-    color: #94A3B8;
+  .mapel-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
   }
 
-  .rank-1 {
-    color: #FBBF24;
+  .mapel-row .input-modern {
+    flex: 1;
+    margin-bottom: 0;
   }
 
-  .rank-2 {
-    color: #94A3B8;
-  }
-
-  .rank-3 {
-    color: #CD7F32;
-  }
-
-  .footer-app {
-    text-align: center;
-    padding: 20px;
-    font-size: 12px;
-    color: #64748B;
-    border-top: 1px solid #E2E8F0;
+  .mapel-row .input-modern:first-child {
+    flex: 0.7;
   }
 
   .alert-overlay {
@@ -580,8 +581,50 @@
     color: #94A3B8;
   }
 
-  .hidden {
-    display: none !important;
+  .hasil-box {
+    background: #F8FAFE;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 8px;
+  }
+
+  body.dark .hasil-box {
+    background: #0F172A;
+  }
+
+  .hasil-box .hasil-nama {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .hasil-box .hasil-rata {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2563EB;
+  }
+
+  .hasil-box .hasil-status {
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .hasil-box .hasil-status.lulus {
+    color: #059669;
+  }
+
+  .hasil-box .hasil-status.tidak {
+    color: #DC2626;
+  }
+
+  .hasil-box hr {
+    border: 1px solid #E2E8F0;
+    margin: 8px 0;
+  }
+
+  body.dark .hasil-box hr {
+    border-color: #334155;
   }
 </style>
 </head>
@@ -597,7 +640,7 @@
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </div>
-      <span class="app-title">Star Tools • Total</span>
+      <span class="app-title">Star Tools • Rata</span>
     </div>
     <button class="close-btn" onclick="goBack()" aria-label="Kembali">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -638,64 +681,54 @@
     <div class="card-modern">
       <div class="section-title">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="16"/>
-          <line x1="8" y1="12" x2="16" y2="12"/>
+          <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+          <polyline points="2 17 12 22 22 17"/>
+          <polyline points="2 12 12 17 22 12"/>
         </svg>
-        Hitung Nilai Utama & Tambahan
+        Hitung Nilai Rata-rata
       </div>
-      <p class="text-muted">Gabungkan nilai utama dan nilai tambahan, lalu lihat peringkatnya secara otomatis.</p>
+      <p class="text-muted">Hitung nilai rata-rata siswa dengan mudah. Masukkan jumlah mapel, isi nama dan nilai, lalu lihat hasilnya.</p>
     </div>
 
-    <!-- Input Nilai -->
-    <div class="card-modern">
-      <div class="section-title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-          <line x1="8" y1="21" x2="16" y2="21"/>
-          <line x1="12" y1="17" x2="12" y2="21"/>
-        </svg>
-        Input Nilai
-      </div>
-      <input id="namaMuridNilai" class="input-modern" placeholder="Nama Murid">
-      <input id="nilaiUtama" class="input-modern" type="number" placeholder="Nilai Utama">
-      <input id="nilaiTambahan" class="input-modern" type="number" placeholder="Nilai Tambahan">
-      
-      <div style="display:flex; justify-content:center; margin-top:4px;">
-        <button class="btn-modern primary btn-sm" onclick="simpanNilai()" style="width:auto; padding:8px 24px;">Simpan</button>
+    <!-- STEP 1: Jumlah Mapel -->
+    <div id="step1">
+      <div class="card-modern">
+        <div class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          Jumlah Mata Pelajaran
+        </div>
+        <p class="text-muted">Masukkan jumlah mata pelajaran</p>
+        <input id="jumlahInput" class="input-modern" type="number" placeholder="Contoh: 5" min="3" max="15">
+        <button class="btn-modern primary" onclick="lanjutInput()">Lanjut</button>
       </div>
     </div>
 
-    <!-- Tombol Aksi -->
-    <div class="card-modern">
-      <div class="flex gap-8 flex-wrap">
-        <button class="btn-modern danger btn-sm" onclick="resetNilai()" style="flex:1;">Reset Semua</button>
-      </div>
-    </div>
-
-    <!-- Tabel Ranking -->
-    <div class="card-modern">
-      <div class="section-title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M3 3v18h18"/>
-          <path d="M7 14l4-4 4 4 4-4"/>
-          <path d="M7 10l4 4 4-4 4 4"/>
-        </svg>
-        Ranking Nilai
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Nama</th>
-              <th>Utama</th>
-              <th>Tambahan</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody id="tabelNilai"></tbody>
-        </table>
+    <!-- STEP 2: Input Nilai -->
+    <div id="step2" class="hidden">
+      <div class="card-modern">
+        <div class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          Input Nilai Rapot
+        </div>
+        <input id="namaSiswa" class="input-modern" placeholder="Nama Siswa">
+        <div id="inputMapel"></div>
+        <div id="hasilRapot"></div>
+        
+        <div class="flex gap-8 flex-wrap">
+          <button class="btn-modern primary" onclick="hitungRapot()">Hitung Nilai</button>
+          <button class="btn-modern primary" onclick="copyHasil()">Salin Hasil</button>
+          <button class="btn-modern primary" onclick="kirimKeRanking()">Kirim ke Ranking</button>
+          <button class="btn-modern primary" onclick="goRanking()">Lihat Ranking</button>
+          <button class="btn-modern primary" onclick="resetGuru()">Reset Nilai</button>
+          <button class="btn-modern success" onclick="kembaliJumlah()">Kembali</button>
+        </div>
       </div>
     </div>
   </div>
@@ -729,6 +762,7 @@ if (!firebase.apps.length) {
 const db = firebase.database();
 
 let currentUser = null;
+let lastRapot = null;
 
 // ==================== AUTH ====================
 firebase.auth().onAuthStateChanged(user => {
@@ -792,87 +826,161 @@ function closeAlertGlobal() {
   document.getElementById('globalAlert').style.display = 'none';
 }
 
-// ==================== NILAI FUNCTIONS ====================
+// ==================== RAPOT FUNCTIONS ====================
 
-// SIMPAN NILAI
-function simpanNilai() {
-  const nama = document.getElementById('namaMuridNilai').value.trim();
-  const utama = Number(document.getElementById('nilaiUtama').value);
-  const tambahan = Number(document.getElementById('nilaiTambahan').value);
-
-  if (!nama || isNaN(utama) || isNaN(tambahan)) {
-    showAlert('Data Kurang', 'Harap isi semua data dengan benar!');
+// LANJUT KE STEP 2
+function lanjutInput() {
+  const jumlah = parseInt(document.getElementById('jumlahInput').value);
+  if (!jumlah || jumlah < 3 || jumlah > 15) {
+    showAlert('Error', 'Minimal 3 dan maksimal 15 mapel!');
     return;
   }
 
-  if (utama < 0 || utama > 100 || tambahan < 0 || tambahan > 100) {
-    showAlert('Error', 'Nilai harus antara 0 - 100!');
-    return;
-  }
+  document.getElementById('step1').classList.add('hidden');
+  document.getElementById('step2').classList.remove('hidden');
 
-  const total = utama + tambahan;
+  const container = document.getElementById('inputMapel');
+  container.innerHTML = '';
 
-  let data = JSON.parse(localStorage.getItem('nilaiSiswa') || '{}');
-
-  data[nama] = {
-    nama,
-    utama,
-    tambahan,
-    total
-  };
-
-  localStorage.setItem('nilaiSiswa', JSON.stringify(data));
-
-  document.getElementById('namaMuridNilai').value = '';
-  document.getElementById('nilaiUtama').value = '';
-  document.getElementById('nilaiTambahan').value = '';
-
-  loadNilai();
-  showAlert('Berhasil', 'Data nilai berhasil disimpan!');
-}
-
-// LOAD NILAI
-function loadNilai() {
-  const box = document.getElementById('tabelNilai');
-  let data = JSON.parse(localStorage.getItem('nilaiSiswa') || '{}');
-  let arr = Object.values(data);
-
-  if (arr.length === 0) {
-    box.innerHTML = `<tr><td colspan="5" style="padding:20px; color:#94A3B8; text-align:center;">Belum ada data nilai</td></tr>`;
-    return;
-  }
-
-  arr.sort((a, b) => b.total - a.total);
-
-  let html = '';
-  arr.forEach((d, i) => {
-    let badge = '';
-    let rankClass = '';
-    if (i === 0) { badge = '🥇'; rankClass = 'rank-1'; }
-    else if (i === 1) { badge = '🥈'; rankClass = 'rank-2'; }
-    else if (i === 2) { badge = '🥉'; rankClass = 'rank-3'; }
-    else { badge = (i + 1); }
-
-    html += `
-      <tr>
-        <td class="${rankClass}" style="font-weight:700;">${badge}</td>
-        <td style="font-weight:500;">${d.nama}</td>
-        <td>${d.utama}</td>
-        <td>${d.tambahan}</td>
-        <td style="font-weight:700; color:#2563EB;">${d.total}</td>
-      </tr>
+  for (let i = 1; i <= jumlah; i++) {
+    container.innerHTML += `
+      <div class="mapel-row">
+        <input type="text" class="input-modern namaMapel" placeholder="Mapel ${i}">
+        <input type="number" class="input-modern nilaiMapel" placeholder="Nilai ${i}">
+      </div>
     `;
-  });
-
-  box.innerHTML = html;
+  }
 }
 
-// RESET NILAI
-function resetNilai() {
-  if (!confirm('Yakin ingin menghapus semua data nilai?')) return;
-  localStorage.removeItem('nilaiSiswa');
-  loadNilai();
-  showAlert('Berhasil', 'Semua data nilai berhasil dihapus!');
+// KEMBALI KE STEP 1
+function kembaliJumlah() {
+  document.getElementById('step1').classList.remove('hidden');
+  document.getElementById('step2').classList.add('hidden');
+  document.getElementById('inputMapel').innerHTML = '';
+  document.getElementById('hasilRapot').innerHTML = '';
+  document.getElementById('namaSiswa').value = '';
+  lastRapot = null;
+}
+
+// HITUNG RAPOT
+function hitungRapot() {
+  const nama = document.getElementById('namaSiswa').value.trim();
+  const nilaiInputs = document.querySelectorAll('.nilaiMapel');
+  const mapelInputs = document.querySelectorAll('.namaMapel');
+
+  if (!nama) {
+    showAlert('Data Kurang', 'Harap isi nama siswa terlebih dahulu!');
+    return;
+  }
+
+  if (nilaiInputs.length === 0) {
+    showAlert('Error', 'Belum ada mapel!');
+    return;
+  }
+
+  let total = 0;
+  let detailHTML = '';
+  let detailText = '';
+
+  for (let i = 0; i < nilaiInputs.length; i++) {
+    const nilai = parseFloat(nilaiInputs[i].value);
+    const mapel = mapelInputs[i].value.trim() || `Mapel ${i + 1}`;
+
+    if (isNaN(nilai) || nilai < 0 || nilai > 100) {
+      showAlert('Error', `${mapel} harus 0 - 100`);
+      return;
+    }
+
+    total += nilai;
+    detailHTML += `
+      <div class="flex justify-between" style="padding:4px 0;">
+        <span>${mapel}</span>
+        <span>${nilai}</span>
+      </div>
+    `;
+    detailText += `${mapel}: ${nilai}\n`;
+  }
+
+  const rata = total / nilaiInputs.length;
+  const status = rata >= 75 ? 'LULUS' : 'TIDAK LULUS';
+  const statusClass = rata >= 75 ? 'lulus' : 'tidak';
+
+  document.getElementById('hasilRapot').innerHTML = `
+    <div class="hasil-box">
+      <div style="font-size:13px; color:#64748B; margin-bottom:4px;">Hasil Perhitungan</div>
+      <div class="hasil-nama">${nama}</div>
+      <hr>
+      ${detailHTML}
+      <hr>
+      <div class="text-center" style="margin-top:8px;">
+        <div style="font-size:14px; color:#64748B;">Rata-rata</div>
+        <div class="hasil-rata">${rata.toFixed(2)}</div>
+        <div class="hasil-status ${statusClass}">${status}</div>
+      </div>
+    </div>
+  `;
+
+  lastRapot = { nama, rata };
+  localStorage.setItem('lastRapot', JSON.stringify(lastRapot));
+}
+
+// RESET
+function resetGuru() {
+  document.getElementById('namaSiswa').value = '';
+  document.querySelectorAll('.nilaiMapel').forEach(i => i.value = '');
+  document.querySelectorAll('.namaMapel').forEach(i => i.value = '');
+  document.getElementById('hasilRapot').innerHTML = '';
+  lastRapot = null;
+}
+
+// COPY
+function copyHasil() {
+  const data = lastRapot || JSON.parse(localStorage.getItem('lastRapot'));
+  if (!data) {
+    showAlert('Belum Ada Hasil', 'Tidak ada hasil untuk disalin.');
+    return;
+  }
+
+  const text = `Nama: ${data.nama}\nRata-rata: ${data.rata.toFixed(2)}`;
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text)
+      .then(() => showAlert('Berhasil', 'Hasil berhasil disalin ke clipboard!'))
+      .catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+  showAlert('Berhasil', 'Hasil berhasil disalin!');
+}
+
+// KIRIM KE RANKING
+function kirimKeRanking() {
+  let data = lastRapot || JSON.parse(localStorage.getItem('lastRapot'));
+  if (!data) {
+    showAlert('Belum Ada Hasil', 'Tidak ada hasil rapot untuk dikirim!');
+    return;
+  }
+
+  let ranking = JSON.parse(localStorage.getItem('rankingData') || '[]');
+  ranking.push({ nama: data.nama, nilai: data.rata });
+  ranking.sort((a, b) => b.nilai - a.nilai);
+  localStorage.setItem('rankingData', JSON.stringify(ranking));
+
+  showAlert('Berhasil', 'Data berhasil masuk ke tabel ranking!');
+}
+
+// PERGI KE RANKING
+function goRanking() {
+  window.location.href = 'ranking.html';
 }
 
 // ==================== THEME ====================
@@ -880,20 +988,19 @@ if (localStorage.getItem('themeEkonomi') === 'dark') {
   document.body.classList.add('dark');
 }
 
-// ==================== AUTO LOAD ====================
-document.addEventListener('DOMContentLoaded', function() {
-  loadNilai();
-});
-
 // ==================== EXPOSE GLOBAL ====================
 window.openSidebar = openSidebar;
 window.closeSidebar = closeSidebar;
 window.goTo = goTo;
 window.logoutAction = logoutAction;
 window.goBack = goBack;
-window.simpanNilai = simpanNilai;
-window.loadNilai = loadNilai;
-window.resetNilai = resetNilai;
+window.lanjutInput = lanjutInput;
+window.kembaliJumlah = kembaliJumlah;
+window.hitungRapot = hitungRapot;
+window.resetGuru = resetGuru;
+window.copyHasil = copyHasil;
+window.kirimKeRanking = kirimKeRanking;
+window.goRanking = goRanking;
 window.showAlert = showAlert;
 window.closeAlertGlobal = closeAlertGlobal;
 </script>

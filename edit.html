@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Edit Tugas - Star Tools</title>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: #F1F5F9;
+    color: #0F172A;
+  }
+
+  body.dark {
+    background: #0B1120;
+    color: #F1F5F9;
+  }
+
+  body.dark .app-header,
+  body.dark .sidebar-nav,
+  body.dark .card,
+  body.dark .link-box,
+  body.dark .jawaban-item,
+  body.dark .modal-content {
+    background: #111827;
+    border-color: #1E293B;
+  }
+
+  body.dark .input-field {
+    background: #1E293B;
+    border-color: #334155;
+    color: #F1F5F9;
+  }
+
+  body.dark .input-field::placeholder {
+    color: #64748B;
+  }
+
+  body.dark .file-upload {
+    border-color: #334155;
+  }
+
+  body.dark .file-preview {
+    background: #1E293B;
+  }
+
+  body.dark .btn-secondary {
+    background: #334155;
+    color: #F1F5F9;
+  }
+
+  body.dark .jawaban-item .status-badge.selesai {
+    background: #064E3B;
+    color: #6EE7B7;
+  }
+
+  body.dark .jawaban-item .status-badge.habis {
+    background: #7F1D1D;
+    color: #FCA5A5;
+  }
+
+  body.dark .jawaban-item .meta {
+    color: #94A3B8;
+  }
+
+  body.dark .btn-save:disabled {
+    background: #334155;
+    color: #94A3B8;
+  }
+
+  body.dark .custom-alert-box {
+    background: #111827;
+  }
+
+  body.dark .custom-alert-box .alert-title {
+    color: #F1F5F9;
+  }
+
+  body.dark .custom-alert-box .alert-message {
+    color: #94A3B8;
+  }
+
+  body.dark .custom-alert-box .alert-btn-secondary {
+    background: #334155;
+    color: #F1F5F9;
+  }
+
+  body.dark .modal-body .label {
+    color: #94A3B8;
+  }
+
+  body.dark .modal-body .value {
+    color: #F1F5F9;
+  }
+
+  body.dark .jawaban-item .nama {
+    color: #F1F5F9;
+  }
+
+  .app-container {
+    max-width: 560px;
+    margin: 0 auto;
+    background: #F1F5F9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body.dark .app-container {
+    background: #0B1120;
+  }
+
+  .app-header {
+    background: #FFFFFF;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #E2E8F0;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    flex-shrink: 0;
+  }
+
+  body.dark .app-header {
+    background: #111827;
+    border-bottom-color: #1E293B;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .menu-icon {
+    width: 40px;
+    height: 40px;
+    background: #F8FAFE;
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid #E2E8F0;
+    flex-shrink: 0;
+  }
+
+  body.dark .menu-icon {
+    background: #1E293B;
+    border-color: #334155;
+  }
+
+  .menu-icon svg {
+    stroke: #0F172A;
+  }
+
+  body.dark .menu-icon svg {
+    stroke: #F1F5F9;
+  }
+
+  .app-title {
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.3px;
+    background: linear-gradient(135deg, #2563EB, #60A5FA);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    white-space: nowrap;
+  }
+
+  .header-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #0F172A;
+    font-weight: 500;
+    font-size: 14px;
+    border: none;
+    background: none;
+    padding: 4px 8px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  body.dark .back-btn {
+    color: #F1F5F9;
+  }
+
+  .back-btn svg {
+    stroke: #0F172A;
+    width: 20px;
+    height: 20px;
+  }
+
+  body.dark .back-btn svg {
+    stroke: #F1F5F9;
+  }
+
+  .back-btn:active {
+    transform: scale(0.95);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.25s;
+  }
+
+  .sidebar-overlay.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .sidebar-nav {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100%;
+    background: #FFFFFF;
+    z-index: 101;
+    transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    padding: 70px 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+
+  body.dark .sidebar-nav {
+    background: #111827;
+  }
+
+  .sidebar-nav.active {
+    left: 0;
+  }
+
+  .sidebar-nav a {
+    padding: 14px 18px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 18px;
+    text-decoration: none;
+    color: #0F172A;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+  }
+
+  body.dark .sidebar-nav a {
+    color: #F1F5F9;
+  }
+
+  .sidebar-nav a:active {
+    background: #DBEAFE;
+  }
+
+  body.dark .sidebar-nav a:active {
+    background: #1E293B;
+  }
+
+  .sidebar-nav a svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+  }
+
+  .logout-link {
+    margin-top: 20px;
+    border-top: 1px solid #E2E8F0;
+    padding-top: 16px;
+  }
+
+  body.dark .logout-link {
+    border-top-color: #334155;
+  }
+
+  .logout-link a {
+    color: #DC2626 !important;
+  }
+
+  .logout-link a svg {
+    stroke: #DC2626;
+  }
+
+  .close-sidebar-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+  }
+
+  .close-sidebar-icon svg {
+    stroke: #0F172A;
+  }
+
+  body.dark .close-sidebar-icon svg {
+    stroke: #F1F5F9;
+  }
+
+  .page-container {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    padding-bottom: 30px;
+  }
+
+  .card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid #E2E8F0;
+  }
+
+  body.dark .card {
+    background: #111827;
+    border-color: #1E293B;
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-sub {
+    font-size: 14px;
+    color: #64748B;
+    margin-bottom: 12px;
+  }
+
+  body.dark .card-sub {
+    color: #94A3B8;
+  }
+
+  .card-title svg {
+    width: 20px;
+    height: 20px;
+    stroke: #2563EB;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    background: #FFFFFF;
+    color: #0F172A;
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+  body.dark .input-field {
+    background: #1E293B;
+    border-color: #334155;
+    color: #F1F5F9;
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: #2563EB;
+  }
+
+  .input-field::placeholder {
+    color: #94A3B8;
+  }
+
+  .input-field:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  textarea.input-field {
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  .input-group {
+    margin-bottom: 12px;
+  }
+
+  .input-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 4px;
+  }
+
+  body.dark .input-group label {
+    color: #94A3B8;
+  }
+
+  .file-upload {
+    border: 2px dashed #E2E8F0;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: #94A3B8;
+    transition: 0.2s;
+  }
+
+  body.dark .file-upload {
+    border-color: #334155;
+  }
+
+  .file-upload.has-file {
+    border-color: #34D399;
+  }
+
+  .file-upload:active {
+    transform: scale(0.97);
+  }
+
+  .file-upload svg {
+    width: 28px;
+    height: 28px;
+    stroke: #94A3B8;
+    display: block;
+    margin: 0 auto 4px;
+  }
+
+  .file-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: #F1F5F9;
+    border-radius: 8px;
+    margin-top: 6px;
+    font-size: 13px;
+  }
+
+  body.dark .file-preview {
+    background: #1E293B;
+  }
+
+  .file-preview .remove {
+    color: #DC2626;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .file-exists {
+    font-size: 12px;
+    color: #64748B;
+    margin-top: 4px;
+  }
+
+  body.dark .file-exists {
+    color: #94A3B8;
+  }
+
+  .link-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #F1F5F9;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #E2E8F0;
+    margin-top: 6px;
+  }
+
+  body.dark .link-box {
+    background: #1E293B;
+    border-color: #334155;
+  }
+
+  .link-box .link-text {
+    flex: 1;
+    font-size: 13px;
+    color: #2563EB;
+    word-break: break-all;
+    font-weight: 500;
+  }
+
+  body.dark .link-box .link-text {
+    color: #60A5FA;
+  }
+
+  .link-box .copy-btn {
+    background: #E2E8F0;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #0F172A;
+    flex-shrink: 0;
+  }
+
+  body.dark .link-box .copy-btn {
+    background: #334155;
+    color: #F1F5F9;
+  }
+
+  .link-box .copy-btn:active {
+    transform: scale(0.95);
+  }
+
+  .btn-save {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #2563EB;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-save:active {
+    transform: scale(0.97);
+  }
+
+  .btn-save:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: #94A3B8;
+  }
+
+  body.dark .btn-save:disabled {
+    background: #334155;
+    color: #94A3B8;
+  }
+
+  .btn-save .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+
+  .btn-save.loading .spinner {
+    display: block;
+  }
+
+  .btn-save.loading .btn-text {
+    display: none;
+  }
+
+  .btn-save.loading .btn-text-loading {
+    display: inline;
+  }
+
+  .btn-text-loading {
+    display: none;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .btn-save.btn-danger {
+    background: #DC2626;
+  }
+
+  .btn-save.btn-danger:active {
+    background: #B91C1C;
+  }
+
+  .btn-save.btn-secondary {
+    background: #E2E8F0;
+    color: #0F172A;
+  }
+
+  body.dark .btn-save.btn-secondary {
+    background: #334155;
+    color: #F1F5F9;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-row .btn-save {
+    flex: 1;
+  }
+
+  /* ===== JAWABAN ITEM ===== */
+  .jawaban-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    background: #F1F5F9;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  body.dark .jawaban-item {
+    background: #1E293B;
+    border-color: #334155;
+  }
+
+  .jawaban-item:active {
+    transform: scale(0.97);
+  }
+
+  .jawaban-item .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .jawaban-item .left .nama {
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .jawaban-item .status-badge {
+    font-size: 10px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .jawaban-item .status-badge.selesai {
+    background: #D1FAE5;
+    color: #065F46;
+  }
+
+  .jawaban-item .status-badge.habis {
+    background: #FEE2E2;
+    color: #991B1B;
+  }
+
+  .jawaban-item .meta {
+    font-size: 11px;
+    color: #64748B;
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+
+  body.dark .jawaban-item .meta {
+    color: #94A3B8;
+  }
+
+  .jawaban-item .arrow {
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+
+  .jawaban-item .arrow svg {
+    width: 16px;
+    height: 16px;
+    stroke: #94A3B8;
+  }
+
+  .jawaban-empty {
+    text-align: center;
+    padding: 20px 0;
+    color: #94A3B8;
+    font-size: 14px;
+  }
+
+  .jawaban-empty svg {
+    width: 40px;
+    height: 40px;
+    stroke: #94A3B8;
+    margin-bottom: 8px;
+  }
+
+  /* ===== MODAL DETAIL JAWABAN ===== */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 300;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal-content {
+    background: #FFFFFF;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    border: 1px solid #E2E8F0;
+    position: relative;
+  }
+
+  body.dark .modal-content {
+    background: #111827;
+    border-color: #1E293B;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #64748B;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+
+  body.dark .modal-close {
+    color: #94A3B8;
+  }
+
+  .modal-close:active {
+    transform: scale(0.95);
+  }
+
+  .modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .modal-sub {
+    font-size: 13px;
+    color: #94A3B8;
+    margin-bottom: 16px;
+  }
+
+  .modal-body .row {
+    margin-bottom: 12px;
+  }
+
+  .modal-body .row:last-child {
+    margin-bottom: 0;
+  }
+
+  .modal-body .label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94A3B8;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .modal-body .value {
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .modal-body .foto-jawaban {
+    margin-top: 8px;
+  }
+
+  .modal-body .foto-jawaban img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  /* ===== CUSTOM ALERT ===== */
+  .custom-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: customAlertFadeIn 0.3s ease;
+  }
+
+  .custom-alert-overlay.active {
+    display: flex;
+  }
+
+  @keyframes customAlertFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .custom-alert-box {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 28px 24px 24px;
+    max-width: 360px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid #E2E8F0;
+    position: relative;
+  }
+
+  .custom-alert-box .alert-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+  }
+
+  .custom-alert-box .alert-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: white;
+  }
+
+  .custom-alert-box .alert-icon.success {
+    background: #059669;
+  }
+
+  .custom-alert-box .alert-icon.error {
+    background: #DC2626;
+  }
+
+  .custom-alert-box .alert-icon.warning {
+    background: #D97706;
+  }
+
+  .custom-alert-box .alert-icon.info {
+    background: #2563EB;
+  }
+
+  .custom-alert-box .alert-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 4px;
+  }
+
+  .custom-alert-box .alert-message {
+    font-size: 14px;
+    color: #64748B;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .custom-alert-box .alert-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: white;
+  }
+
+  .custom-alert-box .alert-btn:active {
+    transform: scale(0.97);
+  }
+
+  .custom-alert-box .alert-btn.success {
+    background: #059669;
+  }
+
+  .custom-alert-box .alert-btn.error {
+    background: #DC2626;
+  }
+
+  .custom-alert-box .alert-btn.warning {
+    background: #D97706;
+  }
+
+  .custom-alert-box .alert-btn.info {
+    background: #2563EB;
+  }
+
+  .custom-alert-box .alert-btn-secondary {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+    background: #E2E8F0;
+    color: #0F172A;
+    margin-top: 8px;
+  }
+
+  body.dark .custom-alert-box .alert-btn-secondary {
+    background: #334155;
+    color: #F1F5F9;
+  }
+
+  .custom-alert-box .alert-btn-secondary:active {
+    transform: scale(0.97);
+  }
+
+  .footer-app {
+    text-align: center;
+    padding: 16px;
+    font-size: 12px;
+    color: #64748B;
+    border-top: 1px solid #E2E8F0;
+    flex-shrink: 0;
+  }
+
+  body.dark .footer-app {
+    color: #94A3B8;
+    border-top-color: #1E293B;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #1E293B;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 999;
+    border-left: 4px solid #2563EB;
+    max-width: 90%;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .toast.error {
+    border-left-color: #DC2626;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .loading-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #94A3B8;
+  }
+
+  .loading-state .spin {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #E2E8F0;
+    border-top-color: #2563EB;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+  }
+
+  .not-found {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .not-found svg {
+    width: 48px;
+    height: 48px;
+    stroke: #94A3B8;
+    margin-bottom: 12px;
+  }
+
+  .not-found h3 {
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+
+  .not-found p {
+    color: #94A3B8;
+    font-size: 14px;
+  }
+
+  .not-found .btn {
+    margin-top: 16px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: #2563EB;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .not-found .btn:active {
+    transform: scale(0.97);
+  }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- HEADER -->
+  <div class="app-header">
+    <div class="logo-area">
+      <div class="menu-icon" onclick="openSidebar()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </div>
+      <span class="app-title">Star Tools</span>
+    </div>
+    <div class="header-action">
+      <button class="back-btn" onclick="goTo('daftar-tugas.html')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        <span>Daftar Tugas</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <div class="sidebar-nav" id="sidebarNav">
+    <div class="close-sidebar-icon" onclick="closeSidebar()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </div>
+    <a href="#" onclick="goTo('index.html')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg> Utama
+    </a>
+    <a href="#" onclick="goTo('berita.html')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
+        <line x1="8" y1="8" x2="16" y2="8"/>
+        <line x1="8" y1="12" x2="16" y2="12"/>
+        <line x1="8" y1="16" x2="12" y2="16"/>
+      </svg> Berita
+    </a>
+    <a href="#" onclick="goTo('premium.html')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg> Premium
+    </a>
+    <a href="#" onclick="goTo('akun.html')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg> Akun
+    </a>
+    <div class="logout-link">
+      <a href="#" onclick="logoutAction()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg> Keluar
+      </a>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-container">
+
+    <!-- LOADING -->
+    <div id="loadingState" class="loading-state">
+      <div class="spin"></div>
+      <div>Memuat tugas...</div>
+    </div>
+
+    <!-- NOT FOUND -->
+    <div id="notFoundState" class="not-found hidden">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+        <line x1="12" y1="17" x2="12" y2="17"/>
+      </svg>
+      <h3>Tugas Tidak Ditemukan</h3>
+      <p>Kode tugas tidak valid atau sudah dihapus.</p>
+      <button class="btn" onclick="goTo('daftar-tugas.html')">Kembali ke Daftar</button>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="mainContent" class="hidden">
+
+      <!-- INFO TUGAS -->
+      <div class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          Edit Tugas
+        </div>
+        <div class="card-sub" id="tugasInfo">Kode: <span id="tugasKodeDisplay">-</span></div>
+
+        <div class="link-box">
+          <span class="link-text" id="tugasLink">-</span>
+          <button class="copy-btn" onclick="copyLink()">Salin</button>
+        </div>
+      </div>
+
+      <!-- FORM EDIT -->
+      <div class="card">
+        <div class="input-group">
+          <label>Judul Tugas</label>
+          <input type="text" id="editJudul" class="input-field" placeholder="Masukkan judul tugas...">
+        </div>
+
+        <div class="input-group">
+          <label>Deskripsi</label>
+          <textarea id="editDeskripsi" class="input-field" placeholder="Deskripsi tugas..."></textarea>
+        </div>
+
+        <div class="input-group">
+          <label>Durasi Pengerjaan (menit)</label>
+          <input type="number" id="editDurasi" class="input-field" placeholder="60" min="1" max="60" disabled>
+          <div style="font-size:11px;color:#94A3B8;margin-top:4px;">Durasi tidak dapat diubah</div>
+        </div>
+
+        <div class="input-group">
+          <label>Upload Soal (Foto)</label>
+          <div class="file-upload" id="fileUpload" onclick="document.getElementById('fileInput').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <path d="M21 15l-5-5L5 21"/>
+            </svg>
+            Klik untuk upload foto soal
+          </div>
+          <input type="file" id="fileInput" accept="image/*" style="display:none;">
+          <div id="filePreview" class="file-preview hidden">
+            <span id="fileName">file.jpg</span>
+            <span class="remove" onclick="hapusFile()">×</span>
+          </div>
+          <div id="existingFileInfo" class="file-exists hidden">Foto soal tersimpan</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-save" id="btnSimpan" onclick="simpanPerubahan()">
+            <span class="spinner"></span>
+            <span class="btn-text">Simpan</span>
+            <span class="btn-text-loading">Menyimpan...</span>
+          </button>
+          <button class="btn-save btn-secondary" onclick="goTo('daftar-tugas.html')">Batal</button>
+        </div>
+
+        <button class="btn-save btn-danger" id="btnHapus" onclick="konfirmasiHapus()" style="margin-top:10px;">
+          Hapus Tugas
+        </button>
+      </div>
+
+      <!-- DAFTAR JAWABAN -->
+      <div class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          Daftar Pengerja
+          <span style="font-size:12px;font-weight:400;color:#94A3B8;margin-left:auto;" id="totalJawaban">0</span>
+        </div>
+
+        <div id="jawabanContainer">
+          <div class="jawaban-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <div>Belum ada yang mengerjakan</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-app">
+    <p>Star Platform | Star Tools 2026</p>
+  </div>
+</div>
+
+<!-- MODAL DETAIL JAWABAN -->
+<div class="modal-overlay" id="modalJawaban">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModalJawaban()">×</button>
+    <div class="modal-title" id="modalJudul">Detail Jawaban</div>
+    <div class="modal-sub" id="modalSub">-</div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDgr_nHqvpMsiG4lBkYckzxRErkskXj_6E",
+  authDomain: "laporanstartools-c18b2.firebaseapp.com",
+  databaseURL: "https://laporanstartools-c18b2-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "laporanstartools-c18b2",
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.database();
+
+let currentUser = null;
+let tugasData = null;
+let tugasKode = null;
+let fileBase64 = null;
+let existingFileUrl = null;
+let jawabanListener = null;
+
+// ===== AUTH =====
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    currentUser = user;
+    loadTugas();
+  } else {
+    window.location.href = 'login.html';
+  }
+});
+
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+}
+
+// ===== SIDEBAR =====
+function openSidebar() {
+  document.getElementById('sidebarOverlay').classList.add('active');
+  document.getElementById('sidebarNav').classList.add('active');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebarOverlay').classList.remove('active');
+  document.getElementById('sidebarNav').classList.remove('active');
+}
+
+function goTo(page) {
+  window.location.href = page;
+}
+
+function logoutAction() {
+  firebase.auth().signOut().then(function() {
+    window.location.href = 'login.html';
+  });
+}
+
+// ===== LOAD TUGAS =====
+function loadTugas() {
+  var urlParams = new URLSearchParams(window.location.search);
+  tugasKode = urlParams.get('kode');
+
+  if (!tugasKode) {
+    document.getElementById('loadingState').classList.add('hidden');
+    document.getElementById('notFoundState').classList.remove('hidden');
+    return;
+  }
+
+  db.ref('tugas/' + tugasKode).once('value').then(function(snap) {
+    var data = snap.val();
+    document.getElementById('loadingState').classList.add('hidden');
+
+    if (!data) {
+      document.getElementById('notFoundState').classList.remove('hidden');
+      return;
+    }
+
+    if (data.pembuat_id !== currentUser.uid) {
+      showCustomAlert('Anda tidak memiliki akses ke tugas ini!', 'error');
+      document.getElementById('notFoundState').classList.remove('hidden');
+      return;
+    }
+
+    tugasData = data;
+    tampilkanData();
+    document.getElementById('mainContent').classList.remove('hidden');
+
+    loadJawaban();
+
+  }).catch(function(err) {
+    document.getElementById('loadingState').classList.add('hidden');
+    showCustomAlert('Gagal memuat tugas: ' + err.message, 'error');
+    document.getElementById('notFoundState').classList.remove('hidden');
+  });
+}
+
+function tampilkanData() {
+  if (!tugasData) return;
+
+  document.getElementById('tugasKodeDisplay').innerText = tugasData.kode;
+
+  var link = window.location.origin + window.location.pathname.replace('edit.html', 'tugas.html') + '?kode=' + tugasData.kode;
+  document.getElementById('tugasLink').innerText = link;
+
+  document.getElementById('editJudul').value = tugasData.judul || '';
+  document.getElementById('editDeskripsi').value = tugasData.deskripsi || '';
+  document.getElementById('editDurasi').value = tugasData.durasi || 60;
+
+  if (tugasData.foto_soal) {
+    existingFileUrl = tugasData.foto_soal;
+    document.getElementById('existingFileInfo').classList.remove('hidden');
+  }
+}
+
+// ===== LOAD JAWABAN =====
+function loadJawaban() {
+  if (jawabanListener) {
+    jawabanListener.off();
+  }
+
+  jawabanListener = db.ref('tugas/' + tugasKode + '/jawaban');
+  jawabanListener.on('value', function(snap) {
+    var data = snap.val();
+    var container = document.getElementById('jawabanContainer');
+    var total = document.getElementById('totalJawaban');
+
+    if (!data) {
+      total.innerText = '0';
+      container.innerHTML = `
+        <div class="jawaban-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <div>Belum ada yang mengerjakan</div>
+        </div>
+      `;
+      return;
+    }
+
+    var keys = Object.keys(data);
+    total.innerText = keys.length;
+
+    keys.sort(function(a, b) {
+      return data[b].waktu_selesai - data[a].waktu_selesai;
+    });
+
+    var html = '';
+    keys.forEach(function(key) {
+      var item = data[key];
+      var statusClass = item.status === 'selesai' ? 'selesai' : 'habis';
+      var statusText = item.status === 'selesai' ? 'Selesai' : 'Waktu Habis';
+
+      var waktu = '-';
+      if (item.waktu_selesai) {
+        var date = new Date(item.waktu_selesai);
+        waktu = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+      }
+
+      html += `
+        <div class="jawaban-item" onclick="openDetailJawaban('${key}')">
+          <div class="left">
+            <span class="nama">${escapeHtml(item.nama || 'Tidak Diketahui')}</span>
+            <span class="status-badge ${statusClass}">${statusText}</span>
+          </div>
+          <div class="meta">${waktu}</div>
+          <div class="arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  });
+}
+
+// ===== OPEN DETAIL JAWABAN =====
+function openDetailJawaban(key) {
+  db.ref('tugas/' + tugasKode + '/jawaban/' + key).once('value').then(function(snap) {
+    var item = snap.val();
+    if (!item) {
+      showCustomAlert('Data jawaban tidak ditemukan!', 'error');
+      return;
+    }
+
+    var statusText = item.status === 'selesai' ? 'Selesai' : 'Waktu Habis';
+    var statusColor = item.status === 'selesai' ? '#059669' : '#DC2626';
+
+    var waktu = '-';
+    if (item.waktu_selesai) {
+      var date = new Date(item.waktu_selesai);
+      waktu = date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+    }
+
+    var durasi = '-';
+    if (item.waktu_mulai && item.waktu_selesai) {
+      durasi = Math.round((item.waktu_selesai - item.waktu_mulai) / 1000 / 60) + ' menit';
+    }
+
+    var fotoHtml = '';
+    if (item.foto) {
+      fotoHtml = `
+        <div class="row">
+          <div class="label">Foto Jawaban</div>
+          <div class="foto-jawaban">
+            <img src="${item.foto}" alt="Foto Jawaban">
+          </div>
+        </div>
+      `;
+    }
+
+    document.getElementById('modalJudul').innerText = 'Detail Jawaban';
+    document.getElementById('modalSub').innerText = 'Dari: ' + (item.nama || 'Tidak Diketahui');
+
+    document.getElementById('modalBody').innerHTML = `
+      <div class="row">
+        <div class="label">Status</div>
+        <div class="value" style="color:${statusColor};font-weight:600;">${statusText}</div>
+      </div>
+      <div class="row">
+        <div class="label">Waktu Kirim</div>
+        <div class="value">${waktu}</div>
+      </div>
+      <div class="row">
+        <div class="label">Durasi Pengerjaan</div>
+        <div class="value">${durasi}</div>
+      </div>
+      <div class="row">
+        <div class="label">Jawaban</div>
+        <div class="value">${escapeHtml(item.jawaban || 'Tidak ada jawaban')}</div>
+      </div>
+      ${fotoHtml}
+    `;
+
+    document.getElementById('modalJawaban').classList.add('active');
+  });
+}
+
+function closeModalJawaban() {
+  document.getElementById('modalJawaban').classList.remove('active');
+}
+
+// ===== FILE UPLOAD =====
+document.getElementById('fileInput').addEventListener('change', function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('File maksimal 5MB!', 'error');
+    this.value = '';
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(event) {
+    fileBase64 = event.target.result;
+    document.getElementById('fileUpload').classList.add('has-file');
+    document.getElementById('filePreview').classList.remove('hidden');
+    document.getElementById('fileName').innerText = file.name;
+    document.getElementById('existingFileInfo').classList.add('hidden');
+  };
+  reader.readAsDataURL(file);
+});
+
+function hapusFile() {
+  fileBase64 = null;
+  document.getElementById('fileInput').value = '';
+  document.getElementById('fileUpload').classList.remove('has-file');
+  document.getElementById('filePreview').classList.add('hidden');
+  if (existingFileUrl) {
+    document.getElementById('existingFileInfo').classList.remove('hidden');
+  }
+}
+
+function copyLink() {
+  var text = document.getElementById('tugasLink').innerText;
+  navigator.clipboard.writeText(text).then(function() {
+    showToast('Link disalin!');
+  }).catch(function() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Link disalin!');
+  });
+}
+
+// ===== SIMPAN PERUBAHAN =====
+function simpanPerubahan() {
+  var btn = document.getElementById('btnSimpan');
+
+  if (btn.disabled) return;
+
+  var judul = document.getElementById('editJudul').value.trim();
+  var deskripsi = document.getElementById('editDeskripsi').value.trim();
+
+  if (!judul) {
+    showCustomAlert('Judul wajib diisi!', 'warning');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  var updates = {
+    judul: judul,
+    deskripsi: deskripsi || 'Tidak ada deskripsi'
+  };
+
+  if (fileBase64) {
+    updates.foto_soal = fileBase64;
+  } else if (!existingFileUrl) {
+    updates.foto_soal = null;
+  }
+
+  db.ref('tugas/' + tugasKode).update(updates).then(function() {
+    showCustomAlert('Perubahan berhasil disimpan!', 'success');
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    loadTugas();
+  }).catch(function(err) {
+    showCustomAlert('Gagal menyimpan: ' + err.message, 'error');
+    btn.disabled = false;
+    btn.classList.remove('loading');
+  });
+}
+
+// ===== KONFIRMASI HAPUS =====
+function konfirmasiHapus() {
+  showCustomAlertWithConfirm(
+    'Yakin ingin menghapus tugas ini? Tindakan ini tidak dapat dibatalkan!',
+    'warning',
+    'Ya, Hapus',
+    'Batal',
+    function() {
+      // Callback jika tekan Ya
+      hapusTugas();
+    },
+    function() {
+      // Callback jika tekan Batal
+      // Gak ngapa-ngapain
+    }
+  );
+}
+
+// ===== HAPUS TUGAS =====
+function hapusTugas() {
+  var btn = document.getElementById('btnHapus');
+  btn.disabled = true;
+  btn.innerText = 'Menghapus...';
+
+  db.ref('tugas/' + tugasKode).remove().then(function() {
+    showCustomAlert('Tugas berhasil dihapus!', 'success');
+    setTimeout(function() {
+      goTo('daftar-tugas.html');
+    }, 1000);
+  }).catch(function(err) {
+    showCustomAlert('Gagal menghapus: ' + err.message, 'error');
+    btn.disabled = false;
+    btn.innerText = 'Hapus Tugas';
+  });
+}
+
+// ===== CUSTOM ALERT (Single Button) =====
+function showCustomAlert(message, type) {
+  var existing = document.querySelector('.custom-alert-overlay');
+  if (existing) {
+    existing.remove();
+  }
+
+  type = type || 'info';
+
+  var overlay = document.createElement('div');
+  overlay.className = 'custom-alert-overlay active';
+
+  var iconMap = {
+    success: '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+    error: '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+    warning: '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+    info: '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+  };
+
+  var titleMap = {
+    success: 'Berhasil!',
+    error: 'Gagal!',
+    warning: 'Peringatan!',
+    info: 'Informasi'
+  };
+
+  var buttonClass = {
+    success: 'success',
+    error: 'error',
+    warning: 'warning',
+    info: 'info'
+  };
+
+  var box = document.createElement('div');
+  box.className = 'custom-alert-box';
+  box.innerHTML = `
+    <div class="alert-icon ${type}">${iconMap[type] || iconMap.info}</div>
+    <div class="alert-title">${titleMap[type] || 'Informasi'}</div>
+    <div class="alert-message">${message}</div>
+    <button class="alert-btn ${buttonClass[type] || 'info'}" id="customAlertBtn">Mengerti</button>
+  `;
+
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+
+  document.getElementById('customAlertBtn').onclick = function() {
+    overlay.remove();
+  };
+
+  overlay.onclick = function(e) {
+    if (e.target === overlay) {
+      overlay.remove();
+    }
+  };
+}
+
+// ===== CUSTOM ALERT WITH CONFIRM (2 Tombol) =====
+function showCustomAlertWithConfirm(message, type, confirmText, cancelText, onConfirm, onCancel) {
+  var existing = document.querySelector('.custom-alert-overlay');
+  if (existing) {
+    existing.remove();
+  }
+
+  type = type || 'warning';
+  confirmText = confirmText || 'Ya';
+  cancelText = cancelText || 'Batal';
+
+  var overlay = document.createElement('div');
+  overlay.className = 'custom-alert-overlay active';
+
+  var iconMap = {
+    warning: '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+    error: '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+  };
+
+  var titleMap = {
+    warning: 'Peringatan!',
+    error: 'Perhatian!'
+  };
+
+  var buttonClass = {
+    warning: 'warning',
+    error: 'error'
+  };
+
+  var box = document.createElement('div');
+  box.className = 'custom-alert-box';
+  box.innerHTML = `
+    <div class="alert-icon ${type}">${iconMap[type] || iconMap.warning}</div>
+    <div class="alert-title">${titleMap[type] || 'Peringatan!'}</div>
+    <div class="alert-message">${message}</div>
+    <button class="alert-btn ${buttonClass[type] || 'warning'}" id="customAlertConfirmBtn">${confirmText}</button>
+    <button class="alert-btn-secondary" id="customAlertCancelBtn">${cancelText}</button>
+  `;
+
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+
+  document.getElementById('customAlertConfirmBtn').onclick = function() {
+    overlay.remove();
+    if (onConfirm) onConfirm();
+  };
+
+  document.getElementById('customAlertCancelBtn').onclick = function() {
+    overlay.remove();
+    if (onCancel) onCancel();
+  };
+
+  overlay.onclick = function(e) {
+    if (e.target === overlay) {
+      overlay.remove();
+      if (onCancel) onCancel();
+    }
+  };
+}
+
+// ===== TOAST =====
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show';
+  if (type === 'error') t.classList.add('error');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function() { t.classList.remove('show'); }, 2500);
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  var div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ===== KEYBOARD =====
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeSidebar();
+    closeModalJawaban();
+    var alert = document.querySelector('.custom-alert-overlay');
+    if (alert) alert.remove();
+  }
+});
+
+document.getElementById('modalJawaban').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeModalJawaban();
+  }
+});
+</script>
+
+</body>
+</html>

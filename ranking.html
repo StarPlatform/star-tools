@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Total Nilai - Star Tools</title>
+<title>Urutkan Peringkat Murid - Star Tools</title>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
   * {
@@ -498,10 +500,6 @@
     margin-top: 12px;
   }
 
-  .text-center {
-    text-align: center;
-  }
-
   .text-muted {
     color: #64748B;
     font-size: 13px;
@@ -597,7 +595,7 @@
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </div>
-      <span class="app-title">Star Tools • Total</span>
+      <span class="app-title">Star Tools • Ranking</span>
     </div>
     <button class="close-btn" onclick="goBack()" aria-label="Kembali">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -638,16 +636,16 @@
     <div class="card-modern">
       <div class="section-title">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="16"/>
-          <line x1="8" y1="12" x2="16" y2="12"/>
+          <path d="M3 3v18h18"/>
+          <path d="M7 14l4-4 4 4 4-4"/>
+          <path d="M7 10l4 4 4-4 4 4"/>
         </svg>
-        Hitung Nilai Utama & Tambahan
+        Urutkan Peringkat Murid
       </div>
-      <p class="text-muted">Gabungkan nilai utama dan nilai tambahan, lalu lihat peringkatnya secara otomatis.</p>
+      <p class="text-muted">Masukkan nama dan nilai untuk melihat peringkat. Data otomatis diurutkan dari nilai tertinggi.</p>
     </div>
 
-    <!-- Input Nilai -->
+    <!-- Input Manual -->
     <div class="card-modern">
       <div class="section-title">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
@@ -655,21 +653,23 @@
           <line x1="8" y1="21" x2="16" y2="21"/>
           <line x1="12" y1="17" x2="12" y2="21"/>
         </svg>
-        Input Nilai
+        Tambah Data Manual
       </div>
-      <input id="namaMuridNilai" class="input-modern" placeholder="Nama Murid">
-      <input id="nilaiUtama" class="input-modern" type="number" placeholder="Nilai Utama">
-      <input id="nilaiTambahan" class="input-modern" type="number" placeholder="Nilai Tambahan">
-      
-      <div style="display:flex; justify-content:center; margin-top:4px;">
-        <button class="btn-modern primary btn-sm" onclick="simpanNilai()" style="width:auto; padding:8px 24px;">Simpan</button>
+      <div class="input-group">
+        <input id="namaRankManual" class="input-modern" placeholder="Nama Siswa">
+        <input id="nilaiRankManual" class="input-modern" placeholder="Nilai" type="number" style="max-width:100px;">
       </div>
+      <div style="display:flex; justify-content:center; margin-top:10px;">
+      <button class="btn-modern primary btn-sm" onclick="tambahRankingManual()" style="width:auto; padding:8px 20px;">Tambah ke Ranking</button>
     </div>
+   </div>
 
     <!-- Tombol Aksi -->
     <div class="card-modern">
       <div class="flex gap-8 flex-wrap">
-        <button class="btn-modern danger btn-sm" onclick="resetNilai()" style="flex:1;">Reset Semua</button>
+        <button class="btn-modern outline btn-sm" onclick="goRapot()">Lihat Nilai</button>
+        <button class="btn-modern success btn-sm" onclick="exportRankingPDF()">Export PDF</button>
+        <button class="btn-modern danger btn-sm" onclick="resetRanking()">Reset</button>
       </div>
     </div>
 
@@ -681,7 +681,7 @@
           <path d="M7 14l4-4 4 4 4-4"/>
           <path d="M7 10l4 4 4-4 4 4"/>
         </svg>
-        Ranking Nilai
+        Ranking Siswa
       </div>
       <div class="table-wrap">
         <table>
@@ -689,12 +689,10 @@
             <tr>
               <th>Rank</th>
               <th>Nama</th>
-              <th>Utama</th>
-              <th>Tambahan</th>
-              <th>Total</th>
+              <th>Nilai</th>
             </tr>
           </thead>
-          <tbody id="tabelNilai"></tbody>
+          <tbody id="tabelRanking"></tbody>
         </table>
       </div>
     </div>
@@ -769,6 +767,10 @@ function goBack() {
   window.location.href = 'index.html';
 }
 
+function goRapot() {
+  window.location.href = 'rata.html';
+}
+
 // ==================== ALERT ====================
 function showAlert(title, message, showUpgrade) {
   if (showUpgrade === undefined) showUpgrade = false;
@@ -792,60 +794,19 @@ function closeAlertGlobal() {
   document.getElementById('globalAlert').style.display = 'none';
 }
 
-// ==================== NILAI FUNCTIONS ====================
+// ==================== RANKING FUNCTIONS ====================
 
-// SIMPAN NILAI
-function simpanNilai() {
-  const nama = document.getElementById('namaMuridNilai').value.trim();
-  const utama = Number(document.getElementById('nilaiUtama').value);
-  const tambahan = Number(document.getElementById('nilaiTambahan').value);
-
-  if (!nama || isNaN(utama) || isNaN(tambahan)) {
-    showAlert('Data Kurang', 'Harap isi semua data dengan benar!');
+// TAMPIL RANKING
+function tampilRanking() {
+  let data = JSON.parse(localStorage.getItem('rankingData') || '[]');
+  const tbody = document.getElementById('tabelRanking');
+  
+  if (data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="3" style="padding:20px; color:#94A3B8; text-align:center;">Belum ada data ranking</td></tr>`;
     return;
   }
 
-  if (utama < 0 || utama > 100 || tambahan < 0 || tambahan > 100) {
-    showAlert('Error', 'Nilai harus antara 0 - 100!');
-    return;
-  }
-
-  const total = utama + tambahan;
-
-  let data = JSON.parse(localStorage.getItem('nilaiSiswa') || '{}');
-
-  data[nama] = {
-    nama,
-    utama,
-    tambahan,
-    total
-  };
-
-  localStorage.setItem('nilaiSiswa', JSON.stringify(data));
-
-  document.getElementById('namaMuridNilai').value = '';
-  document.getElementById('nilaiUtama').value = '';
-  document.getElementById('nilaiTambahan').value = '';
-
-  loadNilai();
-  showAlert('Berhasil', 'Data nilai berhasil disimpan!');
-}
-
-// LOAD NILAI
-function loadNilai() {
-  const box = document.getElementById('tabelNilai');
-  let data = JSON.parse(localStorage.getItem('nilaiSiswa') || '{}');
-  let arr = Object.values(data);
-
-  if (arr.length === 0) {
-    box.innerHTML = `<tr><td colspan="5" style="padding:20px; color:#94A3B8; text-align:center;">Belum ada data nilai</td></tr>`;
-    return;
-  }
-
-  arr.sort((a, b) => b.total - a.total);
-
-  let html = '';
-  arr.forEach((d, i) => {
+  tbody.innerHTML = data.map((d, i) => {
     let badge = '';
     let rankClass = '';
     if (i === 0) { badge = '🥇'; rankClass = 'rank-1'; }
@@ -853,26 +814,86 @@ function loadNilai() {
     else if (i === 2) { badge = '🥉'; rankClass = 'rank-3'; }
     else { badge = (i + 1); }
 
-    html += `
+    return `
       <tr>
         <td class="${rankClass}" style="font-weight:700;">${badge}</td>
         <td style="font-weight:500;">${d.nama}</td>
-        <td>${d.utama}</td>
-        <td>${d.tambahan}</td>
-        <td style="font-weight:700; color:#2563EB;">${d.total}</td>
+        <td style="font-weight:700;">${d.nilai.toFixed(2)}</td>
       </tr>
     `;
-  });
-
-  box.innerHTML = html;
+  }).join('');
 }
 
-// RESET NILAI
-function resetNilai() {
-  if (!confirm('Yakin ingin menghapus semua data nilai?')) return;
-  localStorage.removeItem('nilaiSiswa');
-  loadNilai();
-  showAlert('Berhasil', 'Semua data nilai berhasil dihapus!');
+// TAMBAH RANKING MANUAL
+function tambahRankingManual() {
+  const nama = document.getElementById('namaRankManual').value.trim();
+  const nilai = parseFloat(document.getElementById('nilaiRankManual').value);
+
+  if (!nama || isNaN(nilai)) {
+    showAlert('Data Kurang', 'Harap isi nama dan nilai terlebih dahulu!');
+    return;
+  }
+
+  let ranking = JSON.parse(localStorage.getItem('rankingData') || '[]');
+  ranking.push({ nama, nilai });
+  ranking.sort((a, b) => b.nilai - a.nilai);
+  localStorage.setItem('rankingData', JSON.stringify(ranking));
+
+  document.getElementById('namaRankManual').value = '';
+  document.getElementById('nilaiRankManual').value = '';
+
+  tampilRanking();
+  showAlert('Berhasil', 'Data berhasil ditambahkan ke ranking!');
+}
+
+// RESET RANKING
+function resetRanking() {
+  if (!confirm('Yakin ingin menghapus semua data ranking?')) return;
+  localStorage.removeItem('rankingData');
+  tampilRanking();
+  showAlert('Berhasil', 'Semua data ranking berhasil dihapus!');
+}
+
+// EXPORT PDF
+function exportRankingPDF() {
+  const data = JSON.parse(localStorage.getItem('rankingData') || '[]');
+  if (data.length === 0) {
+    showAlert('Kosong', 'Tidak ada data ranking untuk diexport.');
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.setTextColor(37, 99, 235);
+  doc.text('Star Tools - Ranking Siswa', 14, 18);
+
+  doc.setFontSize(11);
+  doc.setTextColor(100, 116, 139);
+  doc.text('Diexport: ' + new Date().toLocaleString('id-ID'), 14, 26);
+
+  let y = 38;
+  doc.setFontSize(12);
+  doc.setTextColor(15, 23, 42);
+
+  data.forEach((d, i) => {
+    let rank = i + 1;
+    let line = rank + '. ' + d.nama + ' - ' + d.nilai.toFixed(2);
+    doc.text(line, 14, y);
+    y += 10;
+    if (y > 280) {
+      doc.addPage();
+      y = 20;
+    }
+  });
+
+  doc.setFontSize(9);
+  doc.setTextColor(148, 163, 184);
+  doc.text('Star Platform | Star Tools 2026', 14, doc.internal.pageSize.height - 10);
+
+  doc.save('Ranking_Siswa_Star_Tools.pdf');
+  showAlert('Berhasil', 'File PDF berhasil didownload!');
 }
 
 // ==================== THEME ====================
@@ -882,7 +903,7 @@ if (localStorage.getItem('themeEkonomi') === 'dark') {
 
 // ==================== AUTO LOAD ====================
 document.addEventListener('DOMContentLoaded', function() {
-  loadNilai();
+  tampilRanking();
 });
 
 // ==================== EXPOSE GLOBAL ====================
@@ -891,9 +912,11 @@ window.closeSidebar = closeSidebar;
 window.goTo = goTo;
 window.logoutAction = logoutAction;
 window.goBack = goBack;
-window.simpanNilai = simpanNilai;
-window.loadNilai = loadNilai;
-window.resetNilai = resetNilai;
+window.goRapot = goRapot;
+window.tampilRanking = tampilRanking;
+window.tambahRankingManual = tambahRankingManual;
+window.resetRanking = resetRanking;
+window.exportRankingPDF = exportRankingPDF;
 window.showAlert = showAlert;
 window.closeAlertGlobal = closeAlertGlobal;
 </script>
