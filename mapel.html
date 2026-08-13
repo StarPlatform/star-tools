@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Absensi Digital - Star Tools</title>
 
+<link rel="icon" type="image/png" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
+
+<meta property="og:image" content="https://www.stools.web.id/logo.jpg">
+<meta name="twitter:image" content="https://www.stools.web.id/logo.jpg">
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebSite",
+ "name": "Star Tools",
+ "url": "https://www.stools.web.id/",
+ "image": "https://www.stools.web.id/logo.jpg"
+}
+</script>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -66,6 +82,16 @@
 
   body.dark .options div:hover {
     background: #334155;
+  }
+
+  .options div.disabled-date {
+    color: #CBD5E1 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  body.dark .options div.disabled-date {
+    color: #475569 !important;
   }
 
   body.dark table td,
@@ -881,6 +907,85 @@
     display: none !important;
   }
 
+  .verif-kelas-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1.5px solid #E2E8F0;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  body.dark .verif-kelas-item { border-color: #334155; }
+  .verif-kelas-item:active { transform: scale(0.98); background: #EFF6FF; }
+  body.dark .verif-kelas-item:active { background: #1D2B4A; }
+  .verif-kelas-item .nama-kelas { font-size:13.5px; font-weight:700; }
+  .verif-kelas-item svg { width:16px; height:16px; stroke:#2563EB; flex-shrink:0; }
+
+  @keyframes pulseVerifDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+  }
+
+  #qrWaitScreen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+  }
+
+  .qr-wait-card {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .qr-wait-card h2 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .qr-wait-desc {
+    font-size: 13px;
+    color: #64748B;
+    line-height: 1.6;
+    margin-bottom: 22px;
+  }
+  body.dark .qr-wait-desc { color: #94A3B8; }
+
+  .qr-wait-box {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 20px;
+    margin: 0 auto 18px;
+    width: fit-content;
+    box-shadow: 0 8px 24px -8px rgba(15, 23, 42, 0.15);
+  }
+
+  .qr-wait-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #2563EB;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .qr-wait-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #2563EB;
+    animation: pulseVerifDot 1.2s ease-in-out infinite;
+  }
+
   .text-center {
     text-align: center;
   }
@@ -921,6 +1026,445 @@
     align-items: center;
     z-index: 200;
   }
+
+  .guide-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    display: none;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 250;
+  }
+
+  .guide-overlay.active {
+    display: flex;
+  }
+
+  .guide-content {
+    background: #FFFFFF;
+    width: 100%;
+    max-width: 440px;
+    height: 82vh;
+    max-height: 82vh;
+    border-radius: 24px 24px 0 0;
+    padding: 20px 20px 24px;
+    border: 1px solid #E2E8F0;
+    border-bottom: none;
+    animation: guideSlideUp 0.28s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: height 0.28s ease, max-height 0.28s ease, border-radius 0.28s ease, transform 0.2s ease;
+  }
+
+  .guide-content.expanded {
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    padding-top: max(20px, env(safe-area-inset-top));
+  }
+
+  .guide-content.dragging {
+    transition: none;
+  }
+
+  body.dark .guide-content {
+    background: #111827;
+    border-color: #1E293B;
+  }
+
+  @keyframes guideSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .guide-drag-zone {
+    flex-shrink: 0;
+    padding: 6px 0 14px;
+    margin: -6px 0 0;
+    touch-action: none;
+    cursor: grab;
+  }
+
+  .guide-handle {
+    width: 40px;
+    height: 4px;
+    background: #E2E8F0;
+    border-radius: 4px;
+    margin: 0 auto;
+  }
+
+  body.dark .guide-handle {
+    background: #334155;
+  }
+
+  .guide-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .guide-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0F172A;
+  }
+
+  body.dark .guide-header h3 {
+    color: #F1F5F9;
+  }
+
+  .guide-header .guide-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #F8FAFE;
+    border: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  body.dark .guide-header .guide-close {
+    background: #1E293B;
+    border-color: #334155;
+  }
+
+  .guide-header .guide-close svg {
+    width: 16px;
+    height: 16px;
+    stroke: #0F172A;
+  }
+
+  body.dark .guide-header .guide-close svg {
+    stroke: #F1F5F9;
+  }
+
+  .guide-subtitle {
+    flex-shrink: 0;
+    font-size: 13px;
+    color: #64748B;
+    margin-bottom: 14px;
+  }
+
+  body.dark .guide-subtitle {
+    color: #94A3B8;
+  }
+
+  .guide-sim {
+    flex-shrink: 0;
+    position: relative;
+    height: 148px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #EFF6FF, #F8FAFE);
+    border: 1px solid #DBEAFE;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  body.dark .guide-sim {
+    background: linear-gradient(135deg, #0F1E3A, #111827);
+    border-color: #1E293B;
+  }
+
+  .sim-scene {
+    position: absolute;
+    top: 0; left: 8px; right: 8px; bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+  }
+
+  .sim-scene-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sim-scene-icon {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #0F172A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  body.dark .sim-scene-icon {
+    background: #1E293B;
+    border: 1px solid #334155;
+  }
+
+  .sim-scene-icon.outline {
+    background: #FFFFFF;
+    border: 2px solid #2563EB;
+  }
+
+  body.dark .sim-scene-icon.outline {
+    background: #111827;
+  }
+
+  .sim-scene-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: #fff;
+  }
+
+  .sim-scene-icon.outline svg {
+    stroke: #2563EB;
+  }
+
+  .sim-scene-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #2563EB;
+    line-height: 1.3;
+    text-align: center;
+    max-width: 200px;
+  }
+
+  body.dark .sim-scene-label {
+    color: #60A5FA;
+  }
+
+  .sim-check-badge {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #22C55E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: checkPopSync 10s ease-in-out infinite;
+  }
+
+  .sim-check-badge svg {
+    width: 9px;
+    height: 9px;
+    stroke: #fff;
+    stroke-width: 3;
+  }
+
+  @keyframes checkPopSync {
+    0%, 68% { opacity: 0; transform: scale(0.5); }
+    72% { opacity: 1; transform: scale(1); }
+    77% { opacity: 1; transform: scale(1); }
+    80% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .sim-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .sim-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #CBD5E1;
+  }
+
+  body.dark .sim-dot {
+    background: #334155;
+  }
+
+  .sim-dot-1 { animation: dotActive1 10s ease-in-out infinite; }
+  .sim-dot-2 { animation: dotActive2 10s ease-in-out infinite; }
+  .sim-dot-3 { animation: dotActive3 10s ease-in-out infinite; }
+  .sim-dot-4 { animation: dotActive4 10s ease-in-out infinite; }
+  .sim-dot-5 { animation: dotActive5 10s ease-in-out infinite; }
+
+  @keyframes dotActive1 {
+    0%, 14% { background: #2563EB; transform: scale(1.3); }
+    17%, 100% { background: #CBD5E1; transform: scale(1); }
+  }
+  @keyframes dotActive2 {
+    0%, 20%, 37%, 100% { background: #CBD5E1; transform: scale(1); }
+    23%, 34% { background: #2563EB; transform: scale(1.3); }
+  }
+  @keyframes dotActive3 {
+    0%, 40%, 57%, 100% { background: #CBD5E1; transform: scale(1); }
+    43%, 54% { background: #2563EB; transform: scale(1.3); }
+  }
+  @keyframes dotActive4 {
+    0%, 60%, 77%, 100% { background: #CBD5E1; transform: scale(1); }
+    63%, 74% { background: #2563EB; transform: scale(1.3); }
+  }
+  @keyframes dotActive5 {
+    0%, 80%, 97% { background: #CBD5E1; transform: scale(1); }
+    83%, 94% { background: #2563EB; transform: scale(1.3); }
+    100% { background: #CBD5E1; transform: scale(1); }
+  }
+
+  .sim-scene-1 { animation: sceneFade1 10s ease-in-out infinite; }
+  .sim-scene-2 { animation: sceneFade2 10s ease-in-out infinite; }
+  .sim-scene-3 { animation: sceneFade3 10s ease-in-out infinite; }
+  .sim-scene-4 { animation: sceneFade4 10s ease-in-out infinite; }
+  .sim-scene-5 { animation: sceneFade5 10s ease-in-out infinite; }
+
+  @keyframes sceneFade1 {
+    0% { opacity: 1; transform: translateY(0); }
+    14% { opacity: 1; transform: translateY(0); }
+    17% { opacity: 0; transform: translateY(-6px); }
+    100% { opacity: 0; }
+  }
+  @keyframes sceneFade2 {
+    0%, 20% { opacity: 0; transform: translateY(6px); }
+    23% { opacity: 1; transform: translateY(0); }
+    34% { opacity: 1; transform: translateY(0); }
+    37% { opacity: 0; transform: translateY(-6px); }
+    100% { opacity: 0; }
+  }
+  @keyframes sceneFade3 {
+    0%, 40% { opacity: 0; transform: translateY(6px); }
+    43% { opacity: 1; transform: translateY(0); }
+    54% { opacity: 1; transform: translateY(0); }
+    57% { opacity: 0; transform: translateY(-6px); }
+    100% { opacity: 0; }
+  }
+  @keyframes sceneFade4 {
+    0%, 60% { opacity: 0; transform: translateY(6px); }
+    63% { opacity: 1; transform: translateY(0); }
+    74% { opacity: 1; transform: translateY(0); }
+    77% { opacity: 0; transform: translateY(-6px); }
+    100% { opacity: 0; }
+  }
+  @keyframes sceneFade5 {
+    0%, 80% { opacity: 0; transform: translateY(6px); }
+    83% { opacity: 1; transform: translateY(0); }
+    97% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; }
+  }
+
+  .guide-steps {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-right: 2px;
+    margin-bottom: 16px;
+  }
+
+  .guide-step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .guide-step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #2563EB18;
+    color: #2563EB;
+    font-size: 12.5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  body.dark .guide-step-num {
+    background: #2563EB2E;
+    color: #60A5FA;
+  }
+
+  .guide-step-text b {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 2px;
+  }
+
+  body.dark .guide-step-text b {
+    color: #F1F5F9;
+  }
+
+  .guide-step-text span {
+    font-size: 12.5px;
+    color: #64748B;
+    line-height: 1.5;
+  }
+
+  body.dark .guide-step-text span {
+    color: #94A3B8;
+  }
+
+  .guide-footer {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid #E2E8F0;
+  }
+
+  body.dark .guide-footer {
+    border-top-color: #1E293B;
+  }
+
+  .guide-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #64748B;
+  }
+
+  body.dark .guide-checkbox {
+    color: #94A3B8;
+  }
+
+  .guide-btn-ok {
+    background: #2563EB;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 20px;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .guide-btn-ok:active {
+    transform: scale(0.96);
+  }
+
 
   .modal-content {
     background: #FFFFFF;
@@ -1611,6 +2155,164 @@
     border-color: #334155;
     color: #64748B;
   }
+
+  .verif-kelas-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1.5px solid #E2E8F0;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.15s;
+  }
+  body.dark .verif-kelas-card { border-color: #334155; }
+  .verif-kelas-card:active { transform: scale(0.98); background: #EFF6FF; }
+  body.dark .verif-kelas-card:active { background: #1D2B4A; }
+  .verif-kelas-card .nama { font-size:14px; font-weight:700; }
+  .verif-kelas-card .kode { font-size:11.5px; color:#94A3B8; }
+  .verif-kelas-card svg { width:18px; height:18px; stroke:#2563EB; flex-shrink:0; }
+
+  .verif-waiting-box {
+    text-align: center;
+    padding: 10px 6px 4px;
+  }
+  .verif-waiting-box #qrTungguGuru {
+    display: inline-block;
+    padding: 14px;
+    background: #fff;
+    border-radius: 16px;
+    margin: 10px 0;
+  }
+  .verif-waiting-pulse {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #EFF6FF;
+    color: #2563EB;
+    font-size:12.5px;
+    font-weight:700;
+    padding: 8px 14px;
+    border-radius: 30px;
+    margin-top: 10px;
+  }
+  body.dark .verif-waiting-pulse { background: #1D2B4A; color:#60A5FA; }
+  .verif-waiting-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #2563EB;
+    animation: verifPulse 1.2s ease-in-out infinite;
+  }
+  body.dark .verif-waiting-dot { background:#60A5FA; }
+  @keyframes verifPulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  /* ===== Tampilan Laptop / PC ===== */
+  @media (min-width: 900px) {
+    body {
+      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
+      min-height: 100vh;
+    }
+
+    body.dark {
+      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+    }
+
+    .app-container {
+      max-width: 720px;
+      margin: 36px auto;
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+      min-height: auto;
+    }
+
+    body.dark .app-container {
+      background: #111827;
+      border-color: #1E293B;
+      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .app-header {
+      border-radius: 20px 20px 0 0;
+      position: relative;
+    }
+
+    .guide-overlay {
+      align-items: center;
+    }
+
+    .guide-content {
+      max-width: 480px;
+      height: auto;
+      max-height: 85vh;
+      border-radius: 20px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    body.dark .guide-content {
+      border-bottom-color: #1E293B;
+    }
+
+    .guide-content.expanded {
+      height: auto;
+      max-height: 90vh;
+      border-radius: 20px;
+    }
+
+    .guide-drag-zone {
+      cursor: default;
+    }
+
+    .guide-handle {
+      opacity: 0.4;
+    }
+
+    .qr-download-wrapper {
+      max-width: 280px;
+      padding: 16px;
+    }
+
+    .qr-download-wrapper #qrcode canvas {
+      width: 160px !important;
+      height: 160px !important;
+    }
+
+    .container {
+      margin: 12px 20px 0 20px;
+    }
+
+    .export-btn-group .btn {
+      padding: 10px 16px;
+      font-size: 13px;
+    }
+
+    .modal-content {
+      width: 360px;
+      padding: 28px;
+    }
+
+    #reader {
+      max-width: 350px;
+    }
+
+    .scan-area {
+      padding: 20px;
+    }
+
+    .table-wrap table {
+      font-size: 12px;
+    }
+
+    .table-wrap table th,
+    .table-wrap table td {
+      padding: 6px 10px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -1627,12 +2329,17 @@
       </div>
       <span class="app-title">Absensi Mapel</span>
     </div>
-    <button class="close-btn" onclick="goTo('index.html')" aria-label="Kembali">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"/>
-        <line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
-    </button>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button class="close-btn" onclick="openGuideModal()" aria-label="Panduan Penggunaan" style="font-weight:800; font-size:16px;">
+        <span style="color:#2563EB;">?</span>
+      </button>
+      <button class="close-btn" onclick="goTo('index.html')" aria-label="Kembali">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
   </div>
 
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -1718,12 +2425,48 @@
 
     <hr style="border:1px solid #E2E8F0; margin:16px 0;">
 
+    <div id="verifGuruStep1">
+      <h3>Masuk sebagai Guru Terdaftar</h3>
+      <p style="font-size:12px; color:#94A3B8; margin-bottom:10px;">Kalau sekolah kamu pakai Absensi Guru, verifikasi di sini tanpa perlu ID Kelas & password mapel manual.</p>
+
+      <input id="verifIdSekolah" class="input" placeholder="ID Sekolah (contoh: SKL-ABC123)">
+      <input id="verifNamaGuru" class="input" placeholder="Nama Guru">
+      <input id="verifNamaMapel" class="input" placeholder="Mata Pelajaran yang Diajar">
+
+      <button class="btn btn-primary" onclick="verifikasiGuruSekolah()">Verifikasi</button>
+    </div>
+
+    <div id="verifGuruStep2" class="hidden">
+      <h3 id="verifGuruSapaan">Halo, Guru!</h3>
+      <p style="font-size:12px; color:#94A3B8; margin-bottom:10px;">Pilih kelas yang mau diabsen. Kelas ini yang di-assign untuk kamu di Absensi Guru.</p>
+      <div id="verifKelasList"></div>
+      <button class="btn btn-outline" onclick="batalVerifGuru()" style="margin-top:10px;">Batal, Verifikasi Ulang</button>
+    </div>
+
+    <hr style="border:1px solid #E2E8F0; margin:16px 0;">
+
     <div style="margin-top:16px;">
       <p style="font-size:13px; font-weight:600; color:#64748B; margin-bottom:8px; text-align:center;">Sesi mapel yang pernah anda masukkan</p>
       <div id="savedClassesList"></div>
     </div>
+  </div>
 
-    <button class="btn btn-outline" onclick="goTo('pendukung.html')" style="margin-top:10px;">Kembali</button>
+  <!-- ===== LAYAR PENUH: MENUNGGU SCAN QR GURU ===== -->
+  <div id="qrWaitScreen" style="display:none;">
+    <div class="qr-wait-card">
+      <h2 id="verifGuruSapaan0">Halo, Guru!</h2>
+      <p class="qr-wait-desc">
+        QR ini adalah kode presensi harian kamu. Tunjukkan ke admin/resepsionis sekolah untuk discan
+        di halaman Absensi Guru. Setelah discan, sesi mengajar hari ini otomatis terbuka dan kamu
+        bisa langsung memilih kelas.
+      </p>
+      <div id="qrVerifContainer" class="qr-wait-box"></div>
+      <div class="qr-wait-status">
+        <span class="qr-wait-dot"></span>
+        Menunggu discan...
+      </div>
+      <button class="btn btn-outline" onclick="batalVerifGuru()">Berhenti / Batalkan Verifikasi</button>
+    </div>
   </div>
 
   <div id="absenBox" style="display:none;">
@@ -1914,6 +2657,144 @@
   </div>
 </div>
 
+<div id="guideOverlay" class="guide-overlay">
+  <div class="guide-content" id="guideContent">
+    <div class="guide-drag-zone" id="guideDragZone">
+      <div class="guide-handle"></div>
+    </div>
+    <div class="guide-header">
+      <h3>Panduan Penggunaan Absensi Mapel</h3>
+      <div class="guide-close" onclick="closeGuideModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </div>
+    </div>
+    <p class="guide-subtitle">Ikuti langkah-langkah berikut agar presensi per mata pelajaran berjalan dengan lancar.</p>
+
+    <div class="guide-sim">
+      <div class="sim-scene sim-scene-1">
+        <div class="sim-scene-icons">
+          <div class="sim-scene-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+        </div>
+        <div class="sim-scene-label">Masukkan ID &amp; Password Kelas</div>
+      </div>
+
+      <div class="sim-scene sim-scene-2">
+        <div class="sim-scene-icons">
+          <div class="sim-scene-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+        </div>
+        <div class="sim-scene-label">Isi Nama Mapel &amp; Guru</div>
+      </div>
+
+      <div class="sim-scene sim-scene-3">
+        <div class="sim-scene-icons">
+          <div class="sim-scene-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M15 8h3M15 12h3M6 16h12"/></svg>
+          </div>
+        </div>
+        <div class="sim-scene-label">ID Mapel Otomatis Dibuat</div>
+      </div>
+
+      <div class="sim-scene sim-scene-4">
+        <div class="sim-scene-icons">
+          <div class="sim-scene-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="14" y2="21"/><line x1="21" y1="14" x2="21" y2="21"/><line x1="17" y1="17" x2="21" y2="17"/></svg>
+          </div>
+          <div class="sim-scene-icon outline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+            <div class="sim-check-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="sim-scene-label">Guru Memindai QR Murid</div>
+      </div>
+
+      <div class="sim-scene sim-scene-5">
+        <div class="sim-scene-icons">
+          <div class="sim-scene-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 12"/></svg>
+          </div>
+        </div>
+        <div class="sim-scene-label">Hadir di Mapel Otomatis Tercatat</div>
+      </div>
+
+      <div class="sim-dots">
+        <div class="sim-dot sim-dot-1"></div>
+        <div class="sim-dot sim-dot-2"></div>
+        <div class="sim-dot sim-dot-3"></div>
+        <div class="sim-dot sim-dot-4"></div>
+        <div class="sim-dot sim-dot-5"></div>
+      </div>
+    </div>
+
+    <div class="guide-steps">
+      <div class="guide-step">
+        <div class="guide-step-num">1</div>
+        <div class="guide-step-text">
+          <b>Menyiapkan ID Kelas</b>
+          <span>Pastikan kelas yang akan digunakan sudah terdaftar di Absensi Digital. Siapkan ID Kelas (contoh: KLS-ABC123) beserta password kelas tersebut — keduanya dibutuhkan untuk mendaftarkan sesi mapel.</span>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">2</div>
+        <div class="guide-step-text">
+          <b>Mendaftarkan Mapel</b>
+          <span>Masukkan ID Kelas dan password kelas, lalu isi Nama Mapel (contoh: Matematika), Nama Guru (opsional), dan buat Password Mapel baru untuk sesi ini.</span>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">3</div>
+        <div class="guide-step-text">
+          <b>Menyimpan ID Mapel</b>
+          <span>Setelah berhasil didaftarkan, sistem akan membuatkan ID Mapel secara otomatis (contoh: MPL-ABC123). Simpan ID ini — untuk login berikutnya, cukup masukkan ID Mapel beserta password mapel saja, tanpa perlu ID Kelas lagi.</span>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">4</div>
+        <div class="guide-step-text">
+          <b>Memindai QR Murid</b>
+          <span>Murid yang akan diabsen adalah murid yang QR Code-nya sudah dibuat lewat Absensi Digital (kelas). Guru memindai QR milik murid tersebut menggunakan kamera atau dari galeri.</span>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">5</div>
+        <div class="guide-step-text">
+          <b>Presensi Otomatis Tercatat</b>
+          <span>Begitu QR berhasil dipindai, nama murid otomatis masuk dan tercatat hadir pada sesi mata pelajaran ini — terpisah dari rekap Absensi Digital kelas.</span>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">6</div>
+        <div class="guide-step-text">
+          <b>Presensi Manual (opsional)</b>
+          <span>Apabila ada murid yang tidak dapat memindai kode QR, gunakan tab Manual dengan memilih nama, tanggal, dan status kehadiran.</span>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">7</div>
+        <div class="guide-step-text">
+          <b>Melihat dan Mengunduh Rekap</b>
+          <span>Rekap kehadiran per mapel dapat dilihat dan diunduh dalam format Excel atau CSV, terpisah untuk setiap mata pelajaran.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-footer">
+      <label class="guide-checkbox">
+        <input type="checkbox" id="guideDontShow" style="accent-color:#2563EB;">
+        Jangan tampilkan kembali
+      </label>
+      <button class="guide-btn-ok" onclick="closeGuideModal()">Saya Mengerti</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyDgr_nHqvpMsiG4lBkYckzxRErkskXj_6E",
@@ -2030,6 +2911,28 @@ function quickLogin(id, nama) {
       }
 
       const data = snap.val();
+
+      if (data.viaAbsensiGuru) {
+        const savedVerif = localStorage.getItem("verifDataAktif");
+        if (!savedVerif) {
+          showModal("warning", "Perlu Verifikasi Ulang", "Sesi ini terhubung ke Absensi Guru. Silakan verifikasi ulang lewat form di atas.");
+          return;
+        }
+        verifDataAktif = JSON.parse(savedVerif);
+
+        refAbsensiGuruHariIni(verifDataAktif.idSekolah, verifDataAktif.guruId).once("value").then(function(scanSnap) {
+          const scanData = scanSnap.val();
+          if (scanData && scanData.status === "Hadir") {
+            aktifkanSesiMapel(kelasId, data.kelasNama, id, data.nama, data.guru);
+            localStorage.setItem("verifKelasTanggal", todayKeyGuru());
+            showModal("success", "Selamat Datang!", "Login berhasil ke sesi mapel " + data.nama);
+          } else {
+            tampilkanQrTungguScan();
+          }
+        });
+        return;
+      }
+
       aktifkanSesiMapel(kelasId, data.kelasNama, id, data.nama, data.guru);
       showModal("success", "Selamat Datang!", "Login berhasil ke sesi mapel " + data.nama);
     });
@@ -2059,26 +2962,34 @@ document.addEventListener("DOMContentLoaded", function() {
   renderTanggalManualOptions();
   loadSavedClasses();
 
-  if (mapelAktif && mapelIdAktif && kelasIdAktif) {
-    document.getElementById("setupForm").style.display = "none";
-    document.getElementById("absenBox").style.display = "block";
+  const savedVerif = localStorage.getItem("verifDataAktif");
 
-    document.getElementById("displayKelasId").innerText = mapelIdAktif;
-    document.getElementById("infoMapelBox").innerText =
-      mapelAktif + (guruAktif ? " — " + guruAktif : "") + " · Kelas: " + kelasAktif;
+  if (savedVerif) {
+    verifDataAktif = JSON.parse(savedVerif);
+    const verifTanggal = localStorage.getItem("verifKelasTanggal");
+    const sudahPilihKelasHariIni = (verifTanggal === todayKeyGuru()) && mapelAktif && mapelIdAktif && kelasIdAktif;
 
-    if (!bulanDipilih) {
-      const bulan = new Date().toLocaleString("id-ID", { month: "long" });
-      bulanDipilih = bulan;
-      localStorage.setItem("selectedBulan", bulan);
-      document.getElementById("selectedBulan").innerText = bulan;
+    if (sudahPilihKelasHariIni) {
+      resumeSesiMapelAktif();
     } else {
-      document.getElementById("selectedBulan").innerText = bulanDipilih;
-    }
+      kelasIdAktif = ""; kelasAktif = ""; mapelIdAktif = ""; mapelAktif = ""; guruAktif = "";
+      localStorage.removeItem("kelasIdAktif");
+      localStorage.removeItem("kelasAktif");
+      localStorage.removeItem("mapelIdAktif");
+      localStorage.removeItem("mapelAktif");
+      localStorage.removeItem("guruAktif");
 
-    loadMurid();
-    loadTabel();
-    loadRekap();
+      refAbsensiGuruHariIni(verifDataAktif.idSekolah, verifDataAktif.guruId).once("value").then(function(snap) {
+        const data = snap.val();
+        if (data && data.status === "Hadir") {
+          tampilkanPilihanKelasVerif();
+        } else {
+          tampilkanQrTungguScan();
+        }
+      });
+    }
+  } else if (mapelAktif && mapelIdAktif && kelasIdAktif) {
+    resumeSesiMapelAktif();
   }
 
   document.getElementById("fileInput").addEventListener("change", function(e) {
@@ -2097,6 +3008,30 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+
+function resumeSesiMapelAktif() {
+  document.getElementById("welcomeBox").classList.add("hidden");
+  document.getElementById("setupForm").classList.add("hidden");
+  document.getElementById("qrWaitScreen").style.display = "none";
+  document.getElementById("absenBox").style.display = "block";
+
+  document.getElementById("displayKelasId").innerText = mapelIdAktif;
+  document.getElementById("infoMapelBox").innerText =
+    mapelAktif + (guruAktif ? " — " + guruAktif : "") + " · Kelas: " + kelasAktif;
+
+  if (!bulanDipilih) {
+    const bulan = new Date().toLocaleString("id-ID", { month: "long" });
+    bulanDipilih = bulan;
+    localStorage.setItem("selectedBulan", bulan);
+    document.getElementById("selectedBulan").innerText = bulan;
+  } else {
+    document.getElementById("selectedBulan").innerText = bulanDipilih;
+  }
+
+  loadMurid();
+  loadTabel();
+  loadRekap();
+}
 
 function copyDisplayKelasId() {
   const id = document.getElementById("displayKelasId").innerText;
@@ -2186,6 +3121,75 @@ function showModal(iconType, title, message, actions) {
 function closeModal() {
   document.getElementById("modalOverlay").style.display = "none";
 }
+
+function openGuideModal() {
+  document.getElementById("guideOverlay").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeGuideModal() {
+  const content = document.getElementById("guideContent");
+  content.classList.remove("expanded");
+  document.getElementById("guideOverlay").classList.remove("active");
+  document.body.style.overflow = "";
+  const dontShow = document.getElementById("guideDontShow");
+  if (dontShow && dontShow.checked) {
+    localStorage.setItem("mapelGuideSeen", "1");
+  }
+}
+
+(function setupGuideDrag() {
+  let startY = 0;
+  let dragging = false;
+
+  function init() {
+    const zone = document.getElementById("guideDragZone");
+    const content = document.getElementById("guideContent");
+    if (!zone || !content) return;
+
+    zone.addEventListener("touchstart", function(e) {
+      startY = e.touches[0].clientY;
+      dragging = true;
+      content.classList.add("dragging");
+    }, { passive: true });
+
+    zone.addEventListener("touchmove", function(e) {
+      if (!dragging) return;
+      const deltaY = e.touches[0].clientY - startY;
+      const clamped = Math.max(-40, Math.min(deltaY, 300));
+      content.style.transform = "translateY(" + clamped + "px)";
+    }, { passive: true });
+
+    zone.addEventListener("touchend", function(e) {
+      if (!dragging) return;
+      dragging = false;
+      content.classList.remove("dragging");
+      content.style.transform = "";
+
+      const deltaY = e.changedTouches[0].clientY - startY;
+
+      if (deltaY > 60) {
+        closeGuideModal();
+      } else if (deltaY < -50) {
+        content.classList.add("expanded");
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+
+(function autoShowGuide() {
+  if (!localStorage.getItem("mapelGuideSeen")) {
+    document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(openGuideModal, 500);
+    });
+  }
+})();
 
 function showConfirmModal(title, message, onConfirm, onCancel) {
   const actions = `
@@ -2302,6 +3306,222 @@ function daftarMapel() {
       showModal("error", "Gagal", err.message);
     });
   });
+}
+
+/* ===== Verifikasi Guru via Absensi Guru (Sekolah) ===== */
+var verifDataAktif = null;
+var verifScanListenerRef = null;
+
+function todayKeyGuru() {
+  const d = new Date();
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
+
+function refAbsensiGuruHariIni(idSekolah, guruId) {
+  const d = new Date();
+  const keyBulan = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+  const tgl = d.getDate();
+  return db.ref("sekolah/" + idSekolah + "/absensiGuru/" + keyBulan + "/" + guruId + "/" + tgl);
+}
+
+function verifikasiGuruSekolah() {
+  const idSekolah = document.getElementById("verifIdSekolah").value.trim().toUpperCase();
+  const namaGuru = document.getElementById("verifNamaGuru").value.trim();
+  const namaMapelInput = document.getElementById("verifNamaMapel").value.trim();
+
+  if (!idSekolah || !namaGuru || !namaMapelInput) {
+    showModal("warning", "Data Kosong", "Harap isi ID Sekolah, Nama Guru, dan Mata Pelajaran.");
+    return;
+  }
+
+  db.ref("sekolah/" + idSekolah).once("value").then(function(sekolahSnap) {
+    if (!sekolahSnap.exists()) {
+      showModal("error", "Sekolah Tidak Ditemukan", "ID Sekolah tidak ditemukan. Pastikan ID-nya benar.");
+      return;
+    }
+
+    const guruList = (sekolahSnap.val().guru) || {};
+    let guruCocok = null;
+    let guruIdCocok = null;
+
+    Object.keys(guruList).forEach(function(gid) {
+      const g = guruList[gid];
+      if (
+        g.nama.trim().toLowerCase() === namaGuru.toLowerCase() &&
+        g.mapel.trim().toLowerCase() === namaMapelInput.toLowerCase()
+      ) {
+        guruCocok = g;
+        guruIdCocok = gid;
+      }
+    });
+
+    if (!guruCocok) {
+      showModal("error", "Verifikasi Gagal", "Nama guru dan mata pelajaran tidak cocok dengan data yang terdaftar di Absensi Guru sekolah ini. Cek lagi ejaan nama & mapelnya, atau hubungi admin sekolah.");
+      return;
+    }
+
+    verifDataAktif = {
+      idSekolah: idSekolah,
+      guruId: guruIdCocok,
+      namaGuru: guruCocok.nama,
+      namaMapel: guruCocok.mapel
+    };
+    localStorage.setItem("verifDataAktif", JSON.stringify(verifDataAktif));
+
+    tampilkanQrTungguScan();
+  });
+}
+
+function tampilkanQrTungguScan() {
+  if (!verifDataAktif) return;
+
+  document.getElementById("welcomeBox").classList.add("hidden");
+  document.getElementById("setupForm").classList.add("hidden");
+  document.getElementById("absenBox").style.display = "none";
+  document.getElementById("qrWaitScreen").style.display = "flex";
+
+  document.getElementById("verifGuruSapaan0").innerText = "Halo, " + verifDataAktif.namaGuru + "!";
+
+  const qrContainer = document.getElementById("qrVerifContainer");
+  qrContainer.innerHTML = "";
+  new QRCode(qrContainer, {
+    text: verifDataAktif.idSekolah + "|" + verifDataAktif.guruId,
+    width: 200,
+    height: 200,
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  if (verifScanListenerRef) verifScanListenerRef.off();
+  verifScanListenerRef = refAbsensiGuruHariIni(verifDataAktif.idSekolah, verifDataAktif.guruId);
+  verifScanListenerRef.on("value", function(snap) {
+    const data = snap.val();
+    if (data && data.status === "Hadir") {
+      verifScanListenerRef.off();
+      verifScanListenerRef = null;
+      tampilkanPilihanKelasVerif();
+    }
+  });
+}
+
+function tampilkanPilihanKelasVerif() {
+  if (!verifDataAktif) return;
+
+  db.ref("sekolah/" + verifDataAktif.idSekolah + "/guru/" + verifDataAktif.guruId + "/kelasDiizinkan").once("value").then(function(kdSnap) {
+    const kelasDiizinkan = kdSnap.val() || {};
+    const kelasIds = Object.keys(kelasDiizinkan);
+
+    if (kelasIds.length === 0) {
+      showModal("warning", "Belum Ada Kelas", "Kamu sudah terverifikasi & discan, tapi admin sekolah belum meng-assign kelas untuk kamu. Hubungi admin Absensi Guru.");
+      return;
+    }
+
+    Promise.all(kelasIds.map(function(kid) {
+      return db.ref("kelas/" + kid).once("value").then(function(ks) {
+        return { kelasId: kid, data: ks.val() };
+      });
+    })).then(function(hasil) {
+      document.getElementById("verifGuruSapaan").innerText = "Halo, " + verifDataAktif.namaGuru + "!";
+
+      const listEl = document.getElementById("verifKelasList");
+      listEl.innerHTML = "";
+      hasil.forEach(function(item) {
+        if (!item.data) return;
+        const row = document.createElement("div");
+        row.className = "verif-kelas-item";
+        row.innerHTML =
+          '<span class="nama-kelas">' + item.data.nama + '</span>' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+        row.onclick = function() { pilihKelasVerif(item.kelasId, item.data.nama); };
+        listEl.appendChild(row);
+      });
+
+      document.getElementById("qrWaitScreen").style.display = "none";
+      document.getElementById("welcomeBox").classList.remove("hidden");
+      document.getElementById("setupForm").classList.remove("hidden");
+      document.getElementById("verifGuruStep1").classList.add("hidden");
+      document.getElementById("verifGuruStep2").classList.remove("hidden");
+    });
+  });
+}
+
+function pilihKelasVerif(kelasId, kelasNama) {
+  if (!verifDataAktif) return;
+  const namaMapel = verifDataAktif.namaMapel;
+  const namaGuru = verifDataAktif.namaGuru;
+
+  db.ref("kelas/" + kelasId + "/mapel").once("value").then(function(mapelSnap) {
+    const mapelList = mapelSnap.val() || {};
+    let mapelIdCocok = null;
+
+    Object.keys(mapelList).forEach(function(mid) {
+      const m = mapelList[mid];
+      if (
+        m.nama.trim().toLowerCase() === namaMapel.toLowerCase() &&
+        (m.guru || "").trim().toLowerCase() === namaGuru.toLowerCase()
+      ) {
+        mapelIdCocok = mid;
+      }
+    });
+
+    if (mapelIdCocok) {
+      const m = mapelList[mapelIdCocok];
+      addSavedClass(mapelIdCocok, m.nama + " (" + kelasNama + ")");
+      aktifkanSesiMapel(kelasId, kelasNama, mapelIdCocok, m.nama, m.guru);
+      localStorage.setItem("verifKelasTanggal", todayKeyGuru());
+      showModal("success", "Selamat Datang!", "Berhasil masuk sebagai " + namaGuru + " untuk kelas " + kelasNama + ".");
+      return;
+    }
+
+    function buatMapelBaru(id) {
+      return db.ref("kelas/" + kelasId + "/mapel/" + id).once("value").then(function(cek) {
+        if (cek.exists()) {
+          return buatMapelBaru(generateMapelId());
+        }
+        const randomPw = Math.random().toString(36).substring(2, 10);
+        const data = {
+          nama: namaMapel,
+          guru: namaGuru,
+          password: randomPw,
+          kelasId: kelasId,
+          kelasNama: kelasNama,
+          dibuat: Date.now(),
+          viaAbsensiGuru: true
+        };
+        return db.ref("kelas/" + kelasId + "/mapel/" + id).set(data)
+          .then(function() { return db.ref("mapelIndex/" + id).set(kelasId); })
+          .then(function() { return { id: id, data: data }; });
+      });
+    }
+
+    buatMapelBaru(generateMapelId()).then(function(hasil) {
+      addSavedClass(hasil.id, namaMapel + " (" + kelasNama + ")");
+      aktifkanSesiMapel(kelasId, kelasNama, hasil.id, namaMapel, namaGuru);
+      localStorage.setItem("verifKelasTanggal", todayKeyGuru());
+      showModal("success", "Selamat Datang!", "Sesi mapel baru otomatis dibuat. Berhasil masuk sebagai " + namaGuru + " untuk kelas " + kelasNama + ".");
+    }).catch(function(err) {
+      showModal("error", "Gagal", err.message);
+    });
+  });
+}
+
+function batalVerifGuru() {
+  if (verifScanListenerRef) {
+    verifScanListenerRef.off();
+    verifScanListenerRef = null;
+  }
+  verifDataAktif = null;
+  localStorage.removeItem("verifDataAktif");
+  localStorage.removeItem("verifKelasTanggal");
+  document.getElementById("verifIdSekolah").value = "";
+  document.getElementById("verifNamaGuru").value = "";
+  document.getElementById("verifNamaMapel").value = "";
+  document.getElementById("verifKelasList").innerHTML = "";
+
+  document.getElementById("qrWaitScreen").style.display = "none";
+  document.getElementById("welcomeBox").classList.remove("hidden");
+  document.getElementById("setupForm").classList.remove("hidden");
+  document.getElementById("verifGuruStep2").classList.add("hidden");
+  document.getElementById("verifGuruStep1").classList.remove("hidden");
 }
 
 function loginMapel() {
@@ -2430,25 +3650,40 @@ function renderTanggalManualOptions() {
   const container = document.getElementById("optionTanggalManual");
   if (!container) return;
 
-  const todayNum = new Date().getDate();
+  const now = new Date();
+  const todayNum = now.getDate();
+  const namaBulanIni = now.toLocaleString("id-ID", { month: "long" });
+  const isBulanIni = bulanDipilih === namaBulanIni;
+
   let html = "";
   for (let i = 1; i <= 31; i++) {
-    html += '<div onclick="pilihTanggalManual(' + i + ')">' + i +
-      (i === todayNum ? ' <span style="color:#059669;font-size:12px;font-weight:600;">(Hari ini)</span>' : '') +
+    const isFuture = isBulanIni && i > todayNum;
+    html += '<div class="' + (isFuture ? 'disabled-date' : '') + '" ' +
+      (isFuture ? '' : 'onclick="pilihTanggalManual(' + i + ')"') + '>' + i +
+      (i === todayNum && isBulanIni ? ' <span style="color:#059669;font-size:12px;font-weight:600;">(Hari ini)</span>' : '') +
       '</div>';
   }
   container.innerHTML = html;
 
   const label = document.getElementById("selectedTanggalManual");
   if (label) {
-    label.innerText = "Tanggal " + tanggalManual + (tanggalManual === todayNum ? " (Hari ini)" : "");
+    label.innerText = "Tanggal " + tanggalManual + (tanggalManual === todayNum && isBulanIni ? " (Hari ini)" : "");
   }
 }
 
 function pilihTanggalManual(tgl) {
+  const now = new Date();
+  const todayNum = now.getDate();
+  const namaBulanIni = now.toLocaleString("id-ID", { month: "long" });
+  const isBulanIni = bulanDipilih === namaBulanIni;
+
+  if (isBulanIni && tgl > todayNum) {
+    showModal("warning", "Tidak Bisa Dipilih", "Tanggal di masa depan tidak bisa dipilih untuk absensi manual.");
+    return;
+  }
+
   tanggalManual = tgl;
-  const todayNum = new Date().getDate();
-  document.getElementById("selectedTanggalManual").innerText = "Tanggal " + tgl + (tgl === todayNum ? " (Hari ini)" : "");
+  document.getElementById("selectedTanggalManual").innerText = "Tanggal " + tgl + (tgl === todayNum && isBulanIni ? " (Hari ini)" : "");
   closeDropdowns();
 }
 
