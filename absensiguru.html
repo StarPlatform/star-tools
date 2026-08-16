@@ -2851,7 +2851,7 @@
         <button class="btn btn-primary" onclick="buatKelasBaru()">Buat Kelas</button>
 
         <div id="hasilBuatKelas" style="display:none; margin-top:16px; padding:14px; background:#F0FDF4; border-radius:12px; border:1px solid #BBF7D0;">
-          <p style="font-size:13px; font-weight:700; color:#065F46; margin-bottom:4px;">Kelas Berhasil Dibuat!</p>
+          <p style="font-size:13px; font-weight:700; color:#065F46; margin-bottom:4px;">✅ Kelas Berhasil Dibuat!</p>
           <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:6px;">
             <span style="font-size:13px; color:#64748B;">ID Kelas:</span>
             <span id="hasilIdKelas" style="font-weight:700; font-size:15px; color:#0F172A; font-family:monospace; background:#fff; padding:4px 10px; border-radius:6px; border:1px solid #E2E8F0;">KLS-XXXXXX</span>
@@ -2934,6 +2934,50 @@
           <div id="galleryResult" class="scan-result hidden"></div>
           <div id="tempReader" style="display:none;"></div>
         </div>
+      </div>
+
+      <div class="container">
+        <h3>Absensi Manual</h3>
+        <p style="font-size:12px; color:#94A3B8; margin-bottom:12px;">Isi keterangan guru yang tidak hadir (sakit, izin, memang tidak ada jadwal, atau tanpa keterangan), atau pakai ini sebagai pengganti kalau scan QR sedang bermasalah.</p>
+
+        <div class="input-group">
+          <label>Pilih Guru</label>
+          <div class="custom-select">
+            <div class="select-box" onclick="toggleDropdown('optionGuruManual')">
+              <span id="selectedGuruManual">Pilih guru</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="options" id="optionGuruManual"></div>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Tanggal</label>
+          <input type="date" id="tanggalAbsenManual" class="input">
+        </div>
+
+        <div class="input-group">
+          <label>Status Kehadiran</label>
+          <div class="custom-select">
+            <div class="select-box" onclick="toggleDropdown('optionStatusManual')">
+              <span id="selectedStatusManual">Pilih status</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="options" id="optionStatusManual"></div>
+          </div>
+        </div>
+
+        <div class="input-group" id="jamManualGroup" style="display:none;">
+          <label>Jam (opsional)</label>
+          <input type="time" id="jamAbsenManual" class="input">
+        </div>
+
+        <div class="input-group">
+          <label>Catatan (opsional)</label>
+          <input type="text" id="catatanAbsenManual" class="input" placeholder="Contoh: demam, keperluan keluarga, dll">
+        </div>
+
+        <button class="btn btn-primary" onclick="simpanAbsensiManual()">Simpan Absensi</button>
       </div>
     </div>
 
@@ -3408,8 +3452,7 @@ function tampilkanSesi() {
         '<div class="session-actions">' +
           (isActive ? '' : '<button class="session-btn-login" onclick="loginDenganSesi(\'' + idEsc + '\')">Login</button>') +
           '<button class="session-btn-hapus" onclick="hapusSesi(\'' + idEsc + '\')">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>'
-             +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>' +
           '</button>' +
         '</div>' +
       '</div>';
@@ -3496,6 +3539,15 @@ function switchDashTab(tab) {
     document.getElementById('tab' + cap).classList.toggle('hidden', t !== tab);
   });
   if (tab !== 'scan' && isScanning) stopScanner();
+  if (tab === 'scan') {
+    renderGuruManualOptions();
+    renderStatusManualOptions();
+    var tglManual = document.getElementById('tanggalAbsenManual');
+    if (tglManual && !tglManual.value) {
+      var now2 = new Date();
+      tglManual.value = now2.getFullYear() + '-' + String(now2.getMonth() + 1).padStart(2, '0') + '-' + String(now2.getDate()).padStart(2, '0');
+    }
+  }
   if (tab === 'absen') {
     if (!bulanDipilihGuru) {
       var now = new Date();
@@ -4410,7 +4462,117 @@ function handleScanGuru(kode) {
   });
 }
 
-// ===== BULAN OPTIONS =====
+// ===== ABSENSI MANUAL (ISI KETERANGAN / PENGGANTI SCAN QR) =====
+var manualGuruId = '';
+var manualStatusPilihan = '';
+var STATUS_MANUAL_LIST = [
+  { value: 'Hadir', label: 'Hadir' },
+  { value: 'Sakit', label: 'Sakit' },
+  { value: 'Izin', label: 'Izin' },
+  { value: 'Tidak Mengajar', label: 'Tidak Mengajar (memang tidak ada jadwal)' },
+  { value: 'Alpha', label: 'Alpha (tanpa keterangan)' }
+];
+
+function renderGuruManualOptions() {
+  var container = document.getElementById('optionGuruManual');
+  if (!container) return;
+  var guruIds = Object.keys(daftarGuru);
+  container.innerHTML = '';
+  if (!guruIds.length) {
+    container.innerHTML = '<div style="padding:10px;color:#94A3B8;font-size:13px;">Belum ada guru terdaftar.</div>';
+    return;
+  }
+  guruIds.forEach(function(id) {
+    var g = daftarGuru[id];
+    var div = document.createElement('div');
+    div.innerText = g.nama + ' (' + g.mapel + ')';
+    div.onclick = function() { pilihGuruManual(id, g.nama); };
+    container.appendChild(div);
+  });
+}
+
+function pilihGuruManual(id, nama) {
+  manualGuruId = id;
+  var el = document.getElementById('selectedGuruManual');
+  if (el) el.innerText = nama;
+  closeDropdowns();
+}
+
+function renderStatusManualOptions() {
+  var container = document.getElementById('optionStatusManual');
+  if (!container) return;
+  container.innerHTML = '';
+  STATUS_MANUAL_LIST.forEach(function(s) {
+    var div = document.createElement('div');
+    div.innerText = s.label;
+    div.onclick = function() { pilihStatusManual(s.value, s.label); };
+    container.appendChild(div);
+  });
+}
+
+function pilihStatusManual(value, label) {
+  manualStatusPilihan = value;
+  var el = document.getElementById('selectedStatusManual');
+  if (el) el.innerText = label;
+  var jamGroup = document.getElementById('jamManualGroup');
+  if (jamGroup) jamGroup.style.display = (value === 'Hadir') ? '' : 'none';
+  closeDropdowns();
+}
+
+function resetFormAbsenManual() {
+  manualGuruId = '';
+  manualStatusPilihan = '';
+  var elGuru = document.getElementById('selectedGuruManual');
+  var elStatus = document.getElementById('selectedStatusManual');
+  var elCatatan = document.getElementById('catatanAbsenManual');
+  var elJam = document.getElementById('jamAbsenManual');
+  var jamGroup = document.getElementById('jamManualGroup');
+  if (elGuru) elGuru.innerText = 'Pilih guru';
+  if (elStatus) elStatus.innerText = 'Pilih status';
+  if (elCatatan) elCatatan.value = '';
+  if (elJam) elJam.value = '';
+  if (jamGroup) jamGroup.style.display = 'none';
+}
+
+function simpanAbsensiManual() {
+  if (!manualGuruId) { showModal('warning', 'Belum Lengkap', 'Pilih guru terlebih dahulu.'); return; }
+  var tglInput = document.getElementById('tanggalAbsenManual');
+  if (!tglInput || !tglInput.value) { showModal('warning', 'Belum Lengkap', 'Pilih tanggal terlebih dahulu.'); return; }
+  if (!manualStatusPilihan) { showModal('warning', 'Belum Lengkap', 'Pilih status kehadiran terlebih dahulu.'); return; }
+
+  var g = daftarGuru[manualGuruId];
+  if (!g) { showModal('error', 'Gagal', 'Data guru tidak ditemukan. Coba muat ulang halaman.'); return; }
+
+  var parts = tglInput.value.split('-');
+  var tahun = parseInt(parts[0], 10);
+  var bulanNum = parseInt(parts[1], 10);
+  var tgl = parseInt(parts[2], 10);
+  if (!tahun || !bulanNum || !tgl) { showModal('warning', 'Tanggal Tidak Valid', 'Silakan pilih tanggal yang benar.'); return; }
+  var keyBulan = tahun + '-' + String(bulanNum).padStart(2, '0');
+
+  var jamInput = document.getElementById('jamAbsenManual');
+  var catatanInput = document.getElementById('catatanAbsenManual');
+  var jam = (manualStatusPilihan === 'Hadir' && jamInput) ? jamInput.value : '';
+  var catatan = catatanInput ? catatanInput.value.trim() : '';
+
+  var payload = { status: manualStatusPilihan, jamScan: jam || '', waktu: Date.now(), manual: true };
+  if (catatan) payload.catatan = catatan;
+
+  db.ref('sekolah/' + sekolahIdAktif + '/absensiGuru/' + keyBulan + '/' + manualGuruId + '/' + tgl).set(payload).then(function() {
+    showModal('success', 'Berhasil!', 'Absensi manual untuk ' + g.nama + ' tanggal ' + tgl + '/' + bulanNum + '/' + tahun + ' berhasil disimpan sebagai ' + manualStatusPilihan + '.');
+    resetFormAbsenManual();
+
+    var bulanNamaMap = { 1:'Januari',2:'Februari',3:'Maret',4:'April',5:'Mei',6:'Juni',7:'Juli',8:'Agustus',9:'September',10:'Oktober',11:'November',12:'Desember' };
+    if (bulanDipilihGuru && bulanDipilihGuru === bulanNamaMap[bulanNum]) {
+      loadTabelGuru();
+      loadRekapGuru();
+    }
+  }).catch(function(err) {
+    showModal('error', 'Gagal', 'Absensi tidak tersimpan: ' + (err.message || err));
+  });
+}
+
+
 function renderBulanOptions() {
   var container = document.getElementById('optionBulanGuru');
   var bulanList = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
@@ -4474,6 +4636,7 @@ function loadTabelGuru() {
         else if (status === 'Sakit') { color = '#B45309'; bg = '#FEF9C3'; }
         else if (status === 'Izin') { color = '#D97706'; bg = '#FFEDD5'; }
         else if (status === 'Tidak Mengajar') { color = '#64748B'; bg = '#F1F5F9'; }
+        else if (status === 'Alpha') { color = '#DC2626'; bg = '#FEE2E2'; }
         
         html += '<td style="border:1px solid #E2E8F0;text-align:center;background:' + bg + ';padding:4px 2px;">';
         if (status !== '-') {
@@ -4522,13 +4685,14 @@ function loadRekapGuru() {
     html += '<th style="border:1px solid #E2E8F0;color:#B45309;">S</th>';
     html += '<th style="border:1px solid #E2E8F0;color:#D97706;">I</th>';
     html += '<th style="border:1px solid #E2E8F0;color:#64748B;">TM</th>';
+    html += '<th style="border:1px solid #E2E8F0;color:#DC2626;">A</th>';
     html += '<th style="border:1px solid #E2E8F0;color:#94A3B8;">-</th>';
     html += '</tr>';
 
     guruIds.forEach(function(guruId) {
       var g = daftarGuru[guruId];
       var guruAbsen = absenBulan[guruId] || {};
-      var rekap = { Hadir:0, Sakit:0, Izin:0, 'Tidak Mengajar':0, 'Belum':0 };
+      var rekap = { Hadir:0, Sakit:0, Izin:0, 'Tidak Mengajar':0, Alpha:0, 'Belum':0 };
       for (var d = 1; d <= daysInMonth; d++) {
         var status = guruAbsen[d] ? guruAbsen[d].status : '-';
         if (status === '-') rekap['Belum']++;
@@ -4540,6 +4704,7 @@ function loadRekapGuru() {
       html += '<td style="border:1px solid #E2E8F0;color:#B45309;font-weight:700;text-align:center;">' + rekap.Sakit + '</td>';
       html += '<td style="border:1px solid #E2E8F0;color:#D97706;font-weight:700;text-align:center;">' + rekap.Izin + '</td>';
       html += '<td style="border:1px solid #E2E8F0;color:#64748B;font-weight:700;text-align:center;">' + rekap['Tidak Mengajar'] + '</td>';
+      html += '<td style="border:1px solid #E2E8F0;color:#DC2626;font-weight:700;text-align:center;">' + rekap.Alpha + '</td>';
       html += '<td style="border:1px solid #E2E8F0;color:#94A3B8;font-weight:700;text-align:center;">' + rekap.Belum + '</td>';
       html += '</tr>';
     });
