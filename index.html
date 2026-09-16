@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Star Tools - Utama</title>
+<title>STools - Utama</title>
 
 <link rel="icon" type="image/png" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -15,7 +15,7 @@
 {
  "@context": "https://schema.org",
  "@type": "WebSite",
- "name": "Star Tools",
+ "name": "STools",
  "url": "https://www.stools.web.id/",
  "image": "https://www.stools.web.id/logo.jpg"
 }
@@ -131,7 +131,18 @@
     cursor: pointer;
     border: 1px solid #E2E8F0;
   }
-
+.sidebar-nav a.active-link {
+    background:#DBEAFE; color:#2563EB;
+  }
+  body.dark .sidebar-nav a.active-link {
+    background:#1E3A5F; color:#60A5FA;
+  }
+  .sidebar-nav a.active-link .icon {
+    stroke:#2563EB;
+  }
+  body.dark .sidebar-nav a.active-link .icon {
+    stroke:#60A5FA;
+  }
   body.dark .menu-icon {
     background: #1E293B;
     border-color: #334155;
@@ -153,6 +164,75 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .bell-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+    position: relative;
+  }
+
+  body.dark .bell-btn {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .bell-btn:active {
+    transform: scale(0.92);
+  }
+
+  .bell-btn svg {
+    stroke: #0F172A;
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  body.dark .bell-btn svg {
+    stroke: #F1F5F9;
+  }
+
+  .bell-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #DC2626;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+  }
+
+  body.dark .bell-badge {
+    border-color: #111827;
+  }
+
+  .bell-badge.hidden {
+    display: none;
   }
 
   .header-back {
@@ -411,7 +491,7 @@
   .absensi { stroke: #22D3EE; }
   .absensiMapel { stroke: #818CF8; }
   .keuangan { stroke: #F59E0B; }
-  .nita { stroke: #818CF8; }
+  .nita { stroke: #8B5CF6; }
   .rata { stroke: #34D399; }
   .ranking { stroke: #A78BFA; }
   .total { stroke: #FBBF24; }
@@ -743,7 +823,16 @@
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </div>
-      <span class="app-title">Star Tools</span>
+      <span class="app-title">STools</span>
+    </div>
+    <div class="header-right">
+      <button class="bell-btn" onclick="goTo('pembaruan.html')" aria-label="Notifikasi Pembaruan">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <span class="bell-badge hidden" id="bellBadge">0</span>
+      </button>
     </div>
   </div>
 
@@ -757,6 +846,15 @@
         <span>Kembali</span>
       </div>
     </div>
+    <div class="header-right">
+      <button class="bell-btn" onclick="goTo('pembaruan.html')" aria-label="Notifikasi Pembaruan">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <span class="bell-badge hidden" id="bellBadgeSub">0</span>
+      </button>
+    </div>
   </div>
 
   <!-- SIDEBAR -->
@@ -767,7 +865,7 @@
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
-    <a href="#" onclick="goTo('index.html')">
+    <a href="#" class="active-link" onclick="goTo('index.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
     </a>
     <a href="#" onclick="goTo('berita.html')">
@@ -778,6 +876,12 @@
     </a>
     <a href="#" onclick="goTo('akun.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Akun
+    </a>
+    <a href="#" onclick="goTo('teman.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
+    </a>
+    <a href="#" onclick="goTo('lokasi.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokasi
     </a>
     <div class="logout-link">
       <a href="#" onclick="logoutAction()">
@@ -818,7 +922,7 @@
       <!-- WELCOME -->
       <div class="card-modern">
         <div class="welcome-text" id="welcomeText">Selamat Datang, User</div>
-        <div class="subtext">Jelajahi semua fitur Star Tools</div>
+        <div class="subtext">Jelajahi semua fitur STools</div>
         <input type="text" id="searchBox" placeholder="Cari mapel atau fitur...">
       </div>
 
@@ -867,13 +971,19 @@
           Fitur Pendukung
         </div>
         <div class="grid-3" id="allFeatureGrid"></div>
+
+        <div class="category-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Fitur AI
+        </div>
+        <div class="grid-3" id="allAIGrid"></div>
+      </div>
     </div>
-   </div>
   </div>
 
   <!-- FOOTER -->
   <div class="footer-app">
-    <p>Star Platform | Star Tools 2026</p>
+    <p>Star Platform | STools 2026</p>
   </div>
 </div>
 
@@ -925,6 +1035,7 @@ const db = firebase.database();
 
 let currentUser = null;
 let isPremium = false;
+let unreadCount = 0;
 
 function goTo(page) {
   window.location.href = page;
@@ -973,6 +1084,34 @@ function trackBelajar(mapel) {
   localStorage.setItem("riwayatBelajar", JSON.stringify(data));
 }
 
+// ======================== NOTIFICATION BELL ========================
+function checkNotifications() {
+  db.ref('notifications').once('value').then(function(snap) {
+    const data = snap.val() || {};
+    const readIds = JSON.parse(localStorage.getItem('readNotifications') || '[]');
+    let count = 0;
+    Object.keys(data).forEach(function(key) {
+      if (!readIds.includes(key)) count++;
+    });
+    unreadCount = count;
+    updateBellBadge(count);
+  }).catch(function() {
+    updateBellBadge(0);
+  });
+}
+
+function updateBellBadge(count) {
+  const badges = document.querySelectorAll('.bell-badge');
+  badges.forEach(function(badge) {
+    if (count > 0) {
+      badge.textContent = count;
+      badge.classList.remove('hidden');
+    } else {
+      badge.classList.add('hidden');
+    }
+  });
+}
+
 // ======================== PAGE NAVIGATION ========================
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(function(p) {
@@ -998,10 +1137,9 @@ const homeGrid = [
   { type: "subject", name: "Matematika", icon: "mtk", link: "matematika.html" },
   { type: "subject", name: "Ekonomi", icon: "ekonomi", link: "ekonomi.html" },
   { type: "subject", name: "Sains", icon: "sains", link: "sains.html" },
-  { type: "subject", name: "Robotik", icon: "robotik", link: "dasar-robotik.html", badge:"BARU" },
+  { type: "subject", name: "Robotik", icon: "robotik", link: "robotik.html" },
   { type: "feature", name: "Absensi Digital", icon: "absensi", link: "absensi-digital.html" },
-  { type: "feature", name: "Keuangan Digital", icon: "keuangan", link: "keuangan.html" },
-  { type: "feature", name: "Catatan Nilai", icon: "catatanNilai", link: "nilai.html", badge: "BARU" }
+  { type: "feature", name: "Keuangan Digital", icon: "keuangan", link: "keuangan.html" }
 ];
 
 function renderHomeGrid() {
@@ -1028,14 +1166,14 @@ function renderHomeGrid() {
   });
 }
 
-// ======================== ALL SUBJECTS & FEATURES ========================
+// ======================== ALL SUBJECTS, FEATURES & AI ========================
 const allSubjects = [
   { name: "Matematika", icon: "mtk", link: "matematika.html" },
   { name: "Ekonomi", icon: "ekonomi", link: "ekonomi.html" },
   { name: "Sains", icon: "sains", link: "sains.html" },
   { name: "Bahasa", icon: "bahasa", link: "bahasa.html" },
   { name: "Coding", icon: "coding", link: "coding.html" },
-  { name: "Robotik", icon: "robotik", link: "dasar-robotik.html", badge: "BARU" }
+  { name: "Robotik", icon: "robotik", link: "robotik.html" }
 ];
 
 const allFeatures = [
@@ -1044,9 +1182,12 @@ const allFeatures = [
   { name: "Nilai Rata-Rata", icon: "rata", link: "rata.html" },
   { name: "Rangking", icon: "ranking", link: "ranking.html" },
   { name: "Total Nilai", icon: "total", link: "total.html" },
-  { name: "Nita AI Asisten", icon: "nita", link: "nita.html" },
   { name: "Tugas Digital", icon: "tugas", link: "kelas.html" },
-  { name: "Catatan Nilai", icon: "catatanNilai", link: "nilai.html", badge: "BARU" }
+  { name: "Catatan Nilai", icon: "catatanNilai", link: "nilai.html" }
+];
+
+const allAI = [
+  { name: "Nita AI", icon: "nita", link: "nita.html" }
 ];
 
 const iconColors = {
@@ -1062,7 +1203,7 @@ const iconColors = {
   rata: "#34D399",
   ranking: "#A78BFA",
   total: "#FBBF24",
-  nita: "#818CF8",
+  nita: "#8B5CF6",
   tugas: "#F59E0B",
   catatanNilai: "#EC4899"
 };
@@ -1078,18 +1219,21 @@ const iconPaths = {
   keuangan: '<rect x="2" y="6" width="20" height="14" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="17" cy="14.5" r="1.5" fill="#F59E0B"/>',
   rata: '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
   ranking: '<path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 4-4"/><path d="M7 10l4 4 4-4 4 4"/>',
-  total: ' <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>',
-  nita: '<rect x="2" y="6" width="20" height="12"/><path d="M2 6l10 7 10-7"/>',
+  total: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>',
+  nita: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="8" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="11" r="1" fill="currentColor" stroke="none"/>',
   tugas: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
   catatanNilai: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9.5 13.5l1.5 1.5 3-3"/><line x1="8" y1="17.5" x2="13" y2="17.5"/>'
 };
 
-document.addEventListener('DOMContentLoaded', renderHomeGrid);
-
+document.addEventListener('DOMContentLoaded', function() {
+  renderHomeGrid();
+  checkNotifications();
+});
 
 function showAllFeatures() {
   const subjectGrid = document.getElementById('allSubjectGrid');
   const featureGrid = document.getElementById('allFeatureGrid');
+  const aiGrid = document.getElementById('allAIGrid');
   
   subjectGrid.innerHTML = '';
   allSubjects.forEach(s => {
@@ -1121,6 +1265,22 @@ function showAllFeatures() {
       ${s.badge ? '<span class="badge-new">' + s.badge + '</span>' : ''}
     `;
     featureGrid.appendChild(div);
+  });
+
+  aiGrid.innerHTML = '';
+  allAI.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'feature-btn';
+    div.style.position = 'relative';
+    div.onclick = function() { goTo(s.link); };
+    div.innerHTML = `
+      <div class="icon-wrap" style="background:${iconColors[s.icon]}20;">
+        <svg viewBox="0 0 24 24" class="${s.icon}">${iconPaths[s.icon]}</svg>
+      </div>
+      <span>${s.name}</span>
+      ${s.badge ? '<span class="badge-new">' + s.badge + '</span>' : ''}
+    `;
+    aiGrid.appendChild(div);
   });
 
   showPage('pageAllFeatures');
@@ -1239,8 +1399,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       if (dbNama && dbNama !== localStorage.getItem('userName')) {
         updateUsername(dbNama);
       }
-    }).catch(function() {
-  });
+    }).catch(function() {});
 
     db.ref('users/' + uid + '/premium').once('value').then(function(snap) {
       isPremium = snap.val() === true;

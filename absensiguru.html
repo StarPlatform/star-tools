@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Absensi Guru - Star Tools</title>
+<title>Absensi Guru - STools</title>
 
 <link rel="icon" type="image/png" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -15,7 +15,7 @@
 {
  "@context": "https://schema.org",
  "@type": "WebSite",
- "name": "Star Tools",
+ "name": "STools",
  "url": "https://www.stools.web.id/",
  "image": "https://www.stools.web.id/logo.jpg"
 }
@@ -272,23 +272,6 @@
 
   body.dark .guide-checkbox {
     color: #94A3B8;
-  }
-
-  body.dark .session-item {
-    background: #111827;
-    border-color: #1E293B;
-  }
-
-  body.dark .session-item .session-nama {
-    color: #F1F5F9;
-  }
-
-  body.dark .session-item .session-id {
-    color: #94A3B8;
-  }
-
-  body.dark .session-item .session-label {
-    color: #64748B;
   }
 
   .app-container {
@@ -919,6 +902,7 @@
     background: #111827;
   }
 
+  /* ===== NAMA GURU BISA DIKLIK ===== */
   .guru-name-clickable {
     cursor: pointer;
     text-decoration: underline dotted;
@@ -950,6 +934,7 @@
     display: inline;
   }
 
+  /* ===== STATUS DENGAN JAM ===== */
   .cell-status {
     font-size: 11px;
     font-weight: 600;
@@ -1483,6 +1468,7 @@
     display: none;
   }
 
+  /* ===== ID BANNER - ID SEKOLAH BESAR + COPY ===== */
   .id-banner {
     margin: 14px 16px;
     padding: 18px 20px;
@@ -1530,196 +1516,6 @@
     font-size: 14px; 
     opacity: 0.9; 
     margin-top: 4px; 
-  }
-
-  /* ===== SESSION BOX ===== */
-  .session-box {
-    margin: 8px 16px 12px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .session-item {
-    background: #FFFFFF;
-    border-radius: 16px;
-    padding: 14px 16px;
-    border: 1px solid #E2E8F0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  body.dark .session-item {
-    background: #111827;
-    border-color: #1E293B;
-  }
-
-  .session-item.session-active {
-    border-color: #2563EB;
-    background: #EFF6FF;
-  }
-
-  body.dark .session-item.session-active {
-    background: #1E3A5F;
-    border-color: #2563EB;
-  }
-
-  .session-item.session-empty {
-    justify-content: flex-start;
-  }
-
-  .session-badge-active {
-    display: inline-block;
-    background: #2563EB;
-    color: white;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 20px;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
-
-  .session-item .session-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .session-item .session-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #2563EB18;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  body.dark .session-item .session-icon {
-    background: #1E3A5F;
-  }
-
-  .session-item .session-icon svg {
-    width: 20px;
-    height: 20px;
-    stroke: #2563EB;
-  }
-
-  body.dark .session-item .session-icon svg {
-    stroke: #60A5FA;
-  }
-
-  .session-item .session-info {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .session-item .session-label {
-    font-size: 11px;
-    color: #94A3B8;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  body.dark .session-item .session-label {
-    color: #64748B;
-  }
-
-  .session-item .session-nama {
-    font-size: 14px;
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #0F172A;
-  }
-
-  body.dark .session-item .session-nama {
-    color: #F1F5F9;
-  }
-
-  .session-item .session-id {
-    font-size: 11px;
-    color: #64748B;
-    font-family: monospace;
-  }
-
-  body.dark .session-item .session-id {
-    color: #94A3B8;
-  }
-
-  .session-item .session-actions {
-    display: flex;
-    gap: 6px;
-    flex-shrink: 0;
-  }
-
-  .session-item .session-btn-login {
-    background: #2563EB;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    min-height: 36px;
-    transition: 0.2s;
-  }
-
-  .session-item .session-btn-login:active {
-    transform: scale(0.95);
-  }
-
-  .session-item .session-btn-login.hidden-btn {
-    display: none !important;
-  }
-
-  .session-item .session-btn-hapus {
-    background: transparent;
-    border: 1px solid #DC2626;
-    color: #DC2626;
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    min-height: 36px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: 0.2s;
-  }
-
-  .session-item .session-btn-hapus:active {
-    transform: scale(0.95);
-    background: rgba(220, 38, 38, 0.1);
-  }
-
-  body.dark .session-item .session-btn-hapus {
-    border-color: #F87171;
-    color: #F87171;
-  }
-
-  body.dark .session-item .session-btn-hapus:active {
-    background: rgba(248, 113, 113, 0.15);
-  }
-
-  .session-item .session-btn-hapus.hidden-btn {
-    display: none !important;
-  }
-
-  .session-item .session-btn-hapus svg {
-    width: 16px;
-    height: 16px;
-    stroke: currentColor;
   }
 
   .guru-card {
@@ -1795,82 +1591,6 @@
   .kelas-chip-row .kode-kelas { font-size: 11px; color: #94A3B8; }
   .kelas-chip-row .guru-badge { font-size: 11px; background: #EFF6FF; color: #2563EB; padding: 4px 10px; border-radius: 20px; font-weight: 700; }
   body.dark .kelas-chip-row .guru-badge { background: #1D2B4A; color: #60A5FA; }
-
-  .kelas-chip-row .kelas-actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-  }
-
-  .kelas-chip-row .btn-action-kelas {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    border: 1px solid #E2E8F0;
-    background: #F8FAFE;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: 0.2s;
-    flex-shrink: 0;
-  }
-
-  body.dark .kelas-chip-row .btn-action-kelas {
-    background: #1E293B;
-    border-color: #334155;
-  }
-
-  .kelas-chip-row .btn-action-kelas:active {
-    transform: scale(0.92);
-  }
-
-  .kelas-chip-row .btn-action-kelas svg {
-    width: 16px;
-    height: 16px;
-    stroke: #0F172A;
-  }
-
-  body.dark .kelas-chip-row .btn-action-kelas svg {
-    stroke: #F1F5F9;
-  }
-
-  .kelas-chip-row .btn-action-kelas.btn-salin svg {
-    stroke: #2563EB;
-  }
-
-  body.dark .kelas-chip-row .btn-action-kelas.btn-salin svg {
-    stroke: #60A5FA;
-  }
-
-  .kelas-chip-row .btn-action-kelas.btn-hapus svg {
-    stroke: #DC2626;
-  }
-
-  body.dark .kelas-chip-row .btn-action-kelas.btn-hapus svg {
-    stroke: #F87171;
-  }
-
-  .kelas-chip-row .btn-action-kelas.btn-salin {
-    border-color: #2563EB;
-    background: rgba(37, 99, 235, 0.06);
-  }
-
-  body.dark .kelas-chip-row .btn-action-kelas.btn-salin {
-    border-color: #60A5FA;
-    background: rgba(96, 165, 250, 0.1);
-  }
-
-  .kelas-chip-row .btn-action-kelas.btn-hapus {
-    border-color: #DC2626;
-    background: rgba(220, 38, 38, 0.06);
-  }
-
-  body.dark .kelas-chip-row .btn-action-kelas.btn-hapus {
-    border-color: #F87171;
-    background: rgba(248, 113, 113, 0.1);
-  }
 
   .tabs-pill {
     display: flex;
@@ -1957,6 +1677,24 @@
     background: #155D34;
   }
 
+  .kelas-chip-row .btn-remove-kelas {
+    background: transparent;
+    border: none;
+    color: #DC2626;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: 0.2s;
+  }
+  .kelas-chip-row .btn-remove-kelas:hover {
+    background: rgba(220, 38, 38, 0.1);
+  }
+  body.dark .kelas-chip-row .btn-remove-kelas:hover {
+    background: rgba(220, 38, 38, 0.2);
+  }
+
+  /* ===== QR MODAL ===== */
   .qr-modal-box {
     display: flex;
     flex-direction: column;
@@ -1989,6 +1727,7 @@
     object-fit: cover;
   }
 
+  /* ===== DESAIN TOMBOL UPLOAD FILE ===== */
   .upload-btn-wrapper {
     position: relative;
     overflow: hidden;
@@ -2056,6 +1795,7 @@
     color: #94A3B8;
   }
 
+  /* ===== MODAL EDIT FOTO ===== */
   .photo-editor-overlay {
     position: fixed;
     top: 0;
@@ -2153,6 +1893,7 @@
     margin: 0;
   }
 
+  /* ===== GUIDE OVERLAY ===== */
   .guide-overlay {
     position: fixed;
     top: 0;
@@ -2663,10 +2404,6 @@
     .guide-handle {
       opacity: 0.4;
     }
-
-    .session-box {
-      margin: 8px 20px 12px 20px;
-    }
   }
 </style>
 </head>
@@ -2721,10 +2458,16 @@
       <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       Akun
     </a>
-    <div class="logout-link" id="sidebarLogoutLink">
-      <a href="#" id="sidebarLogoutAnchor" onclick="logoutSekolah()">
+    <a href="#" onclick="goTo('teman.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
+    </a>
+    <a href="#" onclick="goTo('lokasi.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokasi
+    </a>
+    <div class="logout-link">
+      <a href="#" onclick="logoutSekolah()">
         <svg class="icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-        <span id="sidebarLogoutLabel">Keluar Sekolah</span>
+        Keluar Sekolah
       </a>
     </div>
   </div>
@@ -2751,7 +2494,7 @@
       <h3>Daftarkan Sekolah</h3>
       <div class="input-group">
         <label>Nama Sekolah</label>
-        <input id="daftarNamaSekolah" class="input" placeholder="Contoh: SMK Star Tools 1">
+        <input id="daftarNamaSekolah" class="input" placeholder="Contoh: SMK STools 1">
       </div>
       <div class="input-group">
         <label>Buat Password Sekolah</label>
@@ -2772,14 +2515,12 @@
       </div>
       <button class="btn btn-primary" onclick="loginSekolah()">Masuk</button>
     </div>
-
-    <!-- SESSION BOX - DI BAWAH AREA DAFTAR/LOGIN (SELALU MUNCUL, BISA MENAMPUNG BEBERAPA SESI) -->
-    <div id="sessionBox" class="session-box"></div>
   </div>
 
   <!-- DASHBOARD -->
   <div id="layarDashboard" class="hidden">
 
+    <!-- ID BANNER - ID SEKOLAH BESAR + COPY -->
     <div class="id-banner">
       <div class="label">ID Sekolah</div>
       <div class="id-value">
@@ -2849,16 +2590,6 @@
           <input id="pwKelasBaru" type="password" class="input" placeholder="Password">
         </div>
         <button class="btn btn-primary" onclick="buatKelasBaru()">Buat Kelas</button>
-
-        <div id="hasilBuatKelas" style="display:none; margin-top:16px; padding:14px; background:#F0FDF4; border-radius:12px; border:1px solid #BBF7D0;">
-          <p style="font-size:13px; font-weight:700; color:#065F46; margin-bottom:4px;">✅ Kelas Berhasil Dibuat!</p>
-          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:6px;">
-            <span style="font-size:13px; color:#64748B;">ID Kelas:</span>
-            <span id="hasilIdKelas" style="font-weight:700; font-size:15px; color:#0F172A; font-family:monospace; background:#fff; padding:4px 10px; border-radius:6px; border:1px solid #E2E8F0;">KLS-XXXXXX</span>
-            <button onclick="salinIdKelas()" style="background:#2563EB; color:#fff; border:none; padding:6px 16px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer; transition:0.2s; min-height:32px;">Salin</button>
-          </div>
-          <p style="font-size:12px; color:#64748B; margin-top:6px;">Simpan ID ini untuk login ke kelas nanti.</p>
-        </div>
       </div>
 
       <div class="container">
@@ -2935,50 +2666,6 @@
           <div id="tempReader" style="display:none;"></div>
         </div>
       </div>
-
-      <div class="container">
-        <h3>Absensi Manual</h3>
-        <p style="font-size:12px; color:#94A3B8; margin-bottom:12px;">Isi keterangan guru yang tidak hadir (sakit, izin, memang tidak ada jadwal, atau tanpa keterangan), atau pakai ini sebagai pengganti kalau scan QR sedang bermasalah.</p>
-
-        <div class="input-group">
-          <label>Pilih Guru</label>
-          <div class="custom-select">
-            <div class="select-box" onclick="toggleDropdown('optionGuruManual')">
-              <span id="selectedGuruManual">Pilih guru</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </div>
-            <div class="options" id="optionGuruManual"></div>
-          </div>
-        </div>
-
-        <div class="input-group">
-          <label>Tanggal</label>
-          <input type="date" id="tanggalAbsenManual" class="input">
-        </div>
-
-        <div class="input-group">
-          <label>Status Kehadiran</label>
-          <div class="custom-select">
-            <div class="select-box" onclick="toggleDropdown('optionStatusManual')">
-              <span id="selectedStatusManual">Pilih status</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </div>
-            <div class="options" id="optionStatusManual"></div>
-          </div>
-        </div>
-
-        <div class="input-group" id="jamManualGroup" style="display:none;">
-          <label>Jam (opsional)</label>
-          <input type="time" id="jamAbsenManual" class="input">
-        </div>
-
-        <div class="input-group">
-          <label>Catatan (opsional)</label>
-          <input type="text" id="catatanAbsenManual" class="input" placeholder="Contoh: demam, keperluan keluarga, dll">
-        </div>
-
-        <button class="btn btn-primary" onclick="simpanAbsensiManual()">Simpan Absensi</button>
-      </div>
     </div>
 
     <!-- TAB ABSENSI -->
@@ -3011,7 +2698,7 @@
 
   </div>
 
-  <div class="footer">Star Platform | Star Tools 2026</div>
+  <div class="footer">Star Platform | STools 2026</div>
 </div>
 
 <!-- MODAL -->
@@ -3233,67 +2920,10 @@ var firebaseConfig = {
 if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
 var db = firebase.database();
 
-// ===== SESSION (BISA MENAMPUNG BEBERAPA SEKOLAH SEKALIGUS) =====
-var SESSIONS_KEY = 'absensiGuruSessions';
-var ACTIVE_SESSION_KEY = 'absensiGuruActiveId';
-
-function getSessions() {
-  try {
-    var data = JSON.parse(localStorage.getItem(SESSIONS_KEY) || '[]');
-    return Array.isArray(data) ? data : [];
-  } catch(e) {
-    return [];
-  }
-}
-
-function saveSessionsList(list) {
-  localStorage.setItem(SESSIONS_KEY, JSON.stringify(list));
-}
-
-function upsertSession(id, pw, nama) {
-  var list = getSessions();
-  var idx = -1;
-  for (var i = 0; i < list.length; i++) {
-    if (list[i].sekolahId === id) { idx = i; break; }
-  }
-  var entry = { sekolahId: id, sekolahPw: pw, namaSekolah: nama || '' };
-  if (idx >= 0) list[idx] = entry;
-  else list.unshift(entry);
-  saveSessionsList(list);
-  return entry;
-}
-
-function removeSessionFromList(id) {
-  var list = getSessions().filter(function(s) { return s.sekolahId !== id; });
-  saveSessionsList(list);
-}
-
-function getActiveSessionId() {
-  return localStorage.getItem(ACTIVE_SESSION_KEY) || '';
-}
-
-function setActiveSessionId(id) {
-  if (id) localStorage.setItem(ACTIVE_SESSION_KEY, id);
-  else localStorage.removeItem(ACTIVE_SESSION_KEY);
-}
-
-// Migrasi dari format sesi lama (satu sekolah saja) ke format list baru
-(function migrateOldSession() {
-  try {
-    var old = JSON.parse(localStorage.getItem('absensiGuruSession') || 'null');
-    if (old && old.sekolahId && old.sekolahPw) {
-      upsertSession(old.sekolahId, old.sekolahPw, old.namaSekolah || '');
-      setActiveSessionId(old.sekolahId);
-    }
-  } catch(e) {}
-  localStorage.removeItem('absensiGuruSession');
-})();
-
-var sekolahIdAktif = '';
-var sekolahPwAktif = '';
+// ===== VARIABEL =====
+var sekolahIdAktif = localStorage.getItem('sekolahIdAktif') || '';
+var sekolahPwAktif = localStorage.getItem('sekolahPwAktif') || '';
 var namaSekolahAktif = '';
-
-// ===== VARIABEL LAIN =====
 var daftarGuru = {};
 var daftarKelasTerdaftar = {};
 var html5QrCode = null;
@@ -3413,109 +3043,6 @@ function closeDropdowns() {
   document.querySelectorAll('.options').forEach(function(el) { el.classList.remove('active'); });
 }
 
-// ===== SESSION FUNCTIONS =====
-function tampilkanSesi() {
-  var box = document.getElementById('sessionBox');
-  if (!box) return;
-
-  var sessions = getSessions();
-  var activeId = getActiveSessionId();
-
-  if (!sessions.length) {
-    box.innerHTML =
-      '<div class="session-item session-empty">' +
-        '<div class="session-left">' +
-          '<div class="session-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>' +
-          '<div class="session-info">' +
-            '<div class="session-label">Sesi Tersimpan</div>' +
-            '<div class="session-nama">Belum ada satupun sesi login</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>';
-    return;
-  }
-
-  var html = '';
-  sessions.forEach(function(s) {
-    var isActive = s.sekolahId === activeId;
-    var idEsc = s.sekolahId.replace(/'/g, "\\'");
-    html +=
-      '<div class="session-item' + (isActive ? ' session-active' : '') + '">' +
-        '<div class="session-left">' +
-          '<div class="session-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>' +
-          '<div class="session-info">' +
-            '<div class="session-label">' + (isActive ? 'Sedang Aktif' : 'Sesi Tersimpan') + '</div>' +
-            '<div class="session-nama">' + (s.namaSekolah || 'Sekolah') + '</div>' +
-            '<div class="session-id">' + s.sekolahId + '</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="session-actions">' +
-          (isActive ? '' : '<button class="session-btn-login" onclick="loginDenganSesi(\'' + idEsc + '\')">Login</button>') +
-          '<button class="session-btn-hapus" onclick="hapusSesi(\'' + idEsc + '\')">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>' +
-          '</button>' +
-        '</div>' +
-      '</div>';
-  });
-  box.innerHTML = html;
-}
-
-function loginDenganSesi(id) {
-  var sessions = getSessions();
-  var target = null;
-  for (var i = 0; i < sessions.length; i++) {
-    if (sessions[i].sekolahId === id) { target = sessions[i]; break; }
-  }
-  if (!target) {
-    showModal('warning', 'Tidak Ada Sesi', 'Sesi login yang tersimpan tidak ditemukan.');
-    return;
-  }
-
-  db.ref('sekolah/' + target.sekolahId).once('value').then(function(snap) {
-    var data = snap.val();
-    if (!data) {
-      showModal('error', 'Sesi Tidak Valid', 'Sekolah dengan ID ini tidak ditemukan. Sesi akan dihapus.');
-      removeSessionFromList(target.sekolahId);
-      tampilkanSesi();
-      return;
-    }
-    if (data.password !== target.sekolahPw) {
-      showModal('error', 'Password Berubah', 'Password sekolah telah berubah. Silakan login ulang.');
-      removeSessionFromList(target.sekolahId);
-      tampilkanSesi();
-      return;
-    }
-    sekolahIdAktif = target.sekolahId;
-    sekolahPwAktif = target.sekolahPw;
-    namaSekolahAktif = data.nama || target.namaSekolah || '';
-    upsertSession(sekolahIdAktif, sekolahPwAktif, namaSekolahAktif);
-    setActiveSessionId(sekolahIdAktif);
-    tampilkanSesi();
-    updateSidebarLogout();
-    masukDashboard();
-  });
-}
-
-function hapusSesi(id) {
-  showConfirmModal('Hapus Sesi', 'Yakin ingin menghapus sesi login ini?', function() {
-    var wasActive = (getActiveSessionId() === id);
-    removeSessionFromList(id);
-
-    if (wasActive) {
-      setActiveSessionId('');
-      sekolahIdAktif = '';
-      sekolahPwAktif = '';
-      namaSekolahAktif = '';
-      document.getElementById('layarDashboard').classList.add('hidden');
-      document.getElementById('layarLogin').classList.remove('hidden');
-      updateSidebarLogout();
-    }
-
-    tampilkanSesi();
-    showModal('success', 'Sesi Dihapus', 'Sesi login berhasil dihapus.');
-  });
-}
-
 // ===== AUTH =====
 function switchAuthTab(tab) {
   document.getElementById('tabDaftarBtn').classList.toggle('active', tab === 'daftar');
@@ -3539,15 +3066,6 @@ function switchDashTab(tab) {
     document.getElementById('tab' + cap).classList.toggle('hidden', t !== tab);
   });
   if (tab !== 'scan' && isScanning) stopScanner();
-  if (tab === 'scan') {
-    renderGuruManualOptions();
-    renderStatusManualOptions();
-    var tglManual = document.getElementById('tanggalAbsenManual');
-    if (tglManual && !tglManual.value) {
-      var now2 = new Date();
-      tglManual.value = now2.getFullYear() + '-' + String(now2.getMonth() + 1).padStart(2, '0') + '-' + String(now2.getDate()).padStart(2, '0');
-    }
-  }
   if (tab === 'absen') {
     if (!bulanDipilihGuru) {
       var now = new Date();
@@ -3584,13 +3102,9 @@ function daftarSekolah() {
   if (!nama || !pw) { showModal('warning', 'Belum Lengkap', 'Isi nama sekolah dan password terlebih dahulu.'); return; }
   var id = generateId('SKL');
   db.ref('sekolah/' + id).set({ nama: nama, password: pw, dibuatPada: Date.now() }).then(function() {
-    upsertSession(id, pw, nama);
-    setActiveSessionId(id);
-    sekolahIdAktif = id;
-    sekolahPwAktif = pw;
-    namaSekolahAktif = nama;
-    tampilkanSesi();
-    updateSidebarLogout();
+    sekolahIdAktif = id; sekolahPwAktif = pw;
+    localStorage.setItem('sekolahIdAktif', id);
+    localStorage.setItem('sekolahPwAktif', pw);
     showModal('success', 'Sekolah Terdaftar!', 'ID Sekolah kamu: ' + id + '. Simpan ID ini baik-baik.', '<button class="btn btn-primary" onclick="closeModal(); masukDashboard();">Lanjut</button>');
   });
 }
@@ -3603,83 +3117,37 @@ function loginSekolah() {
     var data = snap.val();
     if (!data) { showModal('error', 'Tidak Ditemukan', 'ID Sekolah tidak ditemukan.'); return; }
     if (data.password !== pw) { showModal('error', 'Password Salah', 'Password salah.'); return; }
-    upsertSession(id, pw, data.nama || '');
-    setActiveSessionId(id);
-    sekolahIdAktif = id;
-    sekolahPwAktif = pw;
-    namaSekolahAktif = data.nama || '';
-    tampilkanSesi();
-    updateSidebarLogout();
+    sekolahIdAktif = id; sekolahPwAktif = pw;
+    localStorage.setItem('sekolahIdAktif', id);
+    localStorage.setItem('sekolahPwAktif', pw);
     masukDashboard();
   });
 }
 
 function logoutSekolah() {
   showConfirmModal('Logout Sekolah', 'Yakin ingin keluar dari sesi sekolah ini?', function() {
-    // Hanya menghentikan sesi AKTIF (supaya refresh tidak auto-login lagi).
-    // Sesi tersimpan (daftar sekolah) TIDAK dihapus, jadi masih bisa dipakai
-    // untuk login cepat lewat kotak "Sesi Tersimpan". Untuk benar-benar
-    // menghapus sesi dari daftar, gunakan tombol "Hapus" (hapusSesi()).
-    setActiveSessionId('');
-    sekolahIdAktif = '';
-    sekolahPwAktif = '';
-    namaSekolahAktif = '';
-    
-    // Tampilkan layar login
+    localStorage.removeItem('sekolahIdAktif');
+    localStorage.removeItem('sekolahPwAktif');
+    localStorage.removeItem('bulanGuru');
+    sekolahIdAktif = ''; sekolahPwAktif = '';
     document.getElementById('layarDashboard').classList.add('hidden');
     document.getElementById('layarLogin').classList.remove('hidden');
-    
-    // Update session box (tetap menampilkan sesi tersimpan lainnya)
-    tampilkanSesi();
-    updateSidebarLogout();
-    
     closeSidebar();
-    showModal('success', 'Logout Berhasil', 'Anda telah keluar dari sesi sekolah.');
   });
-}
-
-function keluarAkun() {
-  showConfirmModal('Keluar Akun', 'Yakin ingin keluar dari akun Star Tools?', function() {
-    localStorage.removeItem('user');
-    localStorage.removeItem('isGuest');
-    window.location.href = 'login.html';
-  });
-}
-
-// Ubah tombol sidebar paling bawah tergantung layar yang sedang tampil:
-// - Di dashboard sekolah -> "Keluar Sekolah" (logout sesi sekolah aktif saja)
-// - Di layar login/daftar -> "Keluar" (logout akun Star Tools, ke login.html)
-function updateSidebarLogout() {
-  var anchor = document.getElementById('sidebarLogoutAnchor');
-  var label = document.getElementById('sidebarLogoutLabel');
-  if (!anchor || !label) return;
-
-  var dashboardEl = document.getElementById('layarDashboard');
-  var isDashboardActive = dashboardEl && !dashboardEl.classList.contains('hidden');
-
-  if (isDashboardActive) {
-    label.innerText = 'Keluar Sekolah';
-    anchor.onclick = function(e) { if (e) e.preventDefault(); logoutSekolah(); return false; };
-  } else {
-    label.innerText = 'Keluar';
-    anchor.onclick = function(e) { if (e) e.preventDefault(); keluarAkun(); return false; };
-  }
 }
 
 function masukDashboard() {
   document.getElementById('layarLogin').classList.add('hidden');
   document.getElementById('layarDashboard').classList.remove('hidden');
-  updateSidebarLogout();
 
   document.getElementById('idSekolahText').innerText = sekolahIdAktif;
 
   db.ref('sekolah/' + sekolahIdAktif + '/nama').once('value').then(function(snap) {
     namaSekolahAktif = snap.val() || '';
     document.getElementById('namaSekolahText').innerText = namaSekolahAktif;
-    upsertSession(sekolahIdAktif, sekolahPwAktif, namaSekolahAktif);
-    tampilkanSesi();
   });
 
+  // Load daftar kelas untuk ambil nama kelas
   db.ref('sekolah/' + sekolahIdAktif + '/kelasTerdaftar').on('value', function(snap) {
     var data = snap.val() || {};
     daftarKelasNama = {};
@@ -3691,6 +3159,7 @@ function masukDashboard() {
   db.ref('sekolah/' + sekolahIdAktif + '/guru').once('value').then(function(snap) {
     daftarGuru = snap.val() || {};
     renderGuruList();
+    renderKelasList();
 
     if (!bulanDipilihGuru) {
       var now = new Date();
@@ -3701,6 +3170,9 @@ function masukDashboard() {
     renderBulanOptions();
     loadTabelGuru();
     loadRekapGuru();
+
+    // Aktifkan listener realtime dari awal, bukan cuma setelah tambah guru
+    loadGuru();
   });
 
   loadKelasTerdaftar();
@@ -3709,46 +3181,6 @@ function masukDashboard() {
 function copyIdSekolah() {
   navigator.clipboard.writeText(sekolahIdAktif).then(function() {
     showModal('success', 'Tersalin', 'ID Sekolah berhasil disalin.');
-  }).catch(function() {
-    var input = document.createElement('input');
-    input.value = sekolahIdAktif;
-    document.body.appendChild(input);
-    input.select();
-    document.execCommand('copy');
-    document.body.removeChild(input);
-    showModal('success', 'Tersalin', 'ID Sekolah berhasil disalin.');
-  });
-}
-
-// ===== SALIN ID KELAS =====
-var idKelasTerakhir = '';
-
-function salinIdKelas() {
-  var id = document.getElementById('hasilIdKelas').innerText;
-  navigator.clipboard.writeText(id).then(function() {
-    showModal('success', 'Tersalin!', 'ID Kelas ' + id + ' berhasil disalin.');
-  }).catch(function() {
-    var input = document.createElement('input');
-    input.value = id;
-    document.body.appendChild(input);
-    input.select();
-    document.execCommand('copy');
-    document.body.removeChild(input);
-    showModal('success', 'Tersalin!', 'ID Kelas ' + id + ' berhasil disalin.');
-  });
-}
-
-function salinKelasId(kelasId) {
-  navigator.clipboard.writeText(kelasId).then(function() {
-    showModal('success', 'Tersalin!', 'ID Kelas ' + kelasId + ' berhasil disalin.');
-  }).catch(function() {
-    var input = document.createElement('input');
-    input.value = kelasId;
-    document.body.appendChild(input);
-    input.select();
-    document.execCommand('copy');
-    document.body.removeChild(input);
-    showModal('success', 'Tersalin!', 'ID Kelas ' + kelasId + ' berhasil disalin.');
   });
 }
 
@@ -3793,7 +3225,6 @@ function tambahGuru() {
     document.getElementById('fileFotoName').innerText = 'Belum ada file dipilih';
     fotoGuruData = {};
     showModal('success', 'Guru Ditambahkan', nama + ' berhasil ditambahkan. QR sudah siap.');
-    loadGuru();
   });
 }
 
@@ -3801,6 +3232,7 @@ function loadGuru() {
   db.ref('sekolah/' + sekolahIdAktif + '/guru').on('value', function(snap) {
     daftarGuru = snap.val() || {};
     renderGuruList();
+    renderKelasList();
     var tabAbsen = document.getElementById('tabAbsen');
     if (tabAbsen && !tabAbsen.classList.contains('hidden')) {
       loadTabelGuru();
@@ -3908,8 +3340,8 @@ function openQrModal(guruId) {
   qrContainer.innerHTML = '';
   new QRCode(qrContainer, {
     text: sekolahIdAktif + '|' + guruId,
-    width: 200,
-    height: 200,
+    width: 220,
+    height: 220,
     correctLevel: QRCode.CorrectLevel.H
   });
   document.getElementById('qrModalOverlay').style.display = 'flex';
@@ -3923,9 +3355,21 @@ function downloadQrOnly() {
     return;
   }
   var g = daftarGuru[guruAktifModal];
+
+  // Tambahkan quiet zone (margin putih) di sekeliling QR biar mudah discan
+  var margin = 28;
+  var outCanvas = document.createElement('canvas');
+  outCanvas.width = canvas.width + margin * 2;
+  outCanvas.height = canvas.height + margin * 2;
+  var ctx = outCanvas.getContext('2d');
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, outCanvas.width, outCanvas.height);
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(canvas, margin, margin);
+
   var link = document.createElement('a');
   link.download = 'QR-Guru-' + (g ? g.nama.replace(/\s+/g, '_') : 'guru') + '.png';
-  link.href = canvas.toDataURL('image/png');
+  link.href = outCanvas.toDataURL('image/png');
   link.click();
   showModal('success', 'Berhasil!', 'QR Code berhasil diunduh.');
 }
@@ -4012,6 +3456,7 @@ document.getElementById('photoZoom').addEventListener('input', function() {
   renderPhotoEditor();
 });
 
+// ===== DOWNLOAD KARTU ID - NAMA SEKOLAH DI FOOTER =====
 function downloadKartuIDWithEditor() {
   var g = daftarGuru[guruAktifModal];
   if (!g) {
@@ -4067,7 +3512,7 @@ function downloadKartuIDWithEditor() {
   ctx.fillStyle = '#FFFFFF';
   ctx.font = 'bold 22px Arial';
   ctx.textAlign = 'center';
-  ctx.fillText('STAR TOOLS', W / 2, 63);
+  ctx.fillText('STools', W / 2, 63);
 
   ctx.font = '600 15px Arial';
   ctx.fillStyle = 'rgba(255,255,255,0.9)';
@@ -4137,12 +3582,17 @@ function downloadKartuIDWithEditor() {
     ctx.stroke();
 
     var qrPad = 20;
+    ctx.imageSmoothingEnabled = false;
+    ctx.webkitImageSmoothingEnabled = false;
+    ctx.mozImageSmoothingEnabled = false;
     ctx.drawImage(qrCanvas, qrBoxX + qrPad, qrBoxY + qrPad, qrBoxSize - qrPad * 2, qrBoxSize - qrPad * 2);
+    ctx.imageSmoothingEnabled = true;
 
     ctx.fillStyle = '#94A3B8';
     ctx.font = '600 14px Arial';
     ctx.fillText('Scan untuk Presensi', W / 2, qrBoxY + qrBoxSize + 34);
 
+    // FOOTER - NAMA SEKOLAH di sini, TANPA ID SEKOLAH
     ctx.strokeStyle = '#E2E8F0';
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -4153,7 +3603,7 @@ function downloadKartuIDWithEditor() {
     ctx.fillStyle = '#94A3B8';
     ctx.font = '500 13px Arial';
     ctx.fillText(namaSekolah.toUpperCase(), W / 2, H - 40);
-    ctx.fillText('Star Platform | Star Tools 2026', W / 2, H - 20);
+    ctx.fillText('Star Platform | STools 2026', W / 2, H - 20);
 
     ctx.restore();
     ctx.strokeStyle = '#E2E8F0';
@@ -4226,6 +3676,8 @@ function simpanAssignKelas() {
     if (cb.checked) kelasDiizinkan[cb.getAttribute('data-kelas-id')] = true;
   });
   db.ref('sekolah/' + sekolahIdAktif + '/guru/' + guruAktifAssign + '/kelasDiizinkan').set(kelasDiizinkan).then(function() {
+    if (daftarGuru[guruAktifAssign]) { daftarGuru[guruAktifAssign].kelasDiizinkan = kelasDiizinkan; }
+    renderKelasList();
     closeAssignModal();
     showModal('success', 'Berhasil', 'Akses kelas untuk guru ini sudah diperbarui.');
   });
@@ -4238,7 +3690,6 @@ function buatKelasBaru() {
   if (!nama || !pw) { showModal('warning', 'Belum Lengkap', 'Isi nama kelas dan password.'); return; }
   buatKelasDenganId(nama, pw);
 }
-
 function buatKelasDenganId(nama, pw) {
   var kelasId = generateKelasId();
   db.ref('kelas/' + kelasId).once('value').then(function(snap) {
@@ -4250,15 +3701,8 @@ function buatKelasDenganId(nama, pw) {
         namaKelas: nama, didaftarkanPada: Date.now()
       });
     }).then(function() {
-      document.getElementById('hasilIdKelas').innerText = kelasId;
-      idKelasTerakhir = kelasId;
-      document.getElementById('hasilBuatKelas').style.display = 'block';
-      
       document.getElementById('namaKelasBaru').value = '';
       document.getElementById('pwKelasBaru').value = '';
-      
-      document.getElementById('hasilBuatKelas').scrollIntoView({ behavior: 'smooth' });
-      
       showModal('success', 'Kelas Berhasil Dibuat!',
         'Kelas ' + nama + ' sudah jadi.\n\nID Kelas: ' + kelasId + '\nPassword: ' + pw,
         '<button class="btn btn-primary" onclick="closeModal()">Mengerti</button>'
@@ -4291,17 +3735,10 @@ function renderKelasList() {
     row.className = 'kelas-chip-row';
     row.innerHTML =
       '<div><div class="nama-kelas">' + k.namaKelas + '</div><div class="kode-kelas">' + kelasId + '</div></div>' +
-      '<div class="kelas-actions">' +
-      '<button class="btn-action-kelas btn-salin" onclick="salinKelasId(\'' + kelasId + '\')" title="Salin ID Kelas">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
-      '</button>' +
       (guruAssigned.length > 0
         ? '<span class="guru-badge">' + guruAssigned.join(', ') + '</span>'
         : '<span class="guru-badge" style="background:#F1F5F9; color:#94A3B8;">Belum di-assign</span>') +
-      '<button class="btn-action-kelas btn-hapus" onclick="hapusKelasDariSekolah(\'' + kelasId + '\')" title="Keluarkan kelas dari sekolah ini">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>' +
-      '</button>' +
-      '</div>';
+      '<button class="btn-remove-kelas" onclick="hapusKelasDariSekolah(\'' + kelasId + '\')" title="Keluarkan kelas dari sekolah ini">✕</button>';
     container.appendChild(row);
   });
 }
@@ -4462,117 +3899,7 @@ function handleScanGuru(kode) {
   });
 }
 
-// ===== ABSENSI MANUAL (ISI KETERANGAN / PENGGANTI SCAN QR) =====
-var manualGuruId = '';
-var manualStatusPilihan = '';
-var STATUS_MANUAL_LIST = [
-  { value: 'Hadir', label: 'Hadir' },
-  { value: 'Sakit', label: 'Sakit' },
-  { value: 'Izin', label: 'Izin' },
-  { value: 'Tidak Mengajar', label: 'Tidak Mengajar (memang tidak ada jadwal)' },
-  { value: 'Alpha', label: 'Alpha (tanpa keterangan)' }
-];
-
-function renderGuruManualOptions() {
-  var container = document.getElementById('optionGuruManual');
-  if (!container) return;
-  var guruIds = Object.keys(daftarGuru);
-  container.innerHTML = '';
-  if (!guruIds.length) {
-    container.innerHTML = '<div style="padding:10px;color:#94A3B8;font-size:13px;">Belum ada guru terdaftar.</div>';
-    return;
-  }
-  guruIds.forEach(function(id) {
-    var g = daftarGuru[id];
-    var div = document.createElement('div');
-    div.innerText = g.nama + ' (' + g.mapel + ')';
-    div.onclick = function() { pilihGuruManual(id, g.nama); };
-    container.appendChild(div);
-  });
-}
-
-function pilihGuruManual(id, nama) {
-  manualGuruId = id;
-  var el = document.getElementById('selectedGuruManual');
-  if (el) el.innerText = nama;
-  closeDropdowns();
-}
-
-function renderStatusManualOptions() {
-  var container = document.getElementById('optionStatusManual');
-  if (!container) return;
-  container.innerHTML = '';
-  STATUS_MANUAL_LIST.forEach(function(s) {
-    var div = document.createElement('div');
-    div.innerText = s.label;
-    div.onclick = function() { pilihStatusManual(s.value, s.label); };
-    container.appendChild(div);
-  });
-}
-
-function pilihStatusManual(value, label) {
-  manualStatusPilihan = value;
-  var el = document.getElementById('selectedStatusManual');
-  if (el) el.innerText = label;
-  var jamGroup = document.getElementById('jamManualGroup');
-  if (jamGroup) jamGroup.style.display = (value === 'Hadir') ? '' : 'none';
-  closeDropdowns();
-}
-
-function resetFormAbsenManual() {
-  manualGuruId = '';
-  manualStatusPilihan = '';
-  var elGuru = document.getElementById('selectedGuruManual');
-  var elStatus = document.getElementById('selectedStatusManual');
-  var elCatatan = document.getElementById('catatanAbsenManual');
-  var elJam = document.getElementById('jamAbsenManual');
-  var jamGroup = document.getElementById('jamManualGroup');
-  if (elGuru) elGuru.innerText = 'Pilih guru';
-  if (elStatus) elStatus.innerText = 'Pilih status';
-  if (elCatatan) elCatatan.value = '';
-  if (elJam) elJam.value = '';
-  if (jamGroup) jamGroup.style.display = 'none';
-}
-
-function simpanAbsensiManual() {
-  if (!manualGuruId) { showModal('warning', 'Belum Lengkap', 'Pilih guru terlebih dahulu.'); return; }
-  var tglInput = document.getElementById('tanggalAbsenManual');
-  if (!tglInput || !tglInput.value) { showModal('warning', 'Belum Lengkap', 'Pilih tanggal terlebih dahulu.'); return; }
-  if (!manualStatusPilihan) { showModal('warning', 'Belum Lengkap', 'Pilih status kehadiran terlebih dahulu.'); return; }
-
-  var g = daftarGuru[manualGuruId];
-  if (!g) { showModal('error', 'Gagal', 'Data guru tidak ditemukan. Coba muat ulang halaman.'); return; }
-
-  var parts = tglInput.value.split('-');
-  var tahun = parseInt(parts[0], 10);
-  var bulanNum = parseInt(parts[1], 10);
-  var tgl = parseInt(parts[2], 10);
-  if (!tahun || !bulanNum || !tgl) { showModal('warning', 'Tanggal Tidak Valid', 'Silakan pilih tanggal yang benar.'); return; }
-  var keyBulan = tahun + '-' + String(bulanNum).padStart(2, '0');
-
-  var jamInput = document.getElementById('jamAbsenManual');
-  var catatanInput = document.getElementById('catatanAbsenManual');
-  var jam = (manualStatusPilihan === 'Hadir' && jamInput) ? jamInput.value : '';
-  var catatan = catatanInput ? catatanInput.value.trim() : '';
-
-  var payload = { status: manualStatusPilihan, jamScan: jam || '', waktu: Date.now(), manual: true };
-  if (catatan) payload.catatan = catatan;
-
-  db.ref('sekolah/' + sekolahIdAktif + '/absensiGuru/' + keyBulan + '/' + manualGuruId + '/' + tgl).set(payload).then(function() {
-    showModal('success', 'Berhasil!', 'Absensi manual untuk ' + g.nama + ' tanggal ' + tgl + '/' + bulanNum + '/' + tahun + ' berhasil disimpan sebagai ' + manualStatusPilihan + '.');
-    resetFormAbsenManual();
-
-    var bulanNamaMap = { 1:'Januari',2:'Februari',3:'Maret',4:'April',5:'Mei',6:'Juni',7:'Juli',8:'Agustus',9:'September',10:'Oktober',11:'November',12:'Desember' };
-    if (bulanDipilihGuru && bulanDipilihGuru === bulanNamaMap[bulanNum]) {
-      loadTabelGuru();
-      loadRekapGuru();
-    }
-  }).catch(function(err) {
-    showModal('error', 'Gagal', 'Absensi tidak tersimpan: ' + (err.message || err));
-  });
-}
-
-
+// ===== BULAN OPTIONS =====
 function renderBulanOptions() {
   var container = document.getElementById('optionBulanGuru');
   var bulanList = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
@@ -4636,7 +3963,6 @@ function loadTabelGuru() {
         else if (status === 'Sakit') { color = '#B45309'; bg = '#FEF9C3'; }
         else if (status === 'Izin') { color = '#D97706'; bg = '#FFEDD5'; }
         else if (status === 'Tidak Mengajar') { color = '#64748B'; bg = '#F1F5F9'; }
-        else if (status === 'Alpha') { color = '#DC2626'; bg = '#FEE2E2'; }
         
         html += '<td style="border:1px solid #E2E8F0;text-align:center;background:' + bg + ';padding:4px 2px;">';
         if (status !== '-') {
@@ -4685,14 +4011,13 @@ function loadRekapGuru() {
     html += '<th style="border:1px solid #E2E8F0;color:#B45309;">S</th>';
     html += '<th style="border:1px solid #E2E8F0;color:#D97706;">I</th>';
     html += '<th style="border:1px solid #E2E8F0;color:#64748B;">TM</th>';
-    html += '<th style="border:1px solid #E2E8F0;color:#DC2626;">A</th>';
     html += '<th style="border:1px solid #E2E8F0;color:#94A3B8;">-</th>';
     html += '</tr>';
 
     guruIds.forEach(function(guruId) {
       var g = daftarGuru[guruId];
       var guruAbsen = absenBulan[guruId] || {};
-      var rekap = { Hadir:0, Sakit:0, Izin:0, 'Tidak Mengajar':0, Alpha:0, 'Belum':0 };
+      var rekap = { Hadir:0, Sakit:0, Izin:0, 'Tidak Mengajar':0, 'Belum':0 };
       for (var d = 1; d <= daysInMonth; d++) {
         var status = guruAbsen[d] ? guruAbsen[d].status : '-';
         if (status === '-') rekap['Belum']++;
@@ -4704,7 +4029,6 @@ function loadRekapGuru() {
       html += '<td style="border:1px solid #E2E8F0;color:#B45309;font-weight:700;text-align:center;">' + rekap.Sakit + '</td>';
       html += '<td style="border:1px solid #E2E8F0;color:#D97706;font-weight:700;text-align:center;">' + rekap.Izin + '</td>';
       html += '<td style="border:1px solid #E2E8F0;color:#64748B;font-weight:700;text-align:center;">' + rekap['Tidak Mengajar'] + '</td>';
-      html += '<td style="border:1px solid #E2E8F0;color:#DC2626;font-weight:700;text-align:center;">' + rekap.Alpha + '</td>';
       html += '<td style="border:1px solid #E2E8F0;color:#94A3B8;font-weight:700;text-align:center;">' + rekap.Belum + '</td>';
       html += '</tr>';
     });
@@ -4765,7 +4089,7 @@ function exportAbsensiGuruPDF() {
   var doc = new jsPDFLib({ orientation: 'landscape', unit: 'mm', format: 'a4' });
   doc.setFontSize(14);
   doc.setTextColor(37, 99, 235);
-  doc.text('Star Tools - Absensi Guru', 14, 18);
+  doc.text('STools - Absensi Guru', 14, 18);
   doc.setFontSize(10);
   doc.setTextColor(100, 116, 139);
   doc.text('Sekolah: ' + namaSekolahAktif + ' (' + sekolahIdAktif + ')', 14, 26);
@@ -4798,38 +4122,12 @@ function exportAbsensiGuruPDF() {
 window.addEventListener('DOMContentLoaded', function() {
   if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
 
-  // Selalu tampilkan session box (bisa berisi beberapa sekolah tersimpan)
-  tampilkanSesi();
-  updateSidebarLogout();
-
-  // Auto login HANYA jika ada sesi yang sedang aktif (belum logout & belum refresh setelah logout).
-  // Setelah "Keluar Sekolah", activeSessionId dikosongkan, jadi refresh akan
-  // tetap membawa ke layar login meskipun sesi tersimpan masih ada di daftar.
-  var activeId = getActiveSessionId();
-  if (activeId) {
-    var sessions = getSessions();
-    var target = null;
-    for (var i = 0; i < sessions.length; i++) {
-      if (sessions[i].sekolahId === activeId) { target = sessions[i]; break; }
-    }
-    if (target) {
-      db.ref('sekolah/' + target.sekolahId).once('value').then(function(snap) {
-        var data = snap.val();
-        if (data && data.password === target.sekolahPw) {
-          sekolahIdAktif = target.sekolahId;
-          sekolahPwAktif = target.sekolahPw;
-          namaSekolahAktif = data.nama || target.namaSekolah || '';
-          upsertSession(sekolahIdAktif, sekolahPwAktif, namaSekolahAktif);
-          masukDashboard();
-        } else {
-          setActiveSessionId('');
-          removeSessionFromList(target.sekolahId);
-          tampilkanSesi();
-        }
-      });
-    } else {
-      setActiveSessionId('');
-    }
+  if (sekolahIdAktif && sekolahPwAktif) {
+    db.ref('sekolah/' + sekolahIdAktif).once('value').then(function(snap) {
+      var data = snap.val();
+      if (data && data.password === sekolahPwAktif) masukDashboard();
+      else { localStorage.removeItem('sekolahIdAktif'); localStorage.removeItem('sekolahPwAktif'); }
+    });
   }
 
   document.addEventListener('click', function(e) {
@@ -4847,14 +4145,8 @@ window.toggleDropdown = toggleDropdown;
 window.daftarSekolah = daftarSekolah;
 window.loginSekolah = loginSekolah;
 window.logoutSekolah = logoutSekolah;
-window.keluarAkun = keluarAkun;
-window.updateSidebarLogout = updateSidebarLogout;
 window.tambahGuru = tambahGuru;
 window.buatKelasBaru = buatKelasBaru;
-window.salinIdKelas = salinIdKelas;
-window.tampilkanSesi = tampilkanSesi;
-window.loginDenganSesi = loginDenganSesi;
-window.hapusSesi = hapusSesi;
 window.startScanner = startScanner;
 window.stopScanner = stopScanner;
 window.switchScanMode = switchScanMode;
@@ -4876,7 +4168,6 @@ window.closeGuideModal = closeGuideModal;
 window.openGuideModal = openGuideModal;
 window.hapusKelasDariSekolah = hapusKelasDariSekolah;
 window.toggleMapel = toggleMapel;
-window.salinKelasId = salinKelasId;
 </script>
 
 </body>

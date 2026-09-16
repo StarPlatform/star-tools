@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Star Tools - Berita</title>
+<title>STools - Berita</title>
 
 <link rel="icon" type="image/png" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -15,7 +15,7 @@
 {
  "@context": "https://schema.org",
  "@type": "WebSite",
- "name": "Star Tools",
+ "name": "STools",
  "url": "https://www.stools.web.id/",
  "image": "https://www.stools.web.id/logo.jpg"
 }
@@ -157,6 +157,19 @@
     stroke: #F1F5F9;
   }
 
+.sidebar-nav a.active-link {
+    background:#DBEAFE; color:#2563EB;
+  }
+  body.dark .sidebar-nav a.active-link {
+    background:#1E3A5F; color:#60A5FA;
+  }
+  .sidebar-nav a.active-link .icon {
+    stroke:#2563EB;
+  }
+  body.dark .sidebar-nav a.active-link .icon {
+    stroke:#60A5FA;
+  }
+
   .app-title {
     font-weight: 700;
     font-size: 20px;
@@ -291,6 +304,75 @@
     align-items: center;
     justify-content: center;
     border-radius: 30px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .bell-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+    position: relative;
+  }
+
+  body.dark .bell-btn {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .bell-btn:active {
+    transform: scale(0.92);
+  }
+
+  .bell-btn svg {
+    stroke: #0F172A;
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  body.dark .bell-btn svg {
+    stroke: #F1F5F9;
+  }
+
+  .bell-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #DC2626;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+  }
+
+  body.dark .bell-badge {
+    border-color: #111827;
+  }
+
+  .bell-badge.hidden {
+    display: none;
   }
 
   .screen {
@@ -795,14 +877,17 @@
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </div>
-      <span class="app-title">Star Tools</span>
+      <span class="app-title">STools</span>
     </div>
-    <button class="close-btn" onclick="goTo('index.html')" aria-label="Kembali ke Beranda">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"/>
-        <line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
-    </button>
+    <div class="header-right">
+      <button class="bell-btn" onclick="goTo('pembaruan.html')" aria-label="Notifikasi Pembaruan">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <span class="bell-badge hidden" id="bellBadge">0</span>
+      </button>
+    </div>
   </div>
 
   <!-- SIDEBAR -->
@@ -816,7 +901,7 @@
     <a href="#" onclick="goTo('index.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
     </a>
-    <a href="#" onclick="goTo('berita.html')">
+    <a href="#" class="active-link" onclick="goTo('berita.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg> Berita
     </a>
     <a href="#" onclick="goTo('premium.html')">
@@ -824,6 +909,12 @@
     </a>
     <a href="#" onclick="goTo('akun.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Akun
+    </a>
+    <a href="#" onclick="goTo('teman.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
+    </a>
+    <a href="#" onclick="goTo('lokasi.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokasi
     </a>
     <div class="logout-link">
       <a href="#" onclick="logoutAction()">
@@ -880,7 +971,7 @@
 
   <!-- FOOTER -->
   <div class="footer-app">
-    <p>Star Platform | Star Tools 2026</p>
+    <p>Star Platform | STools 2026</p>
   </div>
 </div>
 
@@ -930,6 +1021,7 @@ const db = firebase.database();
 // ======================== GLOBAL VARIABLES ========================
 let kategoriFilter = 'all';
 let sortFilter = 'new';
+let unreadCount = 0;
 
 // ======================== NAVIGATION ========================
 function goTo(page) {
@@ -949,6 +1041,34 @@ function closeSidebar() {
 function logoutAction() {
   firebase.auth().signOut().then(function() {
     window.location.href = 'login.html';
+  });
+}
+
+// ======================== NOTIFICATION BELL ========================
+function checkNotifications() {
+  db.ref('notifications').once('value').then(function(snap) {
+    const data = snap.val() || {};
+    const readIds = JSON.parse(localStorage.getItem('readNotifications') || '[]');
+    let count = 0;
+    Object.keys(data).forEach(function(key) {
+      if (!readIds.includes(key)) count++;
+    });
+    unreadCount = count;
+    updateBellBadge(count);
+  }).catch(function() {
+    updateBellBadge(0);
+  });
+}
+
+function updateBellBadge(count) {
+  const badges = document.querySelectorAll('.bell-badge');
+  badges.forEach(function(badge) {
+    if (count > 0) {
+      badge.textContent = count;
+      badge.classList.remove('hidden');
+    } else {
+      badge.classList.add('hidden');
+    }
   });
 }
 
@@ -1254,6 +1374,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 // ======================== INIT ========================
 renderBerita();
+checkNotifications();
 
 // Expose functions
 window.openSidebar = openSidebar;

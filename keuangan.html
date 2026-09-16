@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Keuangan Digital - Star Tools</title>
+<title>Keuangan Digital - STools</title>
 
 <link rel="icon" type="image/png" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -15,7 +15,7 @@
 {
  "@context": "https://schema.org",
  "@type": "WebSite",
- "name": "Star Tools",
+ "name": "STools",
  "url": "https://www.stools.web.id/",
  "image": "https://www.stools.web.id/logo.jpg"
 }
@@ -2255,6 +2255,12 @@
       <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       Akun
     </a>
+    <a href="#" onclick="goTo('teman.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
+    </a>
+    <a href="#" onclick="goTo('lokasi.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokasi
+    </a>
     <div class="logout-link">
       <a href="#" onclick="logoutAction()">
         <svg class="icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
@@ -2525,7 +2531,7 @@
   </div>
 
   <div class="footer">
-    <p>Star Platform | Star Tools 2026</p>
+    <p>Star Platform | STools 2026</p>
   </div>
 </div>
 
@@ -3621,7 +3627,7 @@ function shareTabel() {
   text += 'Saldo Akhir: ' + totalSaldo + '\n';
   text += '========================================\n';
   text += 'Data ini hanya untuk dilihat (read-only)\n';
-  text += 'Dibagikan dari Star Tools';
+  text += 'Dibagikan dari STools';
 
   if (navigator.share) {
     navigator.share({
@@ -3671,7 +3677,7 @@ function exportTabelPDF() {
 
   doc.setFontSize(16);
   doc.setTextColor(37, 99, 235);
-  doc.text('Star Tools - Tabel Keuangan', 14, 18);
+  doc.text('STools - Tabel Keuangan', 14, 18);
 
   doc.setFontSize(10);
   doc.setTextColor(100, 116, 139);
@@ -3707,7 +3713,7 @@ function exportTabelPDF() {
 
   doc.setFontSize(8);
   doc.setTextColor(148, 163, 184);
-  doc.text('Star Platform | Star Tools 2026', 14, doc.internal.pageSize.height - 10);
+  doc.text('Star Platform | STools 2026', 14, doc.internal.pageSize.height - 10);
 
   doc.save('Tabel_Keuangan_' + kelasAktif + '_' + bulanDipilih + '.pdf');
   showModal("success", "Berhasil!", "Tabel berhasil diexport ke PDF.");
@@ -3965,7 +3971,7 @@ function shareRiwayat() {
   text += 'Pemasukan: ' + totalMasuk + '\n';
   text += 'Pengeluaran: ' + totalKeluar + '\n';
   text += 'Saldo: ' + totalSaldo + '\n';
-  text += '\nDibagikan dari Star Tools';
+  text += '\nDibagikan dari STools';
 
   if (navigator.share) {
     navigator.share({
@@ -4012,7 +4018,7 @@ function downloadRiwayat() {
   text += 'Pemasukan: ' + totalMasuk + '\n';
   text += 'Pengeluaran: ' + totalKeluar + '\n';
   text += 'Saldo: ' + totalSaldo + '\n';
-  text += '\nDibagikan dari Star Tools';
+  text += '\nDibagikan dari STools';
 
   var blob = new Blob([text], { type: 'text/plain' });
   var url = URL.createObjectURL(blob);
@@ -4047,7 +4053,7 @@ function exportRiwayatPDF() {
 
   doc.setFontSize(16);
   doc.setTextColor(37, 99, 235);
-  doc.text('Star Tools - Riwayat Keuangan', 14, 18);
+  doc.text('STools - Riwayat Keuangan', 14, 18);
 
   doc.setFontSize(10);
   doc.setTextColor(100, 116, 139);
@@ -4082,7 +4088,7 @@ function exportRiwayatPDF() {
 
   doc.setFontSize(8);
   doc.setTextColor(148, 163, 184);
-  doc.text('Star Platform | Star Tools 2026', 14, doc.internal.pageSize.height - 10);
+  doc.text('Star Platform | STools 2026', 14, doc.internal.pageSize.height - 10);
 
   doc.save('Riwayat_Keuangan_' + kelasAktif + '.pdf');
   showModal("success", "Berhasil!", "Riwayat berhasil diexport ke PDF.");

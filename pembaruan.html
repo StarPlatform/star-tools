@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Pembaruan - STools</title>
+
+<link rel="icon" type="image/png" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
+
+<meta property="og:image" content="https://www.stools.web.id/logo.jpg">
+<meta name="twitter:image" content="https://www.stools.web.id/logo.jpg">
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebSite",
+ "name": "STools",
+ "url": "https://www.stools.web.id/",
+ "image": "https://www.stools.web.id/logo.jpg"
+}
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: #F1F5F9;
+    color: #0F172A;
+  }
+
+  body.dark {
+    background: #0B1120;
+    color: #F1F5F9;
+  }
+
+  body.dark .app-header,
+  body.dark .card-modern,
+  body.dark .sidebar-nav,
+  body.dark .modal-content {
+    background: #111827;
+    border-color: #1E293B;
+  }
+
+  body.dark .notification-item {
+    background: #1E293B;
+    border-color: #334155;
+  }
+
+  body.dark .notification-item .title {
+    color: #F1F5F9;
+  }
+
+  body.dark .notification-item .desc {
+    color: #94A3B8;
+  }
+
+  body.dark .notification-item .time {
+    color: #64748B;
+  }
+
+  body.dark .notification-item.unread {
+    border-left-color: #60A5FA;
+    background: #1E3A5F;
+  }
+
+  body.dark .detail-title {
+    color: #F1F5F9;
+  }
+
+  body.dark .detail-body {
+    color: #94A3B8;
+  }
+
+  body.dark .detail-time {
+    color: #64748B;
+  }
+
+  body.dark .detail-back {
+    background: #1E293B;
+    border-color: #334155;
+  }
+
+  body.dark .detail-back svg {
+    stroke: #F1F5F9;
+  }
+
+  body.dark .detail-back span {
+    color: #F1F5F9;
+  }
+
+  .app-container {
+    max-width: 560px;
+    margin: 0 auto;
+    background: #F1F5F9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  body.dark .app-container {
+    background: #0B1120;
+  }
+
+  .app-header {
+    background: #FFFFFF;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #E2E8F0;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
+  body.dark .app-header {
+    background: #111827;
+    border-bottom-color: #1E293B;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .back-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+  }
+
+  body.dark .back-btn {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .back-btn:active {
+    transform: scale(0.92);
+  }
+
+  .back-btn svg {
+    stroke: #0F172A;
+    width: 22px;
+    height: 22px;
+  }
+
+  body.dark .back-btn svg {
+    stroke: #F1F5F9;
+  }
+
+  .app-title {
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.3px;
+    background: linear-gradient(135deg, #2563EB, #60A5FA);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mark-read-btn {
+    width: 40px;
+    height: 40px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+  }
+
+  body.dark .mark-read-btn {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .mark-read-btn:active {
+    transform: scale(0.92);
+  }
+
+  .mark-read-btn svg {
+    stroke: #0F172A;
+    width: 20px;
+    height: 20px;
+  }
+
+  body.dark .mark-read-btn svg {
+    stroke: #F1F5F9;
+  }
+
+  .screen {
+    padding: 16px 16px 30px;
+    flex: 1;
+  }
+
+  /* ===== HALAMAN DAFTAR ===== */
+  .page-list {
+    display: block;
+    animation: fadeSlide 0.25s ease;
+  }
+
+  .page-list.hidden {
+    display: none;
+  }
+
+  /* ===== HALAMAN DETAIL ===== */
+  .page-detail {
+    display: none;
+    animation: fadeSlide 0.25s ease;
+  }
+
+  .page-detail.active {
+    display: block;
+  }
+
+  @keyframes fadeSlide {
+    from { opacity:0; transform:translateY(8px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .card-modern {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #E2E8F0;
+  }
+
+  .card-modern h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .card-modern .subtext {
+    font-size: 13px;
+    color: #64748B;
+    margin-bottom: 14px;
+  }
+
+  body.dark .card-modern .subtext {
+    color: #94A3B8;
+  }
+
+  /* ===== ITEM NOTIFIKASI ===== */
+  .notification-item {
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid #E2E8F0;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    background: #FFFFFF;
+    position: relative;
+  }
+
+  body.dark .notification-item {
+    background: #1E293B;
+    border-color: #334155;
+  }
+
+  .notification-item:active {
+    transform: scale(0.98);
+  }
+
+  .notification-item.unread {
+    border-left: 4px solid #2563EB;
+    background: #EFF6FF;
+  }
+
+  body.dark .notification-item.unread {
+    border-left-color: #60A5FA;
+    background: #1E3A5F;
+  }
+
+  .notification-item .title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 3px;
+  }
+
+  body.dark .notification-item .title {
+    color: #F1F5F9;
+  }
+
+  .notification-item .desc {
+    font-size: 13px;
+    color: #64748B;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  body.dark .notification-item .desc {
+    color: #94A3B8;
+  }
+
+  .notification-item .time {
+    font-size: 11px;
+    color: #94A3B8;
+    margin-top: 6px;
+    display: block;
+  }
+
+  body.dark .notification-item .time {
+    color: #64748B;
+  }
+
+  .notification-item .badge-unread {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #2563EB;
+  }
+
+  body.dark .notification-item .badge-unread {
+    background: #60A5FA;
+  }
+
+  .notification-item .read-more {
+    font-size: 12px;
+    font-weight: 600;
+    color: #2563EB;
+    margin-top: 4px;
+    display: inline-block;
+  }
+
+  body.dark .notification-item .read-more {
+    color: #60A5FA;
+  }
+
+  /* ===== HALAMAN DETAIL ===== */
+  .detail-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: #F8FAFE;
+    border: 1px solid #E2E8F0;
+    transition: 0.2s;
+    width: fit-content;
+  }
+
+  body.dark .detail-back-btn {
+    background: #1E293B;
+    border-color: #334155;
+  }
+
+  .detail-back-btn:active {
+    transform: scale(0.95);
+  }
+
+  .detail-back-btn svg {
+    stroke: #0F172A;
+    width: 18px;
+    height: 18px;
+  }
+
+  body.dark .detail-back-btn svg {
+    stroke: #F1F5F9;
+  }
+
+  .detail-back-btn span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0F172A;
+  }
+
+  body.dark .detail-back-btn span {
+    color: #F1F5F9;
+  }
+
+  .detail-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .detail-time {
+    font-size: 12px;
+    color: #94A3B8;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  body.dark .detail-time {
+    color: #64748B;
+  }
+
+  .detail-body {
+    font-size: 15px;
+    color: #0F172A;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  body.dark .detail-body {
+    color: #F1F5F9;
+  }
+
+  .detail-body p {
+    margin-bottom: 8px;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #94A3B8;
+  }
+
+  .empty-state svg {
+    stroke: #CBD5E1;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+  }
+
+  body.dark .empty-state svg {
+    stroke: #475569;
+  }
+
+  .empty-state h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #64748B;
+    margin-bottom: 4px;
+  }
+
+  body.dark .empty-state h3 {
+    color: #94A3B8;
+  }
+
+  .empty-state p {
+    font-size: 13px;
+    color: #94A3B8;
+  }
+
+  body.dark .empty-state p {
+    color: #64748B;
+  }
+
+  .footer-app {
+    text-align: center;
+    padding: 16px;
+    font-size: 11px;
+    color: #64748B;
+    border-top: 1px solid #E2E8F0;
+    margin-top: 16px;
+  }
+
+  body.dark .footer-app {
+    color: #94A3B8;
+    border-top-color: #1E293B;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    right: 0;
+    background: #FFFFFF;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 12px 0;
+    z-index: 50;
+    border-top: 1px solid #E2E8F0;
+  }
+
+  body.dark .bottom-nav {
+    background: #111827;
+    border-top-color: #1E293B;
+  }
+
+  .bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: #94A3B8;
+    font-size: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: transparent;
+    border: none;
+  }
+
+  .bottom-nav .nav-item:active {
+    transform: scale(0.95);
+  }
+
+  .bottom-nav svg {
+    width: 22px;
+    height: 22px;
+    stroke: #94A3B8;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: 0.2s;
+  }
+
+  .bottom-nav .nav-item.active {
+    color: #2563EB;
+  }
+
+  .bottom-nav .nav-item.active svg {
+    stroke: #2563EB;
+  }
+
+  @media (min-width: 900px) {
+    body {
+      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
+      min-height: 100vh;
+    }
+
+    body.dark {
+      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+    }
+
+    .app-container {
+      max-width: 760px;
+      margin: 36px auto;
+      min-height: auto;
+      background: #F1F5F9;
+      border-radius: 20px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 20px 50px -12px rgba(15,23,42,0.12);
+      overflow: hidden;
+      padding-bottom: 24px;
+    }
+
+    body.dark .app-container {
+      background: #0B1120;
+      border-color: #1E293B;
+      box-shadow: 0 20px 50px -12px rgba(0,0,0,0.5);
+    }
+
+    .app-header {
+      border-radius: 20px 20px 0 0;
+    }
+
+    .bottom-nav {
+      position: static;
+      max-width: 760px;
+      width: 100%;
+      margin: 24px auto 36px;
+      border-radius: 16px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 8px 24px -8px rgba(15,23,42,0.1);
+    }
+
+    body.dark .bottom-nav {
+      border-color: #1E293B;
+    }
+
+    .notification-item .desc {
+      -webkit-line-clamp: 3;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- HEADER -->
+  <div class="app-header">
+    <div class="logo-area">
+      <button class="back-btn" onclick="goTo('index.html')" aria-label="Kembali">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <span class="app-title">Pembaruan</span>
+    </div>
+    <div class="header-right">
+      <button class="mark-read-btn" onclick="markAllRead()" aria-label="Tandai semua sudah dibaca" title="Tandai semua sudah dibaca">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN SCREEN -->
+  <div class="screen">
+
+    <!-- ===== HALAMAN DAFTAR NOTIFIKASI ===== -->
+    <div id="pageList" class="page-list">
+      <div class="card-modern">
+        <h2>Notifikasi Pembaruan</h2>
+        <p class="subtext">Semua update terbaru dari STools akan muncul di sini.</p>
+        <div id="notificationList">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <h3>Belum ada notifikasi</h3>
+            <p>Notifikasi pembaruan akan muncul di sini.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== HALAMAN DETAIL NOTIFIKASI ===== -->
+    <div id="pageDetail" class="page-detail">
+      <div class="card-modern">
+        <div class="detail-back-btn" onclick="backToList()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          <span>Kembali ke daftar</span>
+        </div>
+        <div class="detail-title" id="detailTitle">Judul Notifikasi</div>
+        <span class="detail-time" id="detailTime">Baru saja</span>
+        <div class="detail-body" id="detailBody">
+          <p>Isi lengkap notifikasi akan tampil di sini.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-app">
+    <p>Star Platform | STools 2026</p>
+  </div>
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDgr_nHqvpMsiG4lBkYckzxRErkskXj_6E",
+  authDomain: "laporanstartools-c18b2.firebaseapp.com",
+  databaseURL: "https://laporanstartools-c18b2-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "laporanstartools-c18b2",
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.database();
+
+let allNotifications = {};
+let selectedKey = null;
+
+function goTo(page) {
+  window.location.href = page;
+}
+
+function formatWaktu(timestamp) {
+  const d = new Date(timestamp);
+  const now = new Date();
+  const diff = now - d;
+  
+  if (diff < 60000) return 'Baru saja';
+  if (diff < 3600000) return Math.floor(diff / 60000) + ' menit lalu';
+  if (diff < 86400000) return Math.floor(diff / 3600000) + ' jam lalu';
+  if (diff < 172800000) return 'Kemarin';
+  return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function formatWaktuFull(timestamp) {
+  const d = new Date(timestamp);
+  return d.toLocaleDateString('id-ID', { 
+    day: 'numeric', 
+    month: 'long', 
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
+function truncateText(text, maxLength) {
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength) + '...';
+}
+
+// ===== LOAD NOTIFIKASI =====
+function loadNotifications() {
+  const list = document.getElementById('notificationList');
+  
+  db.ref('notifications').orderByChild('timestamp').once('value').then(function(snap) {
+    const data = snap.val() || {};
+    allNotifications = data;
+    const keys = Object.keys(data).sort((a, b) => (data[b].timestamp || 0) - (data[a].timestamp || 0));
+    const readIds = JSON.parse(localStorage.getItem('readNotifications') || '[]');
+
+    if (keys.length === 0) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <h3>Belum ada notifikasi</h3>
+          <p>Notifikasi pembaruan akan muncul di sini.</p>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '';
+    keys.forEach(function(key) {
+      const notif = data[key];
+      const isRead = readIds.includes(key);
+      const desc = notif.pesan || '';
+      const shortDesc = truncateText(desc, 80);
+      
+      html += `
+        <div class="notification-item ${isRead ? '' : 'unread'}" onclick="openDetail('${key}')">
+          ${!isRead ? '<span class="badge-unread"></span>' : ''}
+          <div class="title">${notif.judul || 'Pembaruan'}</div>
+          <div class="desc">${shortDesc}</div>
+          <span class="time">${formatWaktu(notif.timestamp || Date.now())}</span>
+          ${desc.length > 80 ? '<span class="read-more">Baca selengkapnya →</span>' : ''}
+        </div>
+      `;
+    });
+    list.innerHTML = html;
+  });
+}
+
+// ===== OPEN DETAIL =====
+function openDetail(key) {
+  selectedKey = key;
+  const notif = allNotifications[key];
+  if (!notif) return;
+
+  // Tandai sudah dibaca
+  markAsRead(key);
+
+  // Isi detail
+  document.getElementById('detailTitle').innerText = notif.judul || 'Pembaruan';
+  document.getElementById('detailTime').innerText = formatWaktuFull(notif.timestamp || Date.now());
+  
+  const body = notif.pesan || 'Tidak ada isi pesan.';
+  document.getElementById('detailBody').innerHTML = body.replace(/\n/g, '<br>');
+
+  // Tampilkan halaman detail, sembunyikan daftar
+  document.getElementById('pageList').classList.add('hidden');
+  document.getElementById('pageDetail').classList.add('active');
+  
+  // Scroll ke atas
+  window.scrollTo(0, 0);
+}
+
+// ===== BACK TO LIST =====
+function backToList() {
+  document.getElementById('pageList').classList.remove('hidden');
+  document.getElementById('pageDetail').classList.remove('active');
+  
+  // Refresh list untuk update status baca
+  loadNotifications();
+  updateBadgeCount();
+}
+
+// ===== MARK AS READ =====
+function markAsRead(key) {
+  const readIds = JSON.parse(localStorage.getItem('readNotifications') || '[]');
+  if (!readIds.includes(key)) {
+    readIds.push(key);
+    localStorage.setItem('readNotifications', JSON.stringify(readIds));
+    updateBadgeCount();
+  }
+}
+
+// ===== MARK ALL READ =====
+function markAllRead() {
+  const keys = Object.keys(allNotifications);
+  if (keys.length === 0) return;
+  
+  const readIds = JSON.parse(localStorage.getItem('readNotifications') || '[]');
+  keys.forEach(function(key) {
+    if (!readIds.includes(key)) {
+      readIds.push(key);
+    }
+  });
+  localStorage.setItem('readNotifications', JSON.stringify(readIds));
+  
+  // Refresh list
+  loadNotifications();
+  updateBadgeCount();
+}
+
+// ===== UPDATE BADGE COUNT =====
+function updateBadgeCount() {
+  const readIds = JSON.parse(localStorage.getItem('readNotifications') || '[]');
+  const count = Object.keys(allNotifications).filter(function(key) {
+    return !readIds.includes(key);
+  }).length;
+  localStorage.setItem('unreadCount', count);
+}
+
+// ======================== THEME ========================
+if (localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+}
+
+// ======================== ACTIVE NAV ========================
+const currentPage = window.location.pathname.split('/').pop() || 'pembaruan.html';
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.classList.toggle('active', item.dataset.page === currentPage);
+});
+
+// ======================== LOAD ========================
+document.addEventListener('DOMContentLoaded', function() {
+  loadNotifications();
+  
+  // Cek apakah ada parameter ?id= di URL
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (id && allNotifications[id]) {
+    setTimeout(function() {
+      openDetail(id);
+    }, 300);
+  }
+});
+</script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Lihat Absensi - Star Tools</title>
+<title>Lihat Absensi - STools</title>
 
 <link rel="icon" type="image/png" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
@@ -15,7 +15,7 @@
 {
  "@context": "https://schema.org",
  "@type": "WebSite",
- "name": "Star Tools",
+ "name": "STools",
  "url": "https://www.stools.web.id/",
  "image": "https://www.stools.web.id/logo.jpg"
 }
@@ -35,26 +35,18 @@
     color: #0F172A;
   }
   body.dark { background:#0B1120; color:#F1F5F9; }
+  body.dark .app-container { background: #0B1120; }
 
-  body.dark .app-container {
-    background: #0B1120;
-  }
-
-  body.dark .filter-container,
-  body.dark .export-container,
-  body.dark .table-wrap,
-  body.dark .modal-content,
+  body.dark .main-card,
   body.dark .header-brand {
     background: #111827;
     border-color: #1E293B;
   }
 
   body.dark .stat-card {
-    background: #111827;
-    border-color: #1E293B;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    background: #1E293B;
+    border-color: #334155;
   }
-
   body.dark .stat-card .label { color: #94A3B8; }
   body.dark .stat-card .num.hadir { color: #34D399; }
   body.dark .stat-card .num.izin { color: #FBBF24; }
@@ -62,669 +54,291 @@
   body.dark .stat-card .num.alpa { color: #F87171; }
   body.dark .stat-card .num.belum { color: #64748B; }
 
-  body.dark .filter-row label { color: #F1F5F9; }
-  body.dark .select-box {
-    background: #1E293B;
-    border-color: #334155;
-    color: #F1F5F9;
-  }
-  body.dark .search-input {
+  body.dark .view-tabs { background: #1E293B; }
+  body.dark .view-tab { color: #94A3B8; }
+  body.dark .view-tab.active { background: #2563EB; color: #fff; }
+
+  body.dark .select-box, body.dark .search-input {
     background: #1E293B;
     border-color: #334155;
     color: #F1F5F9;
   }
   body.dark .search-input::placeholder { color: #64748B; }
 
-  body.dark .legend-row { border-top-color: #1E293B; }
+  body.dark .divider-line { border-top-color: #1E293B; }
   body.dark .legend-item { color: #F1F5F9; }
   body.dark .legend-dot.belum { background: #334155; }
 
-  body.dark .grid-table th, body.dark .grid-table td {
-    border-color: #1E293B;
-  }
-  body.dark .grid-table thead th {
-    background: #1E293B;
-    color: #E2E8F0;
-    border-bottom-color: #334155;
-  }
-  body.dark .col-tgl-weekend { background: #1A1F2E; color: #94A3B8; }
-  body.dark .sticky-col { background: #111827; }
-  body.dark .cell-nama {
-    border-right-color: #334155 !important;
-    background: #111827;
-  }
-  body.dark .cell-status { color: #334155; }
-  body.dark .cell-status.hadir {
-    color: #6EE7B7;
-    background: #064E3B;
-    border-bottom: 3px solid #34D399;
-  }
-  body.dark .cell-status.izin {
-    color: #FCD34D;
-    background: #78350F;
-    border-bottom: 3px solid #FBBF24;
-  }
-  body.dark .cell-status.sakit {
-    color: #FBBF24;
-    background: #78350F;
-    border-bottom: 3px solid #F59E0B;
-  }
-  body.dark .cell-status.alpa {
-    color: #FCA5A5;
-    background: #7F1D1D;
-    border-bottom: 3px solid #F87171;
-  }
-  body.dark .cell-status.belum {
-    color: #64748B;
-    background: #1E293B;
-  }
+  body.dark .murid-name { color: #F1F5F9; }
+  body.dark .harian-table thead th { background: #1E293B; color: #E2E8F0; border-color: #334155; }
+  body.dark .harian-table td { border-color: #1E293B; }
 
-  body.dark .btn-outline {
-    border-color: #334155;
-    color: #F1F5F9;
-  }
-  body.dark .btn-outline:hover { background: #1E293B; }
+  body.dark .rekap-table th { background: #1E293B; color: #E2E8F0; border-color: #334155; }
+  body.dark .rekap-table td { border-color: #1E293B; }
+  body.dark .rekap-table .rekap-nama { color: #F1F5F9; }
+
+  body.dark .btn-outline { border-color: #334155; color: #F1F5F9; }
+  body.dark .btn-outline:active { background: #1E293B; }
 
   body.dark .empty-state, body.dark .error-state { color: #64748B; }
   body.dark .loading-spin { border-color: #1E293B; border-top-color: #2563EB; }
-
   body.dark .footer-note { color: #64748B; }
 
-  body.dark .modal-content {
-    background: #111827;
-    border-color: #1E293B;
-  }
+  body.dark .modal-content { background: #111827; border-color: #1E293B; }
   body.dark .modal-content .modal-icon svg { stroke: #F87171; }
   body.dark .modal-content h3 { color: #F1F5F9; }
   body.dark .modal-content p { color: #94A3B8; }
 
   .app-container {
-    max-width: 720px;
+    max-width: 640px;
     margin: 0 auto;
     background: #F1F5F9;
     min-height: 100vh;
-    padding: 0 12px;
+    padding: 0 12px 20px;
   }
 
   /* ===== HEADER ===== */
   .header-brand {
     background: linear-gradient(145deg, #1D4ED8, #2563EB, #3B82F6);
-    padding: 28px 20px 32px;
+    padding: 24px 20px 28px;
     color: #fff;
     text-align: center;
-    border-radius: 0 0 18px 18px;
-    margin-bottom: 14px;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 12px;
   }
-
   .logo-mini {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     font-weight: 800;
-    font-size: 14px;
+    font-size: 13px;
     background: rgba(255,255,255,0.15);
     padding: 5px 16px;
     border-radius: 30px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
-  .logo-mini svg { width: 16px; height: 16px; }
-
   .header-brand h1 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 800;
     margin-bottom: 4px;
     letter-spacing: -0.3px;
     word-break: break-word;
   }
-  .header-brand .sub-info {
-    font-size: 16px;
-    opacity: 0.9;
-  }
+  .header-brand .sub-info { font-size: 14px; opacity: 0.9; }
   .header-brand .sub-info span {
     background: rgba(255,255,255,0.12);
     padding: 2px 14px;
     border-radius: 20px;
   }
-
   .live-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     background: rgba(255,255,255,0.12);
-    padding: 5px 16px;
+    padding: 5px 14px;
     border-radius: 30px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    margin-top: 12px;
+    margin-top: 10px;
   }
   .live-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #4ADE80;
+    width: 7px; height: 7px; border-radius: 50%; background: #4ADE80;
     animation: pulseDot 1.5s ease-in-out infinite;
   }
   @keyframes pulseDot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-  /* ===== STATS BAR ===== */
+  /* ===== VIEW TABS ===== */
+  .view-tabs {
+    display: flex;
+    background: #E2E8F0;
+    border-radius: 14px;
+    padding: 4px;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .view-tab {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 11px 8px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #475569;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.15s;
+  }
+  .view-tab.active { background: #2563EB; color: #fff; box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
+
+  /* ===== MAIN CARD (consolidated) ===== */
+  .main-card {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 16px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  /* ---- filter row ---- */
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .select-box {
+    flex: 1;
+    min-width: 110px;
+    padding: 11px 12px;
+    border-radius: 10px;
+    border: 2px solid #E2E8F0;
+    background: #F8FAFE;
+    font-size: 14px;
+    color: #0F172A;
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .search-input {
+    flex-basis: 100%;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: 2px solid #E2E8F0;
+    background: #F8FAFE;
+    font-size: 14px;
+    color: #0F172A;
+    font-family: inherit;
+    outline: none;
+  }
+  .search-input::placeholder { color: #94A3B8; }
+  .search-input:focus, .select-box:focus { border-color: #2563EB; }
+
+  /* ---- stats ---- */
   .stats-bar {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
+    gap: 6px;
     margin-bottom: 14px;
   }
   .stat-card {
-    background: #FFFFFF;
-    border-radius: 12px;
-    padding: 12px 6px;
-    border: 2px solid #E2E8F0;
+    background: #F8FAFE;
+    border-radius: 10px;
+    padding: 10px 4px;
+    border: 1px solid #E2E8F0;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
-  .stat-card .num {
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1.2;
-  }
-  .stat-card .label {
-    font-size: 13px;
-    color: #64748B;
-    margin-top: 2px;
-    font-weight: 600;
-  }
+  .stat-card .num { font-size: 20px; font-weight: 800; line-height: 1.2; }
+  .stat-card .label { font-size: 10.5px; color: #64748B; margin-top: 2px; font-weight: 600; }
   .stat-card .num.hadir { color: #059669; }
   .stat-card .num.izin { color: #D97706; }
   .stat-card .num.sakit { color: #B45309; }
   .stat-card .num.alpa { color: #DC2626; }
   .stat-card .num.belum { color: #94A3B8; }
 
-  /* ===== FILTER ===== */
-  .filter-container {
-    background: #FFFFFF;
-    border-radius: 14px;
-    padding: 14px 16px;
-    border: 2px solid #E2E8F0;
-    margin-bottom: 14px;
+  /* ---- harian: table style (no internal scroll) ---- */
+  .list-wrap { border-radius: 12px; border: 1px solid #E2E8F0; overflow: hidden; margin-bottom: 14px; }
+  table.harian-table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 13.5px; }
+  .harian-table th, .harian-table td {
+    padding: 10px 8px; border-bottom: 1px solid #E2E8F0;
   }
+  .harian-table thead th {
+    background: #F8FAFE; color: #1E293B; font-weight: 700; font-size: 12.5px; text-align: left;
+  }
+  .harian-table thead th.col-status { text-align: center; }
+  .harian-table tbody tr:last-child td { border-bottom: none; }
+  .murid-name { font-weight: 600; }
+  .murid-status-badge {
+    display: inline-block; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 30px; white-space: nowrap;
+  }
+  .col-status { text-align: center; }
+  .murid-status-badge.hadir { color: #065F46; background: #D1FAE5; }
+  .murid-status-badge.izin { color: #92400E; background: #FEF3C7; }
+  .murid-status-badge.sakit { color: #92400E; background: #FDE68A; }
+  .murid-status-badge.alpa { color: #991B1B; background: #FECACA; }
+  .murid-status-badge.belum { color: #64748B; background: #F1F5F9; }
+  .murid-status-badge.libur { color: #64748B; background: #F1F5F9; }
 
-  .filter-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
+  .table-wrap { border-radius: 12px; border: 1px solid #E2E8F0; overflow: hidden; margin-bottom: 14px; }
+  table.rekap-table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 13.5px; }
+  .rekap-table th, .rekap-table td {
+    padding: 10px 6px; text-align: center; border-bottom: 1px solid #E2E8F0; white-space: nowrap;
   }
-  .filter-row label {
-    font-size: 16px;
-    font-weight: 700;
-    color: #0F172A;
+  .rekap-table thead th {
+    background: #F8FAFE; color: #1E293B; font-weight: 700; position: sticky; top: 0; z-index: 2; font-size: 12.5px;
   }
+  .rekap-table .rekap-nama { text-align: left; font-weight: 600; padding-left: 10px; }
+  .rekap-table td.rekap-hadir { color: #059669; font-weight: 700; }
+  .rekap-table td.rekap-izin { color: #D97706; font-weight: 700; }
+  .rekap-table td.rekap-sakit { color: #B45309; font-weight: 700; }
+  .rekap-table td.rekap-alpa { color: #DC2626; font-weight: 700; }
 
-  .select-box {
-    flex: 1;
-    min-width: 140px;
-    padding: 12px 16px;
-    border-radius: 12px;
-    border: 2px solid #E2E8F0;
-    background: #F8FAFE;
-    font-size: 16px;
-    color: #0F172A;
-    font-family: inherit;
-    cursor: pointer;
-    font-weight: 600;
-  }
-
-  .search-input {
-    flex: 1.5;
-    min-width: 130px;
-    padding: 12px 16px;
-    border-radius: 12px;
-    border: 2px solid #E2E8F0;
-    background: #F8FAFE;
-    font-size: 16px;
-    color: #0F172A;
-    font-family: inherit;
-    outline: none;
-    transition: 0.2s;
-  }
-  .search-input::placeholder { color: #94A3B8; font-size: 15px; }
-  .search-input:focus { border-color: #2563EB; }
-
-  /* ===== LEGENDA ===== */
+  /* ---- legend ---- */
   .legend-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 2px solid #E2E8F0;
+    display: flex; flex-wrap: wrap; gap: 12px; padding-top: 12px; margin-bottom: 12px;
+    border-top: 1px solid #E2E8F0;
   }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    color: #0F172A;
-  }
-  .legend-dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
-    flex-shrink: 0;
-  }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0; }
   .legend-dot.hadir { background: #059669; }
   .legend-dot.izin { background: #D97706; }
   .legend-dot.sakit { background: #B45309; }
   .legend-dot.alpa { background: #DC2626; }
   .legend-dot.belum { background: #CBD5E1; }
 
-  /* ===== TABLE ===== */
-  .table-wrap {
-    border-radius: 14px;
-    border: 2px solid #E2E8F0;
-    overflow: auto;
-    background: #FFFFFF;
-    max-height: 68vh;
-    position: relative;
-  }
-
-  .table-wrap::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  .table-wrap::-webkit-scrollbar-track {
-    background: #F1F5F9;
-    border-radius: 6px;
-  }
-  .table-wrap::-webkit-scrollbar-thumb {
-    background: #CBD5E1;
-    border-radius: 6px;
-  }
-
-  table.grid-table {
-    border-collapse: collapse;
-    font-size: 18px;
-    min-width: 100%;
-    width: 100%;
-  }
-  .grid-table th, .grid-table td {
-    border-right: 2px solid #E2E8F0;
-    border-bottom: 2px solid #E2E8F0;
-    padding: 0;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  .grid-table thead th {
-    background: #F8FAFE;
-    color: #1E293B;
-    font-weight: 700;
-    padding: 14px 6px;
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    font-size: 15px;
-    border-bottom: 3px solid #E2E8F0;
-    min-height: 50px;
-  }
-
-  .col-nama {
-    width: 180px;
-    min-width: 180px;
-    max-width: 180px;
-    text-align: left !important;
-  }
-  .col-tgl {
-    width: 44px;
-    min-width: 44px;
-    max-width: 44px;
-  }
-  .col-tgl-weekend {
-    background: #F8FAFE;
-    color: #64748B;
-  }
-
-  .sticky-col {
-    position: sticky;
-    left: 0;
-    background: #FFFFFF;
-    z-index: 3;
-  }
-  thead .sticky-col { z-index: 6; }
-
-  .cell-nama {
-    padding: 14px 12px;
-    font-weight: 600;
-    font-size: 17px;
-    border-right: 3px solid #E2E8F0 !important;
-    min-height: 52px;
-    background: #FFFFFF;
-  }
-
-  /* ===== STATUS DENGAN WARNA TERANG ===== */
-  .cell-status {
-    padding: 14px 2px;
-    font-weight: 700;
-    font-size: 20px;
-    min-width: 44px;
-    min-height: 52px;
-    color: #CBD5E1;
-  }
-  
-  .cell-status.hadir {
-    color: #065F46;
-    background: #D1FAE5;
-    border-bottom: 3px solid #059669;
-  }
-  
-  .cell-status.izin {
-    color: #92400E;
-    background: #FEF3C7;
-    border-bottom: 3px solid #D97706;
-  }
-  
-  .cell-status.sakit {
-    color: #92400E;
-    background: #FDE68A;
-    border-bottom: 3px solid #B45309;
-  }
-  
-  .cell-status.alpa {
-    color: #991B1B;
-    background: #FECACA;
-    border-bottom: 3px solid #DC2626;
-  }
-  
-  .cell-status.belum {
-    color: #64748B;
-    background: #F1F5F9;
-  }
-
-  /* ===== BUTTON ===== */
-  .btn-group {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 14px;
-  }
+  /* ---- buttons ---- */
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
   .btn {
-    padding: 14px 24px;
-    border-radius: 12px;
-    border: none;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    transition: 0.15s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 52px;
-    flex: 1;
-    min-width: 120px;
+    padding: 12px 18px; border-radius: 10px; border: none; font-size: 14px; font-weight: 700;
+    cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; justify-content: center;
+    gap: 6px; min-height: 44px; flex: 1; min-width: 120px;
   }
   .btn:active { transform: scale(0.97); }
-  .btn-primary {
-    background: #2563EB;
-    color: #fff;
-  }
-  .btn-primary:hover { background: #1D4ED8; }
-  .btn-outline {
-    background: transparent;
-    border: 2px solid #E2E8F0;
-    color: #0F172A;
-  }
-  .btn-outline:hover { background: #F1F5F9; }
+  .btn-primary { background: #2563EB; color: #fff; }
+  .btn-outline { background: transparent; border: 2px solid #E2E8F0; color: #0F172A; }
 
-  .export-container {
-    background: #FFFFFF;
-    border-radius: 14px;
-    padding: 14px 16px;
-    border: 2px solid #E2E8F0;
-    margin-top: 14px;
+  /* ---- states ---- */
+  .empty-state, .error-state { text-align: center; padding: 34px 16px; color: #94A3B8; font-size: 14.5px; }
+  .error-state svg, .empty-state svg {
+    width: 44px; height: 44px; stroke: #94A3B8; margin: 0 auto 10px; display: block;
   }
-
-  /* ===== STATES ===== */
-  .empty-state, .error-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: #94A3B8;
-    font-size: 17px;
-  }
-  .error-state svg {
-    width: 50px;
-    height: 50px;
-    stroke: #DC2626;
-    margin-bottom: 12px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .empty-state svg {
-    width: 50px;
-    height: 50px;
-    stroke: #94A3B8;
-    margin-bottom: 12px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
+  .error-state svg { stroke: #DC2626; }
   .loading-spin {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #E2E8F0;
-    border-top-color: #2563EB;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    margin: 40px auto;
+    width: 34px; height: 34px; border: 4px solid #E2E8F0; border-top-color: #2563EB; border-radius: 50%;
+    animation: spin 0.7s linear infinite; margin: 30px auto;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ===== FOOTER ===== */
-  .footer-note {
-    text-align: center;
-    padding: 18px 16px;
-    color: #94A3B8;
-    font-size: 13px;
-    line-height: 1.8;
-  }
+  .footer-note { text-align: center; padding: 16px; color: #94A3B8; font-size: 12px; line-height: 1.7; }
 
-  /* ===== MODAL ALERT ===== */
+  /* ---- alert modal ---- */
   .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(6px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; z-index: 999;
   }
-  .modal-overlay.active {
-    display: flex;
-  }
+  .modal-overlay.active { display: flex; }
   .modal-content {
-    background: #FFFFFF;
-    width: 340px;
-    max-width: 90%;
-    border-radius: 24px;
-    padding: 28px 24px;
-    text-align: center;
-    border: 1px solid #E2E8F0;
-    animation: modalPop 0.25s ease;
+    background: #FFFFFF; width: 320px; max-width: 90%; border-radius: 22px; padding: 26px 22px;
+    text-align: center; border: 1px solid #E2E8F0; animation: modalPop 0.25s ease;
   }
-  @keyframes modalPop {
-    from { transform: scale(0.85); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-  .modal-content .modal-icon {
-    margin-bottom: 12px;
-  }
-  .modal-content .modal-icon svg {
-    width: 56px;
-    height: 56px;
-    stroke: #DC2626;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .modal-content h3 {
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 8px;
-    color: #0F172A;
-  }
-  .modal-content p {
-    font-size: 15px;
-    color: #64748B;
-    margin-bottom: 18px;
-    line-height: 1.5;
-  }
+  @keyframes modalPop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-content .modal-icon { margin-bottom: 10px; }
+  .modal-content .modal-icon svg { width: 48px; height: 48px; stroke: #DC2626; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .modal-content h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+  .modal-content p { font-size: 14px; color: #64748B; margin-bottom: 16px; line-height: 1.5; }
   .modal-content .btn-modal {
-    background: #2563EB;
-    color: #fff;
-    border: none;
-    padding: 12px 28px;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.2s;
-    min-width: 120px;
+    background: #2563EB; color: #fff; border: none; padding: 11px 26px; border-radius: 10px;
+    font-size: 14px; font-weight: 700; cursor: pointer; min-width: 110px;
   }
-  .modal-content .btn-modal:active {
-    transform: scale(0.96);
-  }
+  .modal-content .btn-modal:active { transform: scale(0.96); }
 
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 700px) {
-    .stats-bar {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
-    .stat-card { padding: 10px 4px; border-radius: 10px; }
-    .stat-card .num { font-size: 22px; }
-    .stat-card .label { font-size: 11px; }
-
-    .header-brand { padding: 20px 16px 26px; }
-    .header-brand h1 { font-size: 22px; }
-    .header-brand .sub-info { font-size: 14px; }
-    .live-badge { font-size: 12px; padding: 4px 12px; }
-    .logo-mini { font-size: 12px; padding: 4px 12px; }
-
-    .filter-row { flex-direction: column; gap: 8px; }
-    .filter-row label { font-size: 14px; align-self: flex-start; }
-    .select-box, .search-input {
-      font-size: 15px;
-      padding: 10px 12px;
-      width: 100%;
-      min-width: auto;
-    }
-    .search-input::placeholder { font-size: 13px; }
-
-    .filter-container { padding: 12px; border-radius: 12px; }
-    .export-container { padding: 12px; border-radius: 12px; }
-
-    .col-nama { width: 120px; min-width: 120px; max-width: 120px; }
-    .col-tgl { width: 34px; min-width: 34px; max-width: 34px; }
-    .cell-nama { font-size: 14px; padding: 10px 8px; min-height: 42px; }
-    .cell-status { font-size: 16px; padding: 10px 2px; min-width: 34px; min-height: 42px; }
-    .grid-table thead th { font-size: 12px; padding: 10px 4px; min-height: 40px; }
-    table.grid-table { font-size: 14px; }
-
-    .legend-row { gap: 8px; }
-    .legend-item { font-size: 13px; }
-    .legend-dot { width: 14px; height: 14px; }
-
-    .btn-group { flex-direction: column; }
-    .btn { font-size: 14px; padding: 12px 16px; min-height: 46px; }
-
-    .footer-note { font-size: 12px; padding: 14px; }
-    .modal-content { padding: 22px 18px; }
-    .modal-content h3 { font-size: 18px; }
-    .modal-content p { font-size: 14px; }
-  }
-
-  @media (max-width: 500px) {
-    .stats-bar {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 5px;
-    }
-    .stat-card .num { font-size: 18px; }
-    .stat-card .label { font-size: 10px; }
-    .stat-card { padding: 8px 4px; }
-    .col-nama { width: 100px; min-width: 100px; max-width: 100px; }
-    .col-tgl { width: 30px; min-width: 30px; max-width: 30px; }
-    .cell-nama { font-size: 12px; padding: 8px 6px; min-height: 36px; }
-    .cell-status { font-size: 14px; padding: 8px 1px; min-width: 30px; min-height: 36px; }
-    .grid-table thead th { font-size: 10px; padding: 8px 2px; min-height: 34px; }
-    table.grid-table { font-size: 12px; }
-    .header-brand h1 { font-size: 19px; }
-  }
-
-  /* ===== Tampilan Laptop / PC ===== */
   @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
-    }
+    body { background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    body.dark { background: linear-gradient(160deg, #0B1120 0%, #111827 60%); }
     .app-container {
-      max-width: 720px;
-      margin: 36px auto;
-      background: #FFFFFF;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      min-height: auto;
-      padding: 0;
+      max-width: 640px; margin: 32px auto; background: #FFFFFF; border-radius: 20px; border: 1px solid #E2E8F0;
+      box-shadow: 0 20px 50px -12px rgba(15,23,42,0.12); overflow: hidden; padding: 0 0 20px;
     }
-    body.dark .app-container {
-      background: #111827;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
-    .header-brand { 
-      border-radius: 20px 20px 0 0;
-      margin: 0;
-    }
-    .filter-container { margin: 0 20px 14px; }
-    .table-wrap { margin: 0 20px 14px; }
-    .export-container { margin: 0 20px 14px; }
-    .footer-note { padding: 20px; }
-
-    .col-nama { width: 200px; min-width: 200px; max-width: 200px; }
-    .col-tgl { width: 48px; min-width: 48px; max-width: 48px; }
-    .cell-nama { font-size: 18px; padding: 16px 14px; }
-    .cell-status { font-size: 22px; padding: 16px 4px; min-width: 48px; }
-    table.grid-table { font-size: 18px; }
-    .grid-table thead th { font-size: 16px; padding: 16px 8px; }
-
-    .stats-bar {
-      margin-bottom: 14px;
-      padding: 0 20px;
-    }
-    .filter-container { border-radius: 16px; }
-    .table-wrap { border-radius: 16px; max-height: 70vh; }
-    .export-container { border-radius: 16px; }
-  }
-
-  @media (min-width: 1200px) {
-    .app-container {
-      max-width: 820px;
-    }
+    body.dark .app-container { background: #111827; border-color: #1E293B; }
+    .header-brand { border-radius: 20px 20px 0 0; margin: 0 0 12px; }
+    .view-tabs, .main-card, .footer-note { margin-left: 20px; margin-right: 20px; }
+    .view-tabs { width: calc(100% - 40px); }
+    .main-card { width: calc(100% - 40px); }
   }
 </style>
 </head>
@@ -733,75 +347,79 @@
 <div class="app-container">
   <!-- HEADER -->
   <div class="header-brand">
-    <div class="logo-mini">
-      Star Tools
-    </div>
+    <div class="logo-mini">STools</div>
     <h1 id="namaKelasHeader">Memuat...</h1>
-    <div class="sub-info">
-      <span id="jumlahMuridHeader">- murid</span>
-    </div>
+    <div class="sub-info"><span id="jumlahMuridHeader">- murid</span></div>
     <div class="live-badge">
       <span class="live-dot"></span> Live Update · <span id="lastUpdateText">Real-time</span>
     </div>
   </div>
 
-  <!-- STATS -->
-  <div class="stats-bar" id="statsBar">
-    <div class="stat-card">
-      <div class="num hadir" id="statHadir">0</div>
-      <div class="label">Hadir</div>
-    </div>
-    <div class="stat-card">
-      <div class="num izin" id="statIzin">0</div>
-      <div class="label">Izin</div>
-    </div>
-    <div class="stat-card">
-      <div class="num sakit" id="statSakit">0</div>
-      <div class="label">Sakit</div>
-    </div>
-    <div class="stat-card">
-      <div class="num alpa" id="statAlpa">0</div>
-      <div class="label">Alpa</div>
-    </div>
-    <div class="stat-card">
-      <div class="num belum" id="statBelum">0</div>
-      <div class="label">Belum</div>
-    </div>
+  <!-- VIEW TABS -->
+  <div class="view-tabs">
+    <button class="view-tab active" data-view="harian" onclick="switchView('harian')">Per Hari</button>
+    <button class="view-tab" data-view="rekap" onclick="switchView('rekap')">Rekap Bulanan</button>
   </div>
 
-  <!-- FILTER -->
-  <div class="filter-container">
+  <!-- MAIN CARD -->
+  <div class="main-card">
     <div class="filter-row">
-      <label for="pilihBulanView">Bulan</label>
       <select class="select-box" id="pilihBulanView" onchange="gantiBulan(this.value)"></select>
+      <select class="select-box" id="pilihTanggalView" onchange="gantiTanggal(this.value)"></select>
       <input class="search-input" id="searchInput" placeholder="Cari nama murid..." oninput="filterMurid(this.value)">
     </div>
-  </div>
 
-  <!-- TABLE -->
-  <div class="table-wrap">
-    <table class="grid-table" id="tabelGrid">
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-card"><div class="num hadir" id="statHadir">0</div><div class="label">Hadir</div></div>
+      <div class="stat-card"><div class="num izin" id="statIzin">0</div><div class="label">Izin</div></div>
+      <div class="stat-card"><div class="num sakit" id="statSakit">0</div><div class="label">Sakit</div></div>
+      <div class="stat-card"><div class="num alpa" id="statAlpa">0</div><div class="label">Alpa</div></div>
+      <div class="stat-card"><div class="num belum" id="statBelum">0</div><div class="label">Belum</div></div>
+    </div>
+
+    <!-- PER HARI VIEW -->
+    <div class="list-wrap" id="harianViewWrap">
+      <table class="harian-table" id="harianTable">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th class="col-status">Status</th>
+          </tr>
+        </thead>
+        <tbody id="harianView">
+          <tr><td colspan="2"><div class="loading-spin"></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+<!-- REKAP BULANAN VIEW - dengan scroll horizontal -->
+<div class="table-wrap" id="rekapView" style="display:none;">
+  <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px;">
+    <table class="rekap-table" id="rekapTable" style="min-width: 500px; width: 100%;">
       <thead>
         <tr>
-          <th class="sticky-col col-nama">Nama</th>
+          <th class="rekap-nama" style="min-width: 140px;">Nama</th>
+          <th style="min-width: 60px;">Hadir</th>
+          <th style="min-width: 60px;">Izin</th>
+          <th style="min-width: 60px;">Sakit</th>
+          <th style="min-width: 60px;">Alpa</th>
         </tr>
       </thead>
-      <tbody id="tabelGridBody"></tbody>
+      <tbody id="rekapTableBody"></tbody>
     </table>
   </div>
+</div>
 
-  <!-- EXPORT -->
-  <div class="export-container">
     <div class="btn-group">
-      <button class="btn btn-primary" onclick="exportGridPDF()">Export PDF</button>
-      <button class="btn btn-outline" onclick="exportGridCSV()">Export CSV</button>
+      <button class="btn btn-primary" onclick="exportPDF()">Export PDF</button>
+      <button class="btn btn-primary" onclick="exportCSV()">Export Excel</button>
     </div>
   </div>
 
   <!-- FOOTER -->
   <div class="footer-note">
     Halaman ini untuk melihat data absensi. Data otomatis terupdate secara real-time.<br>
-    Star Platform &middot; Star Tools 2026
+    Star Platform &middot; STools 2026
   </div>
 </div>
 
@@ -835,9 +453,12 @@ var kelasId = getParam("kelas");
 var namaKelasAktif = "";
 var BULAN_LIST = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 var bulanDipilih = new Date().toLocaleString("id-ID", { month: "long" });
+var tanggalDipilih = new Date().getDate();
 var daftarMuridAktif = [];
-var absenListeners = {};
 var searchQuery = "";
+var viewMode = "harian";
+var harianListeners = {};
+var rekapListeners = {};
 
 // ===== MODAL =====
 function showAlertModal(title, message) {
@@ -845,7 +466,6 @@ function showAlertModal(title, message) {
   document.getElementById("modalMessage").innerText = message || "";
   document.getElementById("modalOverlay").classList.add("active");
 }
-
 function closeModal() {
   document.getElementById("modalOverlay").classList.remove("active");
 }
@@ -856,8 +476,8 @@ function daysInMonth(namaBulan) {
   return new Date(now.getFullYear(), idx + 1, 0).getDate();
 }
 
-function isWeekend(tgl) {
-  var idx = BULAN_LIST.indexOf(bulanDipilih);
+function isWeekend(bulan, tgl) {
+  var idx = BULAN_LIST.indexOf(bulan);
   var year = new Date().getFullYear();
   var d = new Date(year, idx, tgl);
   var day = d.getDay();
@@ -868,8 +488,9 @@ function renderError(msg) {
   document.getElementById("namaKelasHeader").innerText = "Tidak Ditemukan";
   document.getElementById("jumlahMuridHeader").innerText = "- murid";
   document.getElementById("statsBar").style.display = "none";
-  document.getElementById("tabelGridBody").innerHTML = "";
-  document.querySelector(".export-container").style.display = "none";
+  document.getElementById("harianView").innerHTML = "";
+  document.querySelector(".view-tabs").style.display = "none";
+  document.querySelector(".btn-group").style.display = "none";
   showAlertModal("Link Tidak Valid", msg || "Pastikan link yang dibuka lengkap dan benar.");
 }
 
@@ -885,23 +506,23 @@ function renderBulanOptions() {
   });
 }
 
-function renderHeaderTable() {
-  var totalHari = daysInMonth(bulanDipilih);
-  var thead = document.querySelector('#tabelGrid thead tr');
-  if (!thead) return;
-  
-  var html = '<th class="sticky-col col-nama">Nama</th>';
-  for (var i = 1; i <= totalHari; i++) {
-    var cls = isWeekend(i) ? 'col-tgl col-tgl-weekend' : 'col-tgl';
-    html += '<th class="' + cls + '">' + i + '</th>';
+function renderTanggalOptions() {
+  var select = document.getElementById("pilihTanggalView");
+  var total = daysInMonth(bulanDipilih);
+  if (tanggalDipilih > total) tanggalDipilih = total;
+  select.innerHTML = '';
+  for (var i = 1; i <= total; i++) {
+    var opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = 'Tanggal ' + i + (isWeekend(bulanDipilih, i) ? ' (Libur)' : '');
+    if (i === tanggalDipilih) opt.selected = true;
+    select.appendChild(opt);
   }
-  thead.innerHTML = html;
 }
 
 function filterMurid(query) {
   searchQuery = query.toLowerCase().trim();
-  renderBaris(daysInMonth(bulanDipilih));
-  updateStats();
+  if (viewMode === 'harian') loadHarianView(); else loadRekapView();
 }
 
 function getFilteredMurid() {
@@ -911,174 +532,222 @@ function getFilteredMurid() {
   });
 }
 
-function renderBaris(totalHari) {
-  var tbody = document.getElementById("tabelGridBody");
-  if (!tbody) return;
+function gantiBulan(bulan) {
+  bulanDipilih = bulan;
+  renderTanggalOptions();
+  if (viewMode === 'harian') loadHarianView(); else loadRekapView();
+}
 
+function gantiTanggal(tgl) {
+  tanggalDipilih = parseInt(tgl, 10);
+  loadHarianView();
+}
+
+function switchView(mode) {
+  viewMode = mode;
+  document.querySelectorAll('.view-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelector('.view-tab[data-view="' + mode + '"]').classList.add('active');
+  document.getElementById('harianViewWrap').style.display = mode === 'harian' ? 'block' : 'none';
+  document.getElementById('rekapView').style.display = mode === 'rekap' ? 'block' : 'none';
+  document.getElementById('pilihTanggalView').style.display = mode === 'harian' ? 'block' : 'none';
+  document.getElementById('statsBar').style.display = mode === 'harian' ? 'grid' : 'none';
+  if (mode === 'harian') loadHarianView(); else loadRekapView();
+}
+
+// ===== PER HARI VIEW =====
+function loadHarianView() {
+  var container = document.getElementById("harianView");
   var filtered = getFilteredMurid();
 
+  Object.keys(harianListeners).forEach(function(nama) {
+    if (harianListeners[nama]) harianListeners[nama].off();
+  });
+  harianListeners = {};
+
   if (filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="' + (totalHari + 1) + '" class="empty-state">' +
+    container.innerHTML = '<tr><td colspan="2" class="empty-state">' +
       (daftarMuridAktif.length === 0 ? 'Belum ada murid di kelas ini.' : 'Tidak ada murid yang cocok dengan pencarian.') +
       '</td></tr>';
+    updateStatsHarian();
     return;
   }
 
-  var html = "";
+  var html = '';
   filtered.forEach(function(nama) {
     var safe = nama.replace(/[^a-zA-Z0-9]/g, "_");
-    html += '<tr><td class="sticky-col cell-nama">' + nama + '</td>';
-    for (var i = 1; i <= totalHari; i++) {
-      var cls = isWeekend(i) ? 'cell-status belum' : 'cell-status';
-      html += '<td class="' + cls + '" id="cell-' + safe + '-' + i + '">-</td>';
-    }
-    html += '</tr>';
+    html += '<tr id="hrow-' + safe + '">' +
+      '<td class="murid-name">' + nama + '</td>' +
+      '<td class="col-status"><span class="murid-status-badge belum" id="hstatus-' + safe + '">Memuat...</span></td>' +
+      '</tr>';
   });
-  tbody.innerHTML = html;
-
-  // Pasang ulang listener
-  Object.keys(absenListeners).forEach(function(nama) {
-    if (absenListeners[nama]) absenListeners[nama].off();
-  });
-  absenListeners = {};
+  container.innerHTML = html;
 
   filtered.forEach(function(nama) {
     var safe = nama.replace(/[^a-zA-Z0-9]/g, "_");
-    var ref = db.ref("kelas/" + kelasId + "/siswa/" + nama + "/absen/" + bulanDipilih);
-    absenListeners[nama] = ref;
-
+    var ref = db.ref("kelas/" + kelasId + "/siswa/" + nama + "/absen/" + bulanDipilih + "/" + tanggalDipilih);
+    harianListeners[nama] = ref;
     ref.on("value", function(snap) {
-      var data = snap.val() || {};
-      var total = daysInMonth(bulanDipilih);
-      for (var i = 1; i <= total; i++) {
-        var el = document.getElementById("cell-" + safe + "-" + i);
-        if (!el) continue;
-        var rec = data[i];
-        var status = rec ? rec.status : null;
-
-        el.className = isWeekend(i) ? 'cell-status' : 'cell-status';
-        if (status === "Hadir") { el.classList.add("hadir"); el.innerText = "H"; }
-        else if (status === "Izin") { el.classList.add("izin"); el.innerText = "I"; }
-        else if (status === "Sakit") { el.classList.add("sakit"); el.innerText = "S"; }
-        else if (status === "Alpa") { el.classList.add("alpa"); el.innerText = "A"; }
-        else { el.classList.add("belum"); el.innerText = "-"; }
-        if (isWeekend(i)) el.classList.add("belum");
-      }
-      updateStats();
+      var rec = snap.val();
+      var status = rec ? rec.status : null;
+      var badge = document.getElementById("hstatus-" + safe);
+      if (!badge) return;
+      if (status === "Hadir") { badge.className = "murid-status-badge hadir"; badge.innerText = "Hadir"; }
+      else if (status === "Izin") { badge.className = "murid-status-badge izin"; badge.innerText = "Izin"; }
+      else if (status === "Sakit") { badge.className = "murid-status-badge sakit"; badge.innerText = "Sakit"; }
+      else if (status === "Alpa") { badge.className = "murid-status-badge alpa"; badge.innerText = "Alpa"; }
+      else if (isWeekend(bulanDipilih, tanggalDipilih)) { badge.className = "murid-status-badge libur"; badge.innerText = "Libur"; }
+      else { badge.className = "murid-status-badge belum"; badge.innerText = "Belum"; }
+      updateStatsHarian();
     });
   });
 
-  updateStats();
+  updateStatsHarian();
+  updateLastUpdate();
 }
 
-function updateStats() {
+function updateStatsHarian() {
   var filtered = getFilteredMurid();
-  var totalHari = daysInMonth(bulanDipilih);
   var stats = { Hadir: 0, Izin: 0, Sakit: 0, Alpa: 0, Belum: 0 };
-
   filtered.forEach(function(nama) {
     var safe = nama.replace(/[^a-zA-Z0-9]/g, "_");
-    for (var i = 1; i <= totalHari; i++) {
-      var el = document.getElementById("cell-" + safe + "-" + i);
-      if (!el) continue;
-      var status = el.innerText;
-      if (status === "H") stats.Hadir++;
-      else if (status === "I") stats.Izin++;
-      else if (status === "S") stats.Sakit++;
-      else if (status === "A") stats.Alpa++;
-      else stats.Belum++;
-    }
+    var badge = document.getElementById("hstatus-" + safe);
+    if (!badge) return;
+    var text = badge.innerText;
+    if (text === "Hadir") stats.Hadir++;
+    else if (text === "Izin") stats.Izin++;
+    else if (text === "Sakit") stats.Sakit++;
+    else if (text === "Alpa") stats.Alpa++;
+    else if (text !== "Memuat...") stats.Belum++;
   });
-
   document.getElementById("statHadir").innerText = stats.Hadir;
   document.getElementById("statIzin").innerText = stats.Izin;
   document.getElementById("statSakit").innerText = stats.Sakit;
   document.getElementById("statAlpa").innerText = stats.Alpa;
   document.getElementById("statBelum").innerText = stats.Belum;
-  document.getElementById("statsBar").style.display = "grid";
+}
 
+// ===== REKAP BULANAN VIEW =====
+function loadRekapView() {
+  var tbody = document.getElementById("rekapTableBody");
+  var filtered = getFilteredMurid();
+
+  Object.keys(rekapListeners).forEach(function(nama) {
+    if (rekapListeners[nama]) rekapListeners[nama].off();
+  });
+  rekapListeners = {};
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">' +
+      (daftarMuridAktif.length === 0 ? 'Belum ada murid di kelas ini.' : 'Tidak ada murid yang cocok dengan pencarian.') +
+      '</td></tr>';
+    return;
+  }
+
+  var html = '';
+  filtered.forEach(function(nama) {
+    var safe = nama.replace(/[^a-zA-Z0-9]/g, "_");
+    html += '<tr>' +
+      '<td class="rekap-nama">' + nama + '</td>' +
+      '<td class="rekap-hadir" id="rHadir-' + safe + '">0</td>' +
+      '<td class="rekap-izin" id="rIzin-' + safe + '">0</td>' +
+      '<td class="rekap-sakit" id="rSakit-' + safe + '">0</td>' +
+      '<td class="rekap-alpa" id="rAlpa-' + safe + '">0</td>' +
+      '</tr>';
+  });
+  tbody.innerHTML = html;
+
+  filtered.forEach(function(nama) {
+    var safe = nama.replace(/[^a-zA-Z0-9]/g, "_");
+    var ref = db.ref("kelas/" + kelasId + "/siswa/" + nama + "/absen/" + bulanDipilih);
+    rekapListeners[nama] = ref;
+    ref.on("value", function(snap) {
+      var data = snap.val() || {};
+      var count = { Hadir: 0, Izin: 0, Sakit: 0, Alpa: 0 };
+      Object.keys(data).forEach(function(tgl) {
+        var status = data[tgl] ? data[tgl].status : null;
+        if (count.hasOwnProperty(status)) count[status]++;
+      });
+      var elH = document.getElementById("rHadir-" + safe);
+      var elI = document.getElementById("rIzin-" + safe);
+      var elS = document.getElementById("rSakit-" + safe);
+      var elA = document.getElementById("rAlpa-" + safe);
+      if (elH) elH.innerText = count.Hadir;
+      if (elI) elI.innerText = count.Izin;
+      if (elS) elS.innerText = count.Sakit;
+      if (elA) elA.innerText = count.Alpa;
+    });
+  });
+
+  updateLastUpdate();
+}
+
+function updateLastUpdate() {
   var now = new Date();
   var jam = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
   document.getElementById("lastUpdateText").innerText = jam;
 }
 
-function gantiBulan(bulan) {
-  bulanDipilih = bulan;
-  var totalHari = daysInMonth(bulanDipilih);
-  renderHeaderTable();
-  renderBaris(totalHari);
+// ===== EXPORT =====
+function getExportRows() {
+  var filtered = getFilteredMurid();
+  if (viewMode === 'harian') {
+    return {
+      head: [["Nama", "Status"]],
+      body: filtered.map(function(nama) {
+        var safe = nama.replace(/[^a-zA-Z0-9]/g, "_");
+        var badge = document.getElementById("hstatus-" + safe);
+        return [nama, badge ? badge.innerText : "-"];
+      }),
+      title: "Absensi " + namaKelasAktif + " — " + bulanDipilih + " Tgl " + tanggalDipilih,
+      filename: "Absensi-" + namaKelasAktif.replace(/\s+/g, "_") + "-" + bulanDipilih + "-" + tanggalDipilih
+    };
+  }
+  return {
+    head: [["Nama", "Hadir", "Izin", "Sakit", "Alpa"]],
+    body: filtered.map(function(nama) {
+      var safe = nama.replace(/[^a-zA-Z0-9]/g, "_");
+      var g = function(id) { var el = document.getElementById(id); return el ? el.innerText : "0"; };
+      return [nama, g("rHadir-" + safe), g("rIzin-" + safe), g("rSakit-" + safe), g("rAlpa-" + safe)];
+    }),
+    title: "Rekap Bulanan " + namaKelasAktif + " — " + bulanDipilih,
+    filename: "Rekap-" + namaKelasAktif.replace(/\s+/g, "_") + "-" + bulanDipilih
+  };
 }
 
-function exportGridPDF() {
+function exportPDF() {
   var jsPDFLib = window.jspdf && window.jspdf.jsPDF;
-  if (!jsPDFLib) {
-    showAlertModal("Library Error", "Library PDF belum siap, coba lagi sebentar.");
-    return;
-  }
-
-  var totalHari = daysInMonth(bulanDipilih);
-  var filtered = getFilteredMurid();
-  var head = [["Nama"].concat(Array.from({ length: totalHari }, function(_, i) { return String(i + 1); }))];
-  var body = filtered.map(function(nama) {
-    var safe = nama.replace(/[^a-zA-Z0-9]/g, "_");
-    var row = [nama];
-    for (var i = 1; i <= totalHari; i++) {
-      var el = document.getElementById("cell-" + safe + "-" + i);
-      row.push(el ? el.innerText : "-");
-    }
-    return row;
-  });
-
-  var doc = new jsPDFLib({ orientation: "landscape", unit: "mm", format: "a4" });
-  doc.setFontSize(16);
+  if (!jsPDFLib) { showAlertModal("Library Error", "Library PDF belum siap, coba lagi sebentar."); return; }
+  var data = getExportRows();
+  var doc = new jsPDFLib({ orientation: "portrait", unit: "mm", format: "a4" });
+  doc.setFontSize(15);
   doc.setTextColor(37, 99, 235);
-  doc.text("Absensi Kelas " + namaKelasAktif + " — " + bulanDipilih, 14, 18);
-
-  doc.setFontSize(10);
+  doc.text(data.title, 14, 16);
+  doc.setFontSize(9);
   doc.setTextColor(100, 116, 139);
-  doc.text("Diexport: " + new Date().toLocaleString("id-ID"), 14, 25);
-
+  doc.text("Diexport: " + new Date().toLocaleString("id-ID"), 14, 22);
   doc.autoTable({
-    startY: 32,
-    head: head,
-    body: body,
-    styles: { fontSize: 8, halign: "center", cellPadding: 2 },
-    columnStyles: { 0: { halign: "left", fontStyle: "bold", cellWidth: 30 } },
-    headStyles: { fillColor: [37, 99, 235], fontSize: 8 },
-    tableWidth: "auto"
+    startY: 28,
+    head: data.head,
+    body: data.body,
+    styles: { fontSize: 9, halign: "center", cellPadding: 3 },
+    columnStyles: { 0: { halign: "left", fontStyle: "bold" } },
+    headStyles: { fillColor: [37, 99, 235] }
   });
-
-  doc.save("Absensi-" + namaKelasAktif.replace(/\s+/g, "_") + "-" + bulanDipilih + ".pdf");
+  doc.save(data.filename + ".pdf");
   showAlertModal("Berhasil!", "PDF berhasil diunduh.");
 }
 
-function exportGridCSV() {
-  var totalHari = daysInMonth(bulanDipilih);
-  var filtered = getFilteredMurid();
-
-  var csv = "\uFEFF";
-  csv += "Absensi Kelas " + namaKelasAktif + " — " + bulanDipilih + "\n";
-  csv += "Diexport: " + new Date().toLocaleString("id-ID") + "\n\n";
-
-  var header = "Nama";
-  for (var i = 1; i <= totalHari; i++) header += "," + i;
-  csv += header + "\n";
-
-  filtered.forEach(function(nama) {
-    var safe = nama.replace(/[^a-zA-Z0-9]/g, "_");
-    var row = '"' + nama + '"';
-    for (var i = 1; i <= totalHari; i++) {
-      var el = document.getElementById("cell-" + safe + "-" + i);
-      var val = el ? el.innerText : "-";
-      row += "," + val;
-    }
-    csv += row + "\n";
+function exportCSV() {
+  var data = getExportRows();
+  var csv = "\uFEFF" + data.title + "\nDiexport: " + new Date().toLocaleString("id-ID") + "\n\n";
+  csv += data.head[0].join(",") + "\n";
+  data.body.forEach(function(row) {
+    csv += '"' + row[0] + '"' + "," + row.slice(1).join(",") + "\n";
   });
-
   var blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   var link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
-  link.download = "Absensi-" + namaKelasAktif.replace(/\s+/g, "_") + "-" + bulanDipilih + ".csv";
+  link.download = data.filename + ".csv";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -1108,10 +777,8 @@ window.addEventListener("DOMContentLoaded", function() {
     document.getElementById("jumlahMuridHeader").innerHTML = daftarMuridAktif.length + " murid";
 
     renderBulanOptions();
-    renderHeaderTable();
-    renderBaris(daysInMonth(bulanDipilih));
-    document.getElementById("statsBar").style.display = "grid";
-    document.querySelector(".export-container").style.display = "block";
+    renderTanggalOptions();
+    loadHarianView();
   }).catch(function(err) {
     renderError("Gagal memuat data. Periksa koneksi internet.");
   });
