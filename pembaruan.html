@@ -545,56 +545,81 @@
     stroke: #2563EB;
   }
 
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+  /* sidebar hanya untuk desktop */
+  .sidebar-nav, .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh, daftar kiri + isi notifikasi kanan ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-nav {
+      display:flex; flex-direction:column; gap:2px; position:fixed; top:0; left:0; bottom:0; width:240px;
+      padding:24px 14px 20px; background:#fff; border-right:1px solid #E2E8F0; z-index:30; overflow-y:auto;
     }
+    body.dark .sidebar-nav { background:#111827; border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a {
+      display:flex; align-items:center; gap:14px; padding:12px 16px; font-size:14.5px; font-weight:500;
+      border-radius:12px; text-decoration:none; color:#0F172A; cursor:pointer;
+    }
+    body.dark .sidebar-nav a { color:#F1F5F9; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .sidebar-nav a svg { width:20px; height:20px; flex-shrink:0; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+    .sidebar-nav .logout-link { margin-top:auto; border-top:1px solid #E2E8F0; padding-top:10px; }
+    body.dark .sidebar-nav .logout-link { border-top-color:#1E293B; }
+    .sidebar-nav .logout-link a { color:#DC2626; }
+    body.dark .sidebar-nav .logout-link a { color:#F87171; }
 
     .app-container {
-      max-width: 760px;
-      margin: 36px auto;
-      min-height: auto;
-      background: #F1F5F9;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15,23,42,0.12);
-      overflow: hidden;
-      padding-bottom: 24px;
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
+      display:flex; flex-direction:column;
     }
-
-    body.dark .app-container {
-      background: #0B1120;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0,0,0,0.5);
-    }
-
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
     .app-header {
-      border-radius: 20px 20px 0 0;
+      position:sticky; top:0; z-index:20; min-height:68px; border-radius:0;
+      background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1200px) / 2 + 32px));
     }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    .app-title { font-size:22px; }
 
-    .bottom-nav {
-      position: static;
-      max-width: 760px;
-      width: 100%;
-      margin: 24px auto 36px;
-      border-radius: 16px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 8px 24px -8px rgba(15,23,42,0.1);
+    /* daftar di tengah; saat satu notifikasi dibuka: daftar kiri, isi kanan */
+    .screen {
+      width:100%; max-width:1200px; margin:0 auto; padding:28px 32px 32px; flex:1;
+      display:grid; grid-template-columns:minmax(0,780px); justify-content:center; column-gap:24px; align-items:start;
     }
+    .screen:has(#pageDetail.active) { grid-template-columns:minmax(0,440px) minmax(0,1fr); justify-content:stretch; }
+    #pageList, #pageList.hidden { display:block !important; grid-column:1; min-width:0; }
+    #pageDetail { grid-column:2; min-width:0; }
+    #pageDetail.active { position:sticky; top:92px; }
+    .page-detail .card-modern { padding:32px; border-radius:24px; }
+    .detail-back-btn { display:none; }
+    .detail-title { font-size:24px; letter-spacing:-.3px; }
+    .detail-body { font-size:15.5px; line-height:1.75; }
 
-    body.dark .bottom-nav {
-      border-color: #1E293B;
-    }
+    .card-modern { padding:26px; border-radius:22px; }
+    .notification-item { transition:border-color .15s, box-shadow .15s, transform .15s; }
+    .notification-item:hover { border-color:#9DB9F2; box-shadow:0 6px 18px rgba(37,99,235,.08); }
+    .notification-item.selected { border-color:#2563EB; background:#EFF6FF; }
+    body.dark .notification-item.selected { border-color:#60A5FA; background:rgba(37,99,235,.18); }
+    .notification-item .desc { -webkit-line-clamp:3; }
+    .mark-read-btn:hover, .back-btn:hover { background:rgba(37,99,235,.10); }
 
-    .notification-item .desc {
-      -webkit-line-clamp: 3;
-    }
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
   }
+
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .screen:has(#pageDetail.active) { grid-template-columns:minmax(0,340px) minmax(0,1fr); }
+  }
+
 </style>
 </head>
 <body>
@@ -617,6 +642,42 @@
           <polyline points="22 4 12 14.01 9 11.01"/>
         </svg>
       </button>
+    </div>
+  </div>
+
+  <div class="sidebar-nav" id="sidebarNav" aria-label="Menu">
+    <div class="sidebar-brand">STools</div>
+    <a href="#" onclick="goTo('index.html')">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Utama
+    </a>
+    <a href="#" onclick="goTo('berita.html')">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
+      Berita
+    </a>
+    <a href="#" onclick="goTo('premium.html')">
+      <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Premium
+    </a>
+    <a href="#" onclick="goTo('akun.html')">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Akun
+    </a>
+    <a href="#" onclick="goTo('kegiatan.html')">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Daftar Tugas
+    </a>
+    <a href="#" onclick="goTo('teman.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
+    </a>
+    <a href="#" onclick="goTo('lokasi.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokasi
+    </a>
+    <div class="logout-link">
+      <a href="#" onclick="firebase.auth().signOut().then(function(){window.location.href='login.html'}); return false;">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Keluar
+      </a>
     </div>
   </div>
 
@@ -746,12 +807,12 @@ function loadNotifications() {
       const shortDesc = truncateText(desc, 80);
       
       html += `
-        <div class="notification-item ${isRead ? '' : 'unread'}" onclick="openDetail('${key}')">
+        <div class="notification-item ${isRead ? '' : 'unread'}${key === selectedKey && document.getElementById('pageDetail').classList.contains('active') ? ' selected' : ''}" onclick="openDetail('${key}')">
           ${!isRead ? '<span class="badge-unread"></span>' : ''}
           <div class="title">${notif.judul || 'Pembaruan'}</div>
           <div class="desc">${shortDesc}</div>
           <span class="time">${formatWaktu(notif.timestamp || Date.now())}</span>
-          ${desc.length > 80 ? '<span class="read-more">Baca selengkapnya →</span>' : ''}
+          ${desc.length > 80 ? '<span class="read-more">Baca selengkapnya</span>' : ''}
         </div>
       `;
     });
@@ -778,6 +839,12 @@ function openDetail(key) {
   // Tampilkan halaman detail, sembunyikan daftar
   document.getElementById('pageList').classList.add('hidden');
   document.getElementById('pageDetail').classList.add('active');
+
+  // Desktop: daftar tetap tampil di kiri, jadi segarkan status baca & sorotan
+  if (window.matchMedia('(min-width: 900px)').matches) {
+    loadNotifications();
+    updateBadgeCount();
+  }
   
   // Scroll ke atas
   window.scrollTo(0, 0);

@@ -1163,112 +1163,127 @@
   }
 
   /* ===== Tampilan Laptop / PC ===== */
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+  /* ===== HASIL SOAL PILIHAN GANDA (guru) ===== */
+  .skor-badge { font-size:11px; font-weight:700; padding:3px 9px; border-radius:99px; background:#DBEAFE; color:#1D4ED8; white-space:nowrap; }
+  .skor-badge.hi { background:#D1FAE5; color:#047857; }
+  .skor-badge.lo { background:#FEE2E2; color:#B91C1C; }
+  body.dark .skor-badge { background:rgba(37,99,235,.25); color:#93C5FD; }
+  body.dark .skor-badge.hi { background:rgba(5,150,105,.25); color:#6EE7B7; }
+  body.dark .skor-badge.lo { background:rgba(220,38,38,.25); color:#FCA5A5; }
+  .jawaban-item .left { flex-wrap:wrap; }
+  .pg-info { font-size:12.5px; color:#475569; background:#EFF6FF; border:1px solid #DBEAFE; padding:10px 14px; border-radius:12px; margin-top:8px; }
+  body.dark .pg-info { background:rgba(37,99,235,.14); border-color:#1E3A8A; color:#BFDBFE; }
+
+  .rekap { margin:14px 0 18px; padding:16px; border-radius:18px; background:#F8FAFC; border:1px solid #E2E8F0; }
+  body.dark .rekap { background:#0F172A; border-color:#1E293B; }
+  .rekap-stats { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; }
+  .rs { text-align:center; padding:10px 4px; border-radius:12px; background:#fff; border:1px solid #E2E8F0; }
+  body.dark .rs { background:#111827; border-color:#1E293B; }
+  .rs b { display:block; font-size:20px; color:#2563EB; letter-spacing:-.3px; }
+  body.dark .rs b { color:#60A5FA; }
+  .rs span { font-size:11px; color:#94A3B8; }
+  .rekap-title { font-size:12.5px; font-weight:700; color:#64748B; margin:14px 0 8px; }
+  .rq { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .rq .no { width:24px; height:24px; border-radius:8px; background:#E2E8F0; color:#475569; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  body.dark .rq .no { background:#1E293B; color:#94A3B8; }
+  .rq .bar { flex:1; height:9px; border-radius:99px; background:#E2E8F0; overflow:hidden; }
+  body.dark .rq .bar { background:#1E293B; }
+  .rq .bar > div { height:100%; border-radius:99px; background:#10B981; transition:width .4s; }
+  .rq .bar > div.mid { background:#F59E0B; } .rq .bar > div.low { background:#EF4444; }
+  .rq .pc { width:38px; text-align:right; font-size:12px; font-weight:700; color:#475569; }
+  body.dark .rq .pc { color:#CBD5E1; }
+
+  .pgd-sum { display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:16px; background:#EFF6FF; margin-bottom:12px; }
+  body.dark .pgd-sum { background:rgba(37,99,235,.16); }
+  .pgd-sum .big { font-size:34px; font-weight:800; color:#2563EB; line-height:1; letter-spacing:-1px; }
+  body.dark .pgd-sum .big { color:#60A5FA; }
+  .pgd-sum .tx { font-size:13px; color:#475569; line-height:1.4; }
+  body.dark .pgd-sum .tx { color:#CBD5E1; }
+  .pgd-item { border:1px solid #E2E8F0; border-radius:14px; padding:12px 14px; margin-bottom:8px; }
+  body.dark .pgd-item { border-color:#1E293B; }
+  .pgd-item.ok { border-left:4px solid #10B981; } .pgd-item.no { border-left:4px solid #EF4444; } .pgd-item.kosong { border-left:4px solid #94A3B8; }
+  .pgd-q { font-size:13.5px; font-weight:600; margin-bottom:6px; white-space:pre-wrap; word-break:break-word; }
+  .pgd-a { font-size:12.5px; color:#64748B; line-height:1.5; }
+  .pgd-a b { color:#0F172A; } body.dark .pgd-a b { color:#F1F5F9; }
+  .pgd-a .good { color:#059669; font-weight:700; } .pgd-a .bad { color:#DC2626; font-weight:700; }
+
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
     }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .sidebar-nav .logout-link { margin-top:auto; }
 
     .app-container {
-      max-width: 720px;
-      margin: 36px auto;
-      background: #FFFFFF;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      min-height: auto;
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
     }
-
-    body.dark .app-container {
-      background: #111827;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
 
     .app-header {
-      border-radius: 20px 20px 0 0;
-      position: relative;
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1160px) / 2 + 32px)); justify-content:flex-end;
     }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    .app-header .logo-area { display:none; }
+    .back-btn { padding:9px 16px; border-radius:12px; font-size:14px; }
+    .back-btn:hover { background:rgba(37,99,235,.10); }
 
-    .page-container {
-      padding: 24px 24px 30px;
-    }
+    .page-container { width:100%; max-width:1160px; margin:0 auto; padding:32px 32px 40px; overflow:visible; flex:1; }
 
-    .card {
-      padding: 24px;
-      border-radius: 20px;
+    /* kiri: info + formulir, kanan: hasil & daftar pengerja */
+    #mainContent:not(.hidden) {
+      display:grid; grid-template-columns:minmax(0,400px) minmax(0,1fr); column-gap:28px; align-items:start;
     }
+    #mainContent > .card { padding:26px; border-radius:22px; margin-bottom:16px; }
+    #mainContent > .card:nth-child(1) { grid-column:1; grid-row:1; }
+    #mainContent > .card:nth-child(2) { grid-column:1; grid-row:2; margin-bottom:0; }
+    #mainContent > .card:nth-child(3) { grid-column:2; grid-row:1 / span 2; margin-bottom:0; min-width:0; }
+    .card-title { font-size:20px; letter-spacing:-.3px; }
 
-    .bottom-nav {
-      max-width: 720px;
-      border-radius: 0 0 20px 20px;
-    }
+    .input-field { padding:14px 16px; border-radius:12px; font-size:15px; }
+    .input-field:focus { border-color:#2563EB; box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+    textarea.input-field { min-height:100px; }
+    .btn-save { padding:15px; font-size:15.5px; border-radius:14px; transition:filter .15s; }
+    .btn-save:not(:disabled):hover { filter:brightness(1.08); }
+    .link-box { padding:10px 14px; }
+    .link-box .link-text { font-size:13.5px; }
 
-    .sidebar-nav {
-      border-radius: 0 20px 20px 0;
-    }
+    .jawaban-item { padding:14px 18px; border-radius:14px; margin-bottom:8px; transition:border-color .15s, box-shadow .15s, transform .15s; }
+    .jawaban-item:hover { border-color:#9DB9F2; box-shadow:0 6px 18px rgba(37,99,235,.08); transform:translateY(-1px); }
+    body.dark .jawaban-item:hover { border-color:#2F4A8A; box-shadow:none; }
+    .jawaban-item .left .nama { font-size:15px; }
 
-    .input-field {
-      padding: 14px 16px;
-      border-radius: 12px;
-      font-size: 15px;
-    }
-
-    textarea.input-field {
-      min-height: 100px;
-    }
-
-    .btn-save {
-      padding: 16px;
-      font-size: 16px;
-      border-radius: 40px;
-    }
-
-    .card-title {
-      font-size: 20px;
-    }
-
-    .jawaban-item {
-      padding: 14px 16px;
-      border-radius: 12px;
-    }
-
-    .jawaban-item .left .nama {
-      font-size: 15px;
-    }
-
-    .modal-content {
-      border-radius: 24px;
-      padding: 28px;
-      max-width: 540px;
-    }
-
-    .custom-alert-box {
-      max-width: 400px;
-      padding: 32px 28px 28px;
-      border-radius: 24px;
-    }
-
-    .toast {
-      max-width: 400px;
-      padding: 14px 28px;
-      font-size: 15px;
-      border-radius: 14px;
-    }
-
-    .link-box {
-      padding: 10px 14px;
-    }
-
-    .link-box .link-text {
-      font-size: 14px;
-    }
+    .modal-content { border-radius:24px; padding:28px; max-width:600px; }
+    .custom-alert-box { max-width:400px; padding:32px 28px 28px; border-radius:24px; }
+    .toast { left:calc(50% + 120px); max-width:400px; padding:14px 28px; font-size:15px; border-radius:14px; }
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
   }
+
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .page-container { padding:24px; }
+    #mainContent:not(.hidden) { grid-template-columns:minmax(0,330px) minmax(0,1fr); column-gap:20px; }
+    .rekap-stats { grid-template-columns:repeat(2, 1fr); }
+  }
+
 </style>
 </head>
 <body>
@@ -1306,6 +1321,7 @@
         <line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
+    <div class="sidebar-brand">STools</div>
     <a href="#" onclick="goTo('index.html')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
@@ -1330,6 +1346,10 @@
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
         <circle cx="12" cy="7" r="4"/>
       </svg> Akun
+    </a>
+    <a href="#" onclick="goTo('kegiatan.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Daftar Tugas
     </a>
     <a href="#" onclick="goTo('teman.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
@@ -1424,6 +1444,7 @@
             <span class="remove" onclick="hapusFile()">×</span>
           </div>
           <div id="existingFileInfo" class="file-exists hidden">Foto soal tersimpan</div>
+          <div id="pgInfo" class="pg-info hidden"></div>
         </div>
 
         <div class="btn-row">
@@ -1452,6 +1473,8 @@
           Daftar Pengerja
           <span style="font-size:12px;font-weight:400;color:#94A3B8;margin-left:auto;" id="totalJawaban">0</span>
         </div>
+
+        <div id="rekapPG" class="hidden"></div>
 
         <div id="jawabanContainer">
           <div class="jawaban-empty">
@@ -1599,6 +1622,15 @@ function tampilkanData() {
   document.getElementById('editDeskripsi').value = tugasData.deskripsi || '';
   document.getElementById('editDurasi').value = tugasData.durasi || 60;
 
+  var nSoal = daftarSoalPG().length;
+  var pgEl = document.getElementById('pgInfo');
+  if (nSoal) {
+    pgEl.textContent = 'Soal pilihan ganda: ' + nSoal + ' soal (' + HURUF[0] + '–' + HURUF[(tugasData.jumlah_opsi || 4) - 1] + '). Soal dan kunci jawaban tidak dapat diubah di sini.';
+    pgEl.classList.remove('hidden');
+  } else {
+    pgEl.classList.add('hidden');
+  }
+
   if (tugasData.foto_soal) {
     existingFileUrl = tugasData.foto_soal;
     document.getElementById('existingFileInfo').classList.remove('hidden');
@@ -1618,6 +1650,7 @@ function loadJawaban() {
     var total = document.getElementById('totalJawaban');
 
     if (!data) {
+      document.getElementById('rekapPG').classList.add('hidden');
       total.innerText = '0';
       container.innerHTML = `
         <div class="jawaban-empty">
@@ -1640,6 +1673,8 @@ function loadJawaban() {
       return data[b].waktu_selesai - data[a].waktu_selesai;
     });
 
+    buatRekapPG(data, keys);
+
     var html = '';
     keys.forEach(function(key) {
       var item = data[key];
@@ -1657,6 +1692,7 @@ function loadJawaban() {
           <div class="left">
             <span class="nama">${escapeHtml(item.nama || 'Tidak Diketahui')}</span>
             <span class="status-badge ${statusClass}">${statusText}</span>
+            ${item.pg && typeof item.pg.skor === 'number' ? `<span class="skor-badge ${kelasSkor(item.pg.skor)}">Skor ${item.pg.skor}</span>` : ''}
           </div>
           <div class="meta">${waktu}</div>
           <div class="arrow">
@@ -1673,6 +1709,83 @@ function loadJawaban() {
 }
 
 // ===== OPEN DETAIL JAWABAN =====
+
+// ==================== HASIL SOAL PILIHAN GANDA ====================
+var HURUF = ['A', 'B', 'C', 'D', 'E'];
+
+function daftarSoalPG() {
+  var raw = tugasData && tugasData.soal_pg;
+  if (!raw) return [];
+  return Array.isArray(raw) ? raw.filter(Boolean) : Object.keys(raw).map(function(k) { return raw[k]; });
+}
+
+function kelasSkor(skor) {
+  return skor >= 75 ? 'hi' : (skor < 50 ? 'lo' : '');
+}
+
+function buatRekapPG(data, keys) {
+  var box = document.getElementById('rekapPG');
+  var soal = daftarSoalPG();
+  var dgPG = keys.filter(function(k) { return data[k].pg && typeof data[k].pg.skor === 'number'; });
+  if (!soal.length || !dgPG.length) {
+    box.classList.add('hidden');
+    box.innerHTML = '';
+    return;
+  }
+
+  var skorList = dgPG.map(function(k) { return data[k].pg.skor; });
+  var rata = Math.round(skorList.reduce(function(a, b) { return a + b; }, 0) / skorList.length);
+  var maks = Math.max.apply(null, skorList);
+  var min = Math.min.apply(null, skorList);
+
+  var html = '<div class="rekap"><div class="rekap-stats">' +
+    '<div class="rs"><b>' + dgPG.length + '</b><span>Pengerja</span></div>' +
+    '<div class="rs"><b>' + rata + '</b><span>Rata-rata</span></div>' +
+    '<div class="rs"><b>' + maks + '</b><span>Tertinggi</span></div>' +
+    '<div class="rs"><b>' + min + '</b><span>Terendah</span></div></div>' +
+    '<div class="rekap-title">Tingkat benar per soal</div>';
+
+  soal.forEach(function(q, i) {
+    var benar = 0;
+    dgPG.forEach(function(k) {
+      var j = data[k].pg.jawab;
+      if (j && j[i] === q.kunci) benar++;
+    });
+    var pct = Math.round(benar / dgPG.length * 100);
+    var warna = pct >= 70 ? '' : (pct >= 40 ? 'mid' : 'low');
+    html += '<div class="rq" title="' + escapeHtml(q.teks || '') + '"><span class="no">' + (i + 1) + '</span>' +
+      '<div class="bar"><div class="' + warna + '" style="width:' + pct + '%"></div></div>' +
+      '<span class="pc">' + pct + '%</span></div>';
+  });
+  html += '</div>';
+  box.innerHTML = html;
+  box.classList.remove('hidden');
+}
+
+function detailPGHtml(item) {
+  var soal = daftarSoalPG();
+  if (!item.pg || !soal.length) return '';
+  var jawab = item.pg.jawab || [];
+  var html = '<div class="row"><div class="label">Soal Pilihan Ganda</div>' +
+    '<div class="pgd-sum"><div class="big">' + item.pg.skor + '</div>' +
+    '<div class="tx"><b>' + item.pg.benar + ' dari ' + item.pg.total + ' soal benar</b><br>Skor dihitung otomatis dari kunci jawaban.</div></div>';
+
+  soal.forEach(function(q, i) {
+    var pilih = (typeof jawab[i] === 'number') ? jawab[i] : -1;
+    var kelas = pilih < 0 ? 'kosong' : (pilih === q.kunci ? 'ok' : 'no');
+    var opsi = q.opsi || [];
+    var teksPilih = pilih < 0 ? '<span class="bad">Tidak dijawab</span>' :
+      '<b>' + HURUF[pilih] + '. ' + escapeHtml(opsi[pilih] || '') + '</b> ' +
+      (pilih === q.kunci ? '<span class="good">✓ Benar</span>' : '<span class="bad">✗ Salah</span>');
+    html += '<div class="pgd-item ' + kelas + '">' +
+      '<div class="pgd-q">' + (i + 1) + '. ' + escapeHtml(q.teks || '') + '</div>' +
+      '<div class="pgd-a">Jawaban: ' + teksPilih +
+      (pilih === q.kunci ? '' : '<br>Kunci: <b>' + HURUF[q.kunci] + '. ' + escapeHtml(opsi[q.kunci] || '') + '</b>') +
+      '</div></div>';
+  });
+  return html + '</div>';
+}
+
 function openDetailJawaban(key) {
   db.ref('tugas/' + tugasKode + '/jawaban/' + key).once('value').then(function(snap) {
     var item = snap.val();
@@ -1723,6 +1836,7 @@ function openDetailJawaban(key) {
         <div class="label">Durasi Pengerjaan</div>
         <div class="value">${durasi}</div>
       </div>
+      ${detailPGHtml(item)}
       <div class="row">
         <div class="label">Jawaban</div>
         <div class="value">${escapeHtml(item.jawaban || 'Tidak ada jawaban')}</div>

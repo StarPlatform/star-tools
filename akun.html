@@ -24,6 +24,8 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
 
 <style>
   * {
@@ -454,9 +456,6 @@
     color: #94A3B8;
   }
 
-  /* ============================================================
-     PROFILE BANNER + LEVEL INFO CARD = SATU KESATUAN
-     ============================================================ */
   .profile-card-container {
     border-radius: 24px;
     overflow: hidden;
@@ -470,7 +469,6 @@
     background: #111827;
   }
 
-  /* BANNER ATAS */
   .profile-banner {
     width: 100%;
     min-height: 120px;
@@ -482,12 +480,10 @@
     box-shadow: inset 0 -20px 40px rgba(0,0,0,0.08);
   }
 
-  /* STANDARD */
   .profile-banner.standard {
     background: linear-gradient(135deg, #475569, #64748B);
   }
 
-  /* SILVER */
   .profile-banner.silver {
     background: linear-gradient(135deg, #94A3B8, #CBD5E1);
     box-shadow: inset 0 0 60px rgba(255,255,255,0.1), inset 0 -20px 40px rgba(0,0,0,0.08);
@@ -500,7 +496,6 @@
     pointer-events: none;
   }
 
-  /* GOLD */
   .profile-banner.gold {
     background: linear-gradient(135deg, #B45309, #F59E0B, #FBBF24, #F59E0B, #92400E);
     background-size: 250% 250%;
@@ -514,11 +509,14 @@
     pointer-events: none;
   }
   @keyframes goldShimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%, 100% {
+    background-position: 0% 50%;
+  }
+    50% {
+    background-position: 100% 50%;
+  }
   }
 
-  /* PLATINUM */
   .profile-banner.platinum {
     background: linear-gradient(135deg, #06B6D4, #3B82F6, #8B5CF6);
     background-size: 200% 200%;
@@ -532,11 +530,14 @@
     pointer-events: none;
   }
   @keyframes platinumShimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%, 100% {
+    background-position: 0% 50%;
+  }
+    50% {
+    background-position: 100% 50%;
+  }
   }
 
-  /* DIAMOND - tier tertinggi, butuh 4 mapel premium (bebas kombinasi) */
   .profile-banner.diamond {
     background: linear-gradient(135deg, #0B1120, #1E293B, #0B1120);
     background-size: 250% 250%;
@@ -563,12 +564,20 @@
     pointer-events: none;
   }
   @keyframes diamondBase {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%, 100% {
+    background-position: 0% 50%;
+  }
+    50% {
+    background-position: 100% 50%;
+  }
   }
   @keyframes diamondSweep {
-    0% { background-position: -60% -60%; }
-    100% { background-position: 160% 160%; }
+    0% {
+    background-position: -60% -60%;
+  }
+    100% {
+    background-position: 160% 160%;
+  }
   }
 
   .profile-banner .banner-stars {
@@ -579,11 +588,26 @@
     pointer-events: none;
     color: white;
   }
-  .profile-banner .banner-stars.s1 { top: 8px; left: 16px; }
-  .profile-banner .banner-stars.s2 { top: 35px; left: 100px; }
-  .profile-banner .banner-stars.s3 { top: 10px; right: 80px; }
-  .profile-banner .banner-stars.s4 { bottom: 15px; right: 16px; }
-  .profile-banner .banner-stars.s5 { top: 45px; right: 130px; }
+  .profile-banner .banner-stars.s1 {
+    top: 8px;
+    left: 16px;
+  }
+  .profile-banner .banner-stars.s2 {
+    top: 35px;
+    left: 100px;
+  }
+  .profile-banner .banner-stars.s3 {
+    top: 10px;
+    right: 80px;
+  }
+  .profile-banner .banner-stars.s4 {
+    bottom: 15px;
+    right: 16px;
+  }
+  .profile-banner .banner-stars.s5 {
+    top: 45px;
+    right: 130px;
+  }
 
   .banner-level-badge {
     position: absolute;
@@ -612,22 +636,22 @@
     stroke: none;
   }
 
-.banner-level-badge.gold { 
-  background: rgba(0,0,0,0.4); 
-  color: #FFFFFF; 
-  border-color: rgba(255,215,0,0.4); 
+.banner-level-badge.gold {
+  background: rgba(0,0,0,0.4);
+  color: #FFFFFF;
+  border-color: rgba(255,215,0,0.4);
   text-shadow: 0 0 12px rgba(255,215,0,0.3);
 }
 
-.banner-level-badge.platinum { 
-  background: rgba(0,0,0,0.4); 
-  color: #FFFFFF; 
+.banner-level-badge.platinum {
+  background: rgba(0,0,0,0.4);
+  color: #FFFFFF;
   border-color: rgba(147,197,253,0.4);
 }
 
-.banner-level-badge.silver { 
-  background: rgba(0,0,0,0.25); 
-  color: #FFFFFF; 
+.banner-level-badge.silver {
+  background: rgba(0,0,0,0.25);
+  color: #FFFFFF;
   border-color: rgba(255,255,255,0.2);
 }
 
@@ -699,7 +723,6 @@
     height: 16px;
   }
 
-  /* LEVEL INFO CARD - LANGSUNG DI BAWAH BANNER, FULL WIDTH */
   .level-info-card {
     width: 100%;
     padding: 12px 20px;
@@ -755,15 +778,31 @@
     stroke-linejoin: round;
   }
 
-  .level-info-card .left .icon.silver svg { stroke: #94A3B8; }
-  .level-info-card .left .icon.gold svg { stroke: #FBBF24; }
-  .level-info-card .left .icon.platinum svg { stroke: #60A5FA; }
-  .level-info-card .left .icon.diamond svg { stroke: #A5F3FC; }
+  .level-info-card .left .icon.silver svg {
+    stroke: #94A3B8;
+  }
+  .level-info-card .left .icon.gold svg {
+    stroke: #FBBF24;
+  }
+  .level-info-card .left .icon.platinum svg {
+    stroke: #60A5FA;
+  }
+  .level-info-card .left .icon.diamond svg {
+    stroke: #A5F3FC;
+  }
 
-  .level-info-card .left .icon.silver { background: rgba(148,163,184,0.2); }
-  .level-info-card .left .icon.gold { background: rgba(251,191,36,0.2); }
-  .level-info-card .left .icon.platinum { background: rgba(59,130,246,0.2); }
-  .level-info-card .left .icon.diamond { background: rgba(165,243,252,0.2); }
+  .level-info-card .left .icon.silver {
+    background: rgba(148,163,184,0.2);
+  }
+  .level-info-card .left .icon.gold {
+    background: rgba(251,191,36,0.2);
+  }
+  .level-info-card .left .icon.platinum {
+    background: rgba(59,130,246,0.2);
+  }
+  .level-info-card .left .icon.diamond {
+    background: rgba(165,243,252,0.2);
+  }
 
   .level-info-card .left .info .title {
     font-size: 13px;
@@ -786,10 +825,22 @@
     letter-spacing: 0.5px;
   }
 
-  .level-info-card .right .level-badge.silver { background: #94A3B8; color: #0F172A; }
-  .level-info-card .right .level-badge.gold { background: #FBBF24; color: #0F172A; }
-  .level-info-card .right .level-badge.platinum { background: #3B82F6; color: #fff; }
-  .level-info-card .right .level-badge.diamond { background: linear-gradient(135deg, #A5F3FC, #67E8F9); color: #0B1120; }
+  .level-info-card .right .level-badge.silver {
+    background: #94A3B8;
+    color: #0F172A;
+  }
+  .level-info-card .right .level-badge.gold {
+    background: #FBBF24;
+    color: #0F172A;
+  }
+  .level-info-card .right .level-badge.platinum {
+    background: #3B82F6;
+    color: #fff;
+  }
+  .level-info-card .right .level-badge.diamond {
+    background: linear-gradient(135deg, #A5F3FC, #67E8F9);
+    color: #0B1120;
+  }
 
   .menu-grid {
     display: grid;
@@ -1368,40 +1419,8 @@
     text-align: center;
   }
 
-  /* ===== Tampilan Laptop / PC ===== */
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
-    }
-
-    .app-container {
-      max-width: 720px;
-      margin: 36px auto;
-      min-height: auto;
-      background: #F1F5F9;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      padding-bottom: 24px;
-    }
-
-    body.dark .app-container {
-      background: #0B1120;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
-
-    .app-header {
-      border-radius: 20px 20px 0 0;
-    }
-  }
-  /* ===== Zoom Foto Profil ===== */
   .foto-zoom-overlay {
     position: fixed;
     inset: 0;
@@ -1424,8 +1443,14 @@
   }
 
   @keyframes fotoZoomIn {
-    from { transform: scale(0.85); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+    to {
+    transform: scale(1);
+    opacity: 1;
+  }
   }
 
   .foto-zoom-close {
@@ -1470,7 +1495,9 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  .banner-edit-btn:active { transform: scale(0.92); }
+  .banner-edit-btn:active {
+    transform: scale(0.92);
+  }
 
   .banner-edit-btn svg {
     width: 16px;
@@ -1478,7 +1505,7 @@
     stroke: #fff;
     stroke-width: 2.2;
   }
-  /* ===== Pilih Banner ===== */
+
   .bp-overlay {
     position: fixed;
     inset: 0;
@@ -1490,7 +1517,9 @@
     padding: 20px;
   }
 
-  .bp-overlay.active { display: grid; }
+  .bp-overlay.active {
+    display: grid;
+  }
 
   .bp-content {
     background: #FFFFFF;
@@ -1517,7 +1546,9 @@
     color: #0F172A;
   }
 
-  body.dark .bp-header h3 { color: #F1F5F9; }
+  body.dark .bp-header h3 {
+    color: #F1F5F9;
+  }
 
   .bp-close {
     width: 30px;
@@ -1530,10 +1561,18 @@
     cursor: pointer;
   }
 
-  body.dark .bp-close { background: #1E293B; }
+  body.dark .bp-close {
+    background: #1E293B;
+  }
 
-  .bp-close svg { width: 15px; height: 15px; stroke: #0F172A; }
-  body.dark .bp-close svg { stroke: #F1F5F9; }
+  .bp-close svg {
+    width: 15px;
+    height: 15px;
+    stroke: #0F172A;
+  }
+  body.dark .bp-close svg {
+    stroke: #F1F5F9;
+  }
 
   .bp-sub {
     font-size: 12.5px;
@@ -1541,7 +1580,9 @@
     margin-bottom: 16px;
   }
 
-  body.dark .bp-sub { color: #94A3B8; }
+  body.dark .bp-sub {
+    color: #94A3B8;
+  }
 
   .bp-list {
     display: flex;
@@ -1560,7 +1601,9 @@
     position: relative;
   }
 
-  body.dark .bp-option { border-color: #1E293B; }
+  body.dark .bp-option {
+    border-color: #1E293B;
+  }
 
   .bp-option.selected {
     border-color: #2563EB;
@@ -1585,13 +1628,25 @@
     overflow: hidden;
   }
 
-  .bp-swatch.standard { background: linear-gradient(135deg, #475569, #64748B); }
-  .bp-swatch.silver { background: linear-gradient(135deg, #94A3B8, #CBD5E1); }
-  .bp-swatch.gold { background: linear-gradient(135deg, #F59E0B, #FBBF24); }
-  .bp-swatch.platinum { background: linear-gradient(135deg, #06B6D4, #3B82F6, #8B5CF6); }
-  .bp-swatch.diamond { background: linear-gradient(135deg, #0B1120, #1E293B, #67E8F9, #1E293B); }
+  .bp-swatch.standard {
+    background: linear-gradient(135deg, #475569, #64748B);
+  }
+  .bp-swatch.silver {
+    background: linear-gradient(135deg, #94A3B8, #CBD5E1);
+  }
+  .bp-swatch.gold {
+    background: linear-gradient(135deg, #F59E0B, #FBBF24);
+  }
+  .bp-swatch.platinum {
+    background: linear-gradient(135deg, #06B6D4, #3B82F6, #8B5CF6);
+  }
+  .bp-swatch.diamond {
+    background: linear-gradient(135deg, #0B1120, #1E293B, #67E8F9, #1E293B);
+  }
 
-  .bp-info { flex: 1; }
+  .bp-info {
+    flex: 1;
+  }
 
   .bp-info b {
     display: block;
@@ -1599,14 +1654,18 @@
     color: #0F172A;
   }
 
-  body.dark .bp-info b { color: #F1F5F9; }
+  body.dark .bp-info b {
+    color: #F1F5F9;
+  }
 
   .bp-info span {
     font-size: 11.5px;
     color: #64748B;
   }
 
-  body.dark .bp-info span { color: #94A3B8; }
+  body.dark .bp-info span {
+    color: #94A3B8;
+  }
 
   .bp-check {
     width: 22px;
@@ -1619,7 +1678,12 @@
     flex-shrink: 0;
   }
 
-  .bp-check svg { width: 12px; height: 12px; stroke: #fff; stroke-width: 3; }
+  .bp-check svg {
+    width: 12px;
+    height: 12px;
+    stroke: #fff;
+    stroke-width: 3;
+  }
 
   .bp-lock {
     width: 22px;
@@ -1630,13 +1694,256 @@
     justify-content: center;
   }
 
-  .bp-lock svg { width: 16px; height: 16px; stroke: #94A3B8; }
+  .bp-lock svg {
+    width: 16px;
+    height: 16px;
+    stroke: #94A3B8;
+  }
+
+  .qr-box {
+    background: #fff;
+    border-radius: 20px;
+    padding: 16px;
+    width: fit-content;
+    margin: 6px auto 12px;
+    border: 1px solid #E2E8F0;
+  }
+  .qr-box img, .qr-box canvas {
+    display: block;
+  }
+  .qr-name {
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .qr-hint {
+    text-align: center;
+    font-size: 13px;
+    color: #94A3B8;
+    margin: 4px 0 16px;
+  }
+  .qr-btn-row {
+    display: flex;
+    gap: 10px;
+  }
+  .qr-btn-row button {
+    flex: 1;
+  }
+  .btn-light {
+    background: #F1F5F9 !important;
+    color: #0F172A !important;
+  }
+  body.dark .btn-light {
+    background: #1E293B !important;
+    color: #F1F5F9 !important;
+  }
+  .scan-wrap {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 1/1;
+  }
+  .scan-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .scan-frame {
+    position: absolute;
+    inset: 18%;
+    border: 3px solid #fff;
+    border-radius: 18px;
+    box-shadow: 0 0 0 999px rgba(0,0,0,.35);
+    pointer-events: none;
+  }
+
+  .seg {
+    display: flex;
+    background: #F1F5F9;
+    border-radius: 16px;
+    padding: 4px;
+    margin-bottom: 18px;
+  }
+  body.dark .seg {
+    background: #1E293B;
+  }
+  .seg-btn {
+    flex: 1;
+    padding: 11px;
+    border: none;
+    background: transparent;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748B;
+    cursor: pointer;
+    font-family: inherit;
+    transition: .2s;
+  }
+  body.dark .seg-btn {
+    color: #94A3B8;
+  }
+  .seg-btn.active {
+    background: #fff;
+    color: #2563EB;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  body.dark .seg-btn.active {
+    background: #334155;
+    color: #93C5FD;
+  }
+  .help-group {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    color: #2563EB;
+    margin: 22px 0 4px;
+  }
+
+  body.dark .help-group {
+    color: #93C5FD;
+  }
+
+  .username-wrap {
+    display: flex;
+    align-items: center;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    background: #FFFFFF;
+    margin-bottom: 4px;
+    transition: border-color 0.2s;
+  }
+  .username-wrap:focus-within {
+    border-color: #2563EB;
+  }
+  body.dark .username-wrap {
+    background: #1E293B;
+    border-color: #334155;
+  }
+  .username-wrap .at {
+    padding-left: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #94A3B8;
+  }
+  .username-wrap .input-field {
+    border: none;
+    background: transparent;
+    margin-bottom: 0;
+    padding-left: 4px;
+  }
+  .field-hint {
+    font-size: 12px;
+    color: #94A3B8;
+    margin: 0 4px 12px;
+    line-height: 1.5;
+  }
+  .field-hint.error {
+    color: #DC2626;
+  }
+  .banner-info .username {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    margin-top: 1px;
+  }
+
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon, .bottom-nav { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
+    }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .sidebar-nav a.active-link:hover { background:#DBEAFE; }
+    body.dark .sidebar-nav a.active-link:hover { background:#1E3A5F; }
+
+    .app-container {
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
+    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
+
+    .app-header {
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1000px) / 2 + 32px));
+    }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    #mainHeader { justify-content:flex-end; }
+    #mainHeader .logo-area { display:none; }
+    .header-back { padding:8px 14px 8px 8px; border-radius:12px; margin-left:-8px; }
+    .header-back:hover { background:rgba(37,99,235,.08); }
+    .bell-btn:hover { background:rgba(37,99,235,.10); }
+
+    .screen { width:100%; max-width:1000px; margin:0 auto; padding:28px 32px 48px; }
+
+    /* beranda akun: profil di atas, menu dua kolom di bawah */
+    #pageMain.active {
+      display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; align-items:start;
+    }
+    #pageMain > * { margin:0; }
+    #pageMain > .profile-card-container { grid-column:1 / -1; border-radius:24px; }
+    #pageMain > .card-modern:nth-child(2) {
+      background:transparent; border:0; box-shadow:none; padding:0;
+    }
+    body.dark #pageMain > .card-modern:nth-child(2) { background:transparent; border:0; }
+
+    .profile-banner { min-height:180px; padding:28px 36px; }
+    .profile-banner .banner-avatar { width:92px; height:92px; font-size:34px; border-width:4px; }
+    .profile-banner .banner-info { margin-left:24px; }
+    .banner-info .name { font-size:26px; letter-spacing:-.4px; }
+    .banner-info .bio { font-size:15px; margin-top:4px; }
+    .banner-level-badge { top:18px; right:20px; font-size:11px; padding:5px 14px; }
+    .banner-edit-btn { top:62px; right:20px; }
+    .level-info-card { padding:14px 36px; }
+
+    .menu-grid { gap:14px; }
+    .menu-item { background:#fff; padding:24px 12px; border-radius:18px; transition:border-color .15s, box-shadow .15s, transform .15s; }
+    .menu-item:hover { border-color:#9DB9F2; box-shadow:0 8px 20px rgba(37,99,235,.08); transform:translateY(-2px); }
+    .menu-item:active { transform:scale(.97); }
+    .menu-item svg { width:32px; height:32px; margin-bottom:8px; }
+    .menu-item span { font-size:14px; }
+    .menu-item .desc { font-size:12px; margin-top:2px; }
+    body.dark .menu-item { background:#111827; border-color:#1E293B; }
+    body.dark .menu-item:hover { border-color:#2F4A8A; box-shadow:none; }
+
+    .menu-list-item { padding:14px 16px; }
+    .menu-list-item:hover { background:#F1F5F9; }
+    body.dark .menu-list-item:hover { background:#1E293B; }
+    .menu-list-item .info .title { font-size:14.5px; }
+
+    /* sub halaman: panel di tengah */
+    .page:not(#pageMain) > .card-modern { max-width:680px; margin:0 auto 16px; padding:28px; }
+    .section-title { font-size:22px; letter-spacing:-.3px; }
+    .section-sub { font-size:14.5px; margin-bottom:22px; }
+    .scan-wrap { max-width:380px; margin-left:auto; margin-right:auto; }
+
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
+  }
+
 </style>
 </head>
 <body>
 
 <div class="app-container">
-  <!-- HEADER -->
+
   <div class="app-header" id="mainHeader">
     <div class="logo-area">
       <div class="menu-icon" onclick="openSidebar()">
@@ -1649,7 +1956,7 @@
       <span class="app-title">STools</span>
     </div>
     <div class="header-right">
-      <button class="bell-btn" onclick="goTo('pembaruan.html')" aria-label="Notifikasi Pembaruan">
+      <button class="bell-btn" onclick="goTo('pembaruan.html')" aria-label="Pemberitahuan Pembaruan">
         <svg viewBox="0 0 24 24">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
           <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
@@ -1659,7 +1966,6 @@
     </div>
   </div>
 
-  <!-- HEADER BACK -->
   <div class="app-header hidden" id="subHeader">
     <div class="logo-area">
       <div class="header-back" onclick="goToMainPage()">
@@ -1671,7 +1977,6 @@
     </div>
   </div>
 
-  <!-- SIDEBAR -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
   <div class="sidebar-nav" id="sidebarNav">
     <div class="close-sidebar-icon" onclick="closeSidebar()">
@@ -1679,6 +1984,7 @@
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
+    <div class="sidebar-brand">STools</div>
     <a href="#" onclick="goTo('index.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
     </a>
@@ -1691,6 +1997,9 @@
     <a href="#" class="active-link" onclick="goTo('akun.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Akun
     </a>
+    <a href="#" onclick="goTo('kegiatan.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Daftar Tugas
+    </a>
     <a href="#" onclick="goTo('teman.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
     </a>
@@ -1699,10 +2008,8 @@
     </a>
   </div>
 
-  <!-- TOAST -->
   <div id="toast" class="toast"></div>
 
-  <!-- ZOOM FOTO PROFIL -->
   <div class="foto-zoom-overlay" id="fotoZoomOverlay" onclick="closeFotoZoom(event)">
     <div class="foto-zoom-close" onclick="closeFotoZoom(event)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -1712,7 +2019,6 @@
     <img id="fotoZoomImg" src="" onclick="event.stopPropagation()">
   </div>
 
-  <!-- PILIH BANNER -->
   <div class="bp-overlay" id="bpOverlay" onclick="closeBannerPicker(event)">
     <div class="bp-content" onclick="event.stopPropagation()">
       <div class="bp-header">
@@ -1723,20 +2029,17 @@
           </svg>
         </div>
       </div>
-      <p class="bp-sub">Pilih banner yang mau dipamerin di profil kamu. Banner yang masih terkunci bisa dibuka dengan berlangganan premium mapel lebih banyak.</p>
+      <p class="bp-sub">Pilih banner yang ingin ditampilkan pada profil Anda. Banner yang masih terkunci dapat dibuka dengan berlangganan premium mata pelajaran lebih banyak.</p>
       <div class="bp-list" id="bpList"></div>
     </div>
   </div>
 
-  <!-- MAIN SCREEN -->
   <div class="screen">
 
-    <!-- ==================== HALAMAN UTAMA AKUN ==================== -->
     <div id="pageMain" class="page active">
 
-      <!-- PROFILE CARD CONTAINER - SATU KESATUAN -->
       <div class="profile-card-container">
-        <!-- BANNER ATAS -->
+
         <div class="profile-banner standard" id="profileBanner">
           <span class="banner-stars s1">✦</span>
           <span class="banner-stars s2">✦</span>
@@ -1760,7 +2063,7 @@
 
           <div class="banner-info">
             <div class="name">
-              <span id="bannerName">User</span>
+              <span id="bannerName">Pengguna</span>
               <span class="verified" id="verifiedBadgeBanner" style="display:none;">
                 <svg viewBox="0 0 24 24">
                   <path d="M12 2l2.2 2 3-.5.8 2.9 2.9.8-.5 3 2 2-2 2 .5 3-2.9.8-.8 2.9-3-.5-2.2 2-2.2-2-3 .5-.8-2.9-2.9-.8.5-3-2-2 2-2-.5-3 2.9-.8.8-2.9 3 .5z" fill="#3B82F6"/>
@@ -1768,11 +2071,11 @@
                 </svg>
               </span>
             </div>
+            <div class="username" id="bannerUsername" style="display:none;"></div>
             <div class="bio" id="bannerBio">Belum ada bio</div>
           </div>
         </div>
 
-        <!-- LEVEL INFO CARD - LANGSUNG DI BAWAH, FULL WIDTH -->
         <div class="level-info-card" id="levelInfoCard" style="display:none;">
           <div class="left">
             <div class="icon" id="levelIcon">
@@ -1780,7 +2083,7 @@
             </div>
             <div class="info">
               <div class="title" id="levelTitle">Premium Gold</div>
-              <div class="sub" id="levelSub">2 Mapel Premium</div>
+              <div class="sub" id="levelSub">2 Mata Pelajaran Premium</div>
             </div>
           </div>
           <div class="right">
@@ -1789,13 +2092,12 @@
         </div>
       </div>
 
-      <!-- MENU GRID -->
       <div class="card-modern">
         <div class="menu-grid">
           <div class="menu-item" onclick="showPage('pageEditProfile')">
             <svg viewBox="0 0 24 24" stroke="#60A5FA"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
             <span>Edit Profil</span>
-            <span class="desc">Ubah data</span>
+            <span class="desc">Ubah data diri</span>
           </div>
           <div class="menu-item" onclick="showPage('pageRiwayat')">
             <svg viewBox="0 0 24 24" stroke="#34D399"><path d="M3 12a9 9 0 1 0 3-6"/><polyline points="3 3 3 9 9 9"/><polyline points="12 7 12 12 16 14"/></svg>
@@ -1805,12 +2107,12 @@
           <div class="menu-item theme-item" onclick="toggleTheme()">
             <svg viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
             <span id="themeLabel">Mode Terang</span>
-            <span class="desc">Ganti tema</span>
+            <span class="desc">Ubah tema</span>
           </div>
           <div class="menu-item" onclick="showPage('pageTentang')">
             <svg viewBox="0 0 24 24" stroke="#FBBF24"><circle cx="12" cy="12" r="9"/><path d="M12 10v6"/><path d="M12 7h.01"/></svg>
             <span>Tentang</span>
-            <span class="desc">Info app</span>
+            <span class="desc">Info aplikasi</span>
           </div>
           <div class="menu-item" onclick="showPage('pageBantuan')">
             <svg viewBox="0 0 24 24" stroke="#F472B6"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -1825,14 +2127,13 @@
         </div>
       </div>
 
-      <!-- MENU LIST -->
       <div class="card-modern">
         <div class="menu-list">
           <div class="menu-list-item" onclick="showPage('pagePengaturan')">
             <svg viewBox="0 0 24 24" stroke="#8B5CF6"><circle cx="12" cy="12" r="3"/><path d="M19.14 12.94a7.49 7.49 0 0 0 .05-.94 7.49 7.49 0 0 0-.05-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.28 7.28 0 0 0-1.63-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54a7.28 7.28 0 0 0-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.71 8.84a.5.5 0 0 0 .12.64l2.03 1.58a7.49 7.49 0 0 0-.05.94 7.49 7.49 0 0 0 .05.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32a.5.5 0 0 0 .6.22l2.39-.96a7.28 7.28 0 0 0 1.63.94l.36 2.54a.5.5 0 0 0 .5.42h3.84a.5.5 0 0 0 .5-.42l.36-2.54a7.28 7.28 0 0 0 1.63-.94l2.39.96a.5.5 0 0 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58z"/></svg>
             <div class="info">
               <div class="title">Pengaturan</div>
-              <div class="sub">Notifikasi, reset data, dan preferensi</div>
+              <div class="sub">Pemberitahuan, atur ulang data, dan preferensi</div>
             </div>
             <span class="arrow"></span>
           </div>
@@ -1856,7 +2157,7 @@
             <svg viewBox="0 0 24 24" stroke="#60A5FA"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
             <div class="info">
               <div class="title">Pelayanan Pelanggan</div>
-              <div class="sub">Hubungi kami via email</div>
+              <div class="sub">Hubungi kami melalui email</div>
             </div>
             <span class="arrow"></span>
           </div>
@@ -1864,7 +2165,7 @@
             <svg viewBox="0 0 24 24" stroke="#DC2626"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             <div class="info">
               <div class="title" style="color:#DC2626;">Keluar</div>
-              <div class="sub">Logout dari akun kamu</div>
+              <div class="sub">Keluar dari akun Anda</div>
             </div>
             <span class="arrow"></span>
           </div>
@@ -1872,20 +2173,24 @@
       </div>
     </div>
 
-    <!-- HALAMAN EDIT PROFIL -->
     <div id="pageEditProfile" class="page">
       <div class="card-modern">
         <div class="section-title">Edit Profil</div>
-        <div class="section-sub">Kelola data pribadi kamu</div>
+        <div class="section-sub">Kelola data pribadi Anda</div>
 
         <div class="profile-pic-edit" onclick="document.getElementById('fotoInput').click()">
           <img id="fotoPreview" style="display:none;">
           <span class="placeholder" id="fotoPlaceholder">📷</span>
-          <span class="upload-hint">Tap untuk ganti</span>
+          <span class="upload-hint">Ketuk untuk mengganti</span>
         </div>
         <input type="file" id="fotoInput" accept="image/*" style="display:none;">
 
         <input type="text" id="editNama" class="input-field" placeholder="Nama lengkap">
+        <div class="username-wrap">
+          <span class="at">@</span>
+          <input type="text" id="editUsername" class="input-field" placeholder="Nama pengguna" maxlength="20" autocapitalize="none" autocomplete="off" spellcheck="false" oninput="periksaUsernameInput()">
+        </div>
+        <div class="field-hint" id="usernameHint">Gunakan 3 sampai 20 karakter: huruf kecil, angka, titik, dan garis bawah.</div>
         <input type="text" id="editBio" class="input-field" placeholder="Bio">
         <input type="text" id="editSekolah" class="input-field" placeholder="Asal sekolah">
         <input type="text" id="editKelas" class="input-field" placeholder="Kelas">
@@ -1895,28 +2200,25 @@
       </div>
     </div>
 
-    <!-- HALAMAN KELOLA AKUN -->
     <div id="pageKelolaAkun" class="page">
       <div class="card-modern">
         <div class="section-title">Kelola Akun</div>
-        <div class="section-sub">Kelola keamanan dan pengaturan akun kamu.</div>
+        <div class="section-sub">Kelola keamanan dan pengaturan akun Anda.</div>
 
         <div class="menu-list">
           <div class="menu-list-item" onclick="showPage('pageGantiPassword')">
             <svg viewBox="0 0 24 24" stroke="#F59E0B"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             <div class="info">
-              <div class="title">Ganti Password</div>
-              <div class="sub">Perbarui kata sandi akun kamu</div>
+              <div class="title">Ganti Kata Sandi</div>
+              <div class="sub">Perbarui kata sandi akun Anda</div>
             </div>
-            <span class="arrow">→</span>
           </div>
           <div class="menu-list-item" onclick="showPage('pageGantiEmail')">
             <svg viewBox="0 0 24 24" stroke="#60A5FA"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
             <div class="info">
               <div class="title">Ganti Email</div>
-              <div class="sub">Perbarui alamat email akun kamu</div>
+              <div class="sub">Perbarui alamat email akun Anda</div>
             </div>
-            <span class="arrow">→</span>
           </div>
           <div class="menu-list-item" onclick="showPage('pageKeamanan')">
             <svg viewBox="0 0 24 24" stroke="#34D399"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 7h8"/><path d="M8 12h8"/><path d="M8 17h4"/></svg>
@@ -1924,52 +2226,115 @@
               <div class="title">Privasi & Keamanan</div>
               <div class="sub">Kelola data pribadi dan keamanan</div>
             </div>
-            <span class="arrow">→</span>
+          </div>
+          <div class="menu-list-item" onclick="showPage('pageQR')">
+            <svg viewBox="0 0 24 24" stroke="#F472B6"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20v.01M20 20h-3v-3"/></svg>
+            <div class="info">
+              <div class="title">QR Pertemanan</div>
+              <div class="sub">Tambah teman lebih cepat dengan memindai kode QR</div>
+            </div>
           </div>
           <div class="menu-list-item" onclick="showPage('pageSession')">
             <svg viewBox="0 0 24 24" stroke="#8B5CF6"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M8 2v4"/><path d="M16 2v4"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
             <div class="info">
               <div class="title">Sesi Aktif</div>
-              <div class="sub">Lihat perangkat yang sedang login</div>
+              <div class="sub">Lihat perangkat yang sedang masuk</div>
             </div>
-            <span class="arrow">→</span>
+          </div>
+          <div class="menu-list-item" onclick="showPage('pageHapusAkun')">
+            <svg viewBox="0 0 24 24" stroke="#DC2626"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+            <div class="info">
+              <div class="title" style="color:#DC2626;">Hapus Akun</div>
+              <div class="sub">Hapus akun beserta seluruh datanya secara permanen</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- HALAMAN GANTI PASSWORD -->
-    <div id="pageGantiPassword" class="page">
+    <div id="pageQR" class="page">
       <div class="card-modern">
-        <div class="section-title">Ganti Password</div>
-        <div class="section-sub">Perbarui kata sandi akun kamu.</div>
+        <div class="seg">
+          <button class="seg-btn active" id="segQR" onclick="pilihTabQR('qr')">Kode QR</button>
+          <button class="seg-btn" id="segScan" onclick="pilihTabQR('scan')">Pindai QR</button>
+        </div>
 
-        <input type="password" id="oldPassword" class="input-field" placeholder="Password lama">
-        <input type="password" id="newPassword" class="input-field" placeholder="Password baru (min 6 karakter)">
-        <input type="password" id="confirmPassword" class="input-field" placeholder="Konfirmasi password baru">
+        <div id="paneQR">
+          <div class="qr-box"><div id="qrCanvas"></div></div>
+          <div class="qr-name" id="qrName">-</div>
+          <div class="qr-hint">Tunjukkan kode QR ini kepada teman Anda agar dapat langsung dipindai.</div>
+          <div class="qr-btn-row">
+            <button class="btn-save" onclick="downloadQR()">Simpan QR</button>
+            <button class="btn-save btn-light" onclick="shareQR()">Bagikan</button>
+          </div>
+        </div>
 
-        <button class="btn-save" onclick="changePassword()">Ganti Password</button>
+        <div id="paneScan" class="hidden">
+          <div class="scan-wrap">
+            <video id="scanVideo" playsinline muted></video>
+            <div class="scan-frame"></div>
+          </div>
+          <div class="qr-hint" id="scanHint" style="margin-top:12px;">Arahkan kamera ke kode QR milik teman Anda.</div>
+          <canvas id="scanCanvas" style="display:none;"></canvas>
+        </div>
       </div>
     </div>
 
-    <!-- HALAMAN GANTI EMAIL -->
+    <div id="pageHapusAkun" class="page">
+      <div class="card-modern">
+        <div class="section-title" style="color:#DC2626;">Hapus Akun</div>
+        <div class="section-sub">Akun beserta seluruh data Anda akan dihapus secara permanen dan tidak dapat dikembalikan.</div>
+
+        <div class="about-box">
+          <h3>Data yang akan dihapus</h3>
+          <ul>
+            <li>Akun masuk (email dan kata sandi)</li>
+            <li>Profil, daftar tugas, dan riwayat belajar</li>
+            <li>Daftar teman dan riwayat percakapan dengan teman</li>
+          </ul>
+        </div>
+
+        <div id="hapusAkunBlokir" class="about-box hidden" style="border:1px solid #F59E0B;">
+          <h3 style="color:#B45309;">Akun tidak dapat dihapus</h3>
+          <p style="font-size:13px;line-height:1.6;margin-top:6px;">Akun Anda masih memiliki premium aktif. Akun baru dapat dihapus setelah tidak ada premium yang aktif.</p>
+        </div>
+
+        <div id="hapusAkunForm">
+          <input type="password" id="hapusAkunPassword" class="input-field" placeholder="Masukkan kata sandi akun" autocomplete="current-password">
+          <button class="btn-save btn-danger" id="btnLanjutHapus" onclick="lanjutHapusAkun()">Lanjut</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="pageGantiPassword" class="page">
+      <div class="card-modern">
+        <div class="section-title">Ganti Kata Sandi</div>
+        <div class="section-sub">Perbarui kata sandi akun Anda.</div>
+
+        <input type="password" id="oldPassword" class="input-field" placeholder="Kata sandi lama">
+        <input type="password" id="newPassword" class="input-field" placeholder="Kata sandi baru (minimal 6 karakter)">
+        <input type="password" id="confirmPassword" class="input-field" placeholder="Konfirmasi kata sandi baru">
+
+        <button class="btn-save" onclick="changePassword()">Ganti Kata Sandi</button>
+      </div>
+    </div>
+
     <div id="pageGantiEmail" class="page">
       <div class="card-modern">
         <div class="section-title">Ganti Email</div>
-        <div class="section-sub">Email digunakan untuk login dan menerima notifikasi penting.</div>
+        <div class="section-sub">Email digunakan untuk masuk ke akun dan menerima pemberitahuan penting.</div>
 
         <input type="email" id="newEmail" class="input-field" placeholder="Email baru">
-        <input type="password" id="emailPassword" class="input-field" placeholder="Password untuk verifikasi">
+        <input type="password" id="emailPassword" class="input-field" placeholder="Kata sandi untuk verifikasi">
 
         <button class="btn-save" onclick="changeEmail()">Ganti Email</button>
       </div>
     </div>
 
-    <!-- HALAMAN SESI AKTIF -->
     <div id="pageSession" class="page">
       <div class="card-modern">
         <div class="section-title">Sesi Aktif</div>
-        <div class="section-sub">Perangkat yang sedang terhubung ke akun kamu.</div>
+        <div class="section-sub">Perangkat yang sedang terhubung ke akun Anda.</div>
 
         <div class="session-item">
           <div class="session-icon">
@@ -1982,20 +2347,18 @@
           <span class="session-status active">Aktif</span>
         </div>
 
-        <p style="font-size:12px;color:#94A3B8;text-align:center;margin-top:10px;">* Hanya menampilkan perangkat yang sedang login saat ini</p>
+        <p style="font-size:12px;color:#94A3B8;text-align:center;margin-top:10px;">* Hanya menampilkan perangkat yang sedang masuk saat ini</p>
       </div>
     </div>
 
-    <!-- HALAMAN RIWAYAT -->
     <div id="pageRiwayat" class="page">
       <div class="card-modern">
         <div class="section-title">Riwayat Belajar</div>
-        <div class="section-sub">Catatan aktivitas belajar kamu.</div>
+        <div class="section-sub">Catatan aktivitas belajar Anda.</div>
         <div id="riwayatContainer"></div>
       </div>
     </div>
 
-    <!-- HALAMAN TENTANG -->
     <div id="pageTentang" class="page">
       <div class="card-modern">
         <div class="section-title">Tentang Aplikasi</div>
@@ -2010,43 +2373,102 @@
           <ul>
             <li>Membantu siswa memahami materi dengan lebih mudah</li>
             <li>Menyediakan tools belajar dalam satu platform</li>
-            <li>Meningkatkan skill yang relevan dengan dunia kerja</li>
+            <li>Meningkatkan keterampilan yang relevan dengan dunia kerja</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- HALAMAN BANTUAN -->
     <div id="pageBantuan" class="page">
       <div class="card-modern">
         <div class="section-title">Pusat Bantuan</div>
         <div class="section-sub">Temukan jawaban dari pertanyaan yang sering diajukan.</div>
 
+        <div class="help-group">Akun dan Profil</div>
         <div class="help-item">
-          <div class="help-q">Bagaimana cara upgrade ke Premium?</div>
-          <div class="help-a">Klik menu Premium, pilih paket yang diinginkan, lalu ikuti instruksi pembayaran.</div>
+          <div class="help-q">Bagaimana cara mengubah profil dan foto?</div>
+          <div class="help-a">Buka menu Akun, pilih Edit Profil, ubah data diri Anda, ketuk foto untuk menggantinya, lalu pilih Simpan Perubahan.</div>
         </div>
         <div class="help-item">
-          <div class="help-q">Mengapa materi saya tidak bisa dibuka?</div>
-          <div class="help-a">Akun gratis hanya bisa membuka 2 materi per hari. Upgrade ke Premium untuk akses tanpa batas.</div>
+          <div class="help-q">Bagaimana cara mengubah nama pengguna?</div>
+          <div class="help-a">Buka Akun, pilih Edit Profil, lalu isi kolom nama pengguna di bawah nama lengkap. Gunakan 3 sampai 20 karakter berupa huruf kecil, angka, titik, atau garis bawah. Nama pengguna bersifat unik, sehingga tidak dapat sama dengan milik pengguna lain.</div>
+        </div>
+        <div class="help-item">
+          <div class="help-q">Bagaimana cara mengganti banner profil?</div>
+          <div class="help-a">Pada kartu profil di halaman Akun, ketuk tombol ubah banner, lalu pilih banner yang tersedia. Banner Silver, Platinum, Gold, dan Diamond terbuka secara berurutan sesuai jumlah mata pelajaran premium yang Anda miliki, yaitu 1, 2, 3, dan 4.</div>
+        </div>
+        <div class="help-item">
+          <div class="help-q">Bagaimana cara mengganti kata sandi atau email?</div>
+          <div class="help-a">Buka Akun, pilih Kelola Akun, lalu pilih Ganti Kata Sandi atau Ganti Email. Kata sandi akun saat ini diperlukan untuk verifikasi.</div>
+        </div>
+        <div class="help-item">
+          <div class="help-q">Bagaimana cara keluar dari akun?</div>
+          <div class="help-a">Buka menu Akun, pilih Keluar, lalu konfirmasi pada pesan yang muncul.</div>
+        </div>
+        <div class="help-item">
+          <div class="help-q">Bagaimana cara menghapus akun?</div>
+          <div class="help-a">Buka Akun, pilih Kelola Akun, lalu pilih Hapus Akun. Proses ini terdiri dari dua tahap. Pertama, masukkan kata sandi akun dan pilih Lanjut. Kedua, pilih Ya, Hapus pada konfirmasi akhir. Akun beserta profil, daftar tugas, riwayat belajar, daftar teman, dan riwayat percakapan akan dihapus secara permanen dan tidak dapat dikembalikan.</div>
+        </div>
+        <div class="help-item">
+          <div class="help-q">Mengapa akun saya tidak dapat dihapus?</div>
+          <div class="help-a">Akun yang masih memiliki premium aktif tidak dapat dihapus. Setelah tidak ada premium yang aktif, Anda dapat mengulangi proses penghapusan akun.</div>
+        </div>
+        <div class="help-group">Teman</div>
+        <div class="help-item">
+          <div class="help-q">Bagaimana cara menambah teman?</div>
+          <div class="help-a">Buka menu Teman, lalu gunakan tab Cari untuk mencari nama pengguna. Buka profil yang ditemukan dan kirim permintaan pertemanan. Permintaan yang masuk dapat diterima atau ditolak pada tab Permintaan.</div>
+        </div>
+        <div class="help-item">
+          <div class="help-q">Bagaimana cara menambah teman dengan kode QR?</div>
+          <div class="help-a">Buka Akun, pilih Kelola Akun, lalu pilih QR Pertemanan. Tab Kode QR menampilkan kode milik Anda untuk dipindai teman. Tab Pindai QR digunakan untuk memindai kode milik teman Anda. Setelah kode terbaca, konfirmasi akan muncul sebelum permintaan pertemanan dikirim.</div>
+        </div>
+        <div class="help-item">
+          <div class="help-q">Mengapa kamera tidak menyala saat memindai kode QR?</div>
+          <div class="help-a">Pastikan Anda telah mengizinkan akses kamera pada peramban. Jika izin sebelumnya ditolak, aktifkan kembali melalui pengaturan situs pada peramban Anda.</div>
+        </div>
+        <div class="help-group">Fitur Belajar</div>
+        <div class="help-item">
+          <div class="help-q">Bagaimana cara menggunakan Daftar Tugas?</div>
+          <div class="help-a">Buka Daftar Tugas melalui menu samping, tulis tugas pada kolom yang tersedia, lalu ketuk tombol tambah. Centang tugas untuk menandainya selesai atau gunakan ikon tempat sampah untuk menghapusnya. Tugas tersimpan pada akun Anda.</div>
+        </div>
+        <div class="help-item">
+          <div class="help-q">Mengapa materi saya tidak dapat dibuka?</div>
+          <div class="help-a">Akun gratis hanya dapat membuka 2 materi per hari. Tingkatkan akun ke Premium untuk akses tanpa batas.</div>
+        </div>
+        <div class="help-group">Premium</div>
+        <div class="help-item">
+          <div class="help-q">Bagaimana cara meningkatkan akun ke Premium?</div>
+          <div class="help-a">Buka menu Premium, pilih paket yang diinginkan, lalu ikuti instruksi pembayaran.</div>
+        </div>
+        <div class="help-item">
+          <div class="help-q">Apa yang dimaksud dengan level premium?</div>
+          <div class="help-a">Level premium ditentukan oleh jumlah mata pelajaran premium yang aktif: Silver untuk 1 mata pelajaran, Platinum untuk 2, Gold untuk 3, dan Diamond untuk 4 atau lebih.</div>
+        </div>
+        <div class="help-group">Pengaturan</div>
+        <div class="help-item">
+          <div class="help-q">Bagaimana cara mengubah tema tampilan?</div>
+          <div class="help-a">Pada halaman Akun, ketuk menu tema untuk berganti antara mode terang dan mode gelap.</div>
+        </div>
+        <div class="help-item">
+          <div class="help-q">Apa fungsi Atur Ulang Data Lokal?</div>
+          <div class="help-a">Fitur ini menghapus data yang tersimpan di perangkat ini, seperti data sementara aplikasi. Data akun yang tersimpan di server tidak ikut terhapus.</div>
         </div>
         <div class="help-item">
           <div class="help-q">Bagaimana cara menghubungi admin?</div>
-          <div class="help-a">Kirim email ke startoolsid@gmail.com untuk bantuan lebih lanjut.</div>
+          <div class="help-a">Kirim email ke startoolsid@gmail.com atau gunakan menu Pelayanan Pelanggan pada halaman Akun untuk bantuan lebih lanjut.</div>
         </div>
       </div>
     </div>
 
-    <!-- HALAMAN PENGATURAN -->
     <div id="pagePengaturan" class="page">
       <div class="card-modern">
         <div class="section-title">Pengaturan</div>
-        <div class="section-sub">Sesuaikan preferensi aplikasi sesuai dengan kebutuhan kamu.</div>
+        <div class="section-sub">Sesuaikan preferensi aplikasi sesuai dengan kebutuhan Anda.</div>
 
         <div class="setting-item">
           <div class="setting-label">
-            Notifikasi
-            <div class="sub">Terima notifikasi aktivitas belajar</div>
+            Pemberitahuan
+            <div class="sub">Terima pemberitahuan aktivitas belajar</div>
           </div>
           <div class="toggle-switch active" onclick="this.classList.toggle('active')">
             <div class="toggle-dot"></div>
@@ -2065,19 +2487,18 @@
 
         <div class="setting-item">
           <div class="setting-label">
-            Reset Data Lokal
-            <div class="sub">Hapus semua data tersimpan di perangkat</div>
+            Atur Ulang Data Lokal
+            <div class="sub">Hapus seluruh data yang tersimpan di perangkat</div>
           </div>
-          <button style="background:#DC2626;color:white;border:none;padding:6px 16px;border-radius:10px;font-weight:600;cursor:pointer;" onclick="resetData()">Reset</button>
+          <button style="background:#DC2626;color:white;border:none;padding:6px 16px;border-radius:10px;font-weight:600;cursor:pointer;" onclick="resetData()">Atur Ulang</button>
         </div>
       </div>
     </div>
 
-    <!-- HALAMAN PRESTASI -->
     <div id="pagePrestasi" class="page">
       <div class="card-modern">
         <div class="section-title">Prestasi & Sertifikat</div>
-        <div class="section-sub">Kumpulkan prestasi dan sertifikat seiring perjalanan belajar kamu.</div>
+        <div class="section-sub">Kumpulkan prestasi dan sertifikat seiring perjalanan belajar Anda.</div>
 
         <div class="about-box" style="text-align:center;padding:30px 20px;">
           <svg viewBox="0 0 24 24" stroke="#FBBF24" style="width:48px;height:48px;margin:0 auto 12px;fill:none;stroke-width:1.5;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -2087,18 +2508,17 @@
       </div>
     </div>
 
-    <!-- HALAMAN KEAMANAN -->
     <div id="pageKeamanan" class="page">
       <div class="card-modern">
         <div class="section-title">Privasi & Keamanan</div>
-        <div class="section-sub">Kelola data pribadi dan tingkat keamanan akun kamu.</div>
+        <div class="section-sub">Kelola data pribadi dan tingkat keamanan akun Anda.</div>
 
         <div class="about-box">
           <h3>Data yang Tersimpan</h3>
           <ul>
             <li>Nama dan biodata</li>
             <li>Riwayat belajar</li>
-            <li>Progress materi</li>
+            <li>Kemajuan materi</li>
             <li>Preferensi aplikasi</li>
           </ul>
         </div>
@@ -2107,23 +2527,19 @@
           <h3>Keamanan</h3>
           <ul>
             <li>Data dienkripsi dengan aman</li>
-            <li>Login menggunakan akun Google</li>
+            <li>Masuk menggunakan akun Google</li>
             <li>Data tidak dibagikan ke pihak ketiga</li>
           </ul>
         </div>
-
-        <button class="btn-save btn-danger" onclick="showToast('Data privasi telah dihapus!')">Hapus Data Pribadi</button>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
   <div class="footer-app">
     <p>Star Platform | STools 2026</p>
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <div class="bottom-nav">
   <button class="nav-item" data-page="index.html" onclick="goTo('index.html')">
     <svg viewBox="0 0 24 24"><path d="M4 10.5L12 4l8 6.5"/><path d="M6 10v9h5v-5h2v5h5v-9"/></svg>
@@ -2143,7 +2559,17 @@
   </button>
 </div>
 
-<!-- LOGOUT ALERT -->
+<div id="hapusAkunAlert" class="alert-overlay">
+  <div class="alert-card">
+    <p style="margin-bottom:8px;font-size:16px;font-weight:700;color:#DC2626;">Hapus akun sekarang?</p>
+    <p style="margin-bottom:20px;font-size:13px;color:#94A3B8;">Ini adalah langkah terakhir. Akun beserta seluruh data Anda akan langsung dihapus secara permanen dan tidak dapat dikembalikan.</p>
+    <div class="alert-actions">
+      <button class="btn-cancel" id="btnBatalHapusAkun" onclick="tutupKonfirmasiHapusAkun()">Tidak</button>
+      <button class="btn-full btn-danger" id="btnYaHapusAkun" onclick="eksekusiHapusAkun()">Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
 <div id="logoutAlert" class="alert-overlay">
   <div class="alert-card">
     <p style="margin-bottom:20px;font-size:15px;">Yakin ingin keluar dari akun?</p>
@@ -2154,7 +2580,6 @@
   </div>
 </div>
 
-<!-- GLOBAL ALERT -->
 <div id="globalAlert" class="alert-overlay">
   <div class="alert-card">
     <p id="alertMessage" style="margin-bottom:20px;">Pemberitahuan</p>
@@ -2162,7 +2587,6 @@
     <div id="alertExtraBtn"></div>
   </div>
 </div>
-
 
 <script>
 var firebaseConfig = {
@@ -2181,6 +2605,7 @@ var auth = firebase.auth();
 var currentUser = null;
 var fotoBase64 = "";
 var profileData = {};
+var usernameAkun = '';
 var premiumMapel = {};
 
 var PROFILE_KEY = 'userProfileData';
@@ -2188,7 +2613,6 @@ var PREMIUM_KEY = 'userPremiumData';
 var PROFILE_LOADED_KEY = 'profileLoadedOnce';
 let unreadCount = 0;
 
-// ======================== LEVEL PREMIUM ========================
 function getPremiumLevel(mapelObj) {
   var count = 0;
   var mapelList = ['ekonomi', 'sains', 'coding', 'matematika', 'bahasa', 'pendukung', 'robotik'];
@@ -2203,7 +2627,6 @@ function getPremiumLevel(mapelObj) {
   return { level: 'standard', name: 'Standard', color: 'standard' };
 }
 
-// ======================== NAVIGASI ========================
 function goTo(page) {
   window.location.href = page;
 }
@@ -2249,7 +2672,6 @@ function showToast(message, type) {
   }, 2500);
 }
 
-// ======================== NOTIFICATION BELL ========================
 function checkNotifications() {
   db.ref('notifications').once('value').then(function(snap) {
     const data = snap.val() || {};
@@ -2277,7 +2699,6 @@ function updateBellBadge(count) {
   });
 }
 
-// ======================== LOGOUT ========================
 function showLogoutAlert() {
   document.getElementById('logoutAlert').style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -2298,7 +2719,6 @@ function confirmLogout() {
   });
 }
 
-// ======================== THEME ========================
 function toggleTheme() {
   var isDark = document.body.classList.toggle('dark');
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
@@ -2318,7 +2738,6 @@ if (localStorage.getItem('theme') === 'dark') {
   updateThemeLabels(false);
 }
 
-// ======================== PAGE NAVIGATION ========================
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(function(p) {
     p.classList.remove('active');
@@ -2340,7 +2759,9 @@ function showPage(pageId) {
       'pagePrestasi': 'Prestasi & Sertifikat',
       'pageKeamanan': 'Privasi & Keamanan',
       'pageKelolaAkun': 'Kelola Akun',
-      'pageGantiPassword': 'Ganti Password',
+      'pageQR': 'QR Pertemanan',
+      'pageHapusAkun': 'Hapus Akun',
+      'pageGantiPassword': 'Ganti Kata Sandi',
       'pageGantiEmail': 'Ganti Email',
       'pageSession': 'Sesi Aktif'
     };
@@ -2350,19 +2771,20 @@ function showPage(pageId) {
   if (pageId === 'pageRiwayat') loadRiwayat();
   if (pageId === 'pageEditProfile') loadProfileDataToEdit();
   if (pageId === 'pageSession') loadSession();
+  if (pageId === 'pageQR') pilihTabQR('qr'); else stopScan();
+  if (pageId === 'pageHapusAkun') siapkanHapusAkun();
 }
 
 function goToMainPage() {
   showPage('pageMain');
 }
 
-// ======================== PILIH BANNER ========================
 var BANNER_TIERS = [
-  { color: 'standard', name: 'Standard', desc: 'Banner default, terbuka untuk semua', minCount: 0 },
-  { color: 'silver', name: 'Silver', desc: 'Terbuka mulai 1 mapel premium', minCount: 1 },
-  { color: 'platinum', name: 'Platinum', desc: 'Terbuka mulai 2 mapel premium', minCount: 2 },
-  { color: 'gold', name: 'Gold', desc: 'Terbuka mulai 3 mapel premium', minCount: 3 },
-  { color: 'diamond', name: 'Diamond', desc: 'Terbuka mulai 4 mapel premium', minCount: 4 }
+  { color: 'standard', name: 'Standard', desc: 'Banner bawaan, terbuka untuk semua', minCount: 0 },
+  { color: 'silver', name: 'Silver', desc: 'Terbuka mulai 1 mata pelajaran premium', minCount: 1 },
+  { color: 'platinum', name: 'Platinum', desc: 'Terbuka mulai 2 mata pelajaran premium', minCount: 2 },
+  { color: 'gold', name: 'Gold', desc: 'Terbuka mulai 3 mata pelajaran premium', minCount: 3 },
+  { color: 'diamond', name: 'Diamond', desc: 'Terbuka mulai 4 mata pelajaran premium', minCount: 4 }
 ];
 
 function getPremiumCount() {
@@ -2413,11 +2835,10 @@ function pilihBanner(color) {
   db.ref('users/' + currentUser + '/profile/bannerPilihan').set(color).then(function() {
     updateUIProfile();
     closeBannerPicker();
-    showToast('Banner berhasil diganti');
+    showToast('Banner berhasil diubah');
   });
 }
 
-// ======================== ZOOM FOTO PROFIL ========================
 function openFotoZoom() {
   if (!profileData.foto) return;
   document.getElementById('fotoZoomImg').src = profileData.foto;
@@ -2431,7 +2852,6 @@ function closeFotoZoom(e) {
   document.body.style.overflow = '';
 }
 
-// ======================== FOTO PROFIL ========================
 document.getElementById('fotoInput').addEventListener('change', function(e) {
   var file = e.target.files[0];
   if (!file) return;
@@ -2448,7 +2868,6 @@ document.getElementById('fotoInput').addEventListener('change', function(e) {
   reader.readAsDataURL(file);
 });
 
-// ======================== LOAD PROFILE ========================
 function loadProfile(user) {
   if (!user) return;
 
@@ -2462,7 +2881,7 @@ function loadProfile(user) {
       profileData = {};
     }
   }
-  
+
   if (savedPremium) {
     try {
       premiumMapel = JSON.parse(savedPremium);
@@ -2483,6 +2902,11 @@ function loadProfile(user) {
     updateUIProfile();
   });
 
+  db.ref('users/' + uid + '/username').on('value', function(snap) {
+    usernameAkun = snap.val() || '';
+    updateUIProfile();
+  });
+
   db.ref('users/' + uid + '/premium').on('value', function(snap) {
     premiumMapel = snap.val() || {};
     localStorage.setItem(PREMIUM_KEY, JSON.stringify(premiumMapel));
@@ -2490,7 +2914,6 @@ function loadProfile(user) {
   });
 }
 
-// ======================== UPDATE UI PROFILE ========================
 function updateUIProfile() {
   var avatar = document.getElementById('bannerAvatar');
   var nameEl = document.getElementById('bannerName');
@@ -2504,13 +2927,20 @@ function updateUIProfile() {
   var levelSub = document.getElementById('levelSub');
   var levelBadgeCard = document.getElementById('levelBadge');
 
-  var nama = profileData.nama || 'User';
+  var nama = profileData.nama || 'Pengguna';
   var bio = profileData.bio || 'Belum ada bio';
 
   nameEl.innerText = nama;
   bioEl.innerText = bio;
-  
-  // Avatar
+
+  var usernameEl = document.getElementById('bannerUsername');
+  if (usernameAkun) {
+    usernameEl.innerText = '@' + usernameAkun;
+    usernameEl.style.display = 'block';
+  } else {
+    usernameEl.style.display = 'none';
+  }
+
   if (profileData.foto) {
     avatar.innerHTML = '<img src="' + profileData.foto + '">';
     avatar.style.background = 'transparent';
@@ -2519,14 +2949,12 @@ function updateUIProfile() {
     avatar.style.background = 'linear-gradient(135deg, #2563EB, #60A5FA)';
   }
 
-  // Verified
   if (profileData.verified === true) {
     verifiedEl.style.display = 'inline-flex';
   } else {
     verifiedEl.style.display = 'none';
   }
 
-  // Hitung premium
   var count = 0;
   var mapelList = ['ekonomi', 'sains', 'coding', 'matematika', 'bahasa', 'pendukung', 'robotik'];
   mapelList.forEach(function(m) {
@@ -2536,7 +2964,6 @@ function updateUIProfile() {
   var hasPremium = count > 0;
   var level = getPremiumLevel(premiumMapel);
 
-  // Tentukan banner yang ditampilkan: pilihan user (kalau masih terbuka), atau default sesuai level
   var displayColor = level.color;
   var displayName = level.name;
   if (profileData.bannerPilihan) {
@@ -2547,22 +2974,19 @@ function updateUIProfile() {
     }
   }
 
-  // Update BANNER
   bannerEl.className = 'profile-banner ' + displayColor;
-  
-  // Level badge di pojok
+
   levelBadge.className = 'banner-level-badge ' + displayColor;
-  levelBadge.innerHTML = 
+  levelBadge.innerHTML =
     '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> ' +
     (hasPremium ? displayName : 'Standard');
 
-  // Level Info Card - FULL WIDTH
   if (hasPremium) {
     levelInfoCard.style.display = 'flex';
     levelIcon.className = 'icon ' + level.color;
     levelIcon.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
     levelTitle.innerText = 'Premium ' + level.name;
-    levelSub.innerText = count + ' Mapel Premium';
+    levelSub.innerText = count + ' Mata Pelajaran Premium';
     levelBadgeCard.className = 'level-badge ' + level.color;
     levelBadgeCard.innerText = level.name;
   } else {
@@ -2570,9 +2994,11 @@ function updateUIProfile() {
   }
 }
 
-// ======================== EDIT PROFIL ========================
 function loadProfileDataToEdit() {
   document.getElementById('editNama').value = profileData.nama || '';
+  document.getElementById('editUsername').value = USERNAME_REGEX.test(usernameAkun.toLowerCase()) ? usernameAkun.toLowerCase() : '';
+  document.getElementById('editUsername').placeholder = usernameAkun ? 'Nama pengguna baru' : 'Nama pengguna';
+  periksaUsernameInput();
   document.getElementById('editBio').value = profileData.bio || '';
   document.getElementById('editSekolah').value = profileData.sekolah || '';
   document.getElementById('editKelas').value = profileData.kelas || '';
@@ -2588,14 +3014,62 @@ function loadProfileDataToEdit() {
   }
 }
 
+var USERNAME_REGEX = /^[a-z0-9_.]{3,20}$/;
+
+function bersihkanUsername(nilai) {
+  return (nilai || '').toLowerCase().replace(/[^a-z0-9_.]/g, '');
+}
+
+function periksaUsernameInput() {
+  var input = document.getElementById('editUsername');
+  var hint = document.getElementById('usernameHint');
+  var bersih = bersihkanUsername(input.value);
+  if (bersih !== input.value) input.value = bersih;
+
+  hint.classList.remove('error');
+  if (bersih && bersih.length < 3) {
+    hint.innerText = 'Nama pengguna minimal 3 karakter.';
+    hint.classList.add('error');
+  } else {
+    hint.innerText = 'Gunakan 3 sampai 20 karakter: huruf kecil, angka, titik, dan garis bawah.';
+  }
+}
+
+function klaimUsername(username) {
+  return db.ref('usernames/' + username).transaction(function(saatIni) {
+    if (saatIni === null || saatIni === currentUser) return currentUser;
+    return undefined;
+  }).then(function(hasil) {
+    return hasil.committed;
+  });
+}
+
+function tampilkanGalatUsername(pesan) {
+  var hint = document.getElementById('usernameHint');
+  hint.innerText = pesan;
+  hint.classList.add('error');
+  showToast(pesan, 'error');
+}
+
 function saveProfile() {
   if (!currentUser) {
-    showToast('Silakan login terlebih dahulu', 'error');
+    showToast('Silakan masuk terlebih dahulu', 'error');
     return;
   }
 
+  var usernameLama = usernameAkun;
+  var usernameBaru = bersihkanUsername(document.getElementById('editUsername').value);
+  var usernameLamaValid = USERNAME_REGEX.test(usernameLama);
+
+  if (usernameLama && !usernameBaru && usernameLamaValid) {
+    tampilkanGalatUsername('Nama pengguna tidak boleh dikosongkan.');
+    return;
+  }
+
+  if (!usernameBaru) usernameBaru = usernameLama;
+
   var data = {
-    nama: document.getElementById('editNama').value.trim() || 'User',
+    nama: document.getElementById('editNama').value.trim() || 'Pengguna',
     bio: document.getElementById('editBio').value.trim() || '',
     sekolah: document.getElementById('editSekolah').value.trim() || '',
     kelas: document.getElementById('editKelas').value.trim() || '',
@@ -2606,35 +3080,62 @@ function saveProfile() {
     data.foto = fotoBase64;
   }
 
-  db.ref('users/' + currentUser + '/profile').update(data).then(function() {
-    profileData = data;
-    localStorage.setItem(PROFILE_KEY, JSON.stringify(data));
-    updateUIProfile();
-    showToast('Profil berhasil diperbarui!');
-    goToMainPage();
+  var klaim = Promise.resolve(true);
+  var usernameBerubah = usernameBaru !== usernameLama;
+  if (usernameBerubah) {
+    if (!USERNAME_REGEX.test(usernameBaru)) {
+      tampilkanGalatUsername('Nama pengguna harus 3 sampai 20 karakter.');
+      return;
+    }
+    klaim = klaimUsername(usernameBaru);
+  }
+
+  klaim.then(function(berhasil) {
+    if (!berhasil) {
+      tampilkanGalatUsername('Nama pengguna @' + usernameBaru + ' sudah dipakai.');
+      return null;
+    }
+
+    var tulis = db.ref('users/' + currentUser + '/profile').update(data);
+    if (usernameBerubah) {
+      tulis = tulis.then(function() {
+        return db.ref('users/' + currentUser + '/username').set(usernameBaru);
+      });
+    }
+
+    return tulis.then(function() {
+      if (usernameBerubah && usernameLama) {
+        db.ref('usernames/' + usernameLama.toLowerCase()).remove().catch(function() {});
+      }
+      usernameAkun = usernameBaru;
+      profileData = Object.assign({}, profileData, data);
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(profileData));
+      updateUIProfile();
+      showToast('Profil berhasil diperbarui!');
+      goToMainPage();
+    });
   }).catch(function(err) {
     showToast('Gagal menyimpan: ' + err.message, 'error');
   });
 }
 
-// ======================== GANTI PASSWORD ========================
 function changePassword() {
   var oldPass = document.getElementById('oldPassword').value;
   var newPass = document.getElementById('newPassword').value;
   var confirmPass = document.getElementById('confirmPassword').value;
 
   if (!oldPass || !newPass || !confirmPass) {
-    showToast('Semua field harus diisi!', 'error');
+    showToast('Semua kolom wajib diisi.', 'error');
     return;
   }
 
   if (newPass.length < 6) {
-    showToast('Password baru minimal 6 karakter!', 'error');
+    showToast('Kata sandi baru minimal 6 karakter.', 'error');
     return;
   }
 
   if (newPass !== confirmPass) {
-    showToast('Password baru tidak cocok!', 'error');
+    showToast('Kata sandi baru tidak cocok.', 'error');
     return;
   }
 
@@ -2644,30 +3145,29 @@ function changePassword() {
   user.reauthenticateWithCredential(credential).then(function() {
     return user.updatePassword(newPass);
   }).then(function() {
-    showToast('Password berhasil diubah!');
+    showToast('Kata sandi berhasil diubah.');
     goToMainPage();
   }).catch(function(err) {
-    showToast('Error: ' + err.message, 'error');
+    showToast('Terjadi kesalahan: ' + err.message, 'error');
   });
 }
 
-// ======================== GANTI EMAIL ========================
 function changeEmail() {
   var newEmail = document.getElementById('newEmail').value;
   var password = document.getElementById('emailPassword').value;
 
   if (!newEmail || !password) {
-    showToast('Semua field harus diisi!', 'error');
+    showToast('Semua kolom wajib diisi.', 'error');
     return;
   }
 
   if (!newEmail.includes('@')) {
-    showToast('Email tidak valid!', 'error');
+    showToast('Format email tidak valid.', 'error');
     return;
   }
 
   if (newEmail === auth.currentUser.email) {
-    showToast('Email baru sama dengan email sekarang!', 'error');
+    showToast('Email baru sama dengan email saat ini.', 'error');
     return;
   }
 
@@ -2677,15 +3177,14 @@ function changeEmail() {
   user.reauthenticateWithCredential(credential).then(function() {
     return user.updateEmail(newEmail);
   }).then(function() {
-    showToast('Email berhasil diubah!');
+    showToast('Email berhasil diubah.');
     db.ref('users/' + currentUser + '/profile/email').set(newEmail);
     goToMainPage();
   }).catch(function(err) {
-    showToast('Error: ' + err.message, 'error');
+    showToast('Terjadi kesalahan: ' + err.message, 'error');
   });
 }
 
-// ======================== SESI AKTIF ========================
 function loadSession() {
   var user = auth.currentUser;
   if (!user) return;
@@ -2707,10 +3206,9 @@ function loadSession() {
   else if (userAgent.includes('iPhone') || userAgent.includes('iPad')) os = 'iOS';
 
   deviceName.innerText = browser + ' - ' + os;
-  deviceDetail.innerText = 'Login sebagai ' + user.email + ' | ' + new Date().toLocaleString('id-ID');
+  deviceDetail.innerText = 'Masuk sebagai ' + user.email + ' | ' + new Date().toLocaleString('id-ID');
 }
 
-// ======================== RIWAYAT ========================
 function loadRiwayat() {
   var container = document.getElementById('riwayatContainer');
   var data = JSON.parse(localStorage.getItem('riwayatBelajar')) || [];
@@ -2730,15 +3228,352 @@ function loadRiwayat() {
   container.innerHTML = html;
 }
 
-// ======================== RESET DATA ========================
-function resetData() {
-  if (confirm('Yakin ingin menghapus semua data lokal?')) {
-    localStorage.clear();
-    showToast('Data lokal berhasil direset!');
+var scanStream = null, scanTimer = null;
+
+function linkTeman() {
+  return new URL('teman.html', location.href).href + '?add=' + encodeURIComponent(currentUser);
+}
+
+function buatQR() {
+  var box = document.getElementById('qrCanvas');
+  box.innerHTML = '';
+  if (!currentUser) {
+    box.innerHTML = '<div style="width:200px;padding:60px 10px;text-align:center;color:#64748B;font-size:13px;">Silakan masuk terlebih dahulu untuk memiliki kode QR pertemanan</div>';
+    document.getElementById('qrName').innerText = 'Tamu';
+    return;
+  }
+  new QRCode(box, { text: linkTeman(), width: 200, height: 200, correctLevel: QRCode.CorrectLevel.M });
+  document.getElementById('qrName').innerText = profileData.nama || 'Pengguna';
+}
+
+function qrDataUrl() {
+  var c = document.querySelector('#qrCanvas canvas');
+  return c ? c.toDataURL('image/png') : null;
+}
+
+function downloadQR() {
+  var url = qrDataUrl();
+  if (!url) {
+    showToast('QR belum tersedia', 'error');
+    return;
+  }
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'qr-pertemanan-stools.png';
+  a.click();
+}
+
+function shareQR() {
+  if (!currentUser) {
+    showToast('Silakan masuk terlebih dahulu', 'error');
+    return;
+  }
+  var teks = 'Tambahkan saya sebagai teman di STools: ' + linkTeman();
+  if (navigator.share) {
+    navigator.share({ title: 'STools', text: teks }).catch(function() {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(linkTeman()).then(function() { showToast('Tautan berhasil disalin'); });
+  } else {
+    showToast('Perangkat tidak mendukung fitur berbagi', 'error');
   }
 }
 
-// ======================== AUTH ========================
+function pilihTabQR(tab) {
+  var isScan = (tab === 'scan');
+  document.getElementById('segQR').classList.toggle('active', !isScan);
+  document.getElementById('segScan').classList.toggle('active', isScan);
+  document.getElementById('paneQR').classList.toggle('hidden', isScan);
+  document.getElementById('paneScan').classList.toggle('hidden', !isScan);
+  if (isScan) {
+    startScan();
+  } else {
+    stopScan();
+    buatQR();
+  }
+}
+
+var scanBusy = false;
+var scanDetector = null;
+var scanLastInvalid = '';
+
+function startScan() {
+  if (scanStream) return;
+  var hint = document.getElementById('scanHint');
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    hint.innerText = 'Peramban ini tidak mendukung kamera. Coba buka halaman melalui HTTPS di Chrome.';
+    return;
+  }
+  hint.innerText = 'Arahkan kamera ke QR pertemanan dan pastikan seluruh QR masuk ke area kamera.';
+
+  var videoOptions = {
+    audio: false,
+    video: {
+      facingMode: { ideal: 'environment' },
+      width: { ideal: 1280 },
+      height: { ideal: 720 }
+    }
+  };
+
+  navigator.mediaDevices.getUserMedia(videoOptions).catch(function() {
+    return navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: 'environment' } });
+  }).then(function(stream) {
+    if (document.getElementById('paneScan').classList.contains('hidden')) {
+      stream.getTracks().forEach(function(t) { t.stop(); });
+      return;
+    }
+    scanStream = stream;
+    var v = document.getElementById('scanVideo');
+    v.setAttribute('playsinline', '');
+    v.muted = true;
+    v.srcObject = stream;
+    var playPromise = v.play();
+    if (playPromise && playPromise.catch) playPromise.catch(function() {});
+
+    if ('BarcodeDetector' in window) {
+      try { scanDetector = new BarcodeDetector({ formats: ['qr_code'] }); }
+      catch (e) { scanDetector = null; }
+    }
+    if (v.readyState >= 2) {
+      clearInterval(scanTimer);
+      scanTimer = setInterval(bacaFrame, 220);
+    } else {
+      v.onloadedmetadata = function() {
+        if (!scanStream) return;
+        var p = v.play();
+        if (p && p.catch) p.catch(function() {});
+        clearInterval(scanTimer);
+        scanTimer = setInterval(bacaFrame, 220);
+      };
+    }
+  }).catch(function() {
+    hint.innerText = 'Kamera tidak bisa dibuka. Izinkan akses kamera di browser, lalu coba lagi.';
+  });
+}
+
+function stopScan() {
+  clearInterval(scanTimer);
+  scanTimer = null;
+  scanBusy = false;
+  scanDetector = null;
+  var v = document.getElementById('scanVideo');
+  if (v) {
+    v.onloadedmetadata = null;
+    try { v.pause(); } catch (e) {}
+    v.srcObject = null;
+  }
+  if (scanStream) {
+    scanStream.getTracks().forEach(function(t) { t.stop(); });
+    scanStream = null;
+  }
+}
+
+function tanganiHasilScan(teks) {
+  if (!teks) return false;
+  try {
+    var u = new URL(teks);
+    var uid = u.searchParams.get('add');
+    var namaPath = (u.pathname.split('/').pop() || '').toLowerCase();
+    if (uid && namaPath === 'teman.html') {
+      if (uid === currentUser) {
+        stopScan();
+        showToast('Itu adalah kode QR Anda sendiri', 'error');
+        return true;
+      }
+      stopScan();
+      window.location.href = 'teman.html?add=' + encodeURIComponent(uid);
+      return true;
+    }
+    if (scanLastInvalid !== teks) {
+      scanLastInvalid = teks;
+      document.getElementById('scanHint').innerText = 'QR terbaca, tetapi bukan QR pertemanan STools. Coba QR dari menu pertemanan.';
+    }
+  } catch (e) {
+  }
+  return false;
+}
+
+function bacaFrame() {
+  if (scanBusy || !scanStream) return;
+  var v = document.getElementById('scanVideo');
+  if (!v || !v.videoWidth || !v.videoHeight) return;
+  scanBusy = true;
+
+  if (scanDetector) {
+    scanDetector.detect(v).then(function(codes) {
+      if (codes && codes.length) {
+        for (var i = 0; i < codes.length; i++) {
+          if (tanganiHasilScan(codes[i].rawValue)) return;
+        }
+      }
+    }).catch(function() {}).then(function() {
+      if (!scanStream) { scanBusy = false; return; }
+      bacaFrameJsQR(v);
+    });
+  } else {
+    bacaFrameJsQR(v);
+  }
+}
+
+function bacaFrameJsQR(v) {
+  try {
+    var c = document.getElementById('scanCanvas');
+    var ctx = c.getContext('2d', { willReadFrequently: true });
+    var scale = Math.min(1, 1000 / v.videoWidth);
+    c.width = Math.max(1, Math.round(v.videoWidth * scale));
+    c.height = Math.max(1, Math.round(v.videoHeight * scale));
+    ctx.drawImage(v, 0, 0, c.width, c.height);
+    var img = ctx.getImageData(0, 0, c.width, c.height);
+    var hasil = jsQR(img.data, img.width, img.height, { inversionAttempts: 'attemptBoth' });
+    if (hasil && tanganiHasilScan(hasil.data)) return;
+
+    var pixels = img.data;
+    for (var i = 0; i < pixels.length; i += 4) {
+      var gray = Math.round(0.299 * pixels[i] + 0.587 * pixels[i + 1] + 0.114 * pixels[i + 2]);
+      gray = gray < 145 ? 0 : 255;
+      pixels[i] = pixels[i + 1] = pixels[i + 2] = gray;
+    }
+    var enhanced = jsQR(pixels, img.width, img.height, { inversionAttempts: 'attemptBoth' });
+    if (enhanced) tanganiHasilScan(enhanced.data);
+  } catch (e) {
+  } finally {
+    scanBusy = false;
+  }
+}
+
+window.addEventListener('pagehide', stopScan);
+
+var AKUN_PATH_LAIN = [];
+
+function adaPremiumAktif(snapVal) {
+  var v = snapVal || {};
+  return Object.keys(v).some(function(k) { return v[k] === true; });
+}
+
+function cekPremiumFresh() {
+
+  return db.ref('users/' + currentUser + '/premium').once('value').then(function(snap) {
+    return adaPremiumAktif(snap.val());
+  });
+}
+
+function siapkanHapusAkun() {
+  document.getElementById('hapusAkunPassword').value = '';
+  var blokir = document.getElementById('hapusAkunBlokir');
+  var form = document.getElementById('hapusAkunForm');
+  blokir.classList.add('hidden');
+  form.classList.remove('hidden');
+  if (!currentUser) {
+    blokir.querySelector('h3').innerText = 'Tidak ada akun';
+    blokir.querySelector('p').innerText = 'Anda masuk sebagai tamu sehingga tidak ada akun yang dapat dihapus.';
+    blokir.classList.remove('hidden');
+    form.classList.add('hidden');
+    return;
+  }
+  blokir.querySelector('h3').innerText = 'Akun tidak dapat dihapus';
+  blokir.querySelector('p').innerText = 'Akun Anda masih memiliki premium aktif. Akun baru dapat dihapus setelah tidak ada premium yang aktif.';
+  cekPremiumFresh().then(function(aktif) {
+    if (aktif) {
+      blokir.classList.remove('hidden');
+      form.classList.add('hidden');
+    }
+  }).catch(function() {});
+}
+
+function lanjutHapusAkun() {
+  var user = auth.currentUser;
+  var pass = document.getElementById('hapusAkunPassword').value;
+  if (!user || !currentUser) {
+    showToast('Anda belum masuk', 'error');
+    return;
+  }
+  if (!pass) {
+    showToast('Masukkan kata sandi terlebih dahulu', 'error');
+    return;
+  }
+
+  var btn = document.getElementById('btnLanjutHapus');
+  btn.disabled = true; btn.innerText = 'Memeriksa...';
+  function reset() { btn.disabled = false; btn.innerText = 'Lanjut'; }
+
+  cekPremiumFresh().then(function(aktif) {
+    if (aktif) {
+      siapkanHapusAkun();
+      showToast('Akun dengan premium aktif tidak dapat dihapus', 'error');
+      return;
+    }
+    var cred = firebase.auth.EmailAuthProvider.credential(user.email, pass);
+    return user.reauthenticateWithCredential(cred).then(function() {
+      document.getElementById('hapusAkunAlert').style.display = 'flex';
+    });
+  }).then(reset).catch(function(err) {
+    reset();
+    var salah = err && (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential' || err.code === 'auth/invalid-login-credentials');
+    showToast(salah ? 'Kata sandi salah' : 'Gagal: ' + (err.message || err), 'error');
+  });
+}
+
+function tutupKonfirmasiHapusAkun() {
+  var el = document.getElementById('hapusAkunAlert');
+  if (el) el.style.display = 'none';
+}
+
+function eksekusiHapusAkun() {
+  var user = auth.currentUser;
+  if (!user) {
+    tutupKonfirmasiHapusAkun();
+    return;
+  }
+  var uid = user.uid;
+  var btnYa = document.getElementById('btnYaHapusAkun');
+  var btnTidak = document.getElementById('btnBatalHapusAkun');
+  btnYa.disabled = true; btnTidak.disabled = true; btnYa.innerText = 'Menghapus...';
+  function pulih(pesan) {
+    btnYa.disabled = false; btnTidak.disabled = false; btnYa.innerText = 'Ya, Hapus';
+    tutupKonfirmasiHapusAkun();
+    showToast(pesan, 'error');
+  }
+
+  cekPremiumFresh().then(function(aktif) {
+    if (aktif) {
+      pulih('Akun dengan premium aktif tidak dapat dihapus');
+      siapkanHapusAkun();
+      return;
+    }
+
+    return db.ref('users/' + uid + '/friends').once('value').then(function(snap) {
+      var friends = snap.val() || {};
+      var updates = {};
+      updates['users/' + uid] = null;
+      if (usernameAkun) updates['usernames/' + usernameAkun.toLowerCase()] = null;
+      Object.keys(friends).forEach(function(fid) {
+        updates['users/' + fid + '/friends/' + uid] = null;
+        var chatId = uid < fid ? uid + '_' + fid : fid + '_' + uid;
+        updates['chats/' + chatId] = null;
+      });
+      AKUN_PATH_LAIN.forEach(function(t) { updates[t.replace('{uid}', uid)] = null; });
+      return db.ref().update(updates);
+    }).then(function() {
+      return user.delete();
+    }).then(function() {
+      var theme = localStorage.getItem('theme');
+      localStorage.clear();
+      if (theme) localStorage.setItem('theme', theme);
+      window.location.href = 'login.html';
+    }).catch(function(err) {
+      pulih('Gagal menghapus akun: ' + (err.message || err));
+    });
+  }).catch(function(err) { pulih('Gagal: ' + (err.message || err)); });
+}
+
+function resetData() {
+  if (confirm('Apakah Anda yakin ingin menghapus seluruh data lokal?')) {
+    var keep = { theme: localStorage.getItem('theme'), isGuest: localStorage.getItem('isGuest') };
+    localStorage.clear();
+    Object.keys(keep).forEach(function(k) { if (keep[k] !== null) localStorage.setItem(k, keep[k]); });
+    showToast('Data lokal berhasil diatur ulang.');
+  }
+}
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     currentUser = user.uid;
@@ -2746,15 +3581,15 @@ firebase.auth().onAuthStateChanged(function(user) {
   } else {
     var isGuest = localStorage.getItem('isGuest') === 'true';
     if (isGuest) {
-      document.getElementById('bannerName').innerText = 'Guest';
+      document.getElementById('bannerName').innerText = 'Tamu';
       document.getElementById('bannerAvatar').innerHTML = 'G';
       document.getElementById('bannerAvatar').style.background = 'linear-gradient(135deg, #6B7280, #9CA3AF)';
-      document.getElementById('bannerBio').innerText = 'Belum login';
+      document.getElementById('bannerBio').innerText = 'Belum masuk';
       document.getElementById('verifiedBadgeBanner').style.display = 'none';
       document.getElementById('profileBanner').className = 'profile-banner standard';
       document.getElementById('levelBadgeBanner').className = 'banner-level-badge';
-      document.getElementById('levelBadgeBanner').innerHTML = 
-        '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Guest';
+      document.getElementById('levelBadgeBanner').innerHTML =
+        '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Tamu';
       document.getElementById('levelInfoCard').style.display = 'none';
     } else {
       window.location.href = 'login.html';
@@ -2762,7 +3597,6 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-// ======================== ACTIVE NAV ========================
 var currentPageNav = window.location.pathname.split('/').pop() || 'index.html';
 document.querySelectorAll('.nav-item').forEach(function(item) {
   if (item.dataset.page === currentPageNav) {
@@ -2772,11 +3606,11 @@ document.querySelectorAll('.nav-item').forEach(function(item) {
   }
 });
 
-// ======================== KEYBOARD ========================
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closeSidebar();
     closeLogoutAlert();
+    tutupKonfirmasiHapusAkun();
   }
 });
 

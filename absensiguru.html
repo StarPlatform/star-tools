@@ -2307,104 +2307,103 @@
   }
 
   /* ===== Tampilan Laptop / PC ===== */
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
     }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .sidebar-nav .logout-link { margin-top:auto; }
 
     .app-container {
-      max-width: 760px;
-      margin: 36px auto;
-      background: #FFFFFF;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      min-height: auto;
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
     }
-
-    body.dark .app-container {
-      background: #0B1120;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
 
     .app-header {
-      border-radius: 20px 20px 0 0;
-      position: relative;
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1200px) / 2 + 32px));
     }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    .app-title { font-size:22px; }
+    .close-btn:hover { background:rgba(37,99,235,.10); }
 
-    .container {
-      margin: 12px 20px 0 20px;
-    }
+    .container { margin:0 0 16px; padding:24px; border-radius:20px; }
+    .container h3 { font-size:17px; }
+    .input, .select-box { padding:13px 16px; font-size:14.5px; }
+    .input:focus { border-color:#2563EB; box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+    .btn { transition:filter .15s, border-color .15s; }
+    .btn:hover { border-color:#9DB9F2; }
+    .btn-primary:hover, .btn-success:hover, .btn-danger:hover { filter:brightness(1.08); }
 
-    .modal-content {
-      width: 380px;
-      padding: 28px;
-    }
+    /* masuk / daftar sekolah */
+    #layarLogin { width:100%; max-width:520px; margin:36px auto 0; padding:0 16px; }
+    #layarLogin .container { margin-left:0; margin-right:0; }
+    #layarLogin .tabs-pill { margin:16px 0 16px; }
 
-    #reader {
-      max-width: 350px;
+    /* dashboard: kiri banner + menu, kanan konten */
+    #layarDashboard:not(.hidden) {
+      display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); grid-template-rows:auto 1fr; column-gap:28px; align-items:start;
+      width:100%; max-width:1200px; margin:0 auto; padding:28px 32px 24px;
     }
+    #layarDashboard > .id-banner { grid-column:1; grid-row:1; margin:0; padding:20px 22px; border-radius:20px; }
+    #layarDashboard > .id-banner .id-value { font-size:22px; }
+    #layarDashboard > .tabs-pill {
+      grid-column:1; grid-row:2; margin:16px 0 0; padding:0; background:transparent; border:0;
+      flex-direction:column; gap:4px; overflow:visible; position:sticky; top:92px;
+    }
+    #layarDashboard > .tabs-pill .tab-item {
+      flex:none; text-align:left; padding:0 18px; min-height:48px; border-radius:12px; font-size:14.5px; transition:background .15s, color .15s;
+    }
+    #layarDashboard > .tabs-pill .tab-item:not(.active):hover { background:#EAF0F8; color:#0F172A; }
+    body.dark #layarDashboard > .tabs-pill .tab-item:not(.active):hover { background:#16203A; color:#F1F5F9; }
 
-    .scan-area {
-      padding: 20px;
+    #tabGuru, #tabKelas, #tabScan, #tabAbsen { grid-column:2; grid-row:1 / span 2; min-width:0; }
+    #tabGuru:not(.hidden), #tabKelas:not(.hidden) {
+      display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); gap:0 24px; align-items:start;
     }
+    #tabGuru > .container, #tabKelas > .container { margin-bottom:16px; }
+    #tabScan:not(.hidden) { max-width:640px; }
+    .scan-area { padding:20px; }
+    #reader { max-width:380px; margin-left:auto; margin-right:auto; }
+    .table-wrap table { font-size:13px; }
+    .table-wrap table th, .table-wrap table td { padding:8px 12px; }
 
-    .table-wrap table {
-      font-size: 13px;
-    }
-
-    .table-wrap table th,
-    .table-wrap table td {
-      padding: 8px 12px;
-    }
-
-    .guru-grid-desktop {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .photo-editor-content {
-      max-width: 450px;
-    }
-
-    .guide-overlay {
-      align-items: center;
-    }
-
-    .guide-content {
-      max-width: 480px;
-      height: auto;
-      max-height: 85vh;
-      border-radius: 20px;
-      border-bottom: 1px solid #E2E8F0;
-    }
-
-    body.dark .guide-content {
-      border-bottom-color: #1E293B;
-    }
-
-    .guide-content.expanded {
-      height: auto;
-      max-height: 90vh;
-      border-radius: 20px;
-    }
-
-    .guide-drag-zone {
-      cursor: default;
-    }
-
-    .guide-handle {
-      opacity: 0.4;
-    }
+    .footer { margin:auto 0 0; background:transparent; }
+    .modal-content { width:380px; padding:28px; }
+    .photo-editor-content { max-width:450px; }
+    .guide-overlay { align-items:center; }
+    .guide-content { max-width:480px; height:auto; max-height:85vh; border-radius:20px; border-bottom:1px solid #E2E8F0; }
+    body.dark .guide-content { border-bottom-color:#1E293B; }
+    .guide-content.expanded { height:auto; max-height:90vh; border-radius:20px; }
+    .guide-drag-zone { cursor:default; }
+    .guide-handle { opacity:.4; }
+    .toast { left:calc(50% + 120px); }
   }
+
+  @media (min-width: 900px) and (max-width: 1099px) {
+    #layarDashboard:not(.hidden) { grid-template-columns:minmax(0,210px) minmax(0,1fr); column-gap:20px; padding:24px 24px 20px; }
+    #tabGuru:not(.hidden), #tabKelas:not(.hidden) { grid-template-columns:minmax(0,1fr); }
+  }
+
 </style>
 </head>
 <body>
@@ -2442,6 +2441,7 @@
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
+    <div class="sidebar-brand">STools</div>
     <a href="#" onclick="goTo('index.html')">
       <svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       Utama
@@ -2457,6 +2457,9 @@
     <a href="#" onclick="goTo('akun.html')">
       <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       Akun
+    </a>
+    <a href="#" onclick="goTo('kegiatan.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Daftar Tugas
     </a>
     <a href="#" onclick="goTo('teman.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman

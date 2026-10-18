@@ -1331,169 +1331,119 @@
     border-color: #1E293B;
   }
 
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon, .bottom-nav { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
     }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .sidebar-nav a.active-link:hover { background:#DBEAFE; }
+    body.dark .sidebar-nav a.active-link:hover { background:#1E3A5F; }
+    .logout-link { margin-top:auto; }
 
     .app-container {
-      max-width: 720px;
-      margin: 36px auto;
-      background: #FFFFFF;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      min-height: auto;
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
     }
-
-    body.dark .app-container {
-      background: #111827;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
 
     .app-header {
-      border-radius: 20px 20px 0 0;
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1000px) / 2 + 32px)); justify-content:flex-end;
     }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    .app-header .logo-area { display:none; }
+    .bell-btn:hover { background:rgba(37,99,235,.10); }
 
-    .sidebar-nav {
-      border-radius: 0 20px 20px 0;
+    .screen { width:100%; max-width:1000px; margin:0 auto; padding:28px 32px 48px; }
+    .card-modern { padding:28px; border-radius:20px; margin-bottom:20px; }
+    .section-title { font-size:22px; letter-spacing:-.3px; }
+    .section-sub { font-size:14.5px; margin-bottom:20px; }
+
+    /* keunggulan: 4 kolom */
+    #stepMapel > .card-modern:first-child {
+      display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); column-gap:24px;
     }
+    #stepMapel > .card-modern:first-child .section-title { grid-column:1 / -1; margin-bottom:12px; }
+    #stepMapel > .card-modern:first-child .benefit-item { border-bottom:0; font-size:14px; align-items:flex-start; line-height:1.4; }
+    #statusPremiumContainer { margin-bottom:20px; }
 
-    .screen {
-      padding: 24px 24px 30px;
-    }
+    /* mapel: 5 kolom */
+    .mapel-grid { grid-template-columns:repeat(5, minmax(0,1fr)); gap:14px; margin-bottom:22px; }
+    .mapel-option { padding:26px 12px; border-radius:18px; transition:border-color .15s, box-shadow .15s, transform .15s; }
+    .mapel-option:hover { border-color:#9DB9F2; box-shadow:0 8px 20px rgba(37,99,235,.08); transform:translateY(-2px); }
+    .mapel-option svg { width:36px; height:36px; }
+    .mapel-option .mapel-name { font-size:14.5px; }
+    .mapel-option .mapel-desc { font-size:12px; }
+    #btnLanjutDurasi { max-width:360px; margin-left:auto; padding:15px; font-size:15px; border-radius:14px; }
+    .btn-full:not(:disabled):hover { background:#1D4ED8; }
 
-    .card-modern {
-      padding: 24px;
-      border-radius: 20px;
-    }
-
-    .bottom-nav {
-      max-width: 720px;
-      border-radius: 0 0 20px 20px;
-    }
-
-    .mapel-grid {
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      gap: 12px;
-    }
-
-    .mapel-option {
-      padding: 20px 12px;
-      border-radius: 20px;
-    }
-
-    .mapel-option svg {
-      width: 36px;
-      height: 36px;
-    }
-
-    .mapel-option .mapel-name {
-      font-size: 14px;
-    }
-
+    /* durasi: 3 paket sejajar */
+    .step-indicator { margin-bottom:28px; }
+    .step-indicator .step { width:38px; height:38px; font-size:15px; }
+    .step-indicator .step-text { font-size:11px; }
+    .step-indicator .line { min-width:80px; }
+    .paket-grid { flex-direction:row; align-items:stretch; gap:16px; margin-bottom:20px; }
     .paket-card {
-      padding: 18px 20px;
-      border-radius: 20px;
+      flex:1 1 0; min-width:0; flex-direction:column; justify-content:flex-start; align-items:center; text-align:center;
+      gap:18px; padding:32px 20px 24px; border-radius:20px; transition:border-color .15s, box-shadow .15s, transform .15s;
     }
+    .paket-card:hover { box-shadow:0 10px 24px rgba(37,99,235,.10); transform:translateY(-2px); }
+    .paket-card .left { flex:0 0 auto; flex-direction:column; gap:12px; }
+    .paket-card .left .info { text-align:center; }
+    .paket-card .left .info .nama { font-size:17px; }
+    .paket-card .right { margin-left:0; width:100%; text-align:center; display:flex; flex-direction:column; align-items:center; margin-top:auto; }
+    .paket-card .right .harga { font-size:22px; }
+    .paket-card .right .per-bulan { font-size:12px; margin-bottom:12px; }
+    .paket-card .right .btn-pilih { width:100%; padding:11px; }
+    .btn-full-secondary { max-width:280px; display:block; }
+    #stepDurasi .btn-full-secondary { margin-left:0; }
 
-    .paket-card .left .icon-durasi {
-      width: 44px;
-      height: 44px;
-      font-size: 16px;
+    /* pembayaran: QRIS kiri, detail kanan */
+    #stepPayment .payment-container { padding:32px; border-radius:20px; }
+    #stepPayment .payment-container {
+      display:grid; grid-template-columns:minmax(0,360px) minmax(0,1fr); column-gap:44px; align-items:start;
     }
+    .payment-container > .step-indicator,
+    .payment-container > h3,
+    .payment-container > .section-sub { grid-column:1 / -1; }
+    .payment-container > h3 { font-size:22px !important; letter-spacing:-.3px; }
+    .pay-b { grid-column:1; grid-row:4 / span 2; position:sticky; top:92px; }
+    .pay-a { grid-column:2; grid-row:4; }
+    .pay-c { grid-column:2; grid-row:5; }
+    .qris-frame { min-height:280px; padding:24px; border-radius:22px; margin-top:0; }
+    .qris-frame img { max-height:340px; }
+    .qris-btn-group .btn-qris-download { flex:1; justify-content:center; padding:12px 20px; font-size:14px; }
 
-    .paket-card .left .info .nama {
-      font-size: 16px;
-    }
-
-    .paket-card .right .harga {
-      font-size: 18px;
-    }
-
-    .payment-container {
-      padding: 28px 24px;
-      border-radius: 20px;
-    }
-
-    .payment-container .code-box {
-      font-size: 28px;
-      padding: 18px;
-    }
-
-    .payment-container .total-box .amount {
-      font-size: 28px;
-    }
-
-    .info-box {
-      padding: 16px 18px;
-      border-radius: 16px;
-      font-size: 14px;
-    }
-
-    .step-indicator .step {
-      width: 40px;
-      height: 40px;
-      font-size: 15px;
-    }
-
-    .step-indicator .step-text {
-      font-size: 10px;
-    }
-
-    .step-indicator .line {
-      min-width: 50px;
-    }
-
-    .btn-full {
-      padding: 16px;
-      font-size: 15px;
-      border-radius: 16px;
-    }
-
-    .alert-card {
-      max-width: 360px;
-      padding: 28px 26px;
-      border-radius: 28px;
-    }
-
-    .footer-app {
-      margin-bottom: 0;
-    }
-
-    .qris-frame {
-      min-height: 280px;
-      padding: 28px;
-      border-radius: 24px;
-      border-width: 3px;
-    }
-
-    .qris-frame img {
-      max-height: 340px;
-    }
-
-    .qris-btn-group .btn-qris-download {
-      padding: 12px 20px;
-      font-size: 14px;
-    }
-
-    .qris-btn-group .btn-qris-download svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .aktivasi-section {
-      padding: 28px 24px;
-      border-radius: 20px;
-    }
+    body.dark .payment-container > h3 { color:#F1F5F9 !important; }
+    .alert-card { max-width:360px; padding:28px 26px; }
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
   }
+
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .mapel-grid { grid-template-columns:repeat(3, minmax(0,1fr)); }
+    #stepMapel > .card-modern:first-child { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .paket-grid { flex-wrap:wrap; }
+    .paket-card { flex:1 1 220px; }
+  }
+
 </style>
 </head>
 <body>
@@ -1530,6 +1480,7 @@
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
+    <div class="sidebar-brand">STools</div>
     <a href="#" onclick="goToPage('index.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
     </a>
@@ -1765,6 +1716,7 @@
       <h3 style="font-size:18px; font-weight:700; margin-bottom:4px; color:#0F172A;">Kode Pembayaran</h3>
       <p class="section-sub">Gunakan kode ini untuk verifikasi pembayaran Anda</p>
 
+      <div class="pay-a">
       <div class="code-box" id="paymentCode">STR-000</div>
 
       <div class="total-box">
@@ -1780,6 +1732,9 @@
         </ul>
       </div>
 
+      </div>
+
+      <div class="pay-b">
       <!-- QRIS -->
       <div class="qris-frame">
         <img id="qrImage" src="QR.jpg" alt="QRIS Barcode">
@@ -1796,6 +1751,9 @@
         </button>
       </div>
 
+      </div>
+
+      <div class="pay-c">
       <div class="info-box" style="margin-top:12px;">
         <strong>Panduan Pembayaran:</strong>
         <ol>
@@ -1815,6 +1773,7 @@
       <button class="btn-full-secondary" onclick="kembaliKeDurasi()" style="margin-top:8px;">
         Kembali Pilih Durasi
       </button>
+      </div>
     </div>
    </div>
 

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Arduino - STools</title>
+
+<link rel="icon" type="image/png" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
+
+<meta property="og:image" content="https://www.stools.web.id/logo.jpg">
+<meta name="twitter:image" content="https://www.stools.web.id/logo.jpg">
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebSite",
+ "name": "STools",
+ "url": "https://www.stools.web.id/",
+ "image": "https://www.stools.web.id/logo.jpg"
+}
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #F1F5F9; color: #0F172A; }
+  body.dark { background: #0B1120; color: #F1F5F9; }
+  body.dark .card-modern, body.dark .app-header, body.dark .sidebar-nav, body.dark .alert-card { background: #111827; border-color: #1E293B; }
+  body.dark .materi-btn { background: #1E293B; border-color: #334155; color: #E2E8F0; }
+  body.dark .materi-btn .materi-num { background: #1D2B4A; color: #60A5FA; }
+  body.dark .materi-btn .materi-text .materi-sub { color: #94A3B8; }
+  body.dark .materi-btn .materi-status { color: #475569; }
+  body.dark .materi-btn.opened { background: #111827; border-color: #1D3A6E; }
+  body.dark .materi-btn.opened .materi-status { background: #14311F; color: #4ADE80; }
+  body.dark .premium-indicator { background: #1E293B; color: #60A5FA; }
+  body.dark .premium-indicator.active { background: #2563EB; color: white; }
+  body.dark .premium-indicator.warning { background: #78350F; color: #FBBF24; }
+  body.dark .limit-indicator { background: #1E293B; color: #94A3B8; }
+  body.dark .materi-content p { color: #CBD5E1; }
+  body.dark .materi-content h4 { color: #60A5FA; }
+  body.dark .latihan-opsi { background: #1E293B; border-color: #334155; color: #E2E8F0; }
+  body.dark .latihan-opsi .opsi-label { background: #0F172A; border-color: #334155; color: #94A3B8; }
+  body.dark .latihan-opsi.correct { background: #14311F; border-color: #16A34A; color: #4ADE80; }
+  body.dark .latihan-opsi.wrong { background: #3A1414; border-color: #DC2626; color: #F87171; }
+  body.dark #latihanPenjelasanWrap { background: #1E3A5F !important; color: #93C5FD !important; }
+  body.dark #latihanHasilWrap > div:nth-of-type(2) { background: #1E293B !important; }
+  body.dark #hasilTitle { color: #F1F5F9; }
+  body.dark #hasilSubtitle { color: #94A3B8; }
+  body.dark #latihanPertanyaan { color: #F1F5F9; }
+  body.dark .fab-latihan { box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5), 0 4px 10px rgba(0,0,0,0.4); }
+  body.dark .fab-latihan .fab-tooltip { background: #1E293B; color: #F1F5F9; }
+  body.dark .pilih-tingkat-btn { background: #111827; border-color: #334155; }
+  body.dark .pilih-tingkat-btn .tingkat-info .tingkat-title { color: #F1F5F9; }
+  body.dark .pilih-tingkat-btn .tingkat-info .tingkat-sub { color: #94A3B8; }
+  body.dark .pilih-tingkat-btn .tingkat-arrow { color: #475569; }
+  body.dark .pilih-tingkat-btn.mudah { border-color: #166534; }
+  body.dark .pilih-tingkat-btn.mudah .tingkat-icon { background: #14311F; color: #4ADE80; }
+  body.dark .pilih-tingkat-btn.sedang { border-color: #78350F; }
+  body.dark .pilih-tingkat-btn.sedang .tingkat-icon { background: #3A1F0A; color: #FBBF24; }
+  body.dark .pilih-tingkat-btn.sulit { border-color: #7F1D1D; }
+  body.dark .pilih-tingkat-btn.sulit .tingkat-icon { background: #3A1414; color: #F87171; }
+
+  .app-container { max-width: 560px; margin: 0 auto; background: #F1F5F9; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
+  body.dark .app-container { background: #0B1120; }
+  .app-header { background: #FFFFFF; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 20; }
+  body.dark .app-header { background: #111827; border-bottom-color: #1E293B; }
+  .logo-area { display: flex; align-items: center; gap: 12px; }
+  .menu-icon { width: 40px; height: 40px; background: #F8FAFE; border-radius: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #E2E8F0; }
+  body.dark .menu-icon { background: #1E293B; border-color: #334155; }
+  .menu-icon svg { stroke: #0F172A; }
+  body.dark .menu-icon svg { stroke: #F1F5F9; }
+  .app-title { font-weight: 700; font-size: 20px; letter-spacing: -0.3px; background: linear-gradient(135deg, #2563EB, #60A5FA); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .close-btn { width: 40px; height: 40px; background: rgba(0, 0, 0, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+  body.dark .close-btn { background: rgba(255, 255, 255, 0.05); }
+  .close-btn svg { stroke: #0F172A; width: 22px; height: 22px; }
+  body.dark .close-btn svg { stroke: #F1F5F9; }
+  .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); z-index: 100; visibility: hidden; opacity: 0; transition: 0.25s; }
+  .sidebar-overlay.active { visibility: visible; opacity: 1; }
+  .sidebar-nav { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #FFFFFF; z-index: 101; transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); padding: 70px 20px 30px; display: flex; flex-direction: column; gap: 4px; box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1); }
+  .sidebar-nav.active { left: 0; }
+  .sidebar-nav a { padding: 14px 18px; font-size: 16px; font-weight: 500; border-radius: 18px; text-decoration: none; color: #0F172A; transition: 0.2s; display: flex; align-items: center; gap: 14px; }
+  body.dark .sidebar-nav a { color: #F1F5F9; }
+  .sidebar-nav a:active { background: #DBEAFE; }
+  body.dark .sidebar-nav a:active { background: #1E293B; }
+  .logout-link { margin-top: 20px; border-top: 1px solid #E2E8F0; padding-top: 16px; }
+  body.dark .logout-link { border-top-color: #334155; }
+  .logout-link a { color: #DC2626 !important; }
+  .logout-link a svg { stroke: #DC2626; }
+  .close-sidebar-icon { position: absolute; top: 20px; right: 20px; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 30px; }
+
+  .screen { padding: 20px 18px 30px; flex: 1; }
+  .card-modern { background: #FFFFFF; border-radius: 28px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); border: 1px solid #E2E8F0; }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .status-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .premium-indicator { background: #DBEAFE; padding: 6px 16px; border-radius: 40px; font-size: 13px; font-weight: 600; color: #2563EB; }
+  .premium-indicator.active { background: #2563EB; color: white; }
+  .premium-indicator.warning { background: #FEF3C7; color: #D97706; }
+  .limit-indicator { background: #F1F5F9; padding: 6px 16px; border-radius: 40px; font-size: 13px; font-weight: 600; color: #475569; }
+
+  .grid-bagian { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .materi-btn { display: flex; align-items: center; gap: 14px; background: #F8FAFE; border: 1.5px solid #E2E8F0; padding: 14px; border-radius: 20px; cursor: pointer; color: #0F172A; transition: 0.15s; text-align: left; font-family: inherit; }
+  .materi-btn:active { transform: scale(0.98); }
+  .materi-btn .materi-num { width: 42px; height: 42px; border-radius: 14px; background: #EFF6FF; color: #2563EB; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; flex-shrink: 0; }
+  .materi-btn .materi-text { flex: 1; min-width: 0; }
+  .materi-btn .materi-text .materi-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .materi-btn .materi-text .materi-sub { font-size: 12px; color: #64748B; margin-top: 2px; }
+  .materi-btn .materi-status { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #CBD5E1; }
+  .materi-btn .materi-status svg { width: 16px; height: 16px; }
+  .materi-btn.opened { background: #FFFFFF; border-color: #BFDBFE; }
+  .materi-btn.opened .materi-num { background: #2563EB; color: #fff; }
+  .materi-btn.opened .materi-status { background: #DCFCE7; color: #16A34A; }
+  .materi-btn.locked { opacity: 0.55; cursor: not-allowed; }
+  .materi-btn.locked .materi-status { color: #94A3B8; }
+
+  .btn-full { background: #2563EB; border: none; color: white; font-weight: 600; padding: 14px; border-radius: 44px; font-size: 15px; width: 100%; cursor: pointer; font-family: inherit; }
+  .btn-full:active { transform: scale(0.97); }
+  .btn-outline { background: transparent; border: 1.5px solid #2563EB; color: #2563EB; padding: 12px; border-radius: 44px; font-weight: 600; width: 100%; margin-top: 8px; cursor: pointer; font-family: inherit; }
+  .nav-buttons { display: flex; gap: 12px; margin-top: 20px; }
+  .nav-buttons button { flex: 1; }
+  .materi-content { line-height: 1.65; font-size: 15px; }
+  .materi-content h4 { font-size: 18px; margin: 20px 0 10px 0; color: #2563EB; font-weight: 700; }
+  .materi-content p { margin-bottom: 12px; color: #334155; }
+  .materi-content pre { background: #0F172A; color: #4fc3f7; padding: 12px 14px; border-radius: 12px; font-family: 'Courier New', monospace; font-size: 13px; overflow-x: auto; margin: 10px 0 14px 0; line-height: 1.5; white-space: pre; }
+  body.dark .materi-content pre { background: #020617; border: 1px solid #334155; }
+
+  .latihan-opsi { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: #F8FAFE; border: 2px solid #E2E8F0; border-radius: 14px; cursor: pointer; transition: 0.15s; font-size: 14px; line-height: 1.5; color: #0F172A; font-family: inherit; text-align: left; width: 100%; }
+  .latihan-opsi:active { transform: scale(0.98); }
+  .latihan-opsi .opsi-label { width: 26px; height: 26px; border-radius: 50%; background: #FFFFFF; border: 2px solid #E2E8F0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; color: #64748B; }
+  .latihan-opsi.correct { background: #DCFCE7; border-color: #16A34A; color: #15803D; }
+  .latihan-opsi.correct .opsi-label { background: #16A34A; border-color: #16A34A; color: #fff; }
+  .latihan-opsi.wrong { background: #FEE2E2; border-color: #DC2626; color: #B91C1C; }
+  .latihan-opsi.wrong .opsi-label { background: #DC2626; border-color: #DC2626; color: #fff; }
+  .latihan-opsi.disabled { pointer-events: none; opacity: 0.85; }
+
+  .fab-latihan { position: fixed; right: 20px; bottom: 90px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #2563EB, #60A5FA); color: #fff; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4), 0 4px 10px rgba(0,0,0,0.1); z-index: 50; transition: transform 0.2s, box-shadow 0.2s; font-family: inherit; }
+  .fab-latihan:active { transform: scale(0.92); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5); }
+  .fab-latihan svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .fab-latihan .fab-tooltip { position: absolute; right: 70px; top: 50%; transform: translateY(-50%); background: #0F172A; color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+  .fab-latihan:hover .fab-tooltip { opacity: 1; }
+
+  .pilih-tingkat-btn { display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: #FFFFFF; border: 2px solid #E2E8F0; border-radius: 20px; cursor: pointer; transition: 0.15s; font-family: inherit; text-align: left; width: 100%; }
+  .pilih-tingkat-btn:active { transform: scale(0.98); }
+  .pilih-tingkat-btn .tingkat-icon { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pilih-tingkat-btn .tingkat-icon svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .pilih-tingkat-btn .tingkat-info { flex: 1; min-width: 0; }
+  .pilih-tingkat-btn .tingkat-info .tingkat-title { font-size: 16px; font-weight: 700; color: #0F172A; margin-bottom: 2px; }
+  .pilih-tingkat-btn .tingkat-info .tingkat-sub { font-size: 12.5px; color: #64748B; }
+  .pilih-tingkat-btn .tingkat-arrow { color: #CBD5E1; flex-shrink: 0; }
+  .pilih-tingkat-btn .tingkat-arrow svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .pilih-tingkat-btn.mudah { border-color: #BBF7D0; }
+  .pilih-tingkat-btn.mudah .tingkat-icon { background: #DCFCE7; color: #16A34A; }
+  .pilih-tingkat-btn.mudah:active { border-color: #16A34A; }
+  .pilih-tingkat-btn.sedang { border-color: #FDE68A; }
+  .pilih-tingkat-btn.sedang .tingkat-icon { background: #FEF3C7; color: #D97706; }
+  .pilih-tingkat-btn.sedang:active { border-color: #D97706; }
+  .pilih-tingkat-btn.sulit { border-color: #FECACA; }
+  .pilih-tingkat-btn.sulit .tingkat-icon { background: #FEE2E2; color: #DC2626; }
+  .pilih-tingkat-btn.sulit:active { border-color: #DC2626; }
+
+  .alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; z-index: 200; }
+  .alert-card { background: #FFFFFF; width: 300px; border-radius: 32px; padding: 24px 22px; text-align: center; border: 1px solid #E2E8F0; }
+  body.dark .alert-card { background: #111827; border-color: #1E293B; }
+  .footer-app { text-align: center; padding: 20px; font-size: 12px; color: #64748B; border-top: 1px solid #E2E8F0; }
+  body.dark .footer-app { color: #94A3B8; border-top-color: #1E293B; }
+  .hidden { display: none !important; }
+
+  
+
+
+  /* perbaikan mode gelap: teks soal & jalur progres latihan */
+  body.dark #latihanPertanyaan { color:#F1F5F9 !important; }
+  body.dark #latihanProgressWrap > div:nth-of-type(2) { background:#1E293B !important; }
+
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
+    }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .sidebar-nav .logout-link { margin-top:auto; }
+
+    .app-container {
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
+    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
+
+    .app-header {
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1100px) / 2 + 32px));
+    }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    .app-title { font-size:22px; }
+    .close-btn:hover { background:rgba(37,99,235,.10); }
+
+    .screen { width:100%; max-width:1100px; margin:0 auto; padding:32px 32px 48px; }
+    .card-modern { padding:26px; border-radius:22px; margin-bottom:0; }
+    .section-title { font-size:20px; letter-spacing:-.3px; }
+
+    /* daftar materi: kiri status, kanan daftar 2 kolom */
+    #halamanUtama:not(.hidden) {
+      display:grid; grid-template-columns:minmax(0,320px) minmax(0,1fr); column-gap:28px; align-items:start;
+    }
+    #halamanUtama > .card-modern:nth-child(1) { position:sticky; top:92px; }
+    #halamanUtama > .card-modern { min-width:0; }
+    .grid-bagian { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
+    .grid-bagian .materi-btn { min-width:0; }
+    .grid-bagian .materi-title { word-break:break-word; line-height:1.3; }
+    .materi-btn { transition:border-color .15s, box-shadow .15s, transform .15s; }
+    .materi-btn:not(.locked):hover { border-color:#9DB9F2; box-shadow:0 8px 20px rgba(37,99,235,.08); transform:translateY(-2px); }
+    body.dark .materi-btn:not(.locked):hover { border-color:#2F4A8A; box-shadow:none; }
+
+    /* baca materi & latihan: kolom tengah */
+    #materiView:not(.hidden) { max-width:800px; margin:0 auto; }
+    #materiView > .card-modern { padding:36px 40px; }
+    #materiView .section-title { font-size:24px; letter-spacing:-.4px; margin-bottom:18px; }
+    .materi-content { font-size:16px; line-height:1.75; }
+    .materi-content h4 { font-size:19px; }
+    .materi-content pre { font-size:14px; padding:16px 18px; }
+    .btn-full, .btn-outline { transition:filter .15s, background .15s; }
+    .btn-full:hover { filter:brightness(1.08); }
+    .btn-outline:hover { background:rgba(37,99,235,.06); }
+    .nav-buttons { margin-top:28px; }
+
+    #latihanView:not(.hidden) { max-width:700px; margin:0 auto; }
+    .latihan-opsi { transition:border-color .15s, background .15s, transform .1s; }
+    .latihan-opsi:not(.disabled):hover { border-color:#93B4F5; }
+    .pilih-tingkat-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(37,99,235,.08); }
+
+    .fab-latihan { right:32px; bottom:32px; width:64px; height:64px; }
+    .fab-latihan:hover { transform:translateY(-3px); }
+
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
+    .alert-card { max-width:380px; padding:28px 26px; border-radius:26px; }
+  }
+
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .screen { padding:24px; }
+    #halamanUtama:not(.hidden) { grid-template-columns:minmax(0,280px) minmax(0,1fr); column-gap:20px; }
+    .grid-bagian { grid-template-columns:minmax(0,1fr); }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <div class="app-header">
+    <div class="logo-area">
+      <div class="menu-icon" onclick="openSidebar()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </div>
+      <span class="app-title">STools • Arduino</span>
+    </div>
+    <button class="close-btn" onclick="goTo('robotik.html')" aria-label="Kembali">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <div class="sidebar-nav" id="sidebarNav">
+    <div class="close-sidebar-icon" onclick="closeSidebar()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </div>
+    <div class="sidebar-brand">STools</div>
+    <a href="#" onclick="goTo('index.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
+    </a>
+    <a href="#" onclick="goTo('berita.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg> Berita
+    </a>
+    <a href="#" onclick="goTo('premium.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Premium
+    </a>
+    <a href="#" onclick="goTo('akun.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Akun
+    </a>
+    <a href="#" onclick="goTo('kegiatan.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Daftar Tugas
+    </a>
+    <a href="#" onclick="goTo('teman.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
+    </a>
+    <a href="#" onclick="goTo('lokasi.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokasi
+    </a>
+    <div class="logout-link">
+      <a href="#" onclick="logoutAction()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.7"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Keluar
+      </a>
+    </div>
+  </div>
+
+  <div class="screen">
+    <div id="halamanUtama">
+      <div class="card-modern">
+        <div class="section-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8">
+            <rect x="4" y="8" width="16" height="12" rx="2"/>
+            <circle cx="9" cy="14" r="1.4" fill="#2563EB" stroke="none"/>
+            <circle cx="15" cy="14" r="1.4" fill="#2563EB" stroke="none"/>
+            <path d="M9 18h6"/>
+            <path d="M12 8V4"/>
+            <circle cx="12" cy="3" r="1"/>
+          </svg>
+          Belajar Arduino
+        </div>
+        <p style="margin-bottom: 16px;">Pelajari Arduino dari dasar hingga mahir: pengenalan board, pemrograman, sensor, aktuator, komunikasi, dan proyek nyata.</p>
+
+        <div class="status-row">
+          <span id="premiumStatusBadge" class="premium-indicator">Akun Standar</span>
+          <span id="limitCounter" class="limit-indicator">0/2 Hari Ini</span>
+        </div>
+      </div>
+
+      <div class="card-modern">
+        <div class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          Daftar Materi
+        </div>
+        <div id="listBagianGrid" class="grid-bagian"></div>
+      </div>
+    </div>
+
+    <div id="materiView" class="hidden">
+      <div class="card-modern">
+        <div class="section-title" id="judulMateriView">Materi Arduino</div>
+        <div id="isiMateriDetail" class="materi-content"></div>
+        <div class="nav-buttons">
+          <button class="btn-outline" id="prevBtn" style="margin-top:0;">Sebelumnya</button>
+          <button class="btn-full" id="nextBtn">Selanjutnya</button>
+        </div>
+        <button class="btn-outline" id="backToListBtn" style="margin-top: 12px;">Kembali ke Daftar</button>
+      </div>
+    </div>
+
+    <div id="latihanView" class="hidden">
+      <div id="latihanPilihTingkat">
+        <div class="card-modern">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px;">
+            <div class="section-title" style="margin-bottom: 0;">Latihan Soal</div>
+            <button class="btn-outline" onclick="keluarLatihan()" style="width: auto; padding: 6px 14px; font-size: 12px; margin: 0; flex-shrink: 0;">Keluar</button>
+          </div>
+          <p style="margin-bottom: 16px; font-size: 13.5px; color: #64748B; line-height: 1.5;">Pilih tingkat kesulitan untuk memulai latihan. Setiap sesi berisi 20 soal pilihan ganda.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <button class="pilih-tingkat-btn mudah" onclick="mulaiLatihanSoal('mudah')">
+              <div class="tingkat-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="tingkat-info">
+                <div class="tingkat-title">Mudah</div>
+                <div class="tingkat-sub">20 soal • Dasar Arduino</div>
+              </div>
+              <div class="tingkat-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="pilih-tingkat-btn sedang" onclick="mulaiLatihanSoal('sedang')">
+              <div class="tingkat-icon">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div class="tingkat-info">
+                <div class="tingkat-title">Sedang</div>
+                <div class="tingkat-sub">20 soal • Pemrograman &amp; sensor</div>
+              </div>
+              <div class="tingkat-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="pilih-tingkat-btn sulit" onclick="mulaiLatihanSoal('sulit')">
+              <div class="tingkat-icon">
+                <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              </div>
+              <div class="tingkat-info">
+                <div class="tingkat-title">Sulit</div>
+                <div class="tingkat-sub">20 soal • Komunikasi &amp; proyek</div>
+              </div>
+              <div class="tingkat-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="latihanMain" class="hidden">
+        <div class="card-modern">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px;">
+            <div class="section-title" id="judulLatihan" style="margin-bottom: 0;">Latihan Soal</div>
+            <button class="btn-outline" onclick="keluarLatihan()" style="width: auto; padding: 6px 14px; font-size: 12px; margin: 0; flex-shrink: 0;">Keluar</button>
+          </div>
+
+          <div id="latihanProgressWrap" style="margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #64748B; margin-bottom: 6px;">
+              <span id="latihanProgressText">Soal 1 dari 20</span>
+              <span id="latihanScoreText">Benar: 0</span>
+            </div>
+            <div style="height: 6px; background: #E2E8F0; border-radius: 3px; overflow: hidden;">
+              <div id="latihanProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #2563EB, #60A5FA); transition: width 0.3s;"></div>
+            </div>
+          </div>
+
+          <div id="latihanSoalWrap">
+            <p id="latihanPertanyaan" style="font-size: 15px; font-weight: 600; line-height: 1.6; margin-bottom: 16px; color: #0F172A;"></p>
+            <div id="latihanOpsiWrap" style="display: flex; flex-direction: column; gap: 10px;"></div>
+            <div id="latihanPenjelasanWrap" class="hidden" style="margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: #EFF6FF; border-left: 4px solid #2563EB; font-size: 13px; color: #1E3A8A; line-height: 1.5;"></div>
+            <button class="btn-full hidden" id="latihanLanjutBtn" onclick="lanjutSoal()" style="margin-top: 16px;">Soal Berikutnya</button>
+          </div>
+
+          <div id="latihanHasilWrap" class="hidden" style="text-align: center; padding: 20px 0;">
+            <div id="hasilIconWrap" style="width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 50%; background: linear-gradient(135deg, #2563EB, #60A5FA); display: flex; align-items: center; justify-content: center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 36px; height: 36px;">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <h3 id="hasilTitle" style="font-size: 22px; font-weight: 700; margin-bottom: 6px;">Hebat!</h3>
+            <p id="hasilSubtitle" style="font-size: 14px; color: #64748B; margin-bottom: 16px;">Kamu menjawab dengan baik.</p>
+            <div style="background: #F8FAFE; border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-around;">
+                <div>
+                  <div style="font-size: 12px; color: #64748B;">Benar</div>
+                  <div id="hasilBenar" style="font-size: 24px; font-weight: 700; color: #16A34A;">0</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #64748B;">Salah</div>
+                  <div id="hasilSalah" style="font-size: 24px; font-weight: 700; color: #DC2626;">0</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #64748B;">Nilai</div>
+                  <div id="hasilNilai" style="font-size: 24px; font-weight: 700; color: #2563EB;">0</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn-full" onclick="ulangiLatihan()" style="margin-bottom: 8px;">Ulangi Latihan</button>
+            <button class="btn-outline" onclick="keluarLatihan()" style="margin-top: 0;">Kembali ke Beranda</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="fab-latihan" id="fabLatihan" onclick="bukaPilihTingkat()" aria-label="Latihan Soal">
+    <svg viewBox="0 0 24 24">
+      <path d="M9 11l3 3L22 4"/>
+      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+    </svg>
+    <span class="fab-tooltip">Latihan Soal</span>
+  </button>
+
+  <div class="footer-app">
+    <p>Star Platform | STools 2026</p>
+  </div>
+</div>
+
+<div id="globalAlert" class="alert-overlay">
+  <div class="alert-card">
+    <p id="alertMessage" style="margin-bottom: 20px;">Pemberitahuan</p>
+    <button class="btn-full" onclick="closeAlertGlobal()">Mengerti</button>
+    <div id="alertExtraBtn"></div>
+  </div>
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDgr_nHqvpMsiG4lBkYckzxRErkskXj_6E",
+  authDomain: "laporanstartools-c18b2.firebaseapp.com",
+  databaseURL: "https://laporanstartools-c18b2-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "laporanstartools-c18b2",
+};
+
+if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+const db = firebase.database();
+
+let currentUser = null;
+let isPremium = false;
+let premiumExpiry = null;
+let openedIndexes = [];
+let todayLimit = 0;
+let currentMateriIdx = 0;
+const todayStr = new Date().toDateString();
+
+const materiList = [
+  { judul: "Arduino 1 - Pengenalan Arduino", konten: '<h4>Pengertian</h4><p>Arduino adalah platform elektronik open-source berupa papan mikrokontroler yang mudah diprogram untuk berbagai proyek elektronika dan robotik.</p><h4>Penjelasan</h4><p>Arduino terdiri dari dua bagian utama: hardware (papan Arduino) dan software (Arduino IDE) yang digunakan untuk menulis dan mengunggah program.</p><h4>Contoh</h4><p>Contohnya, Arduino Uno digunakan pemula untuk membuat lampu LED berkedip sebagai proyek pertama.</p><h4>Kesimpulan</h4><p>Mengenal Arduino membantu memahami dasar platform yang paling populer untuk belajar elektronika dan robotik.</p>' },
+  { judul: "Arduino 2 - Jenis-Jenis Board Arduino", konten: '<h4>Pengertian</h4><p>Arduino memiliki berbagai jenis board, seperti Uno, Nano, Mega, dan Leonardo yang masing-masing memiliki keunggulan tersendiri.</p><h4>Penjelasan</h4><p>Perbedaan utama board Arduino terletak pada jumlah pin, memori, dan ukuran fisik yang disesuaikan dengan kebutuhan proyek.</p><h4>Contoh</h4><p>Contohnya, Arduino Nano dipilih untuk proyek yang membutuhkan ukuran kecil seperti perangkat wearable.</p><h4>Kesimpulan</h4><p>Mengenal jenis-jenis board Arduino membantu memilih board yang tepat untuk proyek yang akan dibuat.</p>' },
+  { judul: "Arduino 3 - Arduino Uno dan Bagiannya", konten: '<h4>Pengertian</h4><p>Arduino Uno adalah board Arduino paling populer yang menggunakan mikrokontroler ATmega328P.</p><h4>Penjelasan</h4><p>Board ini memiliki 14 pin digital, 6 pin analog, koneksi USB, dan tombol reset yang memudahkan pengguna memulai proyek.</p><h4>Contoh</h4><p>Contohnya, Arduino Uno sering digunakan untuk proyek lampu lalu lintas mini dengan tiga LED.</p><h4>Kesimpulan</h4><p>Mengenal bagian-bagian Arduino Uno membantu memahami cara menghubungkan komponen ke board.</p>' },
+  { judul: "Arduino 4 - Mengenal Arduino IDE", konten: '<h4>Pengertian</h4><p>Arduino IDE adalah software resmi untuk menulis, meng-compile, dan mengunggah program ke board Arduino.</p><h4>Penjelasan</h4><p>IDE ini menyediakan editor kode, tombol verifikasi, dan tombol upload yang memudahkan proses pemrograman.</p><h4>Contoh</h4><p>Contohnya, sketch pertama bernama Blink dikirim ke Arduino Uno melalui tombol Upload pada IDE.</p><h4>Kesimpulan</h4><p>Mengenal Arduino IDE membantu memahami alur kerja pemrograman board Arduino dari menulis hingga upload.</p>' },
+  { judul: "Arduino 5 - Struktur Program Arduino", konten: '<h4>Pengertian</h4><p>Struktur dasar program Arduino terdiri dari dua fungsi utama yaitu setup() dan loop().</p><h4>Penjelasan</h4><p>Fungsi setup() dijalankan sekali di awal, sedangkan loop() dijalankan terus-menerus selama Arduino menyala.</p><h4>Contoh</h4><p>Contohnya, setup() digunakan untuk mengatur pin sebagai output, dan loop() untuk menyalakan LED bergantian.</p><h4>Kesimpulan</h4><p>Memahami struktur program membantu menulis kode Arduino dengan alur yang benar.</p>' },
+  { judul: "Arduino 6 - Fungsi setup() dan loop()", konten: '<h4>Pengertian</h4><p>Fungsi setup() dan loop() adalah dua fungsi wajib yang harus ada dalam setiap sketch Arduino.</p><h4>Penjelasan</h4><p>setup() dipakai untuk inisialisasi awal, sedangkan loop() menjadi tempat logika utama program berjalan berulang.</p><h4>Contoh</h4><p>Contohnya, pembacaan sensor di dalam loop() dilakukan terus-menerus untuk memantau perubahan kondisi.</p><h4>Kesimpulan</h4><p>Menguasai fungsi setup() dan loop() membantu menyusun program Arduino secara terstruktur.</p>' },
+  { judul: "Arduino 7 - Variabel dan Tipe Data", konten: '<h4>Pengertian</h4><p>Variabel adalah tempat menyimpan nilai dalam program Arduino, dengan tipe data seperti int, float, char, dan boolean.</p><h4>Penjelasan</h4><p>Pemilihan tipe data yang tepat memengaruhi penggunaan memori dan keakuratan perhitungan dalam program.</p><h4>Contoh</h4><p>Contohnya, variabel int digunakan untuk menyimpan nilai sensor suhu yang berupa bilangan bulat.</p><h4>Kesimpulan</h4><p>Memahami variabel dan tipe data membantu menulis program Arduino dengan lebih efisien.</p>' },
+  { judul: "Arduino 8 - Konstanta dan #define", konten: '<h4>Pengertian</h4><p>Konstanta adalah nilai yang tidak dapat diubah selama program berjalan, sedangkan #define digunakan untuk mendefinisikan konstanta sebelum kompilasi.</p><h4>Penjelasan</h4><p>Penggunaan konstanta membuat program lebih mudah dibaca dan dipelihara, terutama untuk nilai pin yang sering digunakan.</p><h4>Contoh</h4><p>Contohnya, #define LED_PIN 13 memudahkan penggunaan pin 13 di seluruh program.</p><h4>Kesimpulan</h4><p>Memahami konstanta membantu menulis program Arduino yang lebih rapi dan mudah diperbaiki.</p>' },
+  { judul: "Arduino 9 - Digital Output (LED)", konten: '<h4>Pengertian</h4><p>Digital output adalah kemampuan Arduino untuk mengeluarkan sinyal HIGH atau LOW pada pin digital.</p><h4>Penjelasan</h4><p>Sinyal HIGH berarti 5V dan LOW berarti 0V, yang dapat digunakan untuk menyalakan atau mematikan LED.</p><h4>Contoh</h4><p>Contohnya, perintah digitalWrite(13, HIGH) menyalakan LED pada pin 13 Arduino Uno.</p><h4>Kesimpulan</h4><p>Memahami digital output membantu membuat proyek dasar seperti LED berkedip.</p>' },
+  { judul: "Arduino 10 - Digital Input (Tombol)", konten: '<h4>Pengertian</h4><p>Digital input adalah kemampuan Arduino membaca kondisi HIGH atau LOW pada pin digital dari komponen luar seperti tombol.</p><h4>Penjelasan</h4><p>Pembacaan digital input biasanya memanfaatkan resistor pull-up agar kondisi pin stabil saat tombol tidak ditekan.</p><h4>Contoh</h4><p>Contohnya, tombol ditekan akan menghasilkan logika LOW pada pin yang dikonfigurasi INPUT_PULLUP.</p><h4>Kesimpulan</h4><p>Memahami digital input membantu membuat proyek yang merespons tindakan pengguna.</p>' },
+  { judul: "Arduino 11 - Analog Input (Potensiometer)", konten: '<h4>Pengertian</h4><p>Analog input adalah kemampuan Arduino membaca nilai tegangan kontinu antara 0 hingga 5V melalui pin analog.</p><h4>Penjelasan</h4><p>Nilai analog ini dikonversi menjadi angka 0 hingga 1023 oleh ADC (Analog to Digital Converter) internal Arduino.</p><h4>Contoh</h4><p>Contohnya, potensiometer dihubungkan ke A0 akan menghasilkan nilai berbeda tergantung posisi putarannya.</p><h4>Kesimpulan</h4><p>Memahami analog input membantu membaca sensor analog pada proyek Arduino.</p>' },
+  { judul: "Arduino 12 - Analog Output (PWM)", konten: '<h4>Pengertian</h4><p>Analog output pada Arduino sebenarnya menggunakan teknik PWM (Pulse Width Modulation) untuk mensimulasikan tegangan variabel.</p><h4>Penjelasan</h4><p>PWM hanya tersedia pada pin digital yang ditandai dengan simbol (~), seperti pin 3, 5, 6, 9, 10, dan 11 pada Arduino Uno.</p><h4>Contoh</h4><p>Contohnya, analogWrite(9, 128) menghasilkan kecerahan LED sekitar 50% pada pin 9.</p><h4>Kesimpulan</h4><p>Memahami PWM membantu mengatur kecerahan LED atau kecepatan motor secara halus.</p>' },
+  { judul: "Arduino 13 - Serial Monitor", konten: '<h4>Pengertian</h4><p>Serial Monitor adalah fitur Arduino IDE yang digunakan untuk menampilkan data dari board Arduino ke komputer.</p><h4>Penjelasan</h4><p>Serial Monitor bekerja dengan komunikasi serial melalui kabel USB, memudahkan proses debugging program.</p><h4>Contoh</h4><p>Contohnya, Serial.println(nilaiSensor) menampilkan nilai pembacaan sensor pada Serial Monitor.</p><h4>Kesimpulan</h4><p>Memahami Serial Monitor membantu memantau dan memperbaiki program Arduino.</p>' },
+  { judul: "Arduino 14 - Serial Communication", konten: '<h4>Pengertian</h4><p>Serial Communication adalah cara Arduino berkomunikasi dengan perangkat lain melalui pin TX dan RX.</p><h4>Penjelasan</h4><p>Komunikasi ini dapat digunakan untuk mengirim data ke komputer, modul Bluetooth, atau board Arduino lain.</p><h4>Contoh</h4><p>Contohnya, Arduino mengirim data suhu ke modul Bluetooth HC-05 untuk ditampilkan di smartphone.</p><h4>Kesimpulan</h4><p>Memahami serial communication membantu menghubungkan Arduino dengan berbagai perangkat.</p>' },
+  { judul: "Arduino 15 - Operator Aritmatika", konten: '<h4>Pengertian</h4><p>Operator aritmatika pada Arduino meliputi penjumlahan (+), pengurangan (-), perkalian (*), pembagian (/), dan modulus (%).</p><h4>Penjelasan</h4><p>Operator ini digunakan untuk melakukan perhitungan matematika dalam program Arduino.</p><h4>Contoh</h4><p>Contohnya, hasil = (a + b) * 2; menghitung nilai dari variabel a dan b.</p><h4>Kesimpulan</h4><p>Memahami operator aritmatika membantu membuat logika perhitungan pada program Arduino.</p>' },
+  { judul: "Arduino 16 - Operator Perbandingan", konten: '<h4>Pengertian</h4><p>Operator perbandingan meliputi ==, !=, &gt;, &lt;, &gt;=, dan &lt;= yang menghasilkan nilai boolean (true/false).</p><h4>Penjelasan</h4><p>Operator ini sering digunakan dalam struktur if untuk membandingkan nilai sensor dengan ambang batas tertentu.</p><h4>Contoh</h4><p>Contohnya, if (suhu &gt; 30) { ... } akan dijalankan jika nilai suhu lebih dari 30.</p><h4>Kesimpulan</h4><p>Memahami operator perbandingan membantu membuat keputusan logis dalam program Arduino.</p>' },
+  { judul: "Arduino 17 - Logika If-Else", konten: '<h4>Pengertian</h4><p>If-else adalah struktur kontrol untuk menjalankan blok kode tertentu berdasarkan kondisi tertentu.</p><h4>Penjelasan</h4><p>Jika kondisi pada if terpenuhi, blok if dijalankan. Jika tidak, blok else yang dijalankan.</p><h4>Contoh</h4><p>Contohnya, jika tombol ditekan maka LED menyala, jika tidak ditekan maka LED mati.</p><h4>Kesimpulan</h4><p>Memahami if-else membantu membuat program Arduino yang merespons kondisi tertentu.</p>' },
+  { judul: "Arduino 18 - Switch Case", konten: '<h4>Pengertian</h4><p>Switch case adalah struktur kontrol yang digunakan untuk memilih satu dari banyak blok kode berdasarkan nilai variabel.</p><h4>Penjelasan</h4><p>Switch case lebih rapi dibanding banyak if-else bertingkat ketika pilihan yang tersedia banyak.</p><h4>Contoh</h4><p>Contohnya, switch(mode) menentukan mode kerja robot berdasarkan nilai variabel mode.</p><h4>Kesimpulan</h4><p>Memahami switch case membantu membuat program Arduino dengan banyak pilihan kondisi.</p>' },
+  { judul: "Arduino 19 - Perulangan For", konten: '<h4>Pengertian</h4><p>Perulangan for digunakan untuk mengulang blok kode dengan jumlah tertentu sesuai kondisi yang ditentukan.</p><h4>Penjelasan</h4><p>For sering digunakan untuk mengakses array, mengulang pola LED, atau menghitung nilai tertentu.</p><h4>Contoh</h4><p>Contohnya, for (int i = 0; i &lt; 5; i++) menyalakan 5 LED secara bergantian.</p><h4>Kesimpulan</h4><p>Memahami perulangan for membantu mengulang tindakan tertentu pada program Arduino.</p>' },
+  { judul: "Arduino 20 - Perulangan While", konten: '<h4>Pengertian</h4><p>Perulangan while mengulang blok kode selama kondisi tertentu masih bernilai true.</p><h4>Penjelasan</h4><p>While cocok digunakan saat jumlah perulangan tidak diketahui sebelumnya, tetapi bergantung pada kondisi.</p><h4>Contoh</h4><p>Contohnya, while (digitalRead(2) == LOW) { ... } mengulang kode selama tombol pada pin 2 ditekan.</p><h4>Kesimpulan</h4><p>Memahami perulangan while membantu membuat program Arduino yang fleksibel.</p>' },
+  { judul: "Arduino 21 - Fungsi (Function)", konten: '<h4>Pengertian</h4><p>Fungsi adalah blok kode yang dapat dipanggil berkali-kali untuk menjalankan tugas tertentu.</p><h4>Penjelasan</h4><p>Dengan fungsi, program Arduino menjadi lebih rapi, mudah dibaca, dan mudah diperbaiki.</p><h4>Contoh</h4><p>Contohnya, fungsi nyalakanLED(int pin) dipanggil setiap kali ingin menyalakan LED tertentu.</p><h4>Kesimpulan</h4><p>Memahami fungsi membantu membuat program Arduino yang modular.</p>' },
+  { judul: "Arduino 22 - Array pada Arduino", konten: '<h4>Pengertian</h4><p>Array adalah kumpulan nilai dengan tipe data yang sama yang disimpan dalam satu variabel.</p><h4>Penjelasan</h4><p>Array memudahkan pengelolaan banyak data, misalnya daftar pin LED yang akan dikontrol.</p><h4>Contoh</h4><p>Contohnya, int ledPins[] = {2, 3, 4, 5}; menyimpan nomor pin LED dalam array.</p><h4>Kesimpulan</h4><p>Memahami array membantu mengelola data dalam jumlah banyak pada program Arduino.</p>' },
+  { judul: "Arduino 23 - String pada Arduino", konten: '<h4>Pengertian</h4><p>String adalah tipe data untuk menyimpan kumpulan karakter seperti teks.</p><h4>Penjelasan</h4><p>Arduino mendukung string sebagai objek String atau array karakter, masing-masing dengan kelebihan tersendiri.</p><h4>Contoh</h4><p>Contohnya, String pesan = "Halo Arduino"; menyimpan teks untuk ditampilkan di LCD.</p><h4>Kesimpulan</h4><p>Memahami string membantu menampilkan dan mengolah teks pada proyek Arduino.</p>' },
+  { judul: "Arduino 24 - Library pada Arduino", konten: '<h4>Pengertian</h4><p>Library adalah kumpulan kode siap pakai yang dapat digunakan untuk mempermudah penggunaan komponen tertentu.</p><h4>Penjelasan</h4><p>Library biasanya disediakan oleh pembuat modul atau komunitas, dan dapat diinstal melalui Library Manager di Arduino IDE.</p><h4>Contoh</h4><p>Contohnya, library LiquidCrystal digunakan untuk mengontrol LCD 16x2 dengan lebih mudah.</p><h4>Kesimpulan</h4><p>Memahami library membantu mempercepat pengembangan proyek Arduino.</p>' },
+  { judul: "Arduino 25 - LED Berkedip (Blink)", konten: '<h4>Pengertian</h4><p>Blink adalah proyek pertama yang biasanya dipelajari pemula untuk memahami digital output.</p><h4>Penjelasan</h4><p>Program blink menyalakan dan mematikan LED secara bergantian dengan jeda waktu tertentu.</p><h4>Contoh Kode</h4><pre>void setup() {\n  pinMode(13, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(13, HIGH);\n  delay(1000);\n  digitalWrite(13, LOW);\n  delay(1000);\n}</pre><h4>Kesimpulan</h4><p>Proyek blink membantu memahami dasar digital output dan fungsi delay pada Arduino.</p>' },
+  { judul: "Arduino 26 - Tombol dan LED", konten: '<h4>Pengertian</h4><p>Proyek tombol dan LED menggabungkan digital input dan digital output pada Arduino.</p><h4>Penjelasan</h4><p>Ketika tombol ditekan, LED menyala; ketika tombol dilepas, LED mati.</p><h4>Contoh Kode</h4><pre>void setup() {\n  pinMode(2, INPUT_PULLUP);\n  pinMode(13, OUTPUT);\n}\n\nvoid loop() {\n  if (digitalRead(2) == LOW) {\n    digitalWrite(13, HIGH);\n  } else {\n    digitalWrite(13, LOW);\n  }\n}</pre><h4>Kesimpulan</h4><p>Proyek ini membantu memahami cara membaca tombol dan mengontrol LED dengan Arduino.</p>' },
+  { judul: "Arduino 27 - LED dengan PWM (Fading)", konten: '<h4>Pengertian</h4><p>Fading adalah proyek yang membuat LED menyala secara perlahan terang dan redup menggunakan PWM.</p><h4>Penjelasan</h4><p>Nilai PWM dari 0 hingga 255 diubah secara bertahap untuk menciptakan efek fading yang halus.</p><h4>Contoh Kode</h4><pre>void setup() {\n  pinMode(9, OUTPUT);\n}\n\nvoid loop() {\n  for (int i = 0; i &lt;= 255; i += 5) {\n    analogWrite(9, i);\n    delay(30);\n  }\n  for (int i = 255; i &gt;= 0; i -= 5) {\n    analogWrite(9, i);\n    delay(30);\n  }\n}</pre><h4>Kesimpulan</h4><p>Proyek fading membantu memahami penggunaan PWM pada Arduino.</p>' },
+  { judul: "Arduino 28 - Buzzer", konten: '<h4>Pengertian</h4><p>Buzzer adalah komponen yang mengeluarkan suara ketika diberi tegangan listrik.</p><h4>Penjelasan</h4><p>Buzzer aktif langsung berbunyi saat diberi tegangan, sedangkan buzzer pasif membutuhkan sinyal frekuensi untuk berbunyi.</p><h4>Contoh</h4><p>Contohnya, buzzer digunakan pada alarm suhu yang berbunyi saat suhu melebihi batas tertentu.</p><h4>Kesimpulan</h4><p>Memahami buzzer membantu menambahkan efek suara pada proyek Arduino.</p>' },
+  { judul: "Arduino 29 - Sensor LDR", konten: '<h4>Pengertian</h4><p>Sensor LDR (Light Dependent Resistor) adalah resistor yang nilai hambatannya berubah sesuai intensitas cahaya.</p><h4>Penjelasan</h4><p>LDR dihubungkan dengan resistor pembagi tegangan agar Arduino dapat membaca nilai analog dari perubahan cahaya.</p><h4>Contoh</h4><p>Contohnya, LDR digunakan pada lampu otomatis yang menyala saat ruangan gelap.</p><h4>Kesimpulan</h4><p>Memahami sensor LDR membantu membuat proyek yang merespons perubahan cahaya.</p>' },
+  { judul: "Arduino 30 - Sensor Suhu LM35", konten: '<h4>Pengertian</h4><p>LM35 adalah sensor suhu analog yang menghasilkan tegangan sebanding dengan suhu dalam derajat Celsius.</p><h4>Penjelasan</h4><p>Setiap kenaikan 1°C menghasilkan kenaikan tegangan 10mV pada output sensor LM35.</p><h4>Contoh</h4><p>Contohnya, LM35 digunakan pada proyek termometer digital sederhana berbasis Arduino.</p><h4>Kesimpulan</h4><p>Memahami sensor LM35 membantu membuat proyek pemantauan suhu dengan Arduino.</p>' },
+  { judul: "Arduino 31 - Sensor Suhu dan Kelembapan DHT11", konten: '<h4>Pengertian</h4><p>DHT11 adalah sensor digital yang dapat mengukur suhu dan kelembapan udara sekaligus.</p><h4>Penjelasan</h4><p>Sensor ini mengirimkan data digital ke Arduino melalui satu pin komunikasi menggunakan library DHT.</p><h4>Contoh</h4><p>Contohnya, DHT11 digunakan pada proyek pemantau cuaca mini berbasis Arduino.</p><h4>Kesimpulan</h4><p>Memahami DHT11 membantu membuat proyek pemantauan lingkungan dengan Arduino.</p>' },
+  { judul: "Arduino 32 - Sensor Ultrasonik HC-SR04", konten: '<h4>Pengertian</h4><p>HC-SR04 adalah sensor ultrasonik yang digunakan untuk mengukur jarak objek menggunakan gelombang suara.</p><h4>Penjelasan</h4><p>Sensor memancarkan gelombang suara melalui pin Trig lalu menerima pantulan melalui pin Echo.</p><h4>Contoh</h4><p>Contohnya, sensor ini digunakan pada robot penghindar halangan atau alat pengukur jarak digital.</p><h4>Kesimpulan</h4><p>Memahami HC-SR04 membantu membuat proyek pengukuran jarak dengan Arduino.</p>' },
+  { judul: "Arduino 33 - Sensor PIR (Gerak)", konten: '<h4>Pengertian</h4><p>Sensor PIR (Passive Infrared) adalah sensor yang mendeteksi gerakan berdasarkan perubahan radiasi inframerah dari objek bergerak.</p><h4>Penjelasan</h4><p>Sensor ini menghasilkan sinyal HIGH saat mendeteksi gerakan dan LOW saat tidak ada gerakan.</p><h4>Contoh</h4><p>Contohnya, sensor PIR digunakan pada lampu otomatis yang menyala saat ada orang lewat.</p><h4>Kesimpulan</h4><p>Memahami sensor PIR membantu membuat proyek deteksi gerakan dengan Arduino.</p>' },
+  { judul: "Arduino 34 - Sensor Gas MQ-2", konten: '<h4>Pengertian</h4><p>MQ-2 adalah sensor gas yang dapat mendeteksi gas seperti LPG, metana, dan asap.</p><h4>Penjelasan</h4><p>Sensor ini mengeluarkan output analog dan digital sesuai konsentrasi gas yang terdeteksi.</p><h4>Contoh</h4><p>Contohnya, MQ-2 digunakan pada alat pendeteksi kebocoran gas rumah tangga.</p><h4>Kesimpulan</h4><p>Memahami sensor MQ-2 membantu membuat proyek keamanan berbasis Arduino.</p>' },
+  { judul: "Arduino 35 - Modul Relay", konten: '<h4>Pengertian</h4><p>Relay adalah saklar elektromagnetik yang dapat dikontrol oleh Arduino untuk menyalakan perangkat bertenaga listrik besar.</p><h4>Penjelasan</h4><p>Relay memungkinkan Arduino mengontrol perangkat 220V AC dengan aman menggunakan sinyal kecil dari pin digital.</p><h4>Contoh</h4><p>Contohnya, relay digunakan pada proyek lampu otomatis yang dinyalakan Arduino saat gelap.</p><h4>Kesimpulan</h4><p>Memahami relay membantu mengontrol perangkat listrik besar dengan Arduino.</p>' },
+  { judul: "Arduino 36 - Motor DC dan Driver L298N", konten: '<h4>Pengertian</h4><p>Motor DC adalah motor listrik sederhana, sedangkan L298N adalah modul driver yang digunakan untuk mengontrol kecepatan dan arah motor.</p><h4>Penjelasan</h4><p>Driver diperlukan karena pin Arduino tidak mampu menyediakan arus besar yang dibutuhkan motor DC.</p><h4>Contoh</h4><p>Contohnya, L298N digunakan pada robot beroda untuk mengendalikan dua motor DC secara bersamaan.</p><h4>Kesimpulan</h4><p>Memahami motor DC dan driver L298N membantu membuat proyek robot beroda dengan Arduino.</p>' },
+  { judul: "Arduino 37 - Motor Servo", konten: '<h4>Pengertian</h4><p>Motor servo adalah motor yang dapat diputar ke sudut tertentu secara presisi, biasanya dari 0° hingga 180°.</p><h4>Penjelasan</h4><p>Servo dikendalikan menggunakan sinyal PWM, dan biasanya cukup membutuhkan satu pin kontrol untuk Arduino.</p><h4>Contoh</h4><p>Contohnya, servo digunakan untuk menggerakkan katup pintu otomatis pada proyek Arduino.</p><h4>Kesimpulan</h4><p>Memahami motor servo membantu membuat proyek dengan gerakan presisi pada Arduino.</p>' },
+  { judul: "Arduino 38 - Motor Stepper", konten: '<h4>Pengertian</h4><p>Motor stepper adalah motor yang bergerak dalam langkah-langkah presisi sesuai sinyal kontrol.</p><h4>Penjelasan</h4><p>Untuk mengendalikan motor stepper dengan Arduino, dibutuhkan driver khusus seperti ULN2003 atau A4988.</p><h4>Contoh</h4><p>Contohnya, motor stepper digunakan pada proyek jam analog yang digerakkan Arduino.</p><h4>Kesimpulan</h4><p>Memahami motor stepper membantu membuat proyek dengan gerakan posisi sangat presisi.</p>' },
+  { judul: "Arduino 39 - LCD 16x2 dengan I2C", konten: '<h4>Pengertian</h4><p>LCD 16x2 adalah layar karakter yang dapat menampilkan 16 karakter dalam 2 baris.</p><h4>Penjelasan</h4><p>Dengan modul I2C, LCD dapat dikontrol hanya menggunakan 2 pin Arduino, yaitu SDA dan SCL.</p><h4>Contoh</h4><p>Contohnya, LCD digunakan untuk menampilkan nilai sensor suhu secara real-time.</p><h4>Kesimpulan</h4><p>Memahami LCD 16x2 I2C membantu menampilkan informasi pada proyek Arduino.</p>' },
+  { judul: "Arduino 40 - Seven Segment Display", konten: '<h4>Pengertian</h4><p>Seven segment adalah display yang terdiri dari 7 LED batang yang dapat membentuk angka 0-9.</p><h4>Penjelasan</h4><p>Display ini dapat dikontrol langsung oleh Arduino atau menggunakan driver khusus seperti 74HC595.</p><h4>Contoh</h4><p>Contohnya, seven segment digunakan untuk menampilkan angka pada proyek jam digital sederhana.</p><h4>Kesimpulan</h4><p>Memahami seven segment membantu membuat proyek penampil angka dengan Arduino.</p>' },
+  { judul: "Arduino 41 - Keypad 4x4", konten: '<h4>Pengertian</h4><p>Keypad 4x4 adalah papan tombol matriks 4 baris dan 4 kolom yang sering digunakan sebagai input angka pada proyek Arduino.</p><h4>Penjelasan</h4><p>Keypad ini membaca kombinasi baris dan kolom untuk menentukan tombol mana yang ditekan.</p><h4>Contoh</h4><p>Contohnya, keypad digunakan pada proyek kunci pintu digital berbasis Arduino.</p><h4>Kesimpulan</h4><p>Memahami keypad 4x4 membantu membuat proyek dengan input angka.</p>' },
+  { judul: "Arduino 42 - Modul Bluetooth HC-05", konten: '<h4>Pengertian</h4><p>HC-05 adalah modul Bluetooth yang memungkinkan Arduino berkomunikasi dengan smartphone atau perangkat lain secara nirkabel.</p><h4>Penjelasan</h4><p>Modul ini dihubungkan ke pin TX dan RX Arduino, dan dapat diprogram untuk mode master atau slave.</p><h4>Contoh</h4><p>Contohnya, HC-05 digunakan untuk mengontrol lampu rumah melalui aplikasi Android.</p><h4>Kesimpulan</h4><p>Memahami modul HC-05 membantu membuat proyek Arduino yang dikendalikan nirkabel.</p>' },
+  { judul: "Arduino 43 - Modul WiFi ESP8266", konten: '<h4>Pengertian</h4><p>ESP8266 adalah modul WiFi yang dapat dihubungkan ke Arduino untuk memberikan kemampuan koneksi internet.</p><h4>Penjelasan</h4><p>Modul ini dapat berfungsi sebagai client maupun access point, dan cocok untuk proyek IoT sederhana.</p><h4>Contoh</h4><p>Contohnya, ESP8266 digunakan untuk mengirim data sensor ke server cloud melalui internet.</p><h4>Kesimpulan</h4><p>Memahami ESP8266 membantu membuat proyek IoT berbasis Arduino.</p>' },
+  { judul: "Arduino 44 - Real Time Clock (RTC) DS3231", konten: '<h4>Pengertian</h4><p>RTC DS3231 adalah modul jam yang dapat menyimpan waktu dan tanggal secara akurat meskipun Arduino dimatikan.</p><h4>Penjelasan</h4><p>Modul ini menggunakan baterai coin sebagai sumber daya cadangan agar waktu tetap berjalan.</p><h4>Contoh</h4><p>Contohnya, RTC digunakan pada proyek jam digital yang menampilkan waktu dan tanggal.</p><h4>Kesimpulan</h4><p>Memahami RTC DS3231 membantu membuat proyek berbasis waktu dengan Arduino.</p>' },
+  { judul: "Arduino 45 - EEPROM pada Arduino", konten: '<h4>Pengertian</h4><p>EEPROM adalah memori internal Arduino yang dapat menyimpan data meskipun daya dimatikan.</p><h4>Penjelasan</h4><p>Data di EEPROM dapat ditulis dan dihapus hingga batas 100.000 kali siklus tulis.</p><h4>Contoh</h4><p>Contohnya, EEPROM digunakan untuk menyimpan nilai kalibrasi sensor agar tidak hilang saat Arduino dimatikan.</p><h4>Kesimpulan</h4><p>Memahami EEPROM membantu menyimpan data penting secara permanen di Arduino.</p>' },
+  { judul: "Arduino 46 - Interrupt pada Arduino", konten: '<h4>Pengertian</h4><p>Interrupt adalah fitur yang memungkinkan Arduino merespons kejadian tertentu secara langsung tanpa menunggu loop selesai.</p><h4>Penjelasan</h4><p>Pada Arduino Uno, pin interrupt adalah pin 2 dan 3, dan fungsi attachInterrupt() digunakan untuk mengaktifkannya.</p><h4>Contoh</h4><p>Contohnya, interrupt digunakan untuk mendeteksi tombol darurat yang harus segera direspons.</p><h4>Kesimpulan</h4><p>Memahami interrupt membantu membuat program Arduino yang lebih responsif.</p>' },
+  { judul: "Arduino 47 - Komunikasi I2C", konten: '<h4>Pengertian</h4><p>I2C adalah protokol komunikasi serial yang hanya membutuhkan 2 kabel, yaitu SDA dan SCL.</p><h4>Penjelasan</h4><p>I2C memungkinkan Arduino berkomunikasi dengan banyak perangkat sekaligus pada bus yang sama.</p><h4>Contoh</h4><p>Contohnya, LCD I2C, RTC, dan sensor BMP280 dapat dihubungkan ke Arduino dengan hanya 2 kabel.</p><h4>Kesimpulan</h4><p>Memahami I2C membantu menyederhanakan pengkabelan pada proyek Arduino.</p>' },
+  { judul: "Arduino 48 - Komunikasi SPI", konten: '<h4>Pengertian</h4><p>SPI adalah protokol komunikasi serial cepat yang membutuhkan 4 kabel: MOSI, MISO, SCK, dan SS.</p><h4>Penjelasan</h4><p>SPI banyak digunakan untuk perangkat yang membutuhkan kecepatan tinggi seperti modul SD card dan display TFT.</p><h4>Contoh</h4><p>Contohnya, modul SD card dihubungkan ke Arduino melalui komunikasi SPI untuk menyimpan data log.</p><h4>Kesimpulan</h4><p>Memahami SPI membantu membuat proyek Arduino dengan komunikasi berkecepatan tinggi.</p>' },
+  { judul: "Arduino 49 - Proyek Lampu Otomatis dengan LDR", konten: '<h4>Pengertian</h4><p>Lampu otomatis adalah proyek yang menyalakan lampu secara otomatis saat kondisi gelap terdeteksi.</p><h4>Penjelasan</h4><p>Sensor LDR membaca intensitas cahaya, dan Arduino menyalakan relay jika nilai cahaya di bawah ambang batas.</p><h4>Contoh</h4><p>Contohnya, lampu taman yang menyala otomatis saat malam tiba tanpa perlu saklar manual.</p><h4>Kesimpulan</h4><p>Proyek ini membantu memahami penggabungan sensor dan aktuator pada Arduino.</p>' },
+  { judul: "Arduino 50 - Proyek Robot Line Follower", konten: '<h4>Pengertian</h4><p>Robot line follower adalah robot yang bergerak mengikuti garis menggunakan sensor inframerah dan motor DC.</p><h4>Penjelasan</h4><p>Sensor inframerah membaca warna garis, dan Arduino mengatur motor DC melalui driver L298N agar robot tetap di jalur.</p><h4>Contoh Kode</h4><pre>void loop() {\n  int kiri = digitalRead(A0);\n  int kanan = digitalRead(A1);\n  if (kiri == HIGH &amp;&amp; kanan == HIGH) {\n    maju();\n  } else if (kiri == LOW) {\n    belokKiri();\n  } else if (kanan == LOW) {\n    belokKanan();\n  }\n}</pre><h4>Kesimpulan</h4><p>Proyek ini merupakan proyek puncak yang menggabungkan sensor, aktuator, dan logika pada Arduino.</p>' }
+];
+
+const soalMudah = [
+  { q: "Arduino adalah platform elektronik yang bersifat...", opsi: ["Open-source", "Closed-source", "Berbayar", "Rahasia"], jawab: 0, penjelasan: "Arduino adalah platform open-source, baik hardware maupun software-nya." },
+  { q: "Fungsi yang dijalankan sekali di awal program Arduino adalah...", opsi: ["setup()", "loop()", "init()", "start()"], jawab: 0, penjelasan: "setup() dijalankan sekali saat Arduino pertama kali menyala." },
+  { q: "Fungsi yang dijalankan terus-menerus adalah...", opsi: ["loop()", "setup()", "main()", "run()"], jawab: 0, penjelasan: "loop() dijalankan berulang terus selama Arduino menyala." },
+  { q: "Arduino Uno menggunakan mikrokontroler...", opsi: ["ATmega328P", "ATmega2560", "ESP32", "STM32"], jawab: 0, penjelasan: "Arduino Uno menggunakan chip ATmega328P." },
+  { q: "Perintah untuk mengatur pin sebagai output adalah...", opsi: ["pinMode(pin, OUTPUT)", "setPin(pin, OUTPUT)", "digitalWrite(pin)", "outputPin(pin)"], jawab: 0, penjelasan: "pinMode() digunakan untuk mengatur mode pin sebagai INPUT atau OUTPUT." },
+  { q: "Perintah untuk menyalakan LED digital adalah...", opsi: ["digitalWrite(pin, HIGH)", "analogWrite(pin, HIGH)", "setLED(pin)", "writeHigh(pin)"], jawab: 0, penjelasan: "digitalWrite(pin, HIGH) memberi tegangan 5V untuk menyalakan LED." },
+  { q: "Perintah untuk membaca input digital adalah...", opsi: ["digitalRead(pin)", "readDigital(pin)", "inputRead(pin)", "getDigital(pin)"], jawab: 0, penjelasan: "digitalRead(pin) membaca kondisi HIGH atau LOW pada pin." },
+  { q: "Perintah untuk membaca input analog adalah...", opsi: ["analogRead(pin)", "readAnalog(pin)", "inputAnalog(pin)", "getAnalog(pin)"], jawab: 0, penjelasan: "analogRead(pin) membaca nilai 0-1023 dari pin analog." },
+  { q: "Nilai maksimum dari analogRead() adalah...", opsi: ["1023", "255", "1024", "512"], jawab: 0, penjelasan: "ADC Arduino 10-bit menghasilkan nilai 0 hingga 1023." },
+  { q: "Nilai maksimum dari analogWrite() adalah...", opsi: ["255", "1023", "100", "5"], jawab: 0, penjelasan: "analogWrite() menggunakan 8-bit PWM dengan nilai 0-255." },
+  { q: "Simbol pin PWM pada Arduino Uno adalah...", opsi: ["~", "#", "*", "!"], jawab: 0, penjelasan: "Pin PWM ditandai dengan simbol ~ seperti pin 3, 5, 6, 9, 10, 11." },
+  { q: "Baud rate standar Serial Monitor adalah...", opsi: ["9600", "1000", "100", "500000"], jawab: 0, penjelasan: "9600 adalah baud rate paling umum digunakan untuk Serial Monitor." },
+  { q: "Perintah untuk menampilkan data di Serial Monitor adalah...", opsi: ["Serial.println()", "print()", "console.log()", "log()"], jawab: 0, penjelasan: "Serial.println() menampilkan data di Serial Monitor dengan newline." },
+  { q: "Perintah untuk memberi jeda waktu adalah...", opsi: ["delay()", "wait()", "pause()", "sleep()"], jawab: 0, penjelasan: "delay(ms) menghentikan program sementara dalam milidetik." },
+  { q: "Jumlah pin digital pada Arduino Uno adalah...", opsi: ["14", "20", "6", "10"], jawab: 0, penjelasan: "Arduino Uno memiliki 14 pin digital (0-13)." },
+  { q: "Jumlah pin analog pada Arduino Uno adalah...", opsi: ["6", "8", "4", "10"], jawab: 0, penjelasan: "Arduino Uno memiliki 6 pin analog (A0-A5)." },
+  { q: "Tipe data untuk bilangan bulat di Arduino adalah...", opsi: ["int", "float", "str", "bool"], jawab: 0, penjelasan: "int digunakan untuk menyimpan bilangan bulat." },
+  { q: "Tipe data untuk bilangan desimal di Arduino adalah...", opsi: ["float", "int", "double", "long"], jawab: 0, penjelasan: "float digunakan untuk bilangan desimal." },
+  { q: "Perintah untuk mengulang dengan jumlah pasti adalah...", opsi: ["for", "while", "loop", "repeat"], jawab: 0, penjelasan: "for digunakan untuk perulangan dengan jumlah iterasi yang pasti." },
+  { q: "Kondisi if-else berguna untuk...", opsi: ["Mengambil keputusan berdasarkan kondisi", "Mengulang kode", "Menampilkan data", "Menyimpan data"], jawab: 0, penjelasan: "if-else mengeksekusi blok kode berbeda berdasarkan kondisi." }
+];
+
+const soalSedang = [
+  { q: "PWM pada Arduino digunakan untuk...", opsi: ["Mengontrol tegangan rata-rata", "Membaca sensor", "Menyimpan data", "Menampilkan teks"], jawab: 0, penjelasan: "PWM mensimulasikan tegangan analog dengan mengatur duty cycle sinyal digital." },
+  { q: "INPUT_PULLUP pada pinMode() berfungsi untuk...", opsi: ["Mengaktifkan resistor pull-up internal", "Mengaktifkan input analog", "Mengaktifkan output", "Menonaktifkan pin"], jawab: 0, penjelasan: "INPUT_PULLUP mengaktifkan resistor internal agar pin stabil saat tidak ditekan." },
+  { q: "Perintah untuk menampilkan teks di LCD I2C menggunakan library...", opsi: ["LiquidCrystal_I2C", "LCD.h", "Display.h", "TextLCD.h"], jawab: 0, penjelasan: "Library LiquidCrystal_I2C mempermudah kontrol LCD dengan komunikasi I2C." },
+  { q: "Sensor yang dapat mengukur jarak dengan gelombang suara adalah...", opsi: ["HC-SR04", "LDR", "LM35", "PIR"], jawab: 0, penjelasan: "HC-SR04 adalah sensor ultrasonik untuk mengukur jarak." },
+  { q: "Sensor yang mendeteksi gerakan adalah...", opsi: ["PIR", "LDR", "LM35", "DHT11"], jawab: 0, penjelasan: "PIR (Passive Infrared) mendeteksi gerakan berdasarkan perubahan radiasi inframerah." },
+  { q: "Sensor yang mengukur suhu dan kelembapan udara adalah...", opsi: ["DHT11", "LM35", "LDR", "PIR"], jawab: 0, penjelasan: "DHT11 adalah sensor digital yang mengukur suhu dan kelembapan sekaligus." },
+  { q: "Modul untuk mengontrol motor DC dengan Arduino adalah...", opsi: ["L298N", "LM35", "HC-05", "DS3231"], jawab: 0, penjelasan: "L298N adalah driver motor DC dual H-bridge." },
+  { q: "Modul untuk komunikasi Bluetooth adalah...", opsi: ["HC-05", "ESP8266", "L298N", "DHT11"], jawab: 0, penjelasan: "HC-05 adalah modul Bluetooth untuk komunikasi nirkabel." },
+  { q: "Modul untuk koneksi WiFi adalah...", opsi: ["ESP8266", "HC-05", "DS3231", "L298N"], jawab: 0, penjelasan: "ESP8266 adalah modul WiFi murah untuk proyek IoT." },
+  { q: "Modul untuk menyimpan waktu adalah...", opsi: ["DS3231", "DHT11", "L298N", "HC-05"], jawab: 0, penjelasan: "DS3231 adalah RTC (Real Time Clock) akurat untuk waktu dan tanggal." },
+  { q: "Fungsi attachInterrupt() pada Arduino digunakan untuk...", opsi: ["Mengaktifkan interrupt", "Menonaktifkan pin", "Membaca sensor", "Menyalakan LED"], jawab: 0, penjelasan: "attachInterrupt() mengaktifkan interrupt pada pin yang ditentukan." },
+  { q: "Pin interrupt pada Arduino Uno adalah...", opsi: ["2 dan 3", "0 dan 1", "4 dan 5", "10 dan 11"], jawab: 0, penjelasan: "Arduino Uno mendukung interrupt pada pin 2 dan 3." },
+  { q: "Komunikasi I2C menggunakan pin...", opsi: ["SDA dan SCL", "TX dan RX", "MOSI dan MISO", "D0 dan D1"], jawab: 0, penjelasan: "I2C menggunakan SDA (data) dan SCL (clock) untuk komunikasi." },
+  { q: "Komunikasi SPI menggunakan berapa kabel?", opsi: ["4", "2", "3", "1"], jawab: 0, penjelasan: "SPI menggunakan MOSI, MISO, SCK, dan SS (4 kabel)." },
+  { q: "EEPROM pada Arduino digunakan untuk...", opsi: ["Menyimpan data permanen", "Menampilkan data", "Membaca sensor", "Menghubungkan WiFi"], jawab: 0, penjelasan: "EEPROM menyimpan data meskipun Arduino dimatikan." },
+  { q: "Library untuk motor servo adalah...", opsi: ["Servo.h", "Motor.h", "ServoMotor.h", "ServoLib.h"], jawab: 0, penjelasan: "Servo.h adalah library bawaan untuk mengontrol motor servo." },
+  { q: "Perintah untuk menggerakkan servo ke sudut 90 derajat adalah...", opsi: ["servo.write(90)", "servo.move(90)", "servo.set(90)", "servo.angle(90)"], jawab: 0, penjelasan: "servo.write(derajat) menggerakkan servo ke sudut tertentu (0-180)." },
+  { q: "Switch case berguna untuk...", opsi: ["Memilih dari banyak opsi", "Mengulang kode", "Menyimpan data", "Menampilkan teks"], jawab: 0, penjelasan: "switch case lebih rapi untuk banyak pilihan dibanding if-else bertingkat." },
+  { q: "Buzzer aktif langsung berbunyi saat diberi...", opsi: ["Tegangan", "PWM", "Frekuensi", "Data serial"], jawab: 0, penjelasan: "Buzzer aktif berbunyi saat diberi tegangan DC, tanpa perlu sinyal frekuensi." },
+  { q: "Relay digunakan untuk...", opsi: ["Mengontrol perangkat listrik besar", "Membaca sensor", "Menampilkan data", "Menyimpan data"], jawab: 0, penjelasan: "Relay memungkinkan Arduino mengontrol perangkat 220V AC dengan aman." }
+];
+
+const soalSulit = [
+  { q: "Perbedaan utama Arduino Uno dan Arduino Mega adalah...", opsi: ["Jumlah pin dan memori", "Warna board", "Kabel USB", "Sistem operasi"], jawab: 0, penjelasan: "Arduino Mega memiliki lebih banyak pin dan memori dibanding Uno." },
+  { q: "Perbedaan antara digitalWrite() dan analogWrite() adalah...", opsi: ["digitalWrite() hanya HIGH/LOW, analogWrite() PWM 0-255", "Sama saja", "digitalWrite() untuk analog", "analogWrite() untuk LED"], jawab: 0, penjelasan: "digitalWrite() mengeluarkan sinyal digital, analogWrite() menghasilkan PWM." },
+  { q: "Baud rate 115200 artinya...", opsi: ["115200 bit per detik", "115200 byte per detik", "115200 karakter per detik", "115200 data per detik"], jawab: 0, penjelasan: "Baud rate mengukur jumlah bit yang dikirim per detik." },
+  { q: "PWM dengan duty cycle 50% pada pin 9 berarti...", opsi: ["Tegangan rata-rata 2.5V", "Tegangan 5V", "Tegangan 0V", "Tidak ada tegangan"], jawab: 0, penjelasan: "Duty cycle 50% pada 5V menghasilkan tegangan rata-rata 2.5V." },
+  { q: "Kenapa interrupt lebih baik dari polling pada kasus tertentu?", opsi: ["Lebih responsif dan hemat CPU", "Lebih lambat", "Lebih mudah", "Lebih akurat"], jawab: 0, penjelasan: "Interrupt langsung merespons event tanpa menunggu loop selesai." },
+  { q: "Perbedaan I2C dan SPI adalah...", opsi: ["I2C 2 kabel, SPI 4 kabel", "Sama saja", "I2C lebih cepat", "SPI lebih lambat"], jawab: 0, penjelasan: "I2C menggunakan 2 kabel (SDA, SCL), SPI menggunakan 4 kabel." },
+  { q: "Sensor DHT11 memiliki akurasi suhu sebesar...", opsi: ["±2°C", "±0.1°C", "±5°C", "±10°C"], jawab: 0, penjelasan: "DHT11 memiliki akurasi suhu ±2°C, cukup untuk proyek sederhana." },
+  { q: "Untuk membuat robot line follower, sensor yang paling tepat adalah...", opsi: ["Inframerah", "Ultrasonik", "LDR", "DHT11"], jawab: 0, penjelasan: "Sensor inframerah efektif membaca kontras warna garis hitam-putih." },
+  { q: "Volatile keyword pada Arduino digunakan untuk...", opsi: ["Variabel yang diubah dalam interrupt", "Variabel konstan", "Variabel global", "Variabel lokal"], jawab: 0, penjelasan: "volatile memberitahu compiler bahwa variabel bisa berubah kapan saja, misal dari interrupt." },
+  { q: "EEPROM Arduino Uno memiliki kapasitas...", opsi: ["1 KB", "512 B", "4 KB", "16 KB"], jawab: 0, penjelasan: "Arduino Uno memiliki EEPROM 1 KB (1024 byte)." },
+  { q: "Fungsi millis() berbeda dari delay() karena...", opsi: ["millis() non-blocking", "millis() lebih lambat", "millis() lebih cepat", "Sama saja"], jawab: 0, penjelasan: "millis() mengembalikan waktu sejak boot tanpa menghentikan program." },
+  { q: "Untuk komunikasi antar dua Arduino dengan kabel, protokol yang tepat adalah...", opsi: ["I2C atau SPI", "USB", "WiFi", "Bluetooth"], jawab: 0, penjelasan: "I2C atau SPI memungkinkan komunikasi antar multiple Arduino." },
+  { q: "Kapasitas tegangan maksimal yang dapat diukur Arduino Uno adalah...", opsi: ["5V", "3.3V", "12V", "24V"], jawab: 0, penjelasan: "ADC Arduino Uno mengukur tegangan 0-5V (dengan referensi default 5V)." },
+  { q: "Kenapa motor DC memerlukan driver seperti L298N?", opsi: ["Arus motor lebih besar dari kapasitas pin Arduino", "Motor terlalu cepat", "Motor butuh AC", "Motor butuh 12V"], jawab: 0, penjelasan: "Pin Arduino hanya menyediakan ~20mA, sementara motor bisa butuh ratusan mA." },
+  { q: "Kapasitas maksimal motor servo standar adalah...", opsi: ["180 derajat", "90 derajat", "360 derajat", "270 derajat"], jawab: 0, penjelasan: "Servo standar memiliki rentang putaran 0-180 derajat." },
+  { q: "Untuk mengontrol kecepatan motor DC dengan Arduino, digunakan...", opsi: ["PWM", "Digital HIGH/LOW", "Analog output asli", "Serial"], jawab: 0, penjelasan: "PWM memungkinkan kontrol kecepatan motor secara halus." },
+  { q: "Fungsi delayMicroseconds() lebih presisi dari delay() karena...", opsi: ["Bekerja dalam mikrodetik", "Bekerja dalam nanodetik", "Bekerja dalam menit", "Bekerja dalam jam"], jawab: 0, penjelasan: "delayMicroseconds() memberi jeda dalam satuan mikrodetik (1/1.000.000 detik)." },
+  { q: "Library untuk komunikasi I2C pada Arduino Uno adalah...", opsi: ["Wire.h", "I2C.h", "Serial.h", "SPI.h"], jawab: 0, penjelasan: "Wire.h adalah library bawaan untuk komunikasi I2C." },
+  { q: "Untuk membuat Arduino menjadi access point WiFi, modul yang tepat adalah...", opsi: ["ESP8266", "HC-05", "NRF24L01", "L298N"], jawab: 0, penjelasan: "ESP8266 dapat berfungsi sebagai access point WiFi." },
+  { q: "Kelebihan sensor digital seperti DHT11 dibanding sensor analog adalah...", opsi: ["Data langsung digital, tidak perlu ADC", "Lebih akurat", "Lebih murah", "Lebih cepat"], jawab: 0, penjelasan: "Sensor digital mengirim data langsung dalam bentuk digital tanpa konversi ADC." }
+];
+
+let latihanSoal = [];
+let latihanIdx = 0;
+let latihanBenar = 0;
+let latihanSalah = 0;
+let latihanTingkat = 'mudah';
+let latihanTerjawab = false;
+
+function loadLocalProgress() {
+  const storedDate = localStorage.getItem('arduinoDate');
+  if (storedDate === todayStr) {
+    todayLimit = parseInt(localStorage.getItem('arduinoLimit') || '0');
+    const stored = localStorage.getItem('arduinoOpened');
+    if (stored) openedIndexes = JSON.parse(stored);
+  } else {
+    todayLimit = 0;
+    openedIndexes = [];
+    localStorage.setItem('arduinoDate', todayStr);
+    localStorage.setItem('arduinoLimit', '0');
+    localStorage.setItem('arduinoOpened', '[]');
+  }
+}
+function saveLocalProgress() {
+  localStorage.setItem('arduinoLimit', todayLimit);
+  localStorage.setItem('arduinoOpened', JSON.stringify(openedIndexes));
+}
+
+function updateUI() {
+  const badge = document.getElementById('premiumStatusBadge');
+  const limitSpan = document.getElementById('limitCounter');
+  if (isPremium && premiumExpiry) {
+    const now = Date.now();
+    if (now > premiumExpiry) {
+      isPremium = false; premiumExpiry = null;
+      badge.innerText = 'Premium Habis'; badge.className = 'premium-indicator warning'; limitSpan.innerText = '0/2 Hari Ini';
+      if (currentUser) {
+        db.ref('users/' + currentUser.uid + '/premium/robotik').set(false);
+        db.ref('users/' + currentUser.uid + '/premium/robotik_expiry').remove();
+      }
+      return;
+    }
+    const sisaHari = Math.ceil((premiumExpiry - now) / (1000 * 60 * 60 * 24));
+    badge.innerText = 'Premium (' + sisaHari + ' hari)'; badge.className = 'premium-indicator active'; limitSpan.innerText = 'Tak Terbatas';
+  } else if (isPremium) {
+    badge.innerText = 'Premium Aktif'; badge.className = 'premium-indicator active'; limitSpan.innerText = 'Tak Terbatas';
+  } else {
+    badge.innerText = 'Akun Standar'; badge.className = 'premium-indicator'; limitSpan.innerText = todayLimit + '/2 Hari Ini';
+  }
+}
+
+function renderBagian() {
+  const container = document.getElementById('listBagianGrid');
+  if (!container) return;
+  container.innerHTML = '';
+  const iconCheck = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  const iconLock = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+  const iconChevron = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+  for (let i = 0; i < materiList.length; i++) {
+    const isOpened = openedIndexes.includes(i);
+    const isLocked = !isOpened && !isPremium && todayLimit >= 2;
+    const rawTitle = materiList[i].judul;
+    const dashIdx = rawTitle.indexOf(' - ');
+    const shortTitle = dashIdx !== -1 ? rawTitle.substring(dashIdx + 3) : rawTitle;
+    const btn = document.createElement('div');
+    btn.className = 'materi-btn';
+    if (isOpened) btn.classList.add('opened');
+    if (isLocked) btn.classList.add('locked');
+    let statusIcon = iconChevron;
+    if (isOpened) statusIcon = iconCheck;
+    else if (isLocked) statusIcon = iconLock;
+    btn.innerHTML = '<div class="materi-num">' + (i + 1) + '</div><div class="materi-text"><div class="materi-title">' + shortTitle + '</div><div class="materi-sub">Materi ' + (i + 1) + ' dari ' + materiList.length + '</div></div><div class="materi-status">' + statusIcon + '</div>';
+    btn.onclick = (function(idx) { return function() { openMateri(idx); }; })(i);
+    container.appendChild(btn);
+  }
+}
+
+function openMateri(index) {
+  if (!currentUser) { showAlert('Silakan masuk ke akun Anda terlebih dahulu.', false); return; }
+  db.ref('users/' + currentUser.uid + '/premium/robotik').once('value').then(function(snap) {
+    isPremium = snap.val() === true;
+    return db.ref('users/' + currentUser.uid + '/premium/robotik_expiry').once('value');
+  }).then(function(expirySnap) {
+    premiumExpiry = expirySnap.val() || null;
+    if (isPremium && premiumExpiry && Date.now() > premiumExpiry) {
+      isPremium = false; premiumExpiry = null;
+      db.ref('users/' + currentUser.uid + '/premium/robotik').set(false);
+      db.ref('users/' + currentUser.uid + '/premium/robotik_expiry').remove();
+      updateUI(); renderBagian();
+      showAlert('Masa premium Anda telah berakhir. Silakan perpanjang untuk mengakses materi.', true);
+      return;
+    }
+    const isOpened = openedIndexes.includes(index);
+    const isLocked = !isOpened && !isPremium && todayLimit >= 2;
+    if (isLocked) {
+      showAlert('Batas harian untuk akun standar telah tercapai (2 materi). Dapatkan akses premium untuk membuka seluruh materi tanpa batas.', true);
+      return;
+    }
+    if (!isOpened) {
+      todayLimit++;
+      openedIndexes.push(index);
+      saveLocalProgress();
+      updateUI();
+      renderBagian();
+      if (currentUser) {
+        const openedObj = {};
+        openedIndexes.forEach(function(i) { openedObj[i] = true; });
+        db.ref('users/' + currentUser.uid + '/progress/arduino').set(openedObj).catch(function(e) { console.log(e); });
+        db.ref('users/' + currentUser.uid + '/limit/arduino').set({ count: todayLimit, date: todayStr }).catch(function(e) { console.log(e); });
+      }
+    }
+    currentMateriIdx = index;
+    document.getElementById('halamanUtama').classList.add('hidden');
+    document.getElementById('materiView').classList.remove('hidden');
+    document.getElementById('latihanView').classList.add('hidden');
+    document.getElementById('fabLatihan').classList.add('hidden');
+    document.getElementById('judulMateriView').innerHTML = materiList[index].judul;
+    document.getElementById('isiMateriDetail').innerHTML = materiList[index].konten;
+  });
+}
+
+function nextMateri() {
+  if (currentMateriIdx + 1 < materiList.length) openMateri(currentMateriIdx + 1);
+  else showAlert('Anda telah mencapai materi terakhir dalam daftar.', false);
+}
+function prevMateri() {
+  if (currentMateriIdx - 1 >= 0) openMateri(currentMateriIdx - 1);
+  else showAlert('Ini adalah materi pertama.', false);
+}
+function backToList() {
+  document.getElementById('materiView').classList.add('hidden');
+  document.getElementById('latihanView').classList.add('hidden');
+  document.getElementById('halamanUtama').classList.remove('hidden');
+  document.getElementById('fabLatihan').classList.remove('hidden');
+  renderBagian();
+}
+
+function bukaPilihTingkat() {
+  if (!currentUser) { showAlert('Silakan masuk ke akun Anda terlebih dahulu.', false); return; }
+  document.getElementById('halamanUtama').classList.add('hidden');
+  document.getElementById('materiView').classList.add('hidden');
+  document.getElementById('latihanView').classList.remove('hidden');
+  document.getElementById('latihanPilihTingkat').classList.remove('hidden');
+  document.getElementById('latihanMain').classList.add('hidden');
+  document.getElementById('fabLatihan').classList.add('hidden');
+}
+
+function mulaiLatihanSoal(tingkat) {
+  if (!currentUser) { showAlert('Silakan masuk ke akun Anda terlebih dahulu.', false); return; }
+  latihanTingkat = tingkat;
+  if (tingkat === 'mudah') latihanSoal = soalMudah.slice();
+  else if (tingkat === 'sedang') latihanSoal = soalSedang.slice();
+  else latihanSoal = soalSulit.slice();
+  latihanSoal.sort(function() { return 0.5 - Math.random(); });
+  latihanSoal = latihanSoal.slice(0, 20);
+  latihanIdx = 0;
+  latihanBenar = 0;
+  latihanSalah = 0;
+  latihanTerjawab = false;
+  document.getElementById('latihanPilihTingkat').classList.add('hidden');
+  document.getElementById('latihanMain').classList.remove('hidden');
+  document.getElementById('judulLatihan').innerText = 'Latihan ' + tingkat.charAt(0).toUpperCase() + tingkat.slice(1);
+  document.getElementById('latihanProgressWrap').style.display = 'block';
+  document.getElementById('latihanSoalWrap').classList.remove('hidden');
+  document.getElementById('latihanHasilWrap').classList.add('hidden');
+  tampilkanSoal();
+}
+
+function tampilkanSoal() {
+  const soal = latihanSoal[latihanIdx];
+  latihanTerjawab = false;
+  document.getElementById('latihanProgressText').innerText = 'Soal ' + (latihanIdx + 1) + ' dari ' + latihanSoal.length;
+  document.getElementById('latihanScoreText').innerText = 'Benar: ' + latihanBenar;
+  document.getElementById('latihanProgressBar').style.width = ((latihanIdx) / latihanSoal.length * 100) + '%';
+  document.getElementById('latihanPertanyaan').innerText = soal.q;
+  const opsiWrap = document.getElementById('latihanOpsiWrap');
+  opsiWrap.innerHTML = '';
+  const label = ['A', 'B', 'C', 'D'];
+  soal.opsi.forEach(function(o, idx) {
+    const btn = document.createElement('button');
+    btn.className = 'latihan-opsi';
+    btn.innerHTML = '<span class="opsi-label">' + label[idx] + '</span><span>' + o + '</span>';
+    btn.onclick = function() { jawabSoal(idx); };
+    opsiWrap.appendChild(btn);
+  });
+  document.getElementById('latihanPenjelasanWrap').classList.add('hidden');
+  document.getElementById('latihanLanjutBtn').classList.add('hidden');
+}
+
+function jawabSoal(pilihan) {
+  if (latihanTerjawab) return;
+  latihanTerjawab = true;
+  const soal = latihanSoal[latihanIdx];
+  const opsiList = document.querySelectorAll('#latihanOpsiWrap .latihan-opsi');
+  opsiList.forEach(function(el, idx) {
+    el.classList.add('disabled');
+    if (idx === soal.jawab) el.classList.add('correct');
+    if (idx === pilihan && pilihan !== soal.jawab) el.classList.add('wrong');
+  });
+  if (pilihan === soal.jawab) latihanBenar++;
+  else latihanSalah++;
+  document.getElementById('latihanScoreText').innerText = 'Benar: ' + latihanBenar;
+  const penjelasanWrap = document.getElementById('latihanPenjelasanWrap');
+  penjelasanWrap.innerHTML = '<b>' + (pilihan === soal.jawab ? '✓ Benar!' : '✗ Salah') + '</b><br>' + soal.penjelasan;
+  penjelasanWrap.classList.remove('hidden');
+  const lanjutBtn = document.getElementById('latihanLanjutBtn');
+  lanjutBtn.classList.remove('hidden');
+  lanjutBtn.innerText = (latihanIdx + 1 < latihanSoal.length) ? 'Soal Berikutnya' : 'Lihat Hasil';
+}
+
+function lanjutSoal() {
+  if (latihanIdx + 1 < latihanSoal.length) {
+    latihanIdx++;
+    tampilkanSoal();
+  } else {
+    tampilkanHasil();
+  }
+}
+
+function tampilkanHasil() {
+  document.getElementById('latihanSoalWrap').classList.add('hidden');
+  document.getElementById('latihanProgressWrap').style.display = 'none';
+  document.getElementById('latihanHasilWrap').classList.remove('hidden');
+  const total = latihanSoal.length;
+  const nilai = Math.round(latihanBenar / total * 100);
+  document.getElementById('hasilBenar').innerText = latihanBenar;
+  document.getElementById('hasilSalah').innerText = latihanSalah;
+  document.getElementById('hasilNilai').innerText = nilai;
+  let title = 'Luar Biasa!';
+  let subtitle = 'Kamu menguasai materi dengan sangat baik.';
+  let gradient = 'linear-gradient(135deg, #2563EB, #60A5FA)';
+  let iconPath = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+  if (nilai < 60) {
+    title = 'Perlu Belajar Lagi';
+    subtitle = 'Baca ulang materi lalu coba lagi ya.';
+    gradient = 'linear-gradient(135deg, #DC2626, #F87171)';
+    iconPath = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+  } else if (nilai < 80) {
+    title = 'Bagus!';
+    subtitle = 'Kamu sudah cukup paham, terus berlatih!';
+    gradient = 'linear-gradient(135deg, #D97706, #FBBF24)';
+    iconPath = '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>';
+  }
+  document.getElementById('hasilTitle').innerText = title;
+  document.getElementById('hasilSubtitle').innerText = subtitle;
+  const iconWrap = document.getElementById('hasilIconWrap');
+  if (iconWrap) {
+    iconWrap.style.background = gradient;
+    iconWrap.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 36px; height: 36px;">' + iconPath + '</svg>';
+  }
+}
+
+function ulangiLatihan() {
+  mulaiLatihanSoal(latihanTingkat);
+}
+
+function keluarLatihan() {
+  document.getElementById('latihanView').classList.add('hidden');
+  document.getElementById('materiView').classList.add('hidden');
+  document.getElementById('halamanUtama').classList.remove('hidden');
+  document.getElementById('fabLatihan').classList.remove('hidden');
+  renderBagian();
+}
+
+function showAlert(message, showUpgrade) {
+  const overlay = document.getElementById('globalAlert');
+  document.getElementById('alertMessage').innerText = message;
+  const extraDiv = document.getElementById('alertExtraBtn');
+  extraDiv.innerHTML = '';
+  if (showUpgrade) {
+    const btn = document.createElement('button');
+    btn.className = 'btn-full';
+    btn.innerText = 'Tingkatkan ke Premium';
+    btn.style.marginTop = '12px';
+    btn.onclick = function() { closeAlertGlobal(); goTo('premium.html'); };
+    extraDiv.appendChild(btn);
+  }
+  overlay.style.display = 'flex';
+}
+function closeAlertGlobal() { document.getElementById('globalAlert').style.display = 'none'; }
+function openSidebar() { document.getElementById('sidebarOverlay').classList.add('active'); document.getElementById('sidebarNav').classList.add('active'); }
+function closeSidebar() { document.getElementById('sidebarOverlay').classList.remove('active'); document.getElementById('sidebarNav').classList.remove('active'); }
+function goTo(page) { window.location.href = page; }
+function logoutAction() {
+  if (confirm('Yakin ingin keluar?')) {
+    firebase.auth().signOut().then(function() { window.location.href = 'login.html'; });
+  }
+}
+
+document.getElementById('prevBtn').onclick = prevMateri;
+document.getElementById('nextBtn').onclick = nextMateri;
+document.getElementById('backToListBtn').onclick = backToList;
+
+if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+
+window.addEventListener('DOMContentLoaded', function() {
+  loadLocalProgress();
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (!user) { currentUser = null; isPremium = false; premiumExpiry = null; updateUI(); renderBagian(); return; }
+    currentUser = user;
+    db.ref('users/' + user.uid + '/premium/robotik').once('value').then(function(snap) {
+      isPremium = snap.val() === true;
+      return db.ref('users/' + user.uid + '/premium/robotik_expiry').once('value');
+    }).then(function(expirySnap) {
+      premiumExpiry = expirySnap.val() || null;
+      if (isPremium && premiumExpiry) {
+        const now = Date.now();
+        if (now > premiumExpiry) {
+          isPremium = false; premiumExpiry = null;
+          db.ref('users/' + user.uid + '/premium/robotik').set(false);
+          db.ref('users/' + user.uid + '/premium/robotik_expiry').remove();
+        }
+      }
+      return db.ref('users/' + user.uid + '/progress/arduino').once('value');
+    }).then(function(snap) {
+      if (snap.val()) {
+        const data = snap.val();
+        const newOpened = Array.isArray(data) ? data : Object.keys(data).map(Number);
+        if (JSON.stringify(newOpened) !== JSON.stringify(openedIndexes)) { openedIndexes = newOpened; saveLocalProgress(); }
+      }
+      return db.ref('users/' + user.uid + '/limit/arduino').once('value');
+    }).then(function(snap) {
+      const limitData = snap.val();
+      if (limitData && limitData.date === todayStr) { if (todayLimit !== limitData.count) todayLimit = limitData.count; }
+      else { todayLimit = 0; }
+      saveLocalProgress(); updateUI(); renderBagian();
+    }).catch(function(e) { console.error(e); renderBagian(); });
+  });
+});
+</script>
+
+</body>
+</html>

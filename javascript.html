@@ -115,6 +115,84 @@
     color: #94A3B8;
   }
 
+  body.dark .latihan-opsi {
+    background: #1E293B;
+    border-color: #334155;
+    color: #E2E8F0;
+  }
+
+  body.dark .latihan-opsi .opsi-label {
+    background: #0F172A;
+    border-color: #334155;
+    color: #94A3B8;
+  }
+
+  body.dark .latihan-opsi.correct {
+    background: #14311F;
+    border-color: #16A34A;
+    color: #4ADE80;
+  }
+
+  body.dark .latihan-opsi.wrong {
+    background: #3A1414;
+    border-color: #DC2626;
+    color: #F87171;
+  }
+
+  body.dark #latihanPenjelasanWrap {
+    background: #1E3A5F !important;
+    color: #93C5FD !important;
+  }
+
+  body.dark #latihanHasilWrap > div:nth-of-type(2) {
+    background: #1E293B !important;
+  }
+
+  body.dark #hasilTitle {
+    color: #F1F5F9;
+  }
+
+  body.dark #hasilSubtitle {
+    color: #94A3B8;
+  }
+
+  body.dark #latihanPertanyaan {
+    color: #F1F5F9;
+  }
+
+  body.dark .fab-latihan {
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5), 0 4px 10px rgba(0,0,0,0.4);
+  }
+
+  body.dark .fab-latihan .fab-tooltip {
+    background: #1E293B;
+    color: #F1F5F9;
+  }
+
+  body.dark .pilih-tingkat-btn {
+    background: #111827;
+    border-color: #334155;
+  }
+
+  body.dark .pilih-tingkat-btn .tingkat-info .tingkat-title {
+    color: #F1F5F9;
+  }
+
+  body.dark .pilih-tingkat-btn .tingkat-info .tingkat-sub {
+    color: #94A3B8;
+  }
+
+  body.dark .pilih-tingkat-btn .tingkat-arrow {
+    color: #475569;
+  }
+
+  body.dark .pilih-tingkat-btn.mudah { border-color: #166534; }
+  body.dark .pilih-tingkat-btn.mudah .tingkat-icon { background: #14311F; color: #4ADE80; }
+  body.dark .pilih-tingkat-btn.sedang { border-color: #78350F; }
+  body.dark .pilih-tingkat-btn.sedang .tingkat-icon { background: #3A1F0A; color: #FBBF24; }
+  body.dark .pilih-tingkat-btn.sulit { border-color: #7F1D1D; }
+  body.dark .pilih-tingkat-btn.sulit .tingkat-icon { background: #3A1414; color: #F87171; }
+
   .app-container {
     max-width: 560px;
     margin: 0 auto;
@@ -390,6 +468,8 @@
     cursor: pointer;
     color: #0F172A;
     transition: 0.15s;
+    text-align: left;
+    font-family: inherit;
   }
 
   .materi-btn:active {
@@ -480,6 +560,7 @@
     font-size: 15px;
     width: 100%;
     cursor: pointer;
+    font-family: inherit;
   }
 
   .btn-full:active {
@@ -496,6 +577,7 @@
     width: 100%;
     margin-top: 8px;
     cursor: pointer;
+    font-family: inherit;
   }
 
   .nav-buttons {
@@ -543,6 +625,7 @@
     color: #4fc3f7;
     margin: 12px 0;
     border: 1px solid #E2E8F0;
+    white-space: pre-wrap;
   }
 
   body.dark .code-block {
@@ -550,6 +633,211 @@
     border-color: #334155;
     color: #4fc3f7;
   }
+
+  .latihan-opsi {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #F8FAFE;
+    border: 2px solid #E2E8F0;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.15s;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #0F172A;
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+  }
+
+  .latihan-opsi:active {
+    transform: scale(0.98);
+  }
+
+  .latihan-opsi .opsi-label {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 2px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+    color: #64748B;
+  }
+
+  .latihan-opsi.correct {
+    background: #DCFCE7;
+    border-color: #16A34A;
+    color: #15803D;
+  }
+
+  .latihan-opsi.correct .opsi-label {
+    background: #16A34A;
+    border-color: #16A34A;
+    color: #fff;
+  }
+
+  .latihan-opsi.wrong {
+    background: #FEE2E2;
+    border-color: #DC2626;
+    color: #B91C1C;
+  }
+
+  .latihan-opsi.wrong .opsi-label {
+    background: #DC2626;
+    border-color: #DC2626;
+    color: #fff;
+  }
+
+  .latihan-opsi.disabled {
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .fab-latihan {
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563EB, #60A5FA);
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4), 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 50;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+  }
+
+  .fab-latihan:active {
+    transform: scale(0.92);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5);
+  }
+
+  .fab-latihan svg {
+    width: 28px;
+    height: 28px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .fab-latihan .fab-tooltip {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0F172A;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .fab-latihan:hover .fab-tooltip {
+    opacity: 1;
+  }
+
+  .pilih-tingkat-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    background: #FFFFFF;
+    border: 2px solid #E2E8F0;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.15s;
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+  }
+
+  .pilih-tingkat-btn:active {
+    transform: scale(0.98);
+  }
+
+  .pilih-tingkat-btn .tingkat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pilih-tingkat-btn .tingkat-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .pilih-tingkat-btn .tingkat-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .pilih-tingkat-btn .tingkat-info .tingkat-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 2px;
+  }
+
+  .pilih-tingkat-btn .tingkat-info .tingkat-sub {
+    font-size: 12.5px;
+    color: #64748B;
+  }
+
+  .pilih-tingkat-btn .tingkat-arrow {
+    color: #CBD5E1;
+    flex-shrink: 0;
+  }
+
+  .pilih-tingkat-btn .tingkat-arrow svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .pilih-tingkat-btn.mudah { border-color: #BBF7D0; }
+  .pilih-tingkat-btn.mudah .tingkat-icon { background: #DCFCE7; color: #16A34A; }
+  .pilih-tingkat-btn.mudah:active { border-color: #16A34A; }
+
+  .pilih-tingkat-btn.sedang { border-color: #FDE68A; }
+  .pilih-tingkat-btn.sedang .tingkat-icon { background: #FEF3C7; color: #D97706; }
+  .pilih-tingkat-btn.sedang:active { border-color: #D97706; }
+
+  .pilih-tingkat-btn.sulit { border-color: #FECACA; }
+  .pilih-tingkat-btn.sulit .tingkat-icon { background: #FEE2E2; color: #DC2626; }
+  .pilih-tingkat-btn.sulit:active { border-color: #DC2626; }
 
   .alert-overlay {
     position: fixed;
@@ -593,61 +881,101 @@
   }
 
   .hidden {
-    display: none;
+    display: none !important;
   }
 
-  /* ===== Tampilan Laptop / PC ===== */
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+  /* perbaikan mode gelap: teks soal & jalur progres latihan */
+  body.dark #latihanPertanyaan { color:#F1F5F9 !important; }
+  body.dark #latihanProgressWrap > div:nth-of-type(2) { background:#1E293B !important; }
+
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
     }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .sidebar-nav .logout-link { margin-top:auto; }
 
     .app-container {
-      max-width: 720px;
-      margin: 36px auto;
-      min-height: auto;
-      background: #F1F5F9;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      padding-bottom: 24px;
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
     }
-
-    body.dark .app-container {
-      background: #0B1120;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
 
     .app-header {
-      border-radius: 20px 20px 0 0;
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1100px) / 2 + 32px));
     }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    .app-title { font-size:22px; }
+    .close-btn:hover { background:rgba(37,99,235,.10); }
 
-    .grid-bagian {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .screen { width:100%; max-width:1100px; margin:0 auto; padding:32px 32px 48px; }
+    .card-modern { padding:26px; border-radius:22px; margin-bottom:0; }
+    .section-title { font-size:20px; letter-spacing:-.3px; }
 
-    .card-modern {
-      border-radius: 20px;
-      padding: 24px;
+    /* daftar materi: kiri status, kanan daftar 2 kolom */
+    #halamanUtama:not(.hidden) {
+      display:grid; grid-template-columns:minmax(0,320px) minmax(0,1fr); column-gap:28px; align-items:start;
     }
+    #halamanUtama > .card-modern:nth-child(1) { position:sticky; top:92px; }
+    #halamanUtama > .card-modern { min-width:0; }
+    .grid-bagian { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
+    .grid-bagian .materi-btn { min-width:0; }
+    .grid-bagian .materi-btn .materi-text .materi-title { white-space:normal; overflow:visible; text-overflow:clip; word-break:break-word; line-height:1.3; }
+    .materi-btn { transition:border-color .15s, box-shadow .15s, transform .15s; }
+    .materi-btn:not(.locked):hover { border-color:#9DB9F2; box-shadow:0 8px 20px rgba(37,99,235,.08); transform:translateY(-2px); }
+    body.dark .materi-btn:not(.locked):hover { border-color:#2F4A8A; box-shadow:none; }
 
-    .materi-content {
-      font-size: 16px;
-    }
+    /* baca materi & latihan: kolom tengah */
+    #materiView:not(.hidden) { max-width:800px; margin:0 auto; }
+    #materiView > .card-modern { padding:36px 40px; }
+    #materiView .section-title { font-size:24px; letter-spacing:-.4px; margin-bottom:18px; }
+    .materi-content { font-size:16px; line-height:1.75; }
+    .materi-content h4 { font-size:19px; }
+    .materi-content pre { font-size:14px; padding:16px 18px; }
+    .btn-full, .btn-outline { transition:filter .15s, background .15s; }
+    .btn-full:hover { filter:brightness(1.08); }
+    .btn-outline:hover { background:rgba(37,99,235,.06); }
+    .nav-buttons { margin-top:28px; align-items:stretch; }
+    .nav-buttons .btn-outline, .nav-buttons .btn-full { height:48px; min-height:48px; margin:0; padding:0 16px; display:flex; align-items:center; justify-content:center; }
 
-    .materi-content h4 {
-      font-size: 20px;
-    }
+    #latihanView:not(.hidden) { max-width:700px; margin:0 auto; }
+    .latihan-opsi { transition:border-color .15s, background .15s, transform .1s; }
+    .latihan-opsi:not(.disabled):hover { border-color:#93B4F5; }
+    .pilih-tingkat-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(37,99,235,.08); }
+
+    .fab-latihan { right:32px; bottom:32px; width:64px; height:64px; }
+    .fab-latihan:hover { transform:translateY(-3px); }
+
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
+    .alert-card { max-width:380px; padding:28px 26px; border-radius:26px; }
   }
+
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .screen { padding:24px; }
+    #halamanUtama:not(.hidden) { grid-template-columns:minmax(0,280px) minmax(0,1fr); column-gap:20px; }
+    .grid-bagian { grid-template-columns:minmax(0,1fr); }
+  }
+
+
 </style>
 </head>
 <body>
@@ -679,6 +1007,7 @@
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
+    <div class="sidebar-brand">STools</div>
     <a href="#" onclick="goTo('index.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
     </a>
@@ -709,7 +1038,7 @@
       <div class="card-modern">
         <div class="section-title">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8">
-           <polyline points="16 18 22 12 16 6"/>
+            <polyline points="16 18 22 12 16 6"/>
             <polyline points="8 6 2 12 8 18"/>
           </svg>
           Belajar JavaScript
@@ -739,13 +1068,129 @@
         <div class="section-title" id="judulMateriView">Materi JavaScript</div>
         <div id="isiMateriDetail" class="materi-content"></div>
         <div class="nav-buttons">
-          <button class="btn-outline" id="prevBtn">Sebelumnya</button>
+          <button class="btn-outline" id="prevBtn" style="margin-top:0;">Sebelumnya</button>
           <button class="btn-full" id="nextBtn">Selanjutnya</button>
         </div>
         <button class="btn-outline" id="backToListBtn" style="margin-top: 12px;">Kembali ke Daftar</button>
       </div>
     </div>
+
+    <div id="latihanView" class="hidden">
+      <div id="latihanPilihTingkat">
+        <div class="card-modern">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px;">
+            <div class="section-title" style="margin-bottom: 0;">Latihan Soal</div>
+            <button class="btn-outline" onclick="keluarLatihan()" style="width: auto; padding: 6px 14px; font-size: 12px; margin: 0; flex-shrink: 0;">Keluar</button>
+          </div>
+          <p style="margin-bottom: 16px; font-size: 13.5px; color: #64748B; line-height: 1.5;">Pilih tingkat kesulitan untuk memulai latihan. Setiap sesi berisi 20 soal pilihan ganda.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <button class="pilih-tingkat-btn mudah" onclick="mulaiLatihanSoal('mudah')">
+              <div class="tingkat-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="tingkat-info">
+                <div class="tingkat-title">Mudah</div>
+                <div class="tingkat-sub">20 soal • Dasar JavaScript</div>
+              </div>
+              <div class="tingkat-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="pilih-tingkat-btn sedang" onclick="mulaiLatihanSoal('sedang')">
+              <div class="tingkat-icon">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div class="tingkat-info">
+                <div class="tingkat-title">Sedang</div>
+                <div class="tingkat-sub">20 soal • DOM &amp; ES6</div>
+              </div>
+              <div class="tingkat-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="pilih-tingkat-btn sulit" onclick="mulaiLatihanSoal('sulit')">
+              <div class="tingkat-icon">
+                <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              </div>
+              <div class="tingkat-info">
+                <div class="tingkat-title">Sulit</div>
+                <div class="tingkat-sub">20 soal • Framework &amp; lanjutan</div>
+              </div>
+              <div class="tingkat-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="latihanMain" class="hidden">
+        <div class="card-modern">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px;">
+            <div class="section-title" id="judulLatihan" style="margin-bottom: 0;">Latihan Soal</div>
+            <button class="btn-outline" onclick="keluarLatihan()" style="width: auto; padding: 6px 14px; font-size: 12px; margin: 0; flex-shrink: 0;">Keluar</button>
+          </div>
+
+          <div id="latihanProgressWrap" style="margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #64748B; margin-bottom: 6px;">
+              <span id="latihanProgressText">Soal 1 dari 20</span>
+              <span id="latihanScoreText">Benar: 0</span>
+            </div>
+            <div style="height: 6px; background: #E2E8F0; border-radius: 3px; overflow: hidden;">
+              <div id="latihanProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #2563EB, #60A5FA); transition: width 0.3s;"></div>
+            </div>
+          </div>
+
+          <div id="latihanSoalWrap">
+            <p id="latihanPertanyaan" style="font-size: 15px; font-weight: 600; line-height: 1.6; margin-bottom: 16px; color: #0F172A;"></p>
+            <div id="latihanOpsiWrap" style="display: flex; flex-direction: column; gap: 10px;"></div>
+            <div id="latihanPenjelasanWrap" class="hidden" style="margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: #EFF6FF; border-left: 4px solid #2563EB; font-size: 13px; color: #1E3A8A; line-height: 1.5;"></div>
+            <button class="btn-full hidden" id="latihanLanjutBtn" onclick="lanjutSoal()" style="margin-top: 16px;">Soal Berikutnya</button>
+          </div>
+
+          <div id="latihanHasilWrap" class="hidden" style="text-align: center; padding: 20px 0;">
+            <div id="hasilIconWrap" style="width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 50%; background: linear-gradient(135deg, #2563EB, #60A5FA); display: flex; align-items: center; justify-content: center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 36px; height: 36px;">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <h3 id="hasilTitle" style="font-size: 22px; font-weight: 700; margin-bottom: 6px;">Hebat!</h3>
+            <p id="hasilSubtitle" style="font-size: 14px; color: #64748B; margin-bottom: 16px;">Kamu menjawab dengan baik.</p>
+            <div style="background: #F8FAFE; border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-around;">
+                <div>
+                  <div style="font-size: 12px; color: #64748B;">Benar</div>
+                  <div id="hasilBenar" style="font-size: 24px; font-weight: 700; color: #16A34A;">0</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #64748B;">Salah</div>
+                  <div id="hasilSalah" style="font-size: 24px; font-weight: 700; color: #DC2626;">0</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #64748B;">Nilai</div>
+                  <div id="hasilNilai" style="font-size: 24px; font-weight: 700; color: #2563EB;">0</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn-full" onclick="ulangiLatihan()" style="margin-bottom: 8px;">Ulangi Latihan</button>
+            <button class="btn-outline" onclick="keluarLatihan()" style="margin-top: 0;">Kembali ke Beranda</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <button class="fab-latihan" id="fabLatihan" onclick="bukaPilihTingkat()" aria-label="Latihan Soal">
+    <svg viewBox="0 0 24 24">
+      <path d="M9 11l3 3L22 4"/>
+      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+    </svg>
+    <span class="fab-tooltip">Latihan Soal</span>
+  </button>
 
   <div class="footer-app">
     <p>Star Platform | STools 2026</p>
@@ -782,413 +1227,184 @@ let currentMateriIdx = 0;
 
 const todayStr = new Date().toDateString();
 
-// ======================== 100 MATERI JAVASCRIPT ========================
 const materiList = [
-  // 1-25: DASAR JAVASCRIPT
-  {
-    judul: "JS 1 - Pengenalan JavaScript",
-    konten: '<h4>Pengertian</h4><p>JavaScript adalah bahasa pemrograman yang membuat website menjadi interaktif dan dinamis.</p><h4>Penjelasan</h4><p>JavaScript awalnya dibuat untuk browser, sekarang bisa digunakan di server (Node.js), mobile, dan desktop.</p><h4>Contoh Kode</h4><pre class="code-block">console.log("Hello World!");\nalert("Selamat datang di JavaScript!");</pre><h4>Kesimpulan</h4><p>JavaScript adalah jantung dari web modern.</p>'
-  },
-  {
-    judul: "JS 2 - Variabel JavaScript",
-    konten: '<h4>Pengertian</h4><p>Variabel adalah wadah untuk menyimpan data.</p><h4>Penjelasan</h4><p>Tiga cara deklarasi: var, let, const. Rekomendasi: gunakan let dan const.</p><h4>Contoh Kode</h4><pre class="code-block">let nama = "Budi";\nconst umur = 17;\nconsole.log(nama, umur);</pre><h4>Kesimpulan</h4><p>Gunakan let untuk nilai berubah, const untuk nilai tetap.</p>'
-  },
-  {
-    judul: "JS 3 - Tipe Data",
-    konten: '<h4>Pengertian</h4><p>Tipe data adalah jenis nilai yang dapat disimpan.</p><h4>Penjelasan</h4><p>Tipe data primitif: string, number, boolean, null, undefined, symbol.</p><h4>Contoh Kode</h4><pre class="code-block">let nama = "Budi";\nlet umur = 17;\nlet aktif = true;</pre><h4>Kesimpulan</h4><p>Setiap data memiliki tipe yang menentukan operasinya.</p>'
-  },
-  {
-    judul: "JS 4 - Fungsi",
-    konten: '<h4>Pengertian</h4><p>Fungsi adalah blok kode yang dapat dipanggil berulang.</p><h4>Penjelasan</h4><p>Fungsi membuat kode lebih terstruktur dan reusable.</p><h4>Contoh Kode</h4><pre class="code-block">function sapa(nama) {\n  return "Halo " + nama;\n}\nconsole.log(sapa("Budi"));</pre><h4>Kesimpulan</h4><p>Fungsi adalah blok bangunan utama pemrograman.</p>'
-  },
-  {
-    judul: "JS 5 - Percabangan If Else",
-    konten: '<h4>Pengertian</h4><p>Percabangan untuk mengambil keputusan berdasarkan kondisi.</p><h4>Penjelasan</h4><p>Menggunakan if, else if, dan else.</p><h4>Contoh Kode</h4><pre class="code-block">let nilai = 85;\nif (nilai >= 75) {\n  console.log("Lulus");\n} else {\n  console.log("Tidak Lulus");\n}</pre><h4>Kesimpulan</h4><p>Percabangan memungkinkan program mengambil keputusan.</p>'
-  },
-  {
-    judul: "JS 6 - Perulangan For",
-    konten: '<h4>Pengertian</h4><p>Perulangan for untuk mengulang kode dengan jumlah pasti.</p><h4>Penjelasan</h4><p>Memiliki tiga bagian: inisialisasi, kondisi, increment.</p><h4>Contoh Kode</h4><pre class="code-block">for (let i = 0; i < 5; i++) {\n  console.log(i);\n}</pre><h4>Kesimpulan</h4><p>For loop menghemat penulisan kode berulang.</p>'
-  },
-  {
-    judul: "JS 7 - Perulangan While",
-    konten: '<h4>Pengertian</h4><p>Perulangan while berjalan selama kondisi true.</p><h4>Penjelasan</h4><p>Cocok untuk jumlah perulangan yang tidak pasti.</p><h4>Contoh Kode</h4><pre class="code-block">let i = 0;\nwhile (i < 5) {\n  console.log(i);\n  i++;\n}</pre><h4>Kesimpulan</h4><p>While loop untuk kondisi yang belum pasti jumlahnya.</p>'
-  },
-  {
-    judul: "JS 8 - Array",
-    konten: '<h4>Pengertian</h4><p>Array untuk menyimpan banyak nilai dalam satu variabel.</p><h4>Penjelasan</h4><p>Diakses menggunakan indeks dimulai dari 0.</p><h4>Contoh Kode</h4><pre class="code-block">let buah = ["Apel", "Jeruk", "Mangga"];\nconsole.log(buah[0]);</pre><h4>Kesimpulan</h4><p>Array berguna untuk koleksi data.</p>'
-  },
-  {
-    judul: "JS 9 - Object",
-    konten: '<h4>Pengertian</h4><p>Object menyimpan pasangan key dan value.</p><h4>Penjelasan</h4><p>Digunakan untuk data yang kompleks dan terstruktur.</p><h4>Contoh Kode</h4><pre class="code-block">let user = {\n  nama: "Budi",\n  umur: 17\n};\nconsole.log(user.nama);</pre><h4>Kesimpulan</h4><p>Object penting untuk data terstruktur.</p>'
-  },
-  {
-    judul: "JS 10 - DOM Manipulation",
-    konten: '<h4>Pengertian</h4><p>DOM adalah representasi HTML yang bisa dimanipulasi.</p><h4>Penjelasan</h4><p>JavaScript bisa mengubah isi dan style halaman.</p><h4>Contoh Kode</h4><pre class="code-block">document.getElementById("judul").innerHTML = "Halo Baru";</pre><h4>Kesimpulan</h4><p>DOM membuat website dinamis dan interaktif.</p>'
-  },
-  {
-    judul: "JS 11 - Event Listener",
-    konten: '<h4>Pengertian</h4><p>Event listener merespon aksi user seperti klik.</p><h4>Penjelasan</h4><p>Lebih fleksibel daripada event onclick langsung.</p><h4>Contoh Kode</h4><pre class="code-block">tombol.addEventListener("click", function() {\n  alert("Diklik!");\n});</pre><h4>Kesimpulan</h4><p>Event listener membuat website interaktif.</p>'
-  },
-  {
-    judul: "JS 12 - Arrow Function",
-    konten: '<h4>Pengertian</h4><p>Arrow function adalah cara singkat menulis fungsi.</p><h4>Penjelasan</h4><p>Menggunakan tanda =>, lebih ringkas dari function biasa.</p><h4>Contoh Kode</h4><pre class="code-block">const kali = (a, b) => a * b;\nconsole.log(kali(5, 3));</pre><h4>Kesimpulan</h4><p>Arrow function membuat kode lebih bersih.</p>'
-  },
-  {
-    judul: "JS 13 - Template Literal",
-    konten: '<h4>Pengertian</h4><p>Template literal untuk string dengan variabel.</p><h4>Penjelasan</h4><p>Menggunakan backtick dan ${} untuk variabel.</p><h4>Contoh Kode</h4><pre class="code-block">let nama = "Budi";\nlet sapa = `Halo ${nama}`;</pre><h4>Kesimpulan</h4><p>Template literal mempermudah string dinamis.</p>'
-  },
-  {
-    judul: "JS 14 - Local Storage",
-    konten: '<h4>Pengertian</h4><p>Local storage menyimpan data permanen di browser.</p><h4>Penjelasan</h4><p>Data tetap tersimpan meskipun browser ditutup.</p><h4>Contoh Kode</h4><pre class="code-block">localStorage.setItem("nama", "Budi");\nlet nama = localStorage.getItem("nama");</pre><h4>Kesimpulan</h4><p>Berguna untuk menyimpan preferensi user.</p>'
-  },
-  {
-    judul: "JS 15 - Session Storage",
-    konten: '<h4>Pengertian</h4><p>Session storage mirip local storage tapi sementara.</p><h4>Penjelasan</h4><p>Data hilang saat tab atau browser ditutup.</p><h4>Contoh Kode</h4><pre class="code-block">sessionStorage.setItem("login", "true");\nlet login = sessionStorage.getItem("login");</pre><h4>Kesimpulan</h4><p>Cocok untuk data sementara satu sesi.</p>'
-  },
-  {
-    judul: "JS 16 - JSON",
-    konten: '<h4>Pengertian</h4><p>JSON adalah format pertukaran data yang ringan.</p><h4>Penjelasan</h4><p>Mirip object JavaScript, semua key dalam tanda kutip.</p><h4>Contoh Kode</h4><pre class="code-block">let json = JSON.stringify({nama: "Budi"});\nlet obj = JSON.parse(json);</pre><h4>Kesimpulan</h4><p>JSON adalah format standar pertukaran data web.</p>'
-  },
-  {
-    judul: "JS 17 - Fetch API",
-    konten: '<h4>Pengertian</h4><p>Fetch API untuk request HTTP ke server.</p><h4>Penjelasan</h4><p>Lebih modern dari XMLHttpRequest, mendukung Promise.</p><h4>Contoh Kode</h4><pre class="code-block">fetch("https://api.example.com/data")\n  .then(res => res.json())\n  .then(data => console.log(data));</pre><h4>Kesimpulan</h4><p>Fetch adalah cara modern komunikasi client-server.</p>'
-  },
-  {
-    judul: "JS 18 - Async Await",
-    konten: '<h4>Pengertian</h4><p>Async/await untuk menangani Promise agar mudah dibaca.</p><h4>Penjelasan</h4><p>Membuat kode asinkron terlihat seperti sinkron.</p><h4>Contoh Kode</h4><pre class="code-block">async function ambilData() {\n  let res = await fetch(url);\n  let data = await res.json();\n}</pre><h4>Kesimpulan</h4><p>Async/await membuat kode asinkron lebih bersih.</p>'
-  },
-  {
-    judul: "JS 19 - Promise",
-    konten: '<h4>Pengertian</h4><p>Promise merepresentasikan operasi asinkron.</p><h4>Penjelasan</h4><p>Status: pending, fulfilled, rejected.</p><h4>Contoh Kode</h4><pre class="code-block">new Promise((resolve, reject) => {\n  resolve("Sukses");\n}).then(res => console.log(res));</pre><h4>Kesimpulan</h4><p>Promise adalah fondasi operasi asinkron.</p>'
-  },
-  {
-    judul: "JS 20 - Callback Function",
-    konten: '<h4>Pengertian</h4><p>Callback adalah fungsi yang diteruskan ke fungsi lain.</p><h4>Penjelasan</h4><p>Dipanggil setelah fungsi utama selesai.</p><h4>Contoh Kode</h4><pre class="code-block">angka.forEach(function(item) {\n  console.log(item);\n});</pre><h4>Kesimpulan</h4><p>Callback memungkinkan eksekusi kode berurutan.</p>'
-  },
-  {
-    judul: "JS 21 - Map, Filter, Reduce",
-    konten: '<h4>Pengertian</h4><p>Method array untuk manipulasi data fungsional.</p><h4>Penjelasan</h4><p>Map ubah, filter pilih, reduce gabung.</p><h4>Contoh Kode</h4><pre class="code-block">let angka = [1,2,3];\nlet kali2 = angka.map(x => x*2);\nlet genap = angka.filter(x => x%2===0);\nlet total = angka.reduce((a,b) => a+b, 0);</pre><h4>Kesimpulan</h4><p>Method array mempermudah manipulasi data.</p>'
-  },
-  {
-    judul: "JS 22 - Spread Operator",
-    konten: '<h4>Pengertian</h4><p>Spread operator (...) menyebarkan elemen array/object.</p><h4>Penjelasan</h4><p>Berguna untuk menggabungkan atau menyalin data.</p><h4>Contoh Kode</h4><pre class="code-block">let arr1 = [1,2];\nlet arr2 = [3,4];\nlet gabung = [...arr1, ...arr2];</pre><h4>Kesimpulan</h4><p>Spread operator membuat manipulasi data mudah.</p>'
-  },
-  {
-    judul: "JS 23 - Destructuring",
-    konten: '<h4>Pengertian</h4><p>Destructuring mengambil nilai dari array/object.</p><h4>Penjelasan</h4><p>Sintaks ringkas untuk ekstraksi data.</p><h4>Contoh Kode</h4><pre class="code-block">let [a, b] = [1, 2];\nlet {nama, umur} = user;</pre><h4>Kesimpulan</h4><p>Destructuring membuat kode lebih efisien.</p>'
-  },
-  {
-    judul: "JS 24 - Class OOP",
-    konten: '<h4>Pengertian</h4><p>Class adalah blueprint untuk membuat object.</p><h4>Penjelasan</h4><p>Mendukung OOP dengan constructor dan method.</p><h4>Contoh Kode</h4><pre class="code-block">class Orang {\n  constructor(nama) {\n    this.nama = nama;\n  }\n}</pre><h4>Kesimpulan</h4><p>Class membuat kode lebih terstruktur.</p>'
-  },
-  {
-    judul: "JS 25 - Set dan Map",
-    konten: '<h4>Pengertian</h4><p>Set untuk nilai unik, Map untuk key-value.</p><h4>Penjelasan</h4><p>Set menghilangkan duplikat, Map key bisa tipe apapun.</p><h4>Contoh Kode</h4><pre class="code-block">let set = new Set([1,2,2,3]);\nlet map = new Map();\nmap.set("key", "value");</pre><h4>Kesimpulan</h4><p>Set dan Map untuk struktur data khusus.</p>'
-  },
-  // 26-50: JAVASCRIPT LANJUTAN
-  {
-    judul: "JS 26 - Date dan Time",
-    konten: '<h4>Pengertian</h4><p>Date untuk bekerja dengan tanggal dan waktu.</p><h4>Penjelasan</h4><p>Menyediakan method untuk komponen tanggal.</p><h4>Contoh Kode</h4><pre class="code-block">let now = new Date();\nconsole.log(now.getFullYear());</pre><h4>Kesimpulan</h4><p>Date penting untuk aplikasi berbasis waktu.</p>'
-  },
-  {
-    judul: "JS 27 - Math Object",
-    konten: '<h4>Pengertian</h4><p>Math object untuk operasi matematika.</p><h4>Penjelasan</h4><p>Konstanta PI, method round, random, dll.</p><h4>Contoh Kode</h4><pre class="code-block">Math.random();\nMath.floor(4.7);\nMath.pow(2,3);</pre><h4>Kesimpulan</h4><p>Math object memudahkan operasi matematika.</p>'
-  },
-  {
-    judul: "JS 28 - String Methods",
-    konten: '<h4>Pengertian</h4><p>String method untuk memanipulasi teks.</p><h4>Penjelasan</h4><p>toUpperCase, toLowerCase, slice, split, dll.</p><h4>Contoh Kode</h4><pre class="code-block">teks.toUpperCase();\nteks.includes("Java");\nteks.split(" ");</pre><h4>Kesimpulan</h4><p>String method mempermudah pengolahan teks.</p>'
-  },
-  {
-    judul: "JS 29 - Number Methods",
-    konten: '<h4>Pengertian</h4><p>Number method untuk memanipulasi angka.</p><h4>Penjelasan</h4><p>toFixed, parseInt, parseFloat, dll.</p><h4>Contoh Kode</h4><pre class="code-block">angka.toFixed(2);\nparseInt("123px");</pre><h4>Kesimpulan</h4><p>Number method penting untuk konversi angka.</p>'
-  },
-  {
-    judul: "JS 30 - Hoisting",
-    konten: '<h4>Pengertian</h4><p>Hoisting mengangkat deklarasi ke atas scope.</p><h4>Penjelasan</h4><p>var dan function di-hoisting, let dan const tidak.</p><h4>Contoh Kode</h4><pre class="code-block">console.log(a); // undefined\nvar a = 5;</pre><h4>Kesimpulan</h4><p>Pahami hoisting untuk hindari bug.</p>'
-  },
-  {
-    judul: "JS 31 - Closure",
-    konten: '<h4>Pengertian</h4><p>Closure adalah fungsi mengakses variabel luar.</p><h4>Penjelasan</h4><p>Berguna untuk data privacy dan function factory.</p><h4>Contoh Kode</h4><pre class="code-block">function counter() {\n  let count = 0;\n  return () => ++count;\n}</pre><h4>Kesimpulan</h4><p>Closure memungkinkan data private.</p>'
-  },
-  {
-    judul: "JS 32 - Scope",
-    konten: '<h4>Pengertian</h4><p>Scope adalah area akses variabel.</p><h4>Penjelasan</h4><p>Global scope, function scope, block scope.</p><h4>Contoh Kode</h4><pre class="code-block">let global = "global";\nfunction test() {\n  let lokal = "lokal";\n}</pre><h4>Kesimpulan</h4><p>Pahami scope untuk kelola variabel.</p>'
-  },
-  {
-    judul: "JS 33 - This Keyword",
-    konten: '<h4>Pengertian</h4><p>This merujuk pada konteks pemanggilan fungsi.</p><h4>Penjelasan</h4><p>Nilai this berbeda tergantung cara pemanggilan.</p><h4>Contoh Kode</h4><pre class="code-block">user.sapa(); // this = user\nfunction sapa() { console.log(this); }</pre><h4>Kesimpulan</h4><p>Memahami this penting untuk OOP.</p>'
-  },
-  {
-    judul: "JS 34 - Try Catch Finally",
-    konten: '<h4>Pengertian</h4><p>Try catch untuk menangani error.</p><h4>Penjelasan</h4><p>Program tidak berhenti saat error.</p><h4>Contoh Kode</h4><pre class="code-block">try {\n  JSON.parse("invalid");\n} catch(e) {\n  console.log(e.message);\n}</pre><h4>Kesimpulan</h4><p>Error handling membuat program robust.</p>'
-  },
-  {
-    judul: "JS 35 - Debugging",
-    konten: '<h4>Pengertian</h4><p>Debugging mencari dan memperbaiki error.</p><h4>Penjelasan</h4><p>Gunakan console.log, console.table, debugger.</p><h4>Contoh Kode</h4><pre class="code-block">console.log(data);\nconsole.table(array);\ndebugger;</pre><h4>Kesimpulan</h4><p>Debugging skill penting untuk developer.</p>'
-  },
-  {
-    judul: "JS 36 - Module Import Export",
-    konten: '<h4>Pengertian</h4><p>Module memecah kode menjadi file terpisah.</p><h4>Penjelasan</h4><p>Export untuk mengirim, Import untuk menerima.</p><h4>Contoh Kode</h4><pre class="code-block">// math.js\nexport function tambah(a,b) { return a+b; }\n// main.js\nimport { tambah } from "./math.js";</pre><h4>Kesimpulan</h4><p>Module membuat kode lebih terorganisir.</p>'
-  },
-  {
-    judul: "JS 37 - Event Bubbling",
-    konten: '<h4>Pengertian</h4><p>Event bubbling event naik ke parent.</p><h4>Penjelasan</h4><p>Event dari child akan memicu parent.</p><h4>Contoh Kode</h4><pre class="code-block">e.stopPropagation(); // menghentikan bubbling</pre><h4>Kesimpulan</h4><p>Pahami bubbling untuk event handling.</p>'
-  },
-  {
-    judul: "JS 38 - Debounce Throttle",
-    konten: '<h4>Pengertian</h4><p>Debounce dan throttle batasi frekuensi fungsi.</p><h4>Penjelasan</h4><p>Debounce tunggu jeda, throttle batasi interval.</p><h4>Contoh Kode</h4><pre class="code-block">// Debounce untuk search input\n// Throttle untuk scroll event</pre><h4>Kesimpulan</h4><p>Optimasi performa untuk event yang sering dipanggil.</p>'
-  },
-  {
-    judul: "JS 39 - Web Storage",
-    konten: '<h4>Pengertian</h4><p>Web storage menyimpan data di browser.</p><h4>Penjelasan</h4><p>localStorage permanen, sessionStorage sementara.</p><h4>Contoh Kode</h4><pre class="code-block">localStorage.setItem("key", "value");\nlet val = localStorage.getItem("key");</pre><h4>Kesimpulan</h4><p>Web storage penting untuk aplikasi modern.</p>'
-  },
-  {
-    judul: "JS 40 - Geolocation API",
-    konten: '<h4>Pengertian</h4><p>Geolocation mendapatkan posisi pengguna.</p><h4>Penjelasan</h4><p>Browser meminta izin, mengembalikan latitude longitude.</p><h4>Contoh Kode</h4><pre class="code-block">navigator.geolocation.getCurrentPosition(pos => {\n  console.log(pos.coords.latitude);\n});</pre><h4>Kesimpulan</h4><p>Berguna untuk aplikasi berbasis lokasi.</p>'
-  },
-  {
-    judul: "JS 41 - History API",
-    konten: '<h4>Pengertian</h4><p>History API manipulasi riwayat browser.</p><h4>Penjelasan</h4><p>Berguna untuk SPA tanpa reload.</p><h4>Contoh Kode</h4><pre class="code-block">history.pushState({}, "", "/page");\nhistory.back();</pre><h4>Kesimpulan</h4><p>Penting untuk navigasi modern.</p>'
-  },
-  {
-    judul: "JS 42 - Intersection Observer",
-    konten: '<h4>Pengertian</h4><p>Intersection Observer deteksi elemen masuk viewport.</p><h4>Penjelasan</h4><p>Berguna untuk lazy loading dan infinite scroll.</p><h4>Contoh Kode</h4><pre class="code-block">new IntersectionObserver((entries) => {\n  entries.forEach(e => {\n    if(e.isIntersecting) loadImage(e.target);\n  });\n});</pre><h4>Kesimpulan</h4><p>Optimasi performa dan UX.</p>'
-  },
-  {
-    judul: "JS 43 - Web Worker",
-    konten: '<h4>Pengertian</h4><p>Web Worker menjalankan script di background.</p><h4>Penjelasan</h4><p>Tidak memblokir UI, tidak bisa akses DOM.</p><h4>Contoh Kode</h4><pre class="code-block">let worker = new Worker("worker.js");\nworker.postMessage(data);\nworker.onmessage = (e) => console.log(e.data);</pre><h4>Kesimpulan</h4><p>Meningkatkan performa aplikasi berat.</p>'
-  },
-  {
-    judul: "JS 44 - Service Worker",
-    konten: '<h4>Pengertian</h4><p>Service Worker untuk PWA dan offline support.</p><h4>Penjelasan</h4><p>Proxy antara browser dan network.</p><h4>Contoh Kode</h4><pre class="code-block">navigator.serviceWorker.register("/sw.js");</pre><h4>Kesimpulan</h4><p>Memungkinkan aplikasi bekerja offline.</p>'
-  },
-  {
-    judul: "JS 45 - Canvas API",
-    konten: '<h4>Pengertian</h4><p>Canvas API untuk menggambar grafik 2D.</p><h4>Penjelasan</h4><p>Digunakan untuk game, chart, filter gambar.</p><h4>Contoh Kode</h4><pre class="code-block">let ctx = canvas.getContext("2d");\nctx.fillRect(10, 10, 100, 50);</pre><h4>Kesimpulan</h4><p>Penting untuk visualisasi dan game.</p>'
-  },
-  {
-    judul: "JS 46 - WebRTC",
-    konten: '<h4>Pengertian</h4><p>WebRTC untuk komunikasi real-time.</p><h4>Penjelasan</h4><p>Video call, audio call, file sharing.</p><h4>Contoh Kode</h4><pre class="code-block">navigator.mediaDevices.getUserMedia({ video: true });</pre><h4>Kesimpulan</h4><p>Komunikasi real-time antar browser.</p>'
-  },
-  {
-    judul: "JS 47 - Drag and Drop",
-    konten: '<h4>Pengertian</h4><p>Drag and Drop API memindahkan elemen.</p><h4>Penjelasan</h4><p>Untuk kanban board, file upload, rearrange.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div draggable="true" ondragstart="drag(event)"&gt;</pre><h4>Kesimpulan</h4><p>Meningkatkan interaktivitas aplikasi.</p>'
-  },
-  {
-    judul: "JS 48 - Fullscreen API",
-    konten: '<h4>Pengertian</h4><p>Fullscreen API menampilkan elemen fullscreen.</p><h4>Penjelasan</h4><p>Untuk video player, game, presentasi.</p><h4>Contoh Kode</h4><pre class="code-block">elem.requestFullscreen();\ndocument.exitFullscreen();</pre><h4>Kesimpulan</h4><p>Meningkatkan pengalaman pengguna.</p>'
-  },
-  {
-    judul: "JS 49 - Notification API",
-    konten: '<h4>Pengertian</h4><p>Notification API menampilkan notifikasi desktop.</p><h4>Penjelasan</h4><p>Harus meminta izin pengguna terlebih dahulu.</p><h4>Contoh Kode</h4><pre class="code-block">Notification.requestPermission();\nnew Notification("Judul", { body: "Pesan" });</pre><h4>Kesimpulan</h4><p>Meningkatkan engagement pengguna.</p>'
-  },
-  {
-    judul: "JS 50 - Best Practices",
-    konten: '<h4>Pengertian</h4><p>Best practices pedoman menulis kode baik.</p><h4>Penjelasan</h4><p>Penamaan, struktur, performa, keamanan.</p><h4>Contoh Kode dan Tips</h4><pre class="code-block">// Gunakan let dan const\n// Gunakan === bukan ==\n// Hindari global variable\n// Gunakan async/await\n// Beri nama yang bermakna</pre><h4>Kesimpulan</h4><p>Best practices membuat kode lebih maintainable.</p>'
-  },
-  // 51-75: JAVASCRIPT FRAMEWORK & LIBRARY
-  {
-    judul: "JS 51 - Pengenalan Node.js",
-    konten: '<h4>Pengertian</h4><p>Node.js adalah runtime JavaScript di server.</p><h4>Penjelasan</h4><p>Memungkinkan JavaScript berjalan di luar browser.</p><h4>Contoh Kode</h4><pre class="code-block">const http = require("http");\nhttp.createServer((req, res) => {\n  res.end("Hello World");\n}).listen(3000);</pre><h4>Kesimpulan</h4><p>Node.js membuka JavaScript untuk backend.</p>'
-  },
-  {
-    judul: "JS 52 - Pengenalan React",
-    konten: '<h4>Pengertian</h4><p>React adalah library UI yang populer.</p><h4>Penjelasan</h4><p>Menggunakan komponen dan JSX.</p><h4>Contoh Kode</h4><pre class="code-block">function App() {\n  return &lt;h1&gt;Halo React!&lt;/h1&gt;;\n}</pre><h4>Kesimpulan</h4><p>React memudahkan pembuatan UI interaktif.</p>'
-  },
-  {
-    judul: "JS 53 - Pengenalan Vue.js",
-    konten: '<h4>Pengertian</h4><p>Vue.js adalah framework JavaScript progresif.</p><h4>Penjelasan</h4><p>Mudah dipelajari dan fleksibel.</p><h4>Contoh Kode</h4><pre class="code-block">new Vue({\n  el: "#app",\n  data: { pesan: "Halo Vue!" }\n});</pre><h4>Kesimpulan</h4><p>Vue.js cocok untuk pemula dan proyek kecil.</p>'
-  },
-  {
-    judul: "JS 54 - Pengenalan Angular",
-    konten: '<h4>Pengertian</h4><p>Angular adalah framework TypeScript dari Google.</p><h4>Penjelasan</h4><p>Mendukung komponen, dependency injection, routing.</p><h4>Contoh Kode</h4><pre class="code-block">@Component({\n  selector: "app-root",\n  template: "&lt;h1&gt;Halo Angular&lt;/h1&gt;"\n})</pre><h4>Kesimpulan</h4><p>Angular cocok untuk aplikasi enterprise.</p>'
-  },
-  {
-    judul: "JS 55 - NPM dan Package Manager",
-    konten: '<h4>Pengertian</h4><p>NPM adalah package manager untuk JavaScript.</p><h4>Penjelasan</h4><p>Mengelola dependency dan script proyek.</p><h4>Contoh Kode</h4><pre class="code-block">npm install express\nnpm start</pre><h4>Kesimpulan</h4><p>NPM penting untuk pengembangan modern.</p>'
-  },
-  {
-    judul: "JS 56 - Express.js",
-    konten: '<h4>Pengertian</h4><p>Express.js adalah framework web untuk Node.js.</p><h4>Penjelasan</h4><p>Membuat API dan web server dengan mudah.</p><h4>Contoh Kode</h4><pre class="code-block">const express = require("express");\nconst app = express();\napp.get("/", (req, res) => res.send("Hello"));</pre><h4>Kesimpulan</h4><p>Express adalah standar untuk Node.js backend.</p>'
-  },
-  {
-    judul: "JS 57 - Mongoose dan MongoDB",
-    konten: '<h4>Pengertian</h4><p>Mongoose adalah ODM untuk MongoDB.</p><h4>Penjelasan</h4><p>Mempermudah interaksi dengan database.</p><h4>Contoh Kode</h4><pre class="code-block">const User = mongoose.model("User", { nama: String });\nconst user = new User({ nama: "Budi" });\nawait user.save();</pre><h4>Kesimpulan</h4><p>Mongoose memudahkan operasi database.</p>'
-  },
-  {
-    judul: "JS 58 - JWT Authentication",
-    konten: '<h4>Pengertian</h4><p>JWT untuk autentikasi dan otorisasi.</p><h4>Penjelasan</h4><p>Token dikirim di header Authorization.</p><h4>Contoh Kode</h4><pre class="code-block">const token = jwt.sign({ id: user.id }, "secret");\njwt.verify(token, "secret");</pre><h4>Kesimpulan</h4><p>JWT aman dan stateless untuk autentikasi.</p>'
-  },
-  {
-    judul: "JS 59 - REST API",
-    konten: '<h4>Pengertian</h4><p>REST API adalah arsitektur web service.</p><h4>Penjelasan</h4><p>Menggunakan metode HTTP: GET, POST, PUT, DELETE.</p><h4>Contoh Kode</h4><pre class="code-block">app.get("/users", (req, res) => res.json(users));\napp.post("/users", (req, res) => users.push(req.body));</pre><h4>Kesimpulan</h4><p>REST API standar komunikasi client-server.</p>'
-  },
-  {
-    judul: "JS 60 - GraphQL",
-    konten: '<h4>Pengertian</h4><p>GraphQL adalah query language untuk API.</p><h4>Penjelasan</h4><p>Client menentukan data yang diperlukan.</p><h4>Contoh Kode</h4><pre class="code-block">query {\n  user(id: 1) {\n    nama\n    email\n  }\n}</pre><h4>Kesimpulan</h4><p>GraphQL lebih fleksibel dari REST.</p>'
-  },
-  {
-    judul: "JS 61 - WebSocket",
-    konten: '<h4>Pengertian</h4><p>WebSocket untuk komunikasi real-time.</p><h4>Penjelasan</h4><p>Koneksi dua arah antara client-server.</p><h4>Contoh Kode</h4><pre class="code-block">const ws = new WebSocket("ws://localhost");\nws.onmessage = (e) => console.log(e.data);</pre><h4>Kesimpulan</h4><p>WebSocket untuk chat, live data, game.</p>'
-  },
-  {
-    judul: "JS 62 - Socket.io",
-    konten: '<h4>Pengertian</h4><p>Socket.io memudahkan WebSocket dengan fallback.</p><h4>Penjelasan</h4><p>Mendukung room, broadcast, auto-reconnect.</p><h4>Contoh Kode</h4><pre class="code-block">io.on("connection", (socket) => {\n  socket.emit("pesan", "Halo");\n});</pre><h4>Kesimpulan</h4><p>Socket.io populer untuk aplikasi real-time.</p>'
-  },
-  {
-    judul: "JS 63 - Testing dengan Jest",
-    konten: '<h4>Pengertian</h4><p>Jest adalah testing framework untuk JavaScript.</p><h4>Penjelasan</h4><p>Mendukung unit test, snapshot, mock.</p><h4>Contoh Kode</h4><pre class="code-block">test("tambah 1 + 2 = 3", () => {\n  expect(tambah(1,2)).toBe(3);\n});</pre><h4>Kesimpulan</h4><p>Testing penting untuk kode yang reliable.</p>'
-  },
-  {
-    judul: "JS 64 - ESLint dan Prettier",
-    konten: '<h4>Pengertian</h4><p>ESLint untuk linting, Prettier untuk formatting.</p><h4>Penjelasan</h4><p>Menjaga konsistensi kode dalam tim.</p><h4>Contoh Kode</h4><pre class="code-block">// .eslintrc.json\n{\n  "extends": "eslint:recommended"\n}</pre><h4>Kesimpulan</h4><p>Alat penting untuk kolaborasi tim.</p>'
-  },
-  {
-    judul: "JS 65 - Webpack",
-    konten: '<h4>Pengertian</h4><p>Webpack adalah module bundler.</p><h4>Penjelasan</h4><p>Menggabungkan file JS, CSS, gambar menjadi satu.</p><h4>Contoh Kode</h4><pre class="code-block">module.exports = {\n  entry: "./src/index.js",\n  output: { filename: "bundle.js" }\n};</pre><h4>Kesimpulan</h4><p>Webpack penting untuk aplikasi modern.</p>'
-  },
-  {
-    judul: "JS 66 - Babel",
-    konten: '<h4>Pengertian</h4><p>Babel mengubah JS modern ke versi lama.</p><h4>Penjelasan</h4><p>Mendukung JSX, TypeScript, ESNext.</p><h4>Contoh Kode</h4><pre class="code-block">// .babelrc\n{\n  "presets": ["@babel/preset-env"]\n}</pre><h4>Kesimpulan</h4><p>Babel memastikan kompatibilitas browser.</p>'
-  },
-  {
-    judul: "JS 67 - TypeScript",
-    konten: '<h4>Pengertian</h4><p>TypeScript adalah JavaScript dengan tipe statis.</p><h4>Penjelasan</h4><p>Mencegah error tipe saat compile.</p><h4>Contoh Kode</h4><pre class="code-block">let nama: string = "Budi";\nfunction sapa(nama: string): string {\n  return "Halo " + nama;\n}</pre><h4>Kesimpulan</h4><p>TypeScript populer untuk proyek besar.</p>'
-  },
-  {
-    judul: "JS 68 - Next.js",
-    konten: '<h4>Pengertian</h4><p>Next.js adalah framework React untuk SSR.</p><h4>Penjelasan</h4><p>Mendukung server-side rendering dan static site.</p><h4>Contoh Kode</h4><pre class="code-block">export default function Page() {\n  return &lt;div&gt;Hello Next.js&lt;/div&gt;;\n}</pre><h4>Kesimpulan</h4><p>Next.js untuk performa dan SEO.</p>'
-  },
-  {
-    judul: "JS 69 - Nuxt.js",
-    konten: '<h4>Pengertian</h4><p>Nuxt.js adalah framework Vue untuk SSR.</p><h4>Penjelasan</h4><p>Mendukung server-side rendering, static site.</p><h4>Contoh Kode</h4><pre class="code-block">export default {\n  asyncData() {\n    return { data: "Hello" };\n  }\n}</pre><h4>Kesimpulan</h4><p>Nuxt.js untuk aplikasi Vue yang SEO-friendly.</p>'
-  },
-  {
-    judul: "JS 70 - Deno",
-    konten: '<h4>Pengertian</h4><p>Deno adalah runtime JavaScript modern dari pembuat Node.</p><h4>Penjelasan</h4><p>Mendukung TypeScript secara native.</p><h4>Contoh Kode</h4><pre class="code-block">Deno.serve(() => new Response("Hello"));</pre><h4>Kesimpulan</h4><p>Deno sebagai alternatif modern Node.</p>'
-  },
-  {
-    judul: "JS 71 - Bun",
-    konten: '<h4>Pengertian</h4><p>Bun adalah runtime JavaScript cepat.</p><h4>Penjelasan</h4><p>Lebih cepat dari Node dan Deno.</p><h4>Contoh Kode</h4><pre class="code-block">Bun.serve({\n  fetch(req) {\n    return new Response("Hello Bun!");\n  }\n});</pre><h4>Kesimpulan</h4><p>Bun adalah runtime JavaScript masa depan.</p>'
-  },
-  {
-    judul: "JS 72 - Prisma ORM",
-    konten: '<h4>Pengertian</h4><p>Prisma adalah ORM modern untuk Node.js.</p><h4>Penjelasan</h4><p>Mendukung TypeScript, auto-completion, migrasi.</p><h4>Contoh Kode</h4><pre class="code-block">const users = await prisma.user.findMany();</pre><h4>Kesimpulan</h4><p>Prisma memudahkan interaksi database.</p>'
-  },
-  {
-    judul: "JS 73 - Tailwind CSS dengan JS",
-    konten: '<h4>Pengertian</h4><p>Tailwind adalah CSS framework utility-first.</p><h4>Penjelasan</h4><p>Bisa digunakan dengan JS framework apapun.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div class="bg-blue-500 text-white p-4"&gt;\n  Halo Tailwind\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Tailwind mempercepat pengembangan UI.</p>'
-  },
-  {
-    judul: "JS 74 - Zustand State Management",
-    konten: '<h4>Pengertian</h4><p>Zustand adalah state management minimalis.</p><h4>Penjelasan</h4><p>Lebih sederhana dari Redux.</p><h4>Contoh Kode</h4><pre class="code-block">const useStore = create((set) => ({\n  count: 0,\n  increment: () => set((state) => ({ count: state.count + 1 }))\n}));</pre><h4>Kesimpulan</h4><p>Zustand untuk state management modern.</p>'
-  },
-  {
-    judul: "JS 75 - Redux Toolkit",
-    konten: '<h4>Pengertian</h4><p>Redux Toolkit adalah cara resmi menulis Redux.</p><h4>Penjelasan</h4><p>Mengurangi boilerplate Redux.</p><h4>Contoh Kode</h4><pre class="code-block">const counterSlice = createSlice({\n  name: "counter",\n  initialState: 0,\n  reducers: { increment: (state) => state + 1 }\n});</pre><h4>Kesimpulan</h4><p>Redux Toolkit menyederhanakan state management.</p>'
-  },
-  // 76-100: TOPIK LANJUTAN
-  {
-    judul: "JS 76 - Mikroservices dengan Node.js",
-    konten: '<h4>Pengertian</h4><p>Mikroservices adalah arsitektur aplikasi modular.</p><h4>Penjelasan</h4><p>Setiap service independen dan scalable.</p><h4>Contoh Kode</h4><pre class="code-block">// Service A dan B berkomunikasi via API atau message queue</pre><h4>Kesimpulan</h4><p>Mikroservices untuk aplikasi enterprise.</p>'
-  },
-  {
-    judul: "JS 77 - Docker dan JavaScript",
-    konten: '<h4>Pengertian</h4><p>Docker untuk containerisasi aplikasi.</p><h4>Penjelasan</h4><p>Memudahkan deployment dan konsistensi.</p><h4>Contoh Kode</h4><pre class="code-block">FROM node:18\nWORKDIR /app\nCOPY package*.json ./\nRUN npm install</pre><h4>Kesimpulan</h4><p>Docker penting untuk DevOps.</p>'
-  },
-  {
-    judul: "JS 78 - CI/CD dengan GitHub Actions",
-    konten: '<h4>Pengertian</h4><p>CI/CD otomatisasi build dan deployment.</p><h4>Penjelasan</h4><p>GitHub Actions untuk pipeline.</p><h4>Contoh Kode</h4><pre class="code-block">name: CI\non: push\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3</pre><h4>Kesimpulan</h4><p>CI/CD meningkatkan produktivitas tim.</p>'
-  },
-  {
-    judul: "JS 79 - Kubernetes untuk Node.js",
-    konten: '<h4>Pengertian</h4><p>Kubernetes orchestrasi container.</p><h4>Penjelasan</h4><p>Mengatur scaling, deployment, load balancing.</p><h4>Contoh Kode</h4><pre class="code-block">apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: app</pre><h4>Kesimpulan</h4><p>Kubernetes untuk aplikasi skala besar.</p>'
-  },
-  {
-    judul: "JS 80 - Serverless dengan AWS Lambda",
-    konten: '<h4>Pengertian</h4><p>Serverless menjalankan kode tanpa server.</p><h4>Penjelasan</h4><p>AWS Lambda, Google Cloud Functions.</p><h4>Contoh Kode</h4><pre class="code-block">exports.handler = async (event) => {\n  return { statusCode: 200, body: "OK" };\n};</pre><h4>Kesimpulan</h4><p>Serverless hemat biaya dan scalable.</p>'
-  },
-  {
-    judul: "JS 81 - Web Security",
-    konten: '<h4>Pengertian</h4><p>Keamanan web adalah aspek penting.</p><h4>Penjelasan</h4><p>XSS, CSRF, SQL Injection, CORS.</p><h4>Contoh Kode</h4><pre class="code-block">// Sanitasi input\n// HTTPS\n// Helmet.js</pre><h4>Kesimpulan</h4><p>Keamanan harus diperhatikan sejak awal.</p>'
-  },
-  {
-    judul: "JS 82 - OAuth 2.0",
-    konten: '<h4>Pengertian</h4><p>OAuth 2.0 untuk otorisasi pihak ketiga.</p><h4>Penjelasan</h4><p>Login dengan Google, Facebook, dll.</p><h4>Contoh Kode</h4><pre class="code-block">// Menggunakan passport.js\npassport.use(new GoogleStrategy({...}));</pre><h4>Kesimpulan</h4><p>OAuth penting untuk autentikasi modern.</p>'
-  },
-  {
-    judul: "JS 83 - Performance Optimization",
-    konten: '<h4>Pengertian</h4><p>Optimasi performa untuk aplikasi cepat.</p><h4>Penjelasan</h4><p>Lazy loading, code splitting, caching.</p><h4>Contoh Kode</h4><pre class="code-block">const LazyComponent = lazy(() => import("./Component"));</pre><h4>Kesimpulan</h4><p>Performa penting untuk UX.</p>'
-  },
-  {
-    judul: "JS 84 - SEO dengan JavaScript",
-    konten: '<h4>Pengertian</h4><p>SEO penting untuk visibilitas website.</p><h4>Penjelasan</h4><p>Meta tags, SSR, sitemap.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;meta name="description" content="..." /&gt;</pre><h4>Kesimpulan</h4><p>SEO membuat website mudah ditemukan.</p>'
-  },
-  {
-    judul: "JS 85 - PWA dengan JavaScript",
-    konten: '<h4>Pengertian</h4><p>PWA adalah aplikasi web seperti native.</p><h4>Penjelasan</h4><p>Offline support, push notification, installable.</p><h4>Contoh Kode</h4><pre class="code-block">// manifest.json\n{\n  "name": "App",\n  "start_url": "/",\n  "display": "standalone"\n}</pre><h4>Kesimpulan</h4><p>PWA meningkatkan pengalaman pengguna.</p>'
-  },
-  {
-    judul: "JS 86 - WebAssembly",
-    konten: '<h4>Pengertian</h4><p>WebAssembly adalah binary format untuk web.</p><h4>Penjelasan</h4><p>Berjalan dengan performa hampir native.</p><h4>Contoh Kode</h4><pre class="code-block">WebAssembly.instantiateStreaming(fetch("app.wasm"));</pre><h4>Kesimpulan</h4><p>WebAssembly untuk aplikasi berat.</p>'
-  },
-  {
-    judul: "JS 87 - Three.js 3D",
-    konten: '<h4>Pengertian</h4><p>Three.js adalah library 3D untuk browser.</p><h4>Penjelasan</h4><p>Membuat scene, camera, renderer.</p><h4>Contoh Kode</h4><pre class="code-block">const scene = new THREE.Scene();\nconst camera = new THREE.PerspectiveCamera(75, w/h);</pre><h4>Kesimpulan</h4><p>Three.js untuk aplikasi 3D dan game.</p>'
-  },
-  {
-    judul: "JS 88 - D3.js Data Visualization",
-    konten: '<h4>Pengertian</h4><p>D3.js untuk visualisasi data.</p><h4>Penjelasan</h4><p>Membuat chart, grafik, diagram interaktif.</p><h4>Contoh Kode</h4><pre class="code-block">d3.select("svg")\n  .append("circle")\n  .attr("r", 10);</pre><h4>Kesimpulan</h4><p>D3.js penting untuk data visualization.</p>'
-  },
-  {
-    judul: "JS 89 - Chart.js",
-    konten: '<h4>Pengertian</h4><p>Chart.js adalah library chart sederhana.</p><h4>Penjelasan</h4><p>Mudah digunakan, banyak tipe chart.</p><h4>Contoh Kode</h4><pre class="code-block">new Chart(ctx, {\n  type: "bar",\n  data: { labels: ["A", "B"], datasets: [{ data: [1,2] }] }\n});</pre><h4>Kesimpulan</h4><p>Chart.js untuk visualisasi cepat.</p>'
-  },
-  {
-    judul: "JS 90 - GSAP Animations",
-    konten: '<h4>Pengertian</h4><p>GSAP adalah library animasi professional.</p><h4>Penjelasan</h4><p>Animasi halus, timeline, scroll trigger.</p><h4>Contoh Kode</h4><pre class="code-block">gsap.to(".box", { x: 100, duration: 1 });</pre><h4>Kesimpulan</h4><p>GSAP untuk animasi website premium.</p>'
-  },
-  {
-    judul: "JS 91 - Framer Motion",
-    konten: '<h4>Pengertian</h4><p>Framer Motion adalah library animasi untuk React.</p><h4>Penjelasan</h4><p>Animasi sederhana dan powerful.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;motion.div animate={{ x: 100 }} /&gt;</pre><h4>Kesimpulan</h4><p>Framer Motion untuk React animation.</p>'
-  },
-  {
-    judul: "JS 92 - React Native",
-    konten: '<h4>Pengertian</h4><p>React Native untuk aplikasi mobile.</p><h4>Penjelasan</h4><p>Menggunakan React untuk iOS dan Android.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;View&gt;\n  &lt;Text&gt;Halo React Native&lt;/Text&gt;\n&lt;/View&gt;</pre><h4>Kesimpulan</h4><p>React Native untuk mobile development.</p>'
-  },
-  {
-    judul: "JS 93 - Electron.js",
-    konten: '<h4>Pengertian</h4><p>Electron untuk aplikasi desktop.</p><h4>Penjelasan</h4><p>Membangun aplikasi desktop dengan web tech.</p><h4>Contoh Kode</h4><pre class="code-block">const { app, BrowserWindow } = require("electron");</pre><h4>Kesimpulan</h4><p>Electron untuk desktop apps.</p>'
-  },
-  {
-    judul: "JS 94 - Tauri",
-    konten: '<h4>Pengertian</h4><p>Tauri adalah alternatif Electron yang lebih ringan.</p><h4>Penjelasan</h4><p>Menggunakan Rust di backend.</p><h4>Contoh Kode</h4><pre class="code-block">// tauri.conf.json</pre><h4>Kesimpulan</h4><p>Tauri untuk desktop apps yang ringan.</p>'
-  },
-  {
-    judul: "JS 95 - Web3.js",
-    konten: '<h4>Pengertian</h4><p>Web3.js untuk interaksi dengan blockchain.</p><h4>Penjelasan</h4><p>Mengirim transaksi, membaca smart contract.</p><h4>Contoh Kode</h4><pre class="code-block">const web3 = new Web3(provider);\nconst balance = await web3.eth.getBalance(address);</pre><h4>Kesimpulan</h4><p>Web3.js untuk aplikasi blockchain.</p>'
-  },
-  {
-    judul: "JS 96 - AI dengan TensorFlow.js",
-    konten: '<h4>Pengertian</h4><p>TensorFlow.js untuk machine learning di browser.</p><h4>Penjelasan</h4><p>Training dan inference model AI.</p><h4>Contoh Kode</h4><pre class="code-block">const model = tf.sequential();\nmodel.add(tf.layers.dense({ units: 1, inputShape: [1] }));</pre><h4>Kesimpulan</h4><p>TensorFlow.js untuk AI di web.</p>'
-  },
-  {
-    judul: "JS 97 - NLP dengan Compromise.js",
-    konten: '<h4>Pengertian</h4><p>Compromise.js untuk NLP di browser.</p><h4>Penjelasan</h4><p>Analisis teks, named entity recognition.</p><h4>Contoh Kode</h4><pre class="code-block">let doc = nlp("Saya suka JavaScript");\nconsole.log(doc.verbs().data());</pre><h4>Kesimpulan</h4><p>Compromise.js untuk natural language processing.</p>'
-  },
-  {
-    judul: "JS 98 - WebGL",
-    konten: '<h4>Pengertian</h4><p>WebGL untuk grafik 3D di browser.</p><h4>Penjelasan</h4><p>Lebih rendah level dari Three.js.</p><h4>Contoh Kode</h4><pre class="code-block">const gl = canvas.getContext("webgl");\n// Render triangle dengan shader</pre><h4>Kesimpulan</h4><p>WebGL untuk grafik 3D performa tinggi.</p>'
-  },
-  {
-    judul: "JS 99 - WebSocket vs SSE",
-    konten: '<h4>Pengertian</h4><p>SSE adalah Server-Sent Events.</p><h4>Penjelasan</h4><p>One-way communication dari server ke client.</p><h4>Contoh Kode</h4><pre class="code-block">const eventSource = new EventSource("/events");\neventSource.onmessage = (e) => console.log(e.data);</pre><h4>Kesimpulan</h4><p>SSE untuk real-time update satu arah.</p>'
-  },
-  {
-    judul: "JS 100 - Masa Depan JavaScript",
-    konten: '<h4>Pengertian</h4><p>JavaScript terus berkembang setiap tahun.</p><h4>Penjelasan</h4><p>ES2025, TC39, proposal terbaru.</p><h4>Contoh Kode</h4><pre class="code-block">// Pipe operator, records, tuples\n// Pattern matching, decorators</pre><h4>Kesimpulan</h4><p>JavaScript adalah bahasa yang terus berevolusi.</p>'
-  }
+  { judul: "JS 1 - Pengenalan JavaScript", konten: '<h4>Pengertian</h4><p>JavaScript adalah bahasa pemrograman yang membuat website menjadi interaktif dan dinamis.</p><h4>Penjelasan</h4><p>JavaScript awalnya dibuat untuk browser, sekarang bisa digunakan di server (Node.js), mobile, dan desktop.</p><h4>Contoh Kode</h4><pre class="code-block">console.log("Hello World!");\nalert("Selamat datang di JavaScript!");</pre><h4>Kesimpulan</h4><p>JavaScript adalah jantung dari web modern.</p>' },
+  { judul: "JS 2 - Variabel JavaScript", konten: '<h4>Pengertian</h4><p>Variabel adalah wadah untuk menyimpan data.</p><h4>Penjelasan</h4><p>Tiga cara deklarasi: var, let, const. Rekomendasi: gunakan let dan const.</p><h4>Contoh Kode</h4><pre class="code-block">let nama = "Budi";\nconst umur = 17;\nconsole.log(nama, umur);</pre><h4>Kesimpulan</h4><p>Gunakan let untuk nilai berubah, const untuk nilai tetap.</p>' },
+  { judul: "JS 3 - Tipe Data", konten: '<h4>Pengertian</h4><p>Tipe data adalah jenis nilai yang dapat disimpan.</p><h4>Penjelasan</h4><p>Tipe data primitif: string, number, boolean, null, undefined, symbol.</p><h4>Contoh Kode</h4><pre class="code-block">let nama = "Budi";\nlet umur = 17;\nlet aktif = true;</pre><h4>Kesimpulan</h4><p>Setiap data memiliki tipe yang menentukan operasinya.</p>' },
+  { judul: "JS 4 - Fungsi", konten: '<h4>Pengertian</h4><p>Fungsi adalah blok kode yang dapat dipanggil berulang.</p><h4>Penjelasan</h4><p>Fungsi membuat kode lebih terstruktur dan reusable.</p><h4>Contoh Kode</h4><pre class="code-block">function sapa(nama) {\n  return "Halo " + nama;\n}\nconsole.log(sapa("Budi"));</pre><h4>Kesimpulan</h4><p>Fungsi adalah blok bangunan utama pemrograman.</p>' },
+  { judul: "JS 5 - Percabangan If Else", konten: '<h4>Pengertian</h4><p>Percabangan untuk mengambil keputusan berdasarkan kondisi.</p><h4>Penjelasan</h4><p>Menggunakan if, else if, dan else.</p><h4>Contoh Kode</h4><pre class="code-block">let nilai = 85;\nif (nilai >= 75) {\n  console.log("Lulus");\n} else {\n  console.log("Tidak Lulus");\n}</pre><h4>Kesimpulan</h4><p>Percabangan memungkinkan program mengambil keputusan.</p>' },
+  { judul: "JS 6 - Perulangan For", konten: '<h4>Pengertian</h4><p>Perulangan for untuk mengulang kode dengan jumlah pasti.</p><h4>Penjelasan</h4><p>Memiliki tiga bagian: inisialisasi, kondisi, increment.</p><h4>Contoh Kode</h4><pre class="code-block">for (let i = 0; i < 5; i++) {\n  console.log(i);\n}</pre><h4>Kesimpulan</h4><p>For loop menghemat penulisan kode berulang.</p>' },
+  { judul: "JS 7 - Perulangan While", konten: '<h4>Pengertian</h4><p>Perulangan while berjalan selama kondisi true.</p><h4>Penjelasan</h4><p>Cocok untuk jumlah perulangan yang tidak pasti.</p><h4>Contoh Kode</h4><pre class="code-block">let i = 0;\nwhile (i < 5) {\n  console.log(i);\n  i++;\n}</pre><h4>Kesimpulan</h4><p>While loop untuk kondisi yang belum pasti jumlahnya.</p>' },
+  { judul: "JS 8 - Array", konten: '<h4>Pengertian</h4><p>Array untuk menyimpan banyak nilai dalam satu variabel.</p><h4>Penjelasan</h4><p>Diakses menggunakan indeks dimulai dari 0.</p><h4>Contoh Kode</h4><pre class="code-block">let buah = ["Apel", "Jeruk", "Mangga"];\nconsole.log(buah[0]);</pre><h4>Kesimpulan</h4><p>Array berguna untuk koleksi data.</p>' },
+  { judul: "JS 9 - Object", konten: '<h4>Pengertian</h4><p>Object menyimpan pasangan key dan value.</p><h4>Penjelasan</h4><p>Digunakan untuk data yang kompleks dan terstruktur.</p><h4>Contoh Kode</h4><pre class="code-block">let user = {\n  nama: "Budi",\n  umur: 17\n};\nconsole.log(user.nama);</pre><h4>Kesimpulan</h4><p>Object penting untuk data terstruktur.</p>' },
+  { judul: "JS 10 - DOM Manipulation", konten: '<h4>Pengertian</h4><p>DOM adalah representasi HTML yang bisa dimanipulasi.</p><h4>Penjelasan</h4><p>JavaScript bisa mengubah isi dan style halaman.</p><h4>Contoh Kode</h4><pre class="code-block">document.getElementById("judul").innerHTML = "Halo Baru";</pre><h4>Kesimpulan</h4><p>DOM membuat website dinamis dan interaktif.</p>' },
+  { judul: "JS 11 - Event Listener", konten: '<h4>Pengertian</h4><p>Event listener merespon aksi user seperti klik.</p><h4>Penjelasan</h4><p>Lebih fleksibel daripada event onclick langsung.</p><h4>Contoh Kode</h4><pre class="code-block">tombol.addEventListener("click", function() {\n  alert("Diklik!");\n});</pre><h4>Kesimpulan</h4><p>Event listener membuat website interaktif.</p>' },
+  { judul: "JS 12 - Arrow Function", konten: '<h4>Pengertian</h4><p>Arrow function adalah cara singkat menulis fungsi.</p><h4>Penjelasan</h4><p>Menggunakan tanda =>, lebih ringkas dari function biasa.</p><h4>Contoh Kode</h4><pre class="code-block">const kali = (a, b) => a * b;\nconsole.log(kali(5, 3));</pre><h4>Kesimpulan</h4><p>Arrow function membuat kode lebih bersih.</p>' },
+  { judul: "JS 13 - Template Literal", konten: '<h4>Pengertian</h4><p>Template literal untuk string dengan variabel.</p><h4>Penjelasan</h4><p>Menggunakan backtick dan ${} untuk variabel.</p><h4>Contoh Kode</h4><pre class="code-block">let nama = "Budi";\nlet sapa = `Halo ${nama}`;</pre><h4>Kesimpulan</h4><p>Template literal mempermudah string dinamis.</p>' },
+  { judul: "JS 14 - Local Storage", konten: '<h4>Pengertian</h4><p>Local storage menyimpan data permanen di browser.</p><h4>Penjelasan</h4><p>Data tetap tersimpan meskipun browser ditutup.</p><h4>Contoh Kode</h4><pre class="code-block">localStorage.setItem("nama", "Budi");\nlet nama = localStorage.getItem("nama");</pre><h4>Kesimpulan</h4><p>Berguna untuk menyimpan preferensi user.</p>' },
+  { judul: "JS 15 - Session Storage", konten: '<h4>Pengertian</h4><p>Session storage mirip local storage tapi sementara.</p><h4>Penjelasan</h4><p>Data hilang saat tab atau browser ditutup.</p><h4>Contoh Kode</h4><pre class="code-block">sessionStorage.setItem("login", "true");\nlet login = sessionStorage.getItem("login");</pre><h4>Kesimpulan</h4><p>Cocok untuk data sementara satu sesi.</p>' },
+  { judul: "JS 16 - JSON", konten: '<h4>Pengertian</h4><p>JSON adalah format pertukaran data yang ringan.</p><h4>Penjelasan</h4><p>Mirip object JavaScript, semua key dalam tanda kutip.</p><h4>Contoh Kode</h4><pre class="code-block">let json = JSON.stringify({nama: "Budi"});\nlet obj = JSON.parse(json);</pre><h4>Kesimpulan</h4><p>JSON adalah format standar pertukaran data web.</p>' },
+  { judul: "JS 17 - Fetch API", konten: '<h4>Pengertian</h4><p>Fetch API untuk request HTTP ke server.</p><h4>Penjelasan</h4><p>Lebih modern dari XMLHttpRequest, mendukung Promise.</p><h4>Contoh Kode</h4><pre class="code-block">fetch("https://api.example.com/data")\n  .then(res => res.json())\n  .then(data => console.log(data));</pre><h4>Kesimpulan</h4><p>Fetch adalah cara modern komunikasi client-server.</p>' },
+  { judul: "JS 18 - Async Await", konten: '<h4>Pengertian</h4><p>Async/await untuk menangani Promise agar mudah dibaca.</p><h4>Penjelasan</h4><p>Membuat kode asinkron terlihat seperti sinkron.</p><h4>Contoh Kode</h4><pre class="code-block">async function ambilData() {\n  let res = await fetch(url);\n  let data = await res.json();\n}</pre><h4>Kesimpulan</h4><p>Async/await membuat kode asinkron lebih bersih.</p>' },
+  { judul: "JS 19 - Promise", konten: '<h4>Pengertian</h4><p>Promise merepresentasikan operasi asinkron.</p><h4>Penjelasan</h4><p>Status: pending, fulfilled, rejected.</p><h4>Contoh Kode</h4><pre class="code-block">new Promise((resolve, reject) => {\n  resolve("Sukses");\n}).then(res => console.log(res));</pre><h4>Kesimpulan</h4><p>Promise adalah fondasi operasi asinkron.</p>' },
+  { judul: "JS 20 - Callback Function", konten: '<h4>Pengertian</h4><p>Callback adalah fungsi yang diteruskan ke fungsi lain.</p><h4>Penjelasan</h4><p>Dipanggil setelah fungsi utama selesai.</p><h4>Contoh Kode</h4><pre class="code-block">angka.forEach(function(item) {\n  console.log(item);\n});</pre><h4>Kesimpulan</h4><p>Callback memungkinkan eksekusi kode berurutan.</p>' },
+  { judul: "JS 21 - Map Filter Reduce", konten: '<h4>Pengertian</h4><p>Method array untuk manipulasi data fungsional.</p><h4>Penjelasan</h4><p>Map ubah, filter pilih, reduce gabung.</p><h4>Contoh Kode</h4><pre class="code-block">let angka = [1,2,3];\nlet kali2 = angka.map(x => x*2);\nlet genap = angka.filter(x => x%2===0);\nlet total = angka.reduce((a,b) => a+b, 0);</pre><h4>Kesimpulan</h4><p>Method array mempermudah manipulasi data.</p>' },
+  { judul: "JS 22 - Spread Operator", konten: '<h4>Pengertian</h4><p>Spread operator (...) menyebarkan elemen array/object.</p><h4>Penjelasan</h4><p>Berguna untuk menggabungkan atau menyalin data.</p><h4>Contoh Kode</h4><pre class="code-block">let arr1 = [1,2];\nlet arr2 = [3,4];\nlet gabung = [...arr1, ...arr2];</pre><h4>Kesimpulan</h4><p>Spread operator membuat manipulasi data mudah.</p>' },
+  { judul: "JS 23 - Destructuring", konten: '<h4>Pengertian</h4><p>Destructuring mengambil nilai dari array/object.</p><h4>Penjelasan</h4><p>Sintaks ringkas untuk ekstraksi data.</p><h4>Contoh Kode</h4><pre class="code-block">let [a, b] = [1, 2];\nlet {nama, umur} = user;</pre><h4>Kesimpulan</h4><p>Destructuring membuat kode lebih efisien.</p>' },
+  { judul: "JS 24 - Class OOP", konten: '<h4>Pengertian</h4><p>Class adalah blueprint untuk membuat object.</p><h4>Penjelasan</h4><p>Mendukung OOP dengan constructor dan method.</p><h4>Contoh Kode</h4><pre class="code-block">class Orang {\n  constructor(nama) {\n    this.nama = nama;\n  }\n}</pre><h4>Kesimpulan</h4><p>Class membuat kode lebih terstruktur.</p>' },
+  { judul: "JS 25 - Set dan Map", konten: '<h4>Pengertian</h4><p>Set untuk nilai unik, Map untuk key-value.</p><h4>Penjelasan</h4><p>Set menghilangkan duplikat, Map key bisa tipe apapun.</p><h4>Contoh Kode</h4><pre class="code-block">let set = new Set([1,2,2,3]);\nlet map = new Map();\nmap.set("key", "value");</pre><h4>Kesimpulan</h4><p>Set dan Map untuk struktur data khusus.</p>' },
+  { judul: "JS 26 - Date dan Time", konten: '<h4>Pengertian</h4><p>Date untuk bekerja dengan tanggal dan waktu.</p><h4>Penjelasan</h4><p>Menyediakan method untuk komponen tanggal.</p><h4>Contoh Kode</h4><pre class="code-block">let now = new Date();\nconsole.log(now.getFullYear());</pre><h4>Kesimpulan</h4><p>Date penting untuk aplikasi berbasis waktu.</p>' },
+  { judul: "JS 27 - Math Object", konten: '<h4>Pengertian</h4><p>Math object untuk operasi matematika.</p><h4>Penjelasan</h4><p>Konstanta PI, method round, random, dll.</p><h4>Contoh Kode</h4><pre class="code-block">Math.random();\nMath.floor(4.7);\nMath.pow(2,3);</pre><h4>Kesimpulan</h4><p>Math object memudahkan operasi matematika.</p>' },
+  { judul: "JS 28 - String Methods", konten: '<h4>Pengertian</h4><p>String method untuk memanipulasi teks.</p><h4>Penjelasan</h4><p>toUpperCase, toLowerCase, slice, split, dll.</p><h4>Contoh Kode</h4><pre class="code-block">teks.toUpperCase();\nteks.includes("Java");\nteks.split(" ");</pre><h4>Kesimpulan</h4><p>String method mempermudah pengolahan teks.</p>' },
+  { judul: "JS 29 - Number Methods", konten: '<h4>Pengertian</h4><p>Number method untuk memanipulasi angka.</p><h4>Penjelasan</h4><p>toFixed, parseInt, parseFloat, dll.</p><h4>Contoh Kode</h4><pre class="code-block">angka.toFixed(2);\nparseInt("123px");</pre><h4>Kesimpulan</h4><p>Number method penting untuk konversi angka.</p>' },
+  { judul: "JS 30 - Hoisting", konten: '<h4>Pengertian</h4><p>Hoisting mengangkat deklarasi ke atas scope.</p><h4>Penjelasan</h4><p>var dan function di-hoisting, let dan const tidak.</p><h4>Contoh Kode</h4><pre class="code-block">console.log(a);\nvar a = 5;</pre><h4>Kesimpulan</h4><p>Pahami hoisting untuk hindari bug.</p>' },
+  { judul: "JS 31 - Closure", konten: '<h4>Pengertian</h4><p>Closure adalah fungsi mengakses variabel luar.</p><h4>Penjelasan</h4><p>Berguna untuk data privacy dan function factory.</p><h4>Contoh Kode</h4><pre class="code-block">function counter() {\n  let count = 0;\n  return () => ++count;\n}</pre><h4>Kesimpulan</h4><p>Closure memungkinkan data private.</p>' },
+  { judul: "JS 32 - Scope", konten: '<h4>Pengertian</h4><p>Scope adalah area akses variabel.</p><h4>Penjelasan</h4><p>Global scope, function scope, block scope.</p><h4>Contoh Kode</h4><pre class="code-block">let global = "global";\nfunction test() {\n  let lokal = "lokal";\n}</pre><h4>Kesimpulan</h4><p>Pahami scope untuk kelola variabel.</p>' },
+  { judul: "JS 33 - This Keyword", konten: '<h4>Pengertian</h4><p>This merujuk pada konteks pemanggilan fungsi.</p><h4>Penjelasan</h4><p>Nilai this berbeda tergantung cara pemanggilan.</p><h4>Contoh Kode</h4><pre class="code-block">user.sapa();\nfunction sapa() { console.log(this); }</pre><h4>Kesimpulan</h4><p>Memahami this penting untuk OOP.</p>' },
+  { judul: "JS 34 - Try Catch Finally", konten: '<h4>Pengertian</h4><p>Try catch untuk menangani error.</p><h4>Penjelasan</h4><p>Program tidak berhenti saat error.</p><h4>Contoh Kode</h4><pre class="code-block">try {\n  JSON.parse("invalid");\n} catch(e) {\n  console.log(e.message);\n}</pre><h4>Kesimpulan</h4><p>Error handling membuat program robust.</p>' },
+  { judul: "JS 35 - Debugging", konten: '<h4>Pengertian</h4><p>Debugging mencari dan memperbaiki error.</p><h4>Penjelasan</h4><p>Gunakan console.log, console.table, debugger.</p><h4>Contoh Kode</h4><pre class="code-block">console.log(data);\nconsole.table(array);\ndebugger;</pre><h4>Kesimpulan</h4><p>Debugging skill penting untuk developer.</p>' },
+  { judul: "JS 36 - Module Import Export", konten: '<h4>Pengertian</h4><p>Module memecah kode menjadi file terpisah.</p><h4>Penjelasan</h4><p>Export untuk mengirim, Import untuk menerima.</p><h4>Contoh Kode</h4><pre class="code-block">export function tambah(a,b) { return a+b; }\nimport { tambah } from "./math.js";</pre><h4>Kesimpulan</h4><p>Module membuat kode lebih terorganisir.</p>' },
+  { judul: "JS 37 - Event Bubbling", konten: '<h4>Pengertian</h4><p>Event bubbling event naik ke parent.</p><h4>Penjelasan</h4><p>Event dari child akan memicu parent.</p><h4>Contoh Kode</h4><pre class="code-block">e.stopPropagation();</pre><h4>Kesimpulan</h4><p>Pahami bubbling untuk event handling.</p>' },
+  { judul: "JS 38 - Debounce Throttle", konten: '<h4>Pengertian</h4><p>Debounce dan throttle batasi frekuensi fungsi.</p><h4>Penjelasan</h4><p>Debounce tunggu jeda, throttle batasi interval.</p><h4>Contoh Kode</h4><pre class="code-block">// Debounce untuk search input\n// Throttle untuk scroll event</pre><h4>Kesimpulan</h4><p>Optimasi performa untuk event yang sering dipanggil.</p>' },
+  { judul: "JS 39 - Web Storage", konten: '<h4>Pengertian</h4><p>Web storage menyimpan data di browser.</p><h4>Penjelasan</h4><p>localStorage permanen, sessionStorage sementara.</p><h4>Contoh Kode</h4><pre class="code-block">localStorage.setItem("key", "value");\nlet val = localStorage.getItem("key");</pre><h4>Kesimpulan</h4><p>Web storage penting untuk aplikasi modern.</p>' },
+  { judul: "JS 40 - Geolocation API", konten: '<h4>Pengertian</h4><p>Geolocation mendapatkan posisi pengguna.</p><h4>Penjelasan</h4><p>Browser meminta izin, mengembalikan latitude longitude.</p><h4>Contoh Kode</h4><pre class="code-block">navigator.geolocation.getCurrentPosition(pos => {\n  console.log(pos.coords.latitude);\n});</pre><h4>Kesimpulan</h4><p>Berguna untuk aplikasi berbasis lokasi.</p>' },
+  { judul: "JS 41 - History API", konten: '<h4>Pengertian</h4><p>History API manipulasi riwayat browser.</p><h4>Penjelasan</h4><p>Berguna untuk SPA tanpa reload.</p><h4>Contoh Kode</h4><pre class="code-block">history.pushState({}, "", "/page");\nhistory.back();</pre><h4>Kesimpulan</h4><p>Penting untuk navigasi modern.</p>' },
+  { judul: "JS 42 - Intersection Observer", konten: '<h4>Pengertian</h4><p>Intersection Observer deteksi elemen masuk viewport.</p><h4>Penjelasan</h4><p>Berguna untuk lazy loading dan infinite scroll.</p><h4>Contoh Kode</h4><pre class="code-block">new IntersectionObserver((entries) => {\n  entries.forEach(e => {\n    if(e.isIntersecting) loadImage(e.target);\n  });\n});</pre><h4>Kesimpulan</h4><p>Optimasi performa dan UX.</p>' },
+  { judul: "JS 43 - Web Worker", konten: '<h4>Pengertian</h4><p>Web Worker menjalankan script di background.</p><h4>Penjelasan</h4><p>Tidak memblokir UI, tidak bisa akses DOM.</p><h4>Contoh Kode</h4><pre class="code-block">let worker = new Worker("worker.js");\nworker.postMessage(data);\nworker.onmessage = (e) => console.log(e.data);</pre><h4>Kesimpulan</h4><p>Meningkatkan performa aplikasi berat.</p>' },
+  { judul: "JS 44 - Service Worker", konten: '<h4>Pengertian</h4><p>Service Worker untuk PWA dan offline support.</p><h4>Penjelasan</h4><p>Proxy antara browser dan network.</p><h4>Contoh Kode</h4><pre class="code-block">navigator.serviceWorker.register("/sw.js");</pre><h4>Kesimpulan</h4><p>Memungkinkan aplikasi bekerja offline.</p>' },
+  { judul: "JS 45 - Canvas API", konten: '<h4>Pengertian</h4><p>Canvas API untuk menggambar grafik 2D.</p><h4>Penjelasan</h4><p>Digunakan untuk game, chart, filter gambar.</p><h4>Contoh Kode</h4><pre class="code-block">let ctx = canvas.getContext("2d");\nctx.fillRect(10, 10, 100, 50);</pre><h4>Kesimpulan</h4><p>Penting untuk visualisasi dan game.</p>' },
+  { judul: "JS 46 - WebRTC", konten: '<h4>Pengertian</h4><p>WebRTC untuk komunikasi real-time.</p><h4>Penjelasan</h4><p>Video call, audio call, file sharing.</p><h4>Contoh Kode</h4><pre class="code-block">navigator.mediaDevices.getUserMedia({ video: true });</pre><h4>Kesimpulan</h4><p>Komunikasi real-time antar browser.</p>' },
+  { judul: "JS 47 - Drag and Drop", konten: '<h4>Pengertian</h4><p>Drag and Drop API memindahkan elemen.</p><h4>Penjelasan</h4><p>Untuk kanban board, file upload, rearrange.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div draggable="true" ondragstart="drag(event)"&gt;</pre><h4>Kesimpulan</h4><p>Meningkatkan interaktivitas aplikasi.</p>' },
+  { judul: "JS 48 - Fullscreen API", konten: '<h4>Pengertian</h4><p>Fullscreen API menampilkan elemen fullscreen.</p><h4>Penjelasan</h4><p>Untuk video player, game, presentasi.</p><h4>Contoh Kode</h4><pre class="code-block">elem.requestFullscreen();\ndocument.exitFullscreen();</pre><h4>Kesimpulan</h4><p>Meningkatkan pengalaman pengguna.</p>' },
+  { judul: "JS 49 - Notification API", konten: '<h4>Pengertian</h4><p>Notification API menampilkan notifikasi desktop.</p><h4>Penjelasan</h4><p>Harus meminta izin pengguna terlebih dahulu.</p><h4>Contoh Kode</h4><pre class="code-block">Notification.requestPermission();\nnew Notification("Judul", { body: "Pesan" });</pre><h4>Kesimpulan</h4><p>Meningkatkan engagement pengguna.</p>' },
+  { judul: "JS 50 - Best Practices", konten: '<h4>Pengertian</h4><p>Best practices pedoman menulis kode baik.</p><h4>Penjelasan</h4><p>Penamaan, struktur, performa, keamanan.</p><h4>Contoh Kode dan Tips</h4><pre class="code-block">Gunakan let dan const\nGunakan === bukan ==\nHindari global variable\nGunakan async/await\nBeri nama yang bermakna</pre><h4>Kesimpulan</h4><p>Best practices membuat kode lebih maintainable.</p>' },
+  { judul: "JS 51 - Pengenalan Node.js", konten: '<h4>Pengertian</h4><p>Node.js adalah runtime JavaScript di server.</p><h4>Penjelasan</h4><p>Memungkinkan JavaScript berjalan di luar browser.</p><h4>Contoh Kode</h4><pre class="code-block">const http = require("http");\nhttp.createServer((req, res) => {\n  res.end("Hello World");\n}).listen(3000);</pre><h4>Kesimpulan</h4><p>Node.js membuka JavaScript untuk backend.</p>' },
+  { judul: "JS 52 - Pengenalan React", konten: '<h4>Pengertian</h4><p>React adalah library UI yang populer.</p><h4>Penjelasan</h4><p>Menggunakan komponen dan JSX.</p><h4>Contoh Kode</h4><pre class="code-block">function App() {\n  return &lt;h1&gt;Halo React!&lt;/h1&gt;;\n}</pre><h4>Kesimpulan</h4><p>React memudahkan pembuatan UI interaktif.</p>' },
+  { judul: "JS 53 - Pengenalan Vue.js", konten: '<h4>Pengertian</h4><p>Vue.js adalah framework JavaScript progresif.</p><h4>Penjelasan</h4><p>Mudah dipelajari dan fleksibel.</p><h4>Contoh Kode</h4><pre class="code-block">new Vue({\n  el: "#app",\n  data: { pesan: "Halo Vue!" }\n});</pre><h4>Kesimpulan</h4><p>Vue.js cocok untuk pemula dan proyek kecil.</p>' },
+  { judul: "JS 54 - Pengenalan Angular", konten: '<h4>Pengertian</h4><p>Angular adalah framework TypeScript dari Google.</p><h4>Penjelasan</h4><p>Mendukung komponen, dependency injection, routing.</p><h4>Contoh Kode</h4><pre class="code-block">@Component({\n  selector: "app-root",\n  template: "&lt;h1&gt;Halo Angular&lt;/h1&gt;"\n})</pre><h4>Kesimpulan</h4><p>Angular cocok untuk aplikasi enterprise.</p>' },
+  { judul: "JS 55 - NPM dan Package Manager", konten: '<h4>Pengertian</h4><p>NPM adalah package manager untuk JavaScript.</p><h4>Penjelasan</h4><p>Mengelola dependency dan script proyek.</p><h4>Contoh Kode</h4><pre class="code-block">npm install express\nnpm start</pre><h4>Kesimpulan</h4><p>NPM penting untuk pengembangan modern.</p>' },
+  { judul: "JS 56 - Express.js", konten: '<h4>Pengertian</h4><p>Express.js adalah framework web untuk Node.js.</p><h4>Penjelasan</h4><p>Membuat API dan web server dengan mudah.</p><h4>Contoh Kode</h4><pre class="code-block">const express = require("express");\nconst app = express();\napp.get("/", (req, res) => res.send("Hello"));</pre><h4>Kesimpulan</h4><p>Express adalah standar untuk Node.js backend.</p>' },
+  { judul: "JS 57 - Mongoose dan MongoDB", konten: '<h4>Pengertian</h4><p>Mongoose adalah ODM untuk MongoDB.</p><h4>Penjelasan</h4><p>Mempermudah interaksi dengan database.</p><h4>Contoh Kode</h4><pre class="code-block">const User = mongoose.model("User", { nama: String });\nconst user = new User({ nama: "Budi" });\nawait user.save();</pre><h4>Kesimpulan</h4><p>Mongoose memudahkan operasi database.</p>' },
+  { judul: "JS 58 - JWT Authentication", konten: '<h4>Pengertian</h4><p>JWT untuk autentikasi dan otorisasi.</p><h4>Penjelasan</h4><p>Token dikirim di header Authorization.</p><h4>Contoh Kode</h4><pre class="code-block">const token = jwt.sign({ id: user.id }, "secret");\njwt.verify(token, "secret");</pre><h4>Kesimpulan</h4><p>JWT aman dan stateless untuk autentikasi.</p>' },
+  { judul: "JS 59 - REST API", konten: '<h4>Pengertian</h4><p>REST API adalah arsitektur web service.</p><h4>Penjelasan</h4><p>Menggunakan metode HTTP: GET, POST, PUT, DELETE.</p><h4>Contoh Kode</h4><pre class="code-block">app.get("/users", (req, res) => res.json(users));\napp.post("/users", (req, res) => users.push(req.body));</pre><h4>Kesimpulan</h4><p>REST API standar komunikasi client-server.</p>' },
+  { judul: "JS 60 - GraphQL", konten: '<h4>Pengertian</h4><p>GraphQL adalah query language untuk API.</p><h4>Penjelasan</h4><p>Client menentukan data yang diperlukan.</p><h4>Contoh Kode</h4><pre class="code-block">query {\n  user(id: 1) {\n    nama\n    email\n  }\n}</pre><h4>Kesimpulan</h4><p>GraphQL lebih fleksibel dari REST.</p>' },
+  { judul: "JS 61 - WebSocket", konten: '<h4>Pengertian</h4><p>WebSocket untuk komunikasi real-time.</p><h4>Penjelasan</h4><p>Koneksi dua arah antara client-server.</p><h4>Contoh Kode</h4><pre class="code-block">const ws = new WebSocket("ws://localhost");\nws.onmessage = (e) => console.log(e.data);</pre><h4>Kesimpulan</h4><p>WebSocket untuk chat, live data, game.</p>' },
+  { judul: "JS 62 - Socket.io", konten: '<h4>Pengertian</h4><p>Socket.io memudahkan WebSocket dengan fallback.</p><h4>Penjelasan</h4><p>Mendukung room, broadcast, auto-reconnect.</p><h4>Contoh Kode</h4><pre class="code-block">io.on("connection", (socket) => {\n  socket.emit("pesan", "Halo");\n});</pre><h4>Kesimpulan</h4><p>Socket.io populer untuk aplikasi real-time.</p>' },
+  { judul: "JS 63 - Testing dengan Jest", konten: '<h4>Pengertian</h4><p>Jest adalah testing framework untuk JavaScript.</p><h4>Penjelasan</h4><p>Mendukung unit test, snapshot, mock.</p><h4>Contoh Kode</h4><pre class="code-block">test("tambah 1 + 2 = 3", () => {\n  expect(tambah(1,2)).toBe(3);\n});</pre><h4>Kesimpulan</h4><p>Testing penting untuk kode yang reliable.</p>' },
+  { judul: "JS 64 - ESLint dan Prettier", konten: '<h4>Pengertian</h4><p>ESLint untuk linting, Prettier untuk formatting.</p><h4>Penjelasan</h4><p>Menjaga konsistensi kode dalam tim.</p><h4>Contoh Kode</h4><pre class="code-block">{\n  "extends": "eslint:recommended"\n}</pre><h4>Kesimpulan</h4><p>Alat penting untuk kolaborasi tim.</p>' },
+  { judul: "JS 65 - Webpack", konten: '<h4>Pengertian</h4><p>Webpack adalah module bundler.</p><h4>Penjelasan</h4><p>Menggabungkan file JS, CSS, gambar menjadi satu.</p><h4>Contoh Kode</h4><pre class="code-block">module.exports = {\n  entry: "./src/index.js",\n  output: { filename: "bundle.js" }\n};</pre><h4>Kesimpulan</h4><p>Webpack penting untuk aplikasi modern.</p>' },
+  { judul: "JS 66 - Babel", konten: '<h4>Pengertian</h4><p>Babel mengubah JS modern ke versi lama.</p><h4>Penjelasan</h4><p>Mendukung JSX, TypeScript, ESNext.</p><h4>Contoh Kode</h4><pre class="code-block">{\n  "presets": ["@babel/preset-env"]\n}</pre><h4>Kesimpulan</h4><p>Babel memastikan kompatibilitas browser.</p>' },
+  { judul: "JS 67 - TypeScript", konten: '<h4>Pengertian</h4><p>TypeScript adalah JavaScript dengan tipe statis.</p><h4>Penjelasan</h4><p>Mencegah error tipe saat compile.</p><h4>Contoh Kode</h4><pre class="code-block">let nama: string = "Budi";\nfunction sapa(nama: string): string {\n  return "Halo " + nama;\n}</pre><h4>Kesimpulan</h4><p>TypeScript populer untuk proyek besar.</p>' },
+  { judul: "JS 68 - Next.js", konten: '<h4>Pengertian</h4><p>Next.js adalah framework React untuk SSR.</p><h4>Penjelasan</h4><p>Mendukung server-side rendering dan static site.</p><h4>Contoh Kode</h4><pre class="code-block">export default function Page() {\n  return &lt;div&gt;Hello Next.js&lt;/div&gt;;\n}</pre><h4>Kesimpulan</h4><p>Next.js untuk performa dan SEO.</p>' },
+  { judul: "JS 69 - Nuxt.js", konten: '<h4>Pengertian</h4><p>Nuxt.js adalah framework Vue untuk SSR.</p><h4>Penjelasan</h4><p>Mendukung server-side rendering, static site.</p><h4>Contoh Kode</h4><pre class="code-block">export default {\n  asyncData() {\n    return { data: "Hello" };\n  }\n}</pre><h4>Kesimpulan</h4><p>Nuxt.js untuk aplikasi Vue yang SEO-friendly.</p>' },
+  { judul: "JS 70 - Deno", konten: '<h4>Pengertian</h4><p>Deno adalah runtime JavaScript modern dari pembuat Node.</p><h4>Penjelasan</h4><p>Mendukung TypeScript secara native.</p><h4>Contoh Kode</h4><pre class="code-block">Deno.serve(() => new Response("Hello"));</pre><h4>Kesimpulan</h4><p>Deno sebagai alternatif modern Node.</p>' },
+  { judul: "JS 71 - Bun", konten: '<h4>Pengertian</h4><p>Bun adalah runtime JavaScript cepat.</p><h4>Penjelasan</h4><p>Lebih cepat dari Node dan Deno.</p><h4>Contoh Kode</h4><pre class="code-block">Bun.serve({\n  fetch(req) {\n    return new Response("Hello Bun!");\n  }\n});</pre><h4>Kesimpulan</h4><p>Bun adalah runtime JavaScript masa depan.</p>' },
+  { judul: "JS 72 - Prisma ORM", konten: '<h4>Pengertian</h4><p>Prisma adalah ORM modern untuk Node.js.</p><h4>Penjelasan</h4><p>Mendukung TypeScript, auto-completion, migrasi.</p><h4>Contoh Kode</h4><pre class="code-block">const users = await prisma.user.findMany();</pre><h4>Kesimpulan</h4><p>Prisma memudahkan interaksi database.</p>' },
+  { judul: "JS 73 - Tailwind CSS dengan JS", konten: '<h4>Pengertian</h4><p>Tailwind adalah CSS framework utility-first.</p><h4>Penjelasan</h4><p>Bisa digunakan dengan JS framework apapun.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div class="bg-blue-500 text-white p-4"&gt;\n  Halo Tailwind\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Tailwind mempercepat pengembangan UI.</p>' },
+  { judul: "JS 74 - Zustand State Management", konten: '<h4>Pengertian</h4><p>Zustand adalah state management minimalis.</p><h4>Penjelasan</h4><p>Lebih sederhana dari Redux.</p><h4>Contoh Kode</h4><pre class="code-block">const useStore = create((set) => ({\n  count: 0,\n  increment: () => set((state) => ({ count: state.count + 1 }))\n}));</pre><h4>Kesimpulan</h4><p>Zustand untuk state management modern.</p>' },
+  { judul: "JS 75 - Redux Toolkit", konten: '<h4>Pengertian</h4><p>Redux Toolkit adalah cara resmi menulis Redux.</p><h4>Penjelasan</h4><p>Mengurangi boilerplate Redux.</p><h4>Contoh Kode</h4><pre class="code-block">const counterSlice = createSlice({\n  name: "counter",\n  initialState: 0,\n  reducers: { increment: (state) => state + 1 }\n});</pre><h4>Kesimpulan</h4><p>Redux Toolkit menyederhanakan state management.</p>' },
+  { judul: "JS 76 - Mikroservices dengan Node.js", konten: '<h4>Pengertian</h4><p>Mikroservices adalah arsitektur aplikasi modular.</p><h4>Penjelasan</h4><p>Setiap service independen dan scalable.</p><h4>Contoh Kode</h4><pre class="code-block">Service A dan B berkomunikasi via API atau message queue</pre><h4>Kesimpulan</h4><p>Mikroservices untuk aplikasi enterprise.</p>' },
+  { judul: "JS 77 - Docker dan JavaScript", konten: '<h4>Pengertian</h4><p>Docker untuk containerisasi aplikasi.</p><h4>Penjelasan</h4><p>Memudahkan deployment dan konsistensi.</p><h4>Contoh Kode</h4><pre class="code-block">FROM node:18\nWORKDIR /app\nCOPY package*.json ./\nRUN npm install</pre><h4>Kesimpulan</h4><p>Docker penting untuk DevOps.</p>' },
+  { judul: "JS 78 - CI/CD dengan GitHub Actions", konten: '<h4>Pengertian</h4><p>CI/CD otomatisasi build dan deployment.</p><h4>Penjelasan</h4><p>GitHub Actions untuk pipeline.</p><h4>Contoh Kode</h4><pre class="code-block">name: CI\non: push\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3</pre><h4>Kesimpulan</h4><p>CI/CD meningkatkan produktivitas tim.</p>' },
+  { judul: "JS 79 - Kubernetes untuk Node.js", konten: '<h4>Pengertian</h4><p>Kubernetes orchestrasi container.</p><h4>Penjelasan</h4><p>Mengatur scaling, deployment, load balancing.</p><h4>Contoh Kode</h4><pre class="code-block">apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: app</pre><h4>Kesimpulan</h4><p>Kubernetes untuk aplikasi skala besar.</p>' },
+  { judul: "JS 80 - Serverless dengan AWS Lambda", konten: '<h4>Pengertian</h4><p>Serverless menjalankan kode tanpa server.</p><h4>Penjelasan</h4><p>AWS Lambda, Google Cloud Functions.</p><h4>Contoh Kode</h4><pre class="code-block">exports.handler = async (event) => {\n  return { statusCode: 200, body: "OK" };\n};</pre><h4>Kesimpulan</h4><p>Serverless hemat biaya dan scalable.</p>' },
+  { judul: "JS 81 - Web Security", konten: '<h4>Pengertian</h4><p>Keamanan web adalah aspek penting.</p><h4>Penjelasan</h4><p>XSS, CSRF, SQL Injection, CORS.</p><h4>Contoh Kode</h4><pre class="code-block">Sanitasi input\nHTTPS\nHelmet.js</pre><h4>Kesimpulan</h4><p>Keamanan harus diperhatikan sejak awal.</p>' },
+  { judul: "JS 82 - OAuth 2.0", konten: '<h4>Pengertian</h4><p>OAuth 2.0 untuk otorisasi pihak ketiga.</p><h4>Penjelasan</h4><p>Login dengan Google, Facebook, dll.</p><h4>Contoh Kode</h4><pre class="code-block">Menggunakan passport.js\npassport.use(new GoogleStrategy({...}));</pre><h4>Kesimpulan</h4><p>OAuth penting untuk autentikasi modern.</p>' },
+  { judul: "JS 83 - Performance Optimization", konten: '<h4>Pengertian</h4><p>Optimasi performa untuk aplikasi cepat.</p><h4>Penjelasan</h4><p>Lazy loading, code splitting, caching.</p><h4>Contoh Kode</h4><pre class="code-block">const LazyComponent = lazy(() => import("./Component"));</pre><h4>Kesimpulan</h4><p>Performa penting untuk UX.</p>' },
+  { judul: "JS 84 - SEO dengan JavaScript", konten: '<h4>Pengertian</h4><p>SEO penting untuk visibilitas website.</p><h4>Penjelasan</h4><p>Meta tags, SSR, sitemap.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;meta name="description" content="..." /&gt;</pre><h4>Kesimpulan</h4><p>SEO membuat website mudah ditemukan.</p>' },
+  { judul: "JS 85 - PWA dengan JavaScript", konten: '<h4>Pengertian</h4><p>PWA adalah aplikasi web seperti native.</p><h4>Penjelasan</h4><p>Offline support, push notification, installable.</p><h4>Contoh Kode</h4><pre class="code-block">{\n  "name": "App",\n  "start_url": "/",\n  "display": "standalone"\n}</pre><h4>Kesimpulan</h4><p>PWA meningkatkan pengalaman pengguna.</p>' },
+  { judul: "JS 86 - WebAssembly", konten: '<h4>Pengertian</h4><p>WebAssembly adalah binary format untuk web.</p><h4>Penjelasan</h4><p>Berjalan dengan performa hampir native.</p><h4>Contoh Kode</h4><pre class="code-block">WebAssembly.instantiateStreaming(fetch("app.wasm"));</pre><h4>Kesimpulan</h4><p>WebAssembly untuk aplikasi berat.</p>' },
+  { judul: "JS 87 - Three.js 3D", konten: '<h4>Pengertian</h4><p>Three.js adalah library 3D untuk browser.</p><h4>Penjelasan</h4><p>Membuat scene, camera, renderer.</p><h4>Contoh Kode</h4><pre class="code-block">const scene = new THREE.Scene();\nconst camera = new THREE.PerspectiveCamera(75, w/h);</pre><h4>Kesimpulan</h4><p>Three.js untuk aplikasi 3D dan game.</p>' },
+  { judul: "JS 88 - D3.js Data Visualization", konten: '<h4>Pengertian</h4><p>D3.js untuk visualisasi data.</p><h4>Penjelasan</h4><p>Membuat chart, grafik, diagram interaktif.</p><h4>Contoh Kode</h4><pre class="code-block">d3.select("svg")\n  .append("circle")\n  .attr("r", 10);</pre><h4>Kesimpulan</h4><p>D3.js penting untuk data visualization.</p>' },
+  { judul: "JS 89 - Chart.js", konten: '<h4>Pengertian</h4><p>Chart.js adalah library chart sederhana.</p><h4>Penjelasan</h4><p>Mudah digunakan, banyak tipe chart.</p><h4>Contoh Kode</h4><pre class="code-block">new Chart(ctx, {\n  type: "bar",\n  data: { labels: ["A", "B"], datasets: [{ data: [1,2] }] }\n});</pre><h4>Kesimpulan</h4><p>Chart.js untuk visualisasi cepat.</p>' },
+  { judul: "JS 90 - GSAP Animations", konten: '<h4>Pengertian</h4><p>GSAP adalah library animasi professional.</p><h4>Penjelasan</h4><p>Animasi halus, timeline, scroll trigger.</p><h4>Contoh Kode</h4><pre class="code-block">gsap.to(".box", { x: 100, duration: 1 });</pre><h4>Kesimpulan</h4><p>GSAP untuk animasi website premium.</p>' },
+  { judul: "JS 91 - Framer Motion", konten: '<h4>Pengertian</h4><p>Framer Motion adalah library animasi untuk React.</p><h4>Penjelasan</h4><p>Animasi sederhana dan powerful.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;motion.div animate={{ x: 100 }} /&gt;</pre><h4>Kesimpulan</h4><p>Framer Motion untuk React animation.</p>' },
+  { judul: "JS 92 - React Native", konten: '<h4>Pengertian</h4><p>React Native untuk aplikasi mobile.</p><h4>Penjelasan</h4><p>Menggunakan React untuk iOS dan Android.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;View&gt;\n  &lt;Text&gt;Halo React Native&lt;/Text&gt;\n&lt;/View&gt;</pre><h4>Kesimpulan</h4><p>React Native untuk mobile development.</p>' },
+  { judul: "JS 93 - Electron.js", konten: '<h4>Pengertian</h4><p>Electron untuk aplikasi desktop.</p><h4>Penjelasan</h4><p>Membangun aplikasi desktop dengan web tech.</p><h4>Contoh Kode</h4><pre class="code-block">const { app, BrowserWindow } = require("electron");</pre><h4>Kesimpulan</h4><p>Electron untuk desktop apps.</p>' },
+  { judul: "JS 94 - Tauri", konten: '<h4>Pengertian</h4><p>Tauri adalah alternatif Electron yang lebih ringan.</p><h4>Penjelasan</h4><p>Menggunakan Rust di backend.</p><h4>Contoh Kode</h4><pre class="code-block">tauri.conf.json</pre><h4>Kesimpulan</h4><p>Tauri untuk desktop apps yang ringan.</p>' },
+  { judul: "JS 95 - Web3.js", konten: '<h4>Pengertian</h4><p>Web3.js untuk interaksi dengan blockchain.</p><h4>Penjelasan</h4><p>Mengirim transaksi, membaca smart contract.</p><h4>Contoh Kode</h4><pre class="code-block">const web3 = new Web3(provider);\nconst balance = await web3.eth.getBalance(address);</pre><h4>Kesimpulan</h4><p>Web3.js untuk aplikasi blockchain.</p>' },
+  { judul: "JS 96 - AI dengan TensorFlow.js", konten: '<h4>Pengertian</h4><p>TensorFlow.js untuk machine learning di browser.</p><h4>Penjelasan</h4><p>Training dan inference model AI.</p><h4>Contoh Kode</h4><pre class="code-block">const model = tf.sequential();\nmodel.add(tf.layers.dense({ units: 1, inputShape: [1] }));</pre><h4>Kesimpulan</h4><p>TensorFlow.js untuk AI di web.</p>' },
+  { judul: "JS 97 - NLP dengan Compromise.js", konten: '<h4>Pengertian</h4><p>Compromise.js untuk NLP di browser.</p><h4>Penjelasan</h4><p>Analisis teks, named entity recognition.</p><h4>Contoh Kode</h4><pre class="code-block">let doc = nlp("Saya suka JavaScript");\nconsole.log(doc.verbs().data());</pre><h4>Kesimpulan</h4><p>Compromise.js untuk natural language processing.</p>' },
+  { judul: "JS 98 - WebGL", konten: '<h4>Pengertian</h4><p>WebGL untuk grafik 3D di browser.</p><h4>Penjelasan</h4><p>Lebih rendah level dari Three.js.</p><h4>Contoh Kode</h4><pre class="code-block">const gl = canvas.getContext("webgl");</pre><h4>Kesimpulan</h4><p>WebGL untuk grafik 3D performa tinggi.</p>' },
+  { judul: "JS 99 - WebSocket vs SSE", konten: '<h4>Pengertian</h4><p>SSE adalah Server-Sent Events.</p><h4>Penjelasan</h4><p>One-way communication dari server ke client.</p><h4>Contoh Kode</h4><pre class="code-block">const eventSource = new EventSource("/events");\neventSource.onmessage = (e) => console.log(e.data);</pre><h4>Kesimpulan</h4><p>SSE untuk real-time update satu arah.</p>' },
+  { judul: "JS 100 - Masa Depan JavaScript", konten: '<h4>Pengertian</h4><p>JavaScript terus berkembang setiap tahun.</p><h4>Penjelasan</h4><p>ES2025, TC39, proposal terbaru.</p><h4>Contoh Kode</h4><pre class="code-block">Pipe operator, records, tuples\nPattern matching, decorators</pre><h4>Kesimpulan</h4><p>JavaScript adalah bahasa yang terus berevolusi.</p>' }
 ];
+
+const soalMudah = [
+  { q: "JavaScript adalah bahasa pemrograman yang berjalan di...", opsi: ["Browser dan server", "Hanya server", "Hanya mobile", "Hanya desktop"], jawab: 0, penjelasan: "JavaScript awalnya untuk browser, sekarang juga bisa di server dengan Node.js." },
+  { q: "Kata kunci untuk membuat variabel yang bisa diubah adalah...", opsi: ["let", "const", "fixed", "final"], jawab: 0, penjelasan: "let digunakan untuk variabel yang nilainya bisa diubah." },
+  { q: "Kata kunci untuk membuat variabel konstan adalah...", opsi: ["const", "let", "var", "static"], jawab: 0, penjelasan: "const digunakan untuk variabel yang tidak bisa diubah setelah dideklarasikan." },
+  { q: "Cara menampilkan output ke console adalah...", opsi: ["console.log()", "print()", "echo()", "log()"], jawab: 0, penjelasan: "console.log() digunakan untuk menampilkan output ke console browser." },
+  { q: "Tipe data untuk teks adalah...", opsi: ["string", "text", "char", "word"], jawab: 0, penjelasan: "String adalah tipe data untuk teks." },
+  { q: "Tipe data untuk angka adalah...", opsi: ["number", "int", "float", "digit"], jawab: 0, penjelasan: "JavaScript hanya memiliki tipe number untuk angka (integer dan desimal)." },
+  { q: "Tipe data untuk nilai benar/salah adalah...", opsi: ["boolean", "bool", "bit", "flag"], jawab: 0, penjelasan: "Boolean menyimpan nilai true atau false." },
+  { q: "Cara membuat fungsi adalah dengan keyword...", opsi: ["function", "def", "func", "method"], jawab: 0, penjelasan: "function digunakan untuk mendefinisikan fungsi di JavaScript." },
+  { q: "Cara membuat arrow function adalah...", opsi: ["const f = () => {}", "const f = function() {}", "function f() {}", "def f() {}"], jawab: 0, penjelasan: "Arrow function menggunakan tanda => untuk mendefinisikan fungsi." },
+  { q: "Tag HTML untuk menampilkan JavaScript adalah...", opsi: ["script", "js", "javascript", "code"], jawab: 0, penjelasan: "Tag script digunakan untuk menyisipkan JavaScript di HTML." },
+  { q: "Operator untuk penjumlahan adalah...", opsi: ["+", "-", "*", "/"], jawab: 0, penjelasan: "Tanda + digunakan untuk penjumlahan dan konkatenasi string." },
+  { q: "Operator untuk perbandingan sama dengan (nilai dan tipe) adalah...", opsi: ["===", "==", "=", "!="], jawab: 0, penjelasan: "=== memeriksa kesamaan nilai DAN tipe data." },
+  { q: "Cara membuat array adalah...", opsi: ["[1, 2, 3]", "{1, 2, 3}", "(1, 2, 3)", "<1, 2, 3>"], jawab: 0, penjelasan: "Array dibuat dengan tanda kurung siku []." },
+  { q: "Cara membuat object adalah...", opsi: ["{nama: 'Budi'}", "[nama: 'Budi']", "(nama: 'Budi')", "<nama: 'Budi'>"], jawab: 0, penjelasan: "Object dibuat dengan tanda kurung kurawal {}." },
+  { q: "Kata kunci untuk kondisi percabangan adalah...", opsi: ["if", "when", "cond", "case"], jawab: 0, penjelasan: "if digunakan untuk percabangan kondisi." },
+  { q: "Kata kunci untuk perulangan dengan kondisi adalah...", opsi: ["while", "for", "loop", "repeat"], jawab: 0, penjelasan: "while digunakan untuk perulangan berdasarkan kondisi." },
+  { q: "Kata kunci untuk perulangan dengan jumlah pasti adalah...", opsi: ["for", "while", "loop", "each"], jawab: 0, penjelasan: "for digunakan untuk perulangan dengan jumlah iterasi yang pasti." },
+  { q: "Method untuk menambah elemen di akhir array adalah...", opsi: ["push()", "pop()", "shift()", "unshift()"], jawab: 0, penjelasan: "push() menambahkan elemen di akhir array." },
+  { q: "Method untuk menghapus elemen terakhir array adalah...", opsi: ["pop()", "push()", "shift()", "unshift()"], jawab: 0, penjelasan: "pop() menghapus dan mengembalikan elemen terakhir array." },
+  { q: "Cara mengakses elemen pertama array adalah...", opsi: ["arr[0]", "arr[1]", "arr.first", "arr.first()"], jawab: 0, penjelasan: "Indeks array dimulai dari 0, jadi elemen pertama adalah arr[0]." }
+];
+
+const soalSedang = [
+  { q: "Method array untuk mengubah setiap elemen adalah...", opsi: ["map()", "filter()", "reduce()", "forEach()"], jawab: 0, penjelasan: "map() membuat array baru dengan setiap elemen hasil transformasi." },
+  { q: "Method array untuk memilih elemen sesuai kondisi adalah...", opsi: ["filter()", "map()", "reduce()", "find()"], jawab: 0, penjelasan: "filter() membuat array baru dengan elemen yang lolos kondisi." },
+  { q: "Method array untuk menjumlahkan nilai adalah...", opsi: ["reduce()", "map()", "filter()", "sum()"], jawab: 0, penjelasan: "reduce() menggabungkan semua elemen menjadi satu nilai." },
+  { q: "Spread operator menggunakan simbol...", opsi: ["...", "..", "***", "&&"], jawab: 0, penjelasan: "Spread operator (...) menyebarkan elemen array atau object." },
+  { q: "Destructuring array menggunakan sintaks...", opsi: ["let [a, b] = arr", "let (a, b) = arr", "let {a, b} = arr", "let <a, b> = arr"], jawab: 0, penjelasan: "Destructuring array menggunakan kurung siku." },
+  { q: "Template literal menggunakan simbol...", opsi: ["backtick `", "kutip satu '", "kutip dua \"", "kurung ("], jawab: 0, penjelasan: "Template literal menggunakan backtick dan ${} untuk interpolasi." },
+  { q: "Fungsi untuk mengubah object ke string JSON adalah...", opsi: ["JSON.stringify()", "JSON.parse()", "JSON.toStr()", "JSON.encode()"], jawab: 0, penjelasan: "JSON.stringify() mengubah object menjadi string JSON." },
+  { q: "Fungsi untuk mengubah string JSON ke object adalah...", opsi: ["JSON.parse()", "JSON.stringify()", "JSON.toObj()", "JSON.decode()"], jawab: 0, penjelasan: "JSON.parse() mengubah string JSON menjadi object JavaScript." },
+  { q: "Cara menulis async function adalah...", opsi: ["async function f() {}", "await function f() {}", "function async f() {}", "async: function f() {}"], jawab: 0, penjelasan: "Kata kunci async diletakkan sebelum function." },
+  { q: "Kata kunci untuk menunggu Promise di async function adalah...", opsi: ["await", "wait", "pause", "hold"], jawab: 0, penjelasan: "await menunggu Promise selesai di dalam async function." },
+  { q: "Method untuk menyimpan data di localStorage adalah...", opsi: ["setItem()", "putItem()", "addItem()", "saveItem()"], jawab: 0, penjelasan: "localStorage.setItem(key, value) menyimpan data." },
+  { q: "Method untuk mengambil data dari localStorage adalah...", opsi: ["getItem()", "fetchItem()", "readItem()", "loadItem()"], jawab: 0, penjelasan: "localStorage.getItem(key) mengambil nilai berdasarkan key." },
+  { q: "Kata kunci untuk mendefinisikan class adalah...", opsi: ["class", "object", "struct", "define"], jawab: 0, penjelasan: "class digunakan untuk mendefinisikan blueprint object." },
+  { q: "Method khusus yang dipanggil saat object dibuat adalah...", opsi: ["constructor", "init", "create", "new"], jawab: 0, penjelasan: "Constructor dijalankan saat instance class dibuat." },
+  { q: "Kata kunci untuk membuat instance dari class adalah...", opsi: ["new", "create", "instance", "make"], jawab: 0, penjelasan: "new ClassName() membuat instance baru dari class." },
+  { q: "Cara membuat Promise adalah...", opsi: ["new Promise((resolve, reject) => {})", "Promise.create()", "promise()", "async Promise"], jawab: 0, penjelasan: "Promise dibuat dengan constructor new Promise." },
+  { q: "Method Promise untuk menangani hasil sukses adalah...", opsi: [".then()", ".catch()", ".finally()", ".done()"], jawab: 0, penjelasan: ".then() menangani hasil sukses Promise." },
+  { q: "Method Promise untuk menangani error adalah...", opsi: [".catch()", ".then()", ".finally()", ".error()"], jawab: 0, penjelasan: ".catch() menangani error dari Promise." },
+  { q: "Fungsi fetch() mengembalikan...", opsi: ["Promise", "String", "Object", "Array"], jawab: 0, penjelasan: "fetch() mengembalikan Promise yang resolve menjadi Response." },
+  { q: "Cara menghentikan event bubbling adalah...", opsi: ["e.stopPropagation()", "e.preventDefault()", "e.stop()", "e.cancel()"], jawab: 0, penjelasan: "stopPropagation() menghentikan event naik ke parent." }
+];
+
+const soalSulit = [
+  { q: "Perbedaan let dan var adalah...", opsi: ["let block-scoped, var function-scoped", "Sama saja", "let global, var lokal", "var block-scoped"], jawab: 0, penjelasan: "let memiliki block scope sedangkan var memiliki function scope." },
+  { q: "Hoisting pada JavaScript adalah...", opsi: ["Mengangkat deklarasi ke atas scope", "Menghapus variabel", "Mengubah nilai variabel", "Menyalin variabel"], jawab: 0, penjelasan: "Hoisting mengangkat deklarasi var dan function ke atas scope." },
+  { q: "Closure pada JavaScript adalah...", opsi: ["Fungsi yang mengakses variabel dari scope luar", "Fungsi tanpa nama", "Fungsi yang dihapus", "Fungsi anonymous"], jawab: 0, penjelasan: "Closure memungkinkan fungsi mengakses variabel dari scope induknya." },
+  { q: "Perbedaan == dan === adalah...", opsi: ["== cek nilai, === cek nilai dan tipe", "Sama saja", "=== lebih lambat", "== lebih aman"], jawab: 0, penjelasan: "=== (strict equality) memeriksa nilai dan tipe data sekaligus." },
+  { q: "Nilai this pada arrow function adalah...", opsi: ["Lexical, mengikuti scope luar", "Selalu window", "Selalu object", "Undefined"], jawab: 0, penjelasan: "Arrow function tidak memiliki this sendiri, mengikuti scope leksikalnya." },
+  { q: "Event loop pada JavaScript berfungsi untuk...", opsi: ["Menangani operasi asinkron", "Membuat variabel", "Membuat fungsi", "Menghapus memori"], jawab: 0, penjelasan: "Event loop menangani callback dan operasi asinkron di single thread." },
+  { q: "Microtask queue diproses...", opsi: ["Sebelum macrotask", "Setelah macrotask", "Bersamaan macrotask", "Tidak pernah"], jawab: 0, penjelasan: "Microtask (Promise) diproses sebelum macrotask (setTimeout)." },
+  { q: "Perbedaan null dan undefined adalah...", opsi: ["null nilai kosong sengaja, undefined belum diisi", "Sama saja", "undefined nilai kosong, null belum diisi", "Keduanya nilai kosong"], jawab: 0, penjelasan: "null adalah nilai kosong yang disengaja, undefined berarti belum ada nilai." },
+  { q: "Fungsi IIFE adalah...", opsi: ["Fungsi yang langsung dijalankan", "Fungsi kosong", "Fungsi async", "Fungsi generator"], jawab: 0, penjelasan: "IIFE (Immediately Invoked Function Expression) dijalankan langsung setelah didefinisikan." },
+  { q: "Generator function ditandai dengan...", opsi: ["function*", "async function", "function()", "gen function"], jawab: 0, penjelasan: "Generator function menggunakan tanda * dan yield." },
+  { q: "Perbedaan for...in dan for...of adalah...", opsi: ["in untuk key, of untuk nilai", "Sama saja", "in untuk array, of untuk object", "of untuk index"], jawab: 0, penjelasan: "for...in iterasi key, for...of iterasi nilai." },
+  { q: "WeakMap berbeda dari Map karena...", opsi: ["Key WeakMap harus object dan bisa di-GC", "WeakMap lebih cepat", "Map tidak bisa dihapus", "Sama saja"], jawab: 0, penjelasan: "WeakMap hanya menerima object sebagai key dan mendukung garbage collection." },
+  { q: "Proxy pada JavaScript berguna untuk...", opsi: ["Mencegat operasi pada object", "Membuat object baru", "Menghapus object", "Menyalin object"], jawab: 0, penjelasan: "Proxy memungkinkan custom behavior untuk operasi dasar object." },
+  { q: "Reflect pada JavaScript adalah...", opsi: ["API untuk operasi object yang intercepa", "Framework", "Library UI", "Tool debug"], jawab: 0, penjelasan: "Reflect menyediakan method untuk operasi JavaScript low-level." },
+  { q: "Symbol pada JavaScript digunakan untuk...", opsi: ["Membuat identifier unik", "Menyimpan teks", "Menyimpan angka", "Membuat fungsi"], jawab: 0, penjelasan: "Symbol membuat identifier yang dijamin unik, sering untuk property object." },
+  { q: "Perbedaan Map dan object biasa adalah...", opsi: ["Map key bisa tipe apapun, object hanya string/symbol", "Sama saja", "Object lebih cepat", "Map tidak bisa diiterasi"], jawab: 0, penjelasan: "Map memungkinkan key dari tipe data apapun, termasuk object." },
+  { q: "Structured clone digunakan untuk...", opsi: ["Deep clone object", "Shallow clone", "Menghapus object", "Merge object"], jawab: 0, penjelasan: "structuredClone() membuat deep clone termasuk nested object." },
+  { q: "Optional chaining (?.) berguna untuk...", opsi: ["Mengakses property dengan aman", "Membuat object", "Menghapus property", "Menyalin property"], jawab: 0, penjelasan: "Optional chaining menghindari error saat property undefined/null." },
+  { q: "Nullish coalescing (??) berbeda dari || karena...", opsi: ["?? hanya untuk null/undefined", "Sama saja", "?? untuk angka", "|| untuk string"], jawab: 0, penjelasan: "?? memberikan nilai default hanya jika nilai null atau undefined." },
+  { q: "Kata kunci static pada class berarti...", opsi: ["Method/property milik class, bukan instance", "Method statis saja", "Property const", "Method private"], jawab: 0, penjelasan: "static method/property diakses langsung dari class, bukan instance." }
+];
+
+let latihanSoal = [];
+let latihanIdx = 0;
+let latihanBenar = 0;
+let latihanSalah = 0;
+let latihanTingkat = 'mudah';
+let latihanTerjawab = false;
 
 function loadLocalProgress() {
   const storedDate = localStorage.getItem('jsDate');
@@ -1336,6 +1552,8 @@ function openMateri(index) {
 
     document.getElementById('halamanUtama').classList.add('hidden');
     document.getElementById('materiView').classList.remove('hidden');
+    document.getElementById('latihanView').classList.add('hidden');
+    document.getElementById('fabLatihan').classList.add('hidden');
 
     document.getElementById('judulMateriView').innerHTML = materiList[index].judul;
     document.getElementById('isiMateriDetail').innerHTML = materiList[index].konten;
@@ -1360,7 +1578,169 @@ function prevMateri() {
 
 function backToList() {
   document.getElementById('materiView').classList.add('hidden');
+  document.getElementById('latihanView').classList.add('hidden');
   document.getElementById('halamanUtama').classList.remove('hidden');
+  document.getElementById('fabLatihan').classList.remove('hidden');
+  renderBagian();
+}
+
+function bukaPilihTingkat() {
+  if (!currentUser) {
+    showAlert('Silakan masuk ke akun Anda terlebih dahulu.', false);
+    return;
+  }
+
+  document.getElementById('halamanUtama').classList.add('hidden');
+  document.getElementById('materiView').classList.add('hidden');
+  document.getElementById('latihanView').classList.remove('hidden');
+  document.getElementById('latihanPilihTingkat').classList.remove('hidden');
+  document.getElementById('latihanMain').classList.add('hidden');
+  document.getElementById('fabLatihan').classList.add('hidden');
+}
+
+function mulaiLatihanSoal(tingkat) {
+  if (!currentUser) {
+    showAlert('Silakan masuk ke akun Anda terlebih dahulu.', false);
+    return;
+  }
+
+  latihanTingkat = tingkat;
+  if (tingkat === 'mudah') latihanSoal = soalMudah.slice();
+  else if (tingkat === 'sedang') latihanSoal = soalSedang.slice();
+  else latihanSoal = soalSulit.slice();
+
+  latihanSoal.sort(function() { return 0.5 - Math.random(); });
+  latihanSoal = latihanSoal.slice(0, 20);
+
+  latihanIdx = 0;
+  latihanBenar = 0;
+  latihanSalah = 0;
+  latihanTerjawab = false;
+
+  document.getElementById('latihanPilihTingkat').classList.add('hidden');
+  document.getElementById('latihanMain').classList.remove('hidden');
+
+  document.getElementById('judulLatihan').innerText = 'Latihan ' + tingkat.charAt(0).toUpperCase() + tingkat.slice(1);
+  document.getElementById('latihanProgressWrap').style.display = 'block';
+  document.getElementById('latihanSoalWrap').classList.remove('hidden');
+  document.getElementById('latihanHasilWrap').classList.add('hidden');
+
+  tampilkanSoal();
+}
+
+function tampilkanSoal() {
+  const soal = latihanSoal[latihanIdx];
+  latihanTerjawab = false;
+
+  document.getElementById('latihanProgressText').innerText = 'Soal ' + (latihanIdx + 1) + ' dari ' + latihanSoal.length;
+  document.getElementById('latihanScoreText').innerText = 'Benar: ' + latihanBenar;
+  document.getElementById('latihanProgressBar').style.width = ((latihanIdx) / latihanSoal.length * 100) + '%';
+
+  document.getElementById('latihanPertanyaan').innerText = soal.q;
+
+  const opsiWrap = document.getElementById('latihanOpsiWrap');
+  opsiWrap.innerHTML = '';
+  const label = ['A', 'B', 'C', 'D'];
+
+  soal.opsi.forEach(function(o, idx) {
+    const btn = document.createElement('button');
+    btn.className = 'latihan-opsi';
+    btn.innerHTML = '<span class="opsi-label">' + label[idx] + '</span><span>' + o + '</span>';
+    btn.onclick = function() { jawabSoal(idx); };
+    opsiWrap.appendChild(btn);
+  });
+
+  document.getElementById('latihanPenjelasanWrap').classList.add('hidden');
+  document.getElementById('latihanLanjutBtn').classList.add('hidden');
+}
+
+function jawabSoal(pilihan) {
+  if (latihanTerjawab) return;
+  latihanTerjawab = true;
+
+  const soal = latihanSoal[latihanIdx];
+  const opsiList = document.querySelectorAll('#latihanOpsiWrap .latihan-opsi');
+
+  opsiList.forEach(function(el, idx) {
+    el.classList.add('disabled');
+    if (idx === soal.jawab) el.classList.add('correct');
+    if (idx === pilihan && pilihan !== soal.jawab) el.classList.add('wrong');
+  });
+
+  if (pilihan === soal.jawab) {
+    latihanBenar++;
+  } else {
+    latihanSalah++;
+  }
+
+  document.getElementById('latihanScoreText').innerText = 'Benar: ' + latihanBenar;
+
+  const penjelasanWrap = document.getElementById('latihanPenjelasanWrap');
+  penjelasanWrap.innerHTML = '<b>' + (pilihan === soal.jawab ? '✓ Benar!' : '✗ Salah') + '</b><br>' + soal.penjelasan;
+  penjelasanWrap.classList.remove('hidden');
+
+  const lanjutBtn = document.getElementById('latihanLanjutBtn');
+  lanjutBtn.classList.remove('hidden');
+  lanjutBtn.innerText = (latihanIdx + 1 < latihanSoal.length) ? 'Soal Berikutnya' : 'Lihat Hasil';
+}
+
+function lanjutSoal() {
+  if (latihanIdx + 1 < latihanSoal.length) {
+    latihanIdx++;
+    tampilkanSoal();
+  } else {
+    tampilkanHasil();
+  }
+}
+
+function tampilkanHasil() {
+  document.getElementById('latihanSoalWrap').classList.add('hidden');
+  document.getElementById('latihanProgressWrap').style.display = 'none';
+  document.getElementById('latihanHasilWrap').classList.remove('hidden');
+
+  const total = latihanSoal.length;
+  const nilai = Math.round(latihanBenar / total * 100);
+
+  document.getElementById('hasilBenar').innerText = latihanBenar;
+  document.getElementById('hasilSalah').innerText = latihanSalah;
+  document.getElementById('hasilNilai').innerText = nilai;
+
+  let title = 'Luar Biasa!';
+  let subtitle = 'Kamu menguasai materi dengan sangat baik.';
+  let gradient = 'linear-gradient(135deg, #2563EB, #60A5FA)';
+  let iconPath = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+
+  if (nilai < 60) {
+    title = 'Perlu Belajar Lagi';
+    subtitle = 'Baca ulang materi lalu coba lagi ya.';
+    gradient = 'linear-gradient(135deg, #DC2626, #F87171)';
+    iconPath = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+  } else if (nilai < 80) {
+    title = 'Bagus!';
+    subtitle = 'Kamu sudah cukup paham, terus berlatih!';
+    gradient = 'linear-gradient(135deg, #D97706, #FBBF24)';
+    iconPath = '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>';
+  }
+
+  document.getElementById('hasilTitle').innerText = title;
+  document.getElementById('hasilSubtitle').innerText = subtitle;
+
+  const iconWrap = document.getElementById('hasilIconWrap');
+  if (iconWrap) {
+    iconWrap.style.background = gradient;
+    iconWrap.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 36px; height: 36px;">' + iconPath + '</svg>';
+  }
+}
+
+function ulangiLatihan() {
+  mulaiLatihanSoal(latihanTingkat);
+}
+
+function keluarLatihan() {
+  document.getElementById('latihanView').classList.add('hidden');
+  document.getElementById('materiView').classList.add('hidden');
+  document.getElementById('halamanUtama').classList.remove('hidden');
+  document.getElementById('fabLatihan').classList.remove('hidden');
   renderBagian();
 }
 

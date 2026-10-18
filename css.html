@@ -112,6 +112,84 @@
     color: #94A3B8;
   }
 
+  body.dark .latihan-opsi {
+    background: #1E293B;
+    border-color: #334155;
+    color: #E2E8F0;
+  }
+
+  body.dark .latihan-opsi .opsi-label {
+    background: #0F172A;
+    border-color: #334155;
+    color: #94A3B8;
+  }
+
+  body.dark .latihan-opsi.correct {
+    background: #14311F;
+    border-color: #16A34A;
+    color: #4ADE80;
+  }
+
+  body.dark .latihan-opsi.wrong {
+    background: #3A1414;
+    border-color: #DC2626;
+    color: #F87171;
+  }
+
+  body.dark #latihanPenjelasanWrap {
+    background: #1E3A5F !important;
+    color: #93C5FD !important;
+  }
+
+  body.dark #latihanHasilWrap > div:nth-of-type(2) {
+    background: #1E293B !important;
+  }
+
+  body.dark #hasilTitle {
+    color: #F1F5F9;
+  }
+
+  body.dark #hasilSubtitle {
+    color: #94A3B8;
+  }
+
+  body.dark #latihanPertanyaan {
+    color: #F1F5F9;
+  }
+
+  body.dark .fab-latihan {
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5), 0 4px 10px rgba(0,0,0,0.4);
+  }
+
+  body.dark .fab-latihan .fab-tooltip {
+    background: #1E293B;
+    color: #F1F5F9;
+  }
+
+  body.dark .pilih-tingkat-btn {
+    background: #111827;
+    border-color: #334155;
+  }
+
+  body.dark .pilih-tingkat-btn .tingkat-info .tingkat-title {
+    color: #F1F5F9;
+  }
+
+  body.dark .pilih-tingkat-btn .tingkat-info .tingkat-sub {
+    color: #94A3B8;
+  }
+
+  body.dark .pilih-tingkat-btn .tingkat-arrow {
+    color: #475569;
+  }
+
+  body.dark .pilih-tingkat-btn.mudah { border-color: #166534; }
+  body.dark .pilih-tingkat-btn.mudah .tingkat-icon { background: #14311F; color: #4ADE80; }
+  body.dark .pilih-tingkat-btn.sedang { border-color: #78350F; }
+  body.dark .pilih-tingkat-btn.sedang .tingkat-icon { background: #3A1F0A; color: #FBBF24; }
+  body.dark .pilih-tingkat-btn.sulit { border-color: #7F1D1D; }
+  body.dark .pilih-tingkat-btn.sulit .tingkat-icon { background: #3A1414; color: #F87171; }
+
   .app-container {
     max-width: 560px;
     margin: 0 auto;
@@ -387,6 +465,8 @@
     cursor: pointer;
     color: #0F172A;
     transition: 0.15s;
+    text-align: left;
+    font-family: inherit;
   }
 
   .materi-btn:active {
@@ -477,6 +557,7 @@
     font-size: 15px;
     width: 100%;
     cursor: pointer;
+    font-family: inherit;
   }
 
   .btn-full:active {
@@ -493,6 +574,7 @@
     width: 100%;
     margin-top: 8px;
     cursor: pointer;
+    font-family: inherit;
   }
 
   .nav-buttons {
@@ -540,7 +622,219 @@
     color: #4fc3f7;
     margin: 12px 0;
     border: 1px solid #E2E8F0;
+    white-space: pre-wrap;
   }
+
+  body.dark .code-block {
+    background: #0F172A;
+    border-color: #334155;
+    color: #4fc3f7;
+  }
+
+  .latihan-opsi {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #F8FAFE;
+    border: 2px solid #E2E8F0;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.15s;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #0F172A;
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+  }
+
+  .latihan-opsi:active {
+    transform: scale(0.98);
+  }
+
+  .latihan-opsi .opsi-label {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 2px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+    color: #64748B;
+  }
+
+  .latihan-opsi.correct {
+    background: #DCFCE7;
+    border-color: #16A34A;
+    color: #15803D;
+  }
+
+  .latihan-opsi.correct .opsi-label {
+    background: #16A34A;
+    border-color: #16A34A;
+    color: #fff;
+  }
+
+  .latihan-opsi.wrong {
+    background: #FEE2E2;
+    border-color: #DC2626;
+    color: #B91C1C;
+  }
+
+  .latihan-opsi.wrong .opsi-label {
+    background: #DC2626;
+    border-color: #DC2626;
+    color: #fff;
+  }
+
+  .latihan-opsi.disabled {
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .fab-latihan {
+    position: fixed;
+    right: 20px;
+    bottom: 90px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2563EB, #60A5FA);
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4), 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 50;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+  }
+
+  .fab-latihan:active {
+    transform: scale(0.92);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5);
+  }
+
+  .fab-latihan svg {
+    width: 28px;
+    height: 28px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .fab-latihan .fab-tooltip {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0F172A;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .fab-latihan:hover .fab-tooltip {
+    opacity: 1;
+  }
+
+  .pilih-tingkat-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    background: #FFFFFF;
+    border: 2px solid #E2E8F0;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.15s;
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+  }
+
+  .pilih-tingkat-btn:active {
+    transform: scale(0.98);
+  }
+
+  .pilih-tingkat-btn .tingkat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pilih-tingkat-btn .tingkat-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .pilih-tingkat-btn .tingkat-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .pilih-tingkat-btn .tingkat-info .tingkat-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 2px;
+  }
+
+  .pilih-tingkat-btn .tingkat-info .tingkat-sub {
+    font-size: 12.5px;
+    color: #64748B;
+  }
+
+  .pilih-tingkat-btn .tingkat-arrow {
+    color: #CBD5E1;
+    flex-shrink: 0;
+  }
+
+  .pilih-tingkat-btn .tingkat-arrow svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .pilih-tingkat-btn.mudah { border-color: #BBF7D0; }
+  .pilih-tingkat-btn.mudah .tingkat-icon { background: #DCFCE7; color: #16A34A; }
+  .pilih-tingkat-btn.mudah:active { border-color: #16A34A; }
+
+  .pilih-tingkat-btn.sedang { border-color: #FDE68A; }
+  .pilih-tingkat-btn.sedang .tingkat-icon { background: #FEF3C7; color: #D97706; }
+  .pilih-tingkat-btn.sedang:active { border-color: #D97706; }
+
+  .pilih-tingkat-btn.sulit { border-color: #FECACA; }
+  .pilih-tingkat-btn.sulit .tingkat-icon { background: #FEE2E2; color: #DC2626; }
+  .pilih-tingkat-btn.sulit:active { border-color: #DC2626; }
 
   .alert-overlay {
     position: fixed;
@@ -590,93 +884,100 @@
   }
 
   .hidden {
-    display: none;
+    display: none !important;
   }
 
-  /* ===== Tampilan Laptop / PC ===== */
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+  /* perbaikan mode gelap: teks soal & jalur progres latihan */
+  body.dark #latihanPertanyaan { color:#F1F5F9 !important; }
+  body.dark #latihanProgressWrap > div:nth-of-type(2) { background:#1E293B !important; }
+
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
     }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .sidebar-nav .logout-link { margin-top:auto; }
 
     .app-container {
-      max-width: 720px;
-      margin: 36px auto;
-      background: #FFFFFF;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      min-height: auto;
-      padding-bottom: 24px;
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
     }
-
-    body.dark .app-container {
-      background: #0B1120;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
 
     .app-header {
-      border-radius: 20px 20px 0 0;
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1100px) / 2 + 32px));
     }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    .app-title { font-size:22px; }
+    .close-btn:hover { background:rgba(37,99,235,.10); }
 
-    .screen {
-      padding: 24px 24px 30px;
-    }
+    .screen { width:100%; max-width:1100px; margin:0 auto; padding:32px 32px 48px; }
+    .card-modern { padding:26px; border-radius:22px; margin-bottom:0; }
+    .section-title { font-size:20px; letter-spacing:-.3px; }
 
-    .card-modern {
-      padding: 24px;
-      margin-bottom: 24px;
-      border-radius: 24px;
+    /* daftar materi: kiri status, kanan daftar 2 kolom */
+    #halamanUtama:not(.hidden) {
+      display:grid; grid-template-columns:minmax(0,320px) minmax(0,1fr); column-gap:28px; align-items:start;
     }
+    #halamanUtama > .card-modern:nth-child(1) { position:sticky; top:92px; }
+    #halamanUtama > .card-modern { min-width:0; }
+    .grid-bagian { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
+    .grid-bagian .materi-btn { min-width:0; }
+    .grid-bagian .materi-btn .materi-text .materi-title { white-space:normal; overflow:visible; text-overflow:clip; word-break:break-word; line-height:1.3; }
+    .materi-btn { transition:border-color .15s, box-shadow .15s, transform .15s; }
+    .materi-btn:not(.locked):hover { border-color:#9DB9F2; box-shadow:0 8px 20px rgba(37,99,235,.08); transform:translateY(-2px); }
+    body.dark .materi-btn:not(.locked):hover { border-color:#2F4A8A; box-shadow:none; }
 
-    .grid-bagian {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    /* baca materi & latihan: kolom tengah */
+    #materiView:not(.hidden) { max-width:800px; margin:0 auto; }
+    #materiView > .card-modern { padding:36px 40px; }
+    #materiView .section-title { font-size:24px; letter-spacing:-.4px; margin-bottom:18px; }
+    .materi-content { font-size:16px; line-height:1.75; }
+    .materi-content h4 { font-size:19px; }
+    .materi-content pre { font-size:14px; padding:16px 18px; }
+    .btn-full, .btn-outline { transition:filter .15s, background .15s; }
+    .btn-full:hover { filter:brightness(1.08); }
+    .btn-outline:hover { background:rgba(37,99,235,.06); }
+    .nav-buttons { margin-top:28px; }
 
-    .materi-btn {
-      padding: 16px;
-      border-radius: 18px;
-    }
+    #latihanView:not(.hidden) { max-width:700px; margin:0 auto; }
+    .latihan-opsi { transition:border-color .15s, background .15s, transform .1s; }
+    .latihan-opsi:not(.disabled):hover { border-color:#93B4F5; }
+    .pilih-tingkat-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(37,99,235,.08); }
 
-    .materi-btn .materi-num {
-      width: 44px;
-      height: 44px;
-      font-size: 16px;
-      border-radius: 14px;
-    }
+    .fab-latihan { right:32px; bottom:32px; width:64px; height:64px; }
+    .fab-latihan:hover { transform:translateY(-3px); }
 
-    .materi-btn .materi-text .materi-title {
-      font-size: 15px;
-    }
-
-    .materi-btn .materi-text .materi-sub {
-      font-size: 12px;
-    }
-
-    .alert-card {
-      width: 340px;
-      padding: 28px 26px;
-      border-radius: 28px;
-    }
-
-    .sidebar-nav {
-      border-radius: 0 20px 20px 0;
-    }
-
-    .code-block {
-      font-size: 14px;
-      padding: 16px;
-    }
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
+    .alert-card { max-width:380px; padding:28px 26px; border-radius:26px; }
   }
+
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .screen { padding:24px; }
+    #halamanUtama:not(.hidden) { grid-template-columns:minmax(0,280px) minmax(0,1fr); column-gap:20px; }
+    .grid-bagian { grid-template-columns:minmax(0,1fr); }
+  }
+
+
 </style>
 </head>
 <body>
@@ -708,6 +1009,7 @@
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
+    <div class="sidebar-brand">STools</div>
     <a href="#" onclick="goTo('index.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
     </a>
@@ -768,13 +1070,129 @@
         <div class="section-title" id="judulMateriView">Materi HTML & CSS</div>
         <div id="isiMateriDetail" class="materi-content"></div>
         <div class="nav-buttons">
-          <button class="btn-outline" id="prevBtn">Sebelumnya</button>
+          <button class="btn-outline" id="prevBtn" style="margin-top:0;">Sebelumnya</button>
           <button class="btn-full" id="nextBtn">Selanjutnya</button>
         </div>
         <button class="btn-outline" id="backToListBtn" style="margin-top: 12px;">Kembali ke Daftar</button>
       </div>
     </div>
+
+    <div id="latihanView" class="hidden">
+      <div id="latihanPilihTingkat">
+        <div class="card-modern">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px;">
+            <div class="section-title" style="margin-bottom: 0;">Latihan Soal</div>
+            <button class="btn-outline" onclick="keluarLatihan()" style="width: auto; padding: 6px 14px; font-size: 12px; margin: 0; flex-shrink: 0;">Keluar</button>
+          </div>
+          <p style="margin-bottom: 16px; font-size: 13.5px; color: #64748B; line-height: 1.5;">Pilih tingkat kesulitan untuk memulai latihan. Setiap sesi berisi 20 soal pilihan ganda.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <button class="pilih-tingkat-btn mudah" onclick="mulaiLatihanSoal('mudah')">
+              <div class="tingkat-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="tingkat-info">
+                <div class="tingkat-title">Mudah</div>
+                <div class="tingkat-sub">20 soal • Tag HTML dasar</div>
+              </div>
+              <div class="tingkat-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="pilih-tingkat-btn sedang" onclick="mulaiLatihanSoal('sedang')">
+              <div class="tingkat-icon">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div class="tingkat-info">
+                <div class="tingkat-title">Sedang</div>
+                <div class="tingkat-sub">20 soal • CSS &amp; layout</div>
+              </div>
+              <div class="tingkat-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <button class="pilih-tingkat-btn sulit" onclick="mulaiLatihanSoal('sulit')">
+              <div class="tingkat-icon">
+                <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              </div>
+              <div class="tingkat-info">
+                <div class="tingkat-title">Sulit</div>
+                <div class="tingkat-sub">20 soal • CSS lanjutan &amp; praktis</div>
+              </div>
+              <div class="tingkat-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="latihanMain" class="hidden">
+        <div class="card-modern">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px;">
+            <div class="section-title" id="judulLatihan" style="margin-bottom: 0;">Latihan Soal</div>
+            <button class="btn-outline" onclick="keluarLatihan()" style="width: auto; padding: 6px 14px; font-size: 12px; margin: 0; flex-shrink: 0;">Keluar</button>
+          </div>
+
+          <div id="latihanProgressWrap" style="margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #64748B; margin-bottom: 6px;">
+              <span id="latihanProgressText">Soal 1 dari 20</span>
+              <span id="latihanScoreText">Benar: 0</span>
+            </div>
+            <div style="height: 6px; background: #E2E8F0; border-radius: 3px; overflow: hidden;">
+              <div id="latihanProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #2563EB, #60A5FA); transition: width 0.3s;"></div>
+            </div>
+          </div>
+
+          <div id="latihanSoalWrap">
+            <p id="latihanPertanyaan" style="font-size: 15px; font-weight: 600; line-height: 1.6; margin-bottom: 16px; color: #0F172A;"></p>
+            <div id="latihanOpsiWrap" style="display: flex; flex-direction: column; gap: 10px;"></div>
+            <div id="latihanPenjelasanWrap" class="hidden" style="margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: #EFF6FF; border-left: 4px solid #2563EB; font-size: 13px; color: #1E3A8A; line-height: 1.5;"></div>
+            <button class="btn-full hidden" id="latihanLanjutBtn" onclick="lanjutSoal()" style="margin-top: 16px;">Soal Berikutnya</button>
+          </div>
+
+          <div id="latihanHasilWrap" class="hidden" style="text-align: center; padding: 20px 0;">
+            <div id="hasilIconWrap" style="width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 50%; background: linear-gradient(135deg, #2563EB, #60A5FA); display: flex; align-items: center; justify-content: center;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 36px; height: 36px;">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <h3 id="hasilTitle" style="font-size: 22px; font-weight: 700; margin-bottom: 6px;">Hebat!</h3>
+            <p id="hasilSubtitle" style="font-size: 14px; color: #64748B; margin-bottom: 16px;">Kamu menjawab dengan baik.</p>
+            <div style="background: #F8FAFE; border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-around;">
+                <div>
+                  <div style="font-size: 12px; color: #64748B;">Benar</div>
+                  <div id="hasilBenar" style="font-size: 24px; font-weight: 700; color: #16A34A;">0</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #64748B;">Salah</div>
+                  <div id="hasilSalah" style="font-size: 24px; font-weight: 700; color: #DC2626;">0</div>
+                </div>
+                <div>
+                  <div style="font-size: 12px; color: #64748B;">Nilai</div>
+                  <div id="hasilNilai" style="font-size: 24px; font-weight: 700; color: #2563EB;">0</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn-full" onclick="ulangiLatihan()" style="margin-bottom: 8px;">Ulangi Latihan</button>
+            <button class="btn-outline" onclick="keluarLatihan()" style="margin-top: 0;">Kembali ke Beranda</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <button class="fab-latihan" id="fabLatihan" onclick="bukaPilihTingkat()" aria-label="Latihan Soal">
+    <svg viewBox="0 0 24 24">
+      <path d="M9 11l3 3L22 4"/>
+      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+    </svg>
+    <span class="fab-tooltip">Latihan Soal</span>
+  </button>
 
   <div class="footer-app">
     <p>Star Platform | STools 2026</p>
@@ -811,134 +1229,195 @@ let currentMateriIdx = 0;
 
 const todayStr = new Date().toDateString();
 
-// ======================== 100 MATERI HTML & CSS ========================
 const materiList = [
-  // 1-20: HTML Dasar
-  { judul: "HTML 1 - Pengenalan HTML", konten: "<h4>Pengertian</h4><p>HTML (HyperText Markup Language) adalah bahasa standar yang digunakan untuk membuat halaman web. HTML berfungsi untuk menyusun struktur konten seperti teks, gambar, dan tautan.</p><h4>Penjelasan</h4><p>HTML menggunakan tag-tag khusus yang diapit oleh tanda &lt; &gt;. Setiap tag memiliki fungsi tertentu. Browser akan membaca tag-tag ini dan menampilkannya sebagai halaman web yang bisa dilihat oleh pengguna.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n    &lt;title&gt;Halaman Pertama&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n    &lt;h1&gt;Halo Dunia!&lt;/h1&gt;\n    &lt;p&gt;Ini adalah halaman web pertama saya.&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;</pre><h4>Kesimpulan</h4><p>HTML adalah pondasi dari semua website. Tanpa HTML, browser tidak akan bisa menampilkan konten apapun.</p>" },
-  { judul: "HTML 2 - Struktur Dasar HTML", konten: "<h4>Pengertian</h4><p>Setiap dokumen HTML memiliki struktur dasar yang harus diikuti agar browser dapat menampilkannya dengan benar.</p><h4>Penjelasan</h4><p>Struktur dasar HTML terdiri dari deklarasi DOCTYPE, elemen html, head, dan body. DOCTYPE memberi tahu browser versi HTML yang digunakan. Head berisi informasi meta dan title. Body berisi konten yang ditampilkan.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;!DOCTYPE html&gt;\n&lt;html lang=\"id\"&gt;\n&lt;head&gt;\n    &lt;meta charset=\"UTF-8\"&gt;\n    &lt;title&gt;Struktur HTML&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n    &lt;!-- Konten di sini --&gt;\n&lt;/body&gt;\n&lt;/html&gt;</pre><h4>Kesimpulan</h4><p>Struktur dasar HTML adalah template yang harus diikuti untuk setiap halaman web.</p>" },
-  { judul: "HTML 3 - Tag Heading", konten: "<h4>Pengertian</h4><p>Tag heading digunakan untuk membuat judul atau subjudul pada halaman web. Ada 6 tingkatan heading dari h1 hingga h6.</p><h4>Penjelasan</h4><p>h1 adalah heading paling penting dan terbesar, sedangkan h6 adalah yang terkecil. Heading membantu mesin pencari memahami hierarki konten.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;h1&gt;Judul Utama&lt;/h1&gt;\n&lt;h2&gt;Sub Judul&lt;/h2&gt;\n&lt;h3&gt;Judul Bagian&lt;/h3&gt;\n&lt;h4&gt;Sub Bagian&lt;/h4&gt;\n&lt;h5&gt;Keterangan&lt;/h5&gt;\n&lt;h6&gt;Catatan Kecil&lt;/h6&gt;</pre><h4>Kesimpulan</h4><p>Gunakan heading secara hierarkis untuk struktur konten yang baik dan SEO yang optimal.</p>" },
-  { judul: "HTML 4 - Tag Paragraf", konten: "<h4>Pengertian</h4><p>Tag paragraf digunakan untuk menampilkan teks dalam bentuk paragraf.</p><h4>Penjelasan</h4><p>Setiap paragraf akan dipisahkan oleh spasi kosong di antara paragraf lainnya. Ini membantu membaca teks dengan lebih nyaman.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;p&gt;Ini adalah paragraf pertama.&lt;/p&gt;\n&lt;p&gt;Ini adalah paragraf kedua yang terpisah oleh spasi.&lt;/p&gt;</pre><h4>Kesimpulan</h4><p>Paragraf membantu mengorganisir teks dan membuat halaman lebih mudah dibaca.</p>" },
-  { judul: "HTML 5 - Tag Link (Anchor)", konten: "<h4>Pengertian</h4><p>Tag anchor atau link digunakan untuk membuat tautan ke halaman lain atau ke bagian lain dalam halaman yang sama.</p><h4>Penjelasan</h4><p>Atribut href menentukan tujuan link. Teks di antara tag pembuka dan penutup akan menjadi teks yang bisa diklik.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;a href=\"https://www.example.com\"&gt;Kunjungi Example&lt;/a&gt;\n&lt;a href=\"#bagian1\"&gt;Lompat ke Bagian 1&lt;/a&gt;</pre><h4>Kesimpulan</h4><p>Link menghubungkan halaman web dan membuat internet menjadi jaringan yang saling terhubung.</p>" },
-  { judul: "HTML 6 - Tag Gambar", konten: "<h4>Pengertian</h4><p>Tag gambar digunakan untuk menampilkan gambar pada halaman web.</p><h4>Penjelasan</h4><p>Tag img adalah tag tunggal (tidak memiliki tag penutup). Atribut src menentukan lokasi gambar, alt memberikan teks alternatif jika gambar tidak bisa dimuat.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;img src=\"foto.jpg\" alt=\"Deskripsi gambar\" width=\"300\" height=\"200\"&gt;</pre><h4>Kesimpulan</h4><p>Gambar membuat halaman lebih menarik dan informatif. Selalu gunakan alt untuk aksesibilitas.</p>" },
-  { judul: "HTML 7 - Tag List (Daftar)", konten: "<h4>Pengertian</h4><p>Tag list digunakan untuk membuat daftar item. Ada dua jenis: unordered list (bullet) dan ordered list (angka).</p><h4>Penjelasan</h4><p>ul untuk daftar tidak berurutan, ol untuk daftar berurutan. Setiap item dalam daftar menggunakan tag li.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;ul&gt;\n    &lt;li&gt;Item 1&lt;/li&gt;\n    &lt;li&gt;Item 2&lt;/li&gt;\n&lt;/ul&gt;\n&lt;ol&gt;\n    &lt;li&gt;Langkah 1&lt;/li&gt;\n    &lt;li&gt;Langkah 2&lt;/li&gt;\n&lt;/ol&gt;</pre><h4>Kesimpulan</h4><p>List membantu menyajikan informasi terstruktur dengan rapi dan mudah dipahami.</p>" },
-  { judul: "HTML 8 - Tag Tabel", konten: "<h4>Pengertian</h4><p>Tag tabel digunakan untuk menampilkan data dalam bentuk baris dan kolom.</p><h4>Penjelasan</h4><p>table adalah tag utama, tr untuk baris, th untuk header, dan td untuk data.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;table border=\"1\"&gt;\n    &lt;tr&gt;&lt;th&gt;Nama&lt;/th&gt;&lt;th&gt;Usia&lt;/th&gt;&lt;/tr&gt;\n    &lt;tr&gt;&lt;td&gt;Budi&lt;/td&gt;&lt;td&gt;20&lt;/td&gt;&lt;/tr&gt;\n    &lt;tr&gt;&lt;td&gt;Ani&lt;/td&gt;&lt;td&gt;22&lt;/td&gt;&lt;/tr&gt;\n&lt;/table&gt;</pre><h4>Kesimpulan</h4><p>Tabel sangat berguna untuk menampilkan data yang terstruktur dan mudah dibandingkan.</p>" },
-  { judul: "HTML 9 - Tag Div", konten: "<h4>Pengertian</h4><p>Div adalah tag blok yang digunakan untuk mengelompokkan elemen HTML untuk tujuan styling atau layout.</p><h4>Penjelasan</h4><p>Div adalah elemen blok yang bisa menampung elemen lain di dalamnya. Biasanya digunakan bersama CSS untuk mengatur tata letak.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;div style=\"background:blue; padding:20px;\"&gt;\n    &lt;h2&gt;Konten di dalam div&lt;/h2&gt;\n    &lt;p&gt;Ini adalah paragraf di dalam div.&lt;/p&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Div adalah elemen serbaguna untuk membangun layout halaman web yang kompleks.</p>" },
-  { judul: "HTML 10 - Tag Span", konten: "<h4>Pengertian</h4><p>Span adalah tag inline yang digunakan untuk memberi gaya pada bagian kecil dari teks.</p><h4>Penjelasan</h4><p>Berbeda dengan div yang merupakan blok, span hanya mempengaruhi teks di dalamnya tanpa memutus alur teks.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;p&gt;Teks biasa &lt;span style=\"color:red;\"&gt;teks merah&lt;/span&gt; &lt;span style=\"font-weight:bold;\"&gt;teks tebal&lt;/span&gt;&lt;/p&gt;</pre><h4>Kesimpulan</h4><p>Span berguna untuk styling inline tanpa mengganggu struktur layout.</p>" },
-  { judul: "HTML 11 - Tag Form", konten: "<h4>Pengertian</h4><p>Tag form digunakan untuk membuat formulir input data dari pengguna.</p><h4>Penjelasan</h4><p>Form bisa berisi berbagai elemen input seperti teks, checkbox, radio, tombol, dll.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;form action=\"proses.php\" method=\"post\"&gt;\n    &lt;label&gt;Nama:&lt;/label&gt;\n    &lt;input type=\"text\" name=\"nama\"&gt;\n    &lt;button type=\"submit\"&gt;Kirim&lt;/button&gt;\n&lt;/form&gt;</pre><h4>Kesimpulan</h4><p>Form adalah elemen penting untuk interaksi pengguna dan pengumpulan data.</p>" },
-  { judul: "HTML 12 - Tag Input", konten: "<h4>Pengertian</h4><p>Tag input adalah elemen form yang digunakan untuk menerima input dari pengguna.</p><h4>Penjelasan</h4><p>Input memiliki berbagai tipe seperti text, password, email, number, date, checkbox, radio, file, dll.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;input type=\"text\" placeholder=\"Nama Lengkap\"&gt;\n&lt;input type=\"email\" placeholder=\"email@domain.com\"&gt;\n&lt;input type=\"password\"&gt;\n&lt;input type=\"checkbox\"&gt; Setuju</pre><h4>Kesimpulan</h4><p>Input memungkinkan pengguna berinteraksi dengan halaman web dan mengirimkan data.</p>" },
-  { judul: "HTML 13 - Tag Button", konten: "<h4>Pengertian</h4><p>Tag button digunakan untuk membuat tombol yang bisa diklik oleh pengguna.</p><h4>Penjelasan</h4><p>Tombol bisa digunakan untuk submit form, menjalankan JavaScript, atau navigasi.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;button type=\"submit\"&gt;Kirim Data&lt;/button&gt;\n&lt;button type=\"button\" onclick=\"alert('Halo!')\"&gt;Klik Aku&lt;/button&gt;</pre><h4>Kesimpulan</h4><p>Button adalah elemen interaktif yang penting untuk aksi pengguna di halaman web.</p>" },
-  { judul: "HTML 14 - Tag Label", konten: "<h4>Pengertian</h4><p>Tag label digunakan untuk memberi label atau keterangan pada elemen form.</p><h4>Penjelasan</h4><p>Label meningkatkan aksesibilitas karena pengguna bisa mengklik label untuk fokus ke input yang terkait.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;label for=\"nama\"&gt;Nama:&lt;/label&gt;\n&lt;input type=\"text\" id=\"nama\" name=\"nama\"&gt;</pre><h4>Kesimpulan</h4><p>Label meningkatkan pengalaman pengguna dan aksesibilitas form.</p>" },
-  { judul: "HTML 15 - Tag Select", konten: "<h4>Pengertian</h4><p>Tag select digunakan untuk membuat dropdown menu pilihan.</p><h4>Penjelasan</h4><p>Di dalam select terdapat option yang berisi pilihan-pilihan yang tersedia.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;select name=\"kota\"&gt;\n    &lt;option value=\"jakarta\"&gt;Jakarta&lt;/option&gt;\n    &lt;option value=\"bandung\"&gt;Bandung&lt;/option&gt;\n    &lt;option value=\"surabaya\"&gt;Surabaya&lt;/option&gt;\n&lt;/select&gt;</pre><h4>Kesimpulan</h4><p>Select memudahkan pengguna memilih dari daftar pilihan yang sudah disediakan.</p>" },
-  { judul: "HTML 16 - Tag Textarea", konten: "<h4>Pengertian</h4><p>Tag textarea digunakan untuk input teks dalam jumlah banyak atau panjang.</p><h4>Penjelasan</h4><p>Biasanya digunakan untuk komentar, pesan, atau deskripsi. Bisa diatur ukurannya dengan rows dan cols.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;textarea rows=\"4\" cols=\"50\" placeholder=\"Tulis komentar...\"&gt;&lt;/textarea&gt;</pre><h4>Kesimpulan</h4><p>Textarea sangat berguna untuk input teks panjang dan komentar pengguna.</p>" },
-  { judul: "HTML 17 - Tag Fieldset", konten: "<h4>Pengertian</h4><p>Tag fieldset digunakan untuk mengelompokkan elemen-elemen form dalam satu kotak.</p><h4>Penjelasan</h4><p>Biasanya digunakan bersama legend untuk memberi judul pada kelompok form tersebut.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;fieldset&gt;\n    &lt;legend&gt;Data Diri&lt;/legend&gt;\n    &lt;label&gt;Nama: &lt;input type=\"text\"&gt;&lt;/label&gt;\n    &lt;label&gt;Email: &lt;input type=\"email\"&gt;&lt;/label&gt;\n&lt;/fieldset&gt;</pre><h4>Kesimpulan</h4><p>Fieldset membantu mengorganisir form yang panjang menjadi lebih terstruktur.</p>" },
-  { judul: "HTML 18 - Tag Audio", konten: "<h4>Pengertian</h4><p>Tag audio digunakan untuk menambahkan file audio ke halaman web.</p><h4>Penjelasan</h4><p>Dengan atribut controls, pengguna bisa memutar, menjeda, dan mengatur volume audio.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;audio controls&gt;\n    &lt;source src=\"musik.mp3\" type=\"audio/mpeg\"&gt;\n    Browser Anda tidak mendukung audio.\n&lt;/audio&gt;</pre><h4>Kesimpulan</h4><p>Audio memungkinkan halaman web menjadi lebih interaktif dengan suara atau musik.</p>" },
-  { judul: "HTML 19 - Tag Video", konten: "<h4>Pengertian</h4><p>Tag video digunakan untuk menambahkan video ke halaman web.</p><h4>Penjelasan</h4><p>Dengan atribut controls, pengguna bisa memutar, menjeda, dan mengatur volume video.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;video controls width=\"400\"&gt;\n    &lt;source src=\"video.mp4\" type=\"video/mp4\"&gt;\n    Browser Anda tidak mendukung video.\n&lt;/video&gt;</pre><h4>Kesimpulan</h4><p>Video membuat halaman web lebih kaya dan menarik bagi pengguna.</p>" },
-  { judul: "HTML 20 - Tag Iframe", konten: "<h4>Pengertian</h4><p>Tag iframe digunakan untuk menampilkan halaman web lain di dalam halaman web.</p><h4>Penjelasan</h4><p>Iframe sering digunakan untuk menampilkan video YouTube, Google Maps, atau konten dari website lain.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;iframe src=\"https://www.youtube.com/embed/videoID\" width=\"400\" height=\"300\"&gt;&lt;/iframe&gt;</pre><h4>Kesimpulan</h4><p>Iframe memungkinkan integrasi konten dari berbagai sumber dalam satu halaman.</p>" },
-
-  // 21-40: CSS Dasar
-  { judul: "CSS 1 - Pengenalan CSS", konten: "<h4>Pengertian</h4><p>CSS (Cascading Style Sheets) adalah bahasa yang digunakan untuk mengatur tampilan dan layout halaman web.</p><h4>Penjelasan</h4><p>CSS memisahkan konten (HTML) dari presentasi (tampilan). Ini membuat pengelolaan website lebih mudah dan fleksibel.</p><h4>Contoh Kode</h4><pre class=\"code-block\">/* CSS di dalam tag style */\nh1 {\n    color: blue;\n    font-size: 24px;\n}</pre><h4>Kesimpulan</h4><p>CSS adalah kunci untuk membuat website yang cantik dan profesional.</p>" },
-  { judul: "CSS 2 - Cara Menambahkan CSS", konten: "<h4>Pengertian</h4><p>Ada tiga cara menambahkan CSS ke HTML: inline (di dalam tag), internal (di head), dan eksternal (file terpisah).</p><h4>Penjelasan</h4><p>CSS eksternal adalah cara terbaik karena bisa digunakan di banyak halaman dan memudahkan maintenance.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;!-- Inline --&gt;\n&lt;p style=\"color:red;\"&gt;Teks merah&lt;/p&gt;\n\n&lt;!-- Internal --&gt;\n&lt;style&gt; p { color: red; } &lt;/style&gt;\n\n&lt;!-- Eksternal --&gt;\n&lt;link rel=\"stylesheet\" href=\"style.css\"&gt;</pre><h4>Kesimpulan</h4><p>Gunakan CSS eksternal untuk proyek besar agar lebih terorganisir.</p>" },
-  { judul: "CSS 3 - Selektor Dasar", konten: "<h4>Pengertian</h4><p>Selektor CSS digunakan untuk memilih elemen HTML yang akan diberi gaya.</p><h4>Penjelasan</h4><p>Ada beberapa jenis selektor: elemen (p, h1), class (.nama), id (#id), dan kombinasi.</p><h4>Contoh Kode</h4><pre class=\"code-block\">/* Elemen */\np { color: black; }\n\n/* Class */\n.kotak { background: yellow; }\n\n/* ID */\n#header { font-size: 30px; }</pre><h4>Kesimpulan</h4><p>Selektor adalah fondasi untuk mengatur gaya pada elemen tertentu.</p>" },
-  { judul: "CSS 4 - Properti Color", konten: "<h4>Pengertian</h4><p>Properti color digunakan untuk mengatur warna teks.</p><h4>Penjelasan</h4><p>Warna bisa ditentukan dengan nama (red), hex (#FF0000), rgb(255,0,0), atau hsl.</p><h4>Contoh Kode</h4><pre class=\"code-block\">h1 { color: #2563EB; }\np { color: rgb(100, 100, 100); }\nspan { color: red; }</pre><h4>Kesimpulan</h4><p>Warna memberi karakter dan identitas pada tampilan website.</p>" },
-  { judul: "CSS 5 - Properti Background", konten: "<h4>Pengertian</h4><p>Properti background digunakan untuk mengatur latar belakang elemen.</p><h4>Penjelasan</h4><p>Bisa berupa warna, gambar, gradient, atau kombinasi.</p><h4>Contoh Kode</h4><pre class=\"code-block\">body { background-color: #f0f0f0; }\n.card { background: white; }\n.hero { background-image: url('bg.jpg'); }</pre><h4>Kesimpulan</h4><p>Background yang baik membuat elemen lebih menarik dan kontras.</p>" },
-  { judul: "CSS 6 - Properti Font", konten: "<h4>Pengertian</h4><p>Properti font digunakan untuk mengatur tampilan teks seperti jenis, ukuran, dan ketebalan.</p><h4>Penjelasan</h4><p>font-family untuk jenis huruf, font-size untuk ukuran, font-weight untuk ketebalan.</p><h4>Contoh Kode</h4><pre class=\"code-block\">p {\n    font-family: Arial, sans-serif;\n    font-size: 16px;\n    font-weight: bold;\n}</pre><h4>Kesimpulan</h4><p>Font yang tepat membuat teks mudah dibaca dan enak dipandang.</p>" },
-  { judul: "CSS 7 - Properti Margin", konten: "<h4>Pengertian</h4><p>Margin adalah ruang kosong di luar elemen, memisahkan elemen dari elemen lain.</p><h4>Penjelasan</h4><p>Margin bisa diatur untuk setiap sisi: margin-top, margin-right, margin-bottom, margin-left.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.kotak {\n    margin: 20px; /* semua sisi */\n    margin: 10px 20px; /* atas-bawah | kiri-kanan */\n    margin: 10px 20px 15px 25px; /* atas kanan bawah kiri */\n}</pre><h4>Kesimpulan</h4><p>Margin mengatur jarak antar elemen untuk layout yang rapi.</p>" },
-  { judul: "CSS 8 - Properti Padding", konten: "<h4>Pengertian</h4><p>Padding adalah ruang kosong di dalam elemen, antara border dan konten.</p><h4>Penjelasan</h4><p>Padding bisa diatur untuk setiap sisi, mirip dengan margin.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.kotak {\n    padding: 20px;\n    background: white;\n    border: 1px solid #ddd;\n}</pre><h4>Kesimpulan</h4><p>Padding memberikan ruang bernapas pada konten di dalam elemen.</p>" },
-  { judul: "CSS 9 - Properti Border", konten: "<h4>Pengertian</h4><p>Border adalah garis yang mengelilingi elemen.</p><h4>Penjelasan</h4><p>Border memiliki tiga komponen: width, style, dan color.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.kotak {\n    border: 2px solid #2563EB;\n    border-radius: 8px;\n    border: dashed red;\n}</pre><h4>Kesimpulan</h4><p>Border memberikan batas visual pada elemen dan membuatnya lebih jelas.</p>" },
-  { judul: "CSS 10 - Properti Width & Height", konten: "<h4>Pengertian</h4><p>Width dan height digunakan untuk mengatur ukuran elemen.</p><h4>Penjelasan</h4><p>Bisa menggunakan satuan px, %, em, rem, vw, vh, dll.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.card {\n    width: 300px;\n    height: 200px;\n}\n.responsif {\n    width: 100%;\n    max-width: 600px;\n}</pre><h4>Kesimpulan</h4><p>Ukuran elemen penting untuk layout yang konsisten dan responsif.</p>" },
-  { judul: "CSS 11 - Display Block & Inline", konten: "<h4>Pengertian</h4><p>Display menentukan bagaimana elemen ditampilkan: block, inline, inline-block, flex, grid, dll.</p><h4>Penjelasan</h4><p>Block mengambil lebar penuh, inline hanya selebar kontennya.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.blok { display: block; }\n.inline { display: inline; }\n.flex-container { display: flex; }</pre><h4>Kesimpulan</h4><p>Display adalah properti kunci untuk mengatur tata letak halaman.</p>" },
-  { judul: "CSS 12 - Flexbox Dasar", konten: "<h4>Pengertian</h4><p>Flexbox adalah metode layout modern untuk mengatur elemen dalam satu dimensi (baris atau kolom).</p><h4>Penjelasan</h4><p>Flexbox memudahkan mengatur alignment, spacing, dan distribusi elemen.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.container {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    gap: 20px;\n}</pre><h4>Kesimpulan</h4><p>Flexbox membuat layout menjadi lebih mudah dan fleksibel.</p>" },
-  { judul: "CSS 13 - Flexbox Justify Content", konten: "<h4>Pengertian</h4><p>Justify-content mengatur posisi elemen secara horizontal di dalam container flex.</p><h4>Penjelasan</h4><p>Nilai yang umum: flex-start, center, flex-end, space-between, space-around, space-evenly.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.container {\n    display: flex;\n    justify-content: space-between;\n}</pre><h4>Kesimpulan</h4><p>Justify-content membantu mendistribusikan elemen secara horizontal dengan rapi.</p>" },
-  { judul: "CSS 14 - Flexbox Align Items", konten: "<h4>Pengertian</h4><p>Align-items mengatur posisi elemen secara vertikal di dalam container flex.</p><h4>Penjelasan</h4><p>Nilai yang umum: stretch, flex-start, center, flex-end, baseline.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.container {\n    display: flex;\n    align-items: center;\n}</pre><h4>Kesimpulan</h4><p>Align-items membantu menyelaraskan elemen secara vertikal dengan mudah.</p>" },
-  { judul: "CSS 15 - Flexbox Flex Direction", konten: "<h4>Pengertian</h4><p>Flex-direction menentukan arah utama flex container: baris atau kolom.</p><h4>Penjelasan</h4><p>Nilai: row (default), row-reverse, column, column-reverse.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.container {\n    display: flex;\n    flex-direction: column;\n}</pre><h4>Kesimpulan</h4><p>Flex-direction memberi kontrol penuh atas arah layout elemen.</p>" },
-  { judul: "CSS 16 - Grid Dasar", konten: "<h4>Pengertian</h4><p>CSS Grid adalah metode layout dua dimensi (baris dan kolom) yang sangat powerful.</p><h4>Penjelasan</h4><p>Grid memungkinkan layout kompleks dengan baris dan kolom yang fleksibel.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.container {\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 20px;\n}</pre><h4>Kesimpulan</h4><p>Grid adalah solusi terbaik untuk layout dua dimensi yang kompleks.</p>" },
-  { judul: "CSS 17 - Grid Template Columns", konten: "<h4>Pengertian</h4><p>Grid-template-columns menentukan jumlah dan ukuran kolom di grid.</p><h4>Penjelasan</h4><p>Bisa menggunakan satuan px, %, fr (fraksi), auto, minmax, dll.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.grid {\n    display: grid;\n    grid-template-columns: 200px 1fr 2fr;\n    /* kolom 1: 200px, kolom 2: 1 bagian, kolom 3: 2 bagian */\n}</pre><h4>Kesimpulan</h4><p>Grid-template-columns memberikan kontrol penuh atas struktur kolom.</p>" },
-  { judul: "CSS 18 - Grid Gap", konten: "<h4>Pengertian</h4><p>Grid gap adalah jarak antar sel (baris dan kolom) dalam grid.</p><h4>Penjelasan</h4><p>Bisa menggunakan gap, row-gap, atau column-gap.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.grid {\n    display: grid;\n    gap: 20px;\n    /* atau */\n    row-gap: 15px;\n    column-gap: 25px;\n}</pre><h4>Kesimpulan</h4><p>Gap membuat elemen grid memiliki jarak yang rapi dan konsisten.</p>" },
-  { judul: "CSS 19 - Responsif Media Queries", konten: "<h4>Pengertian</h4><p>Media queries digunakan untuk membuat website responsif dengan menerapkan CSS berbeda berdasarkan ukuran layar.</p><h4>Penjelasan</h4><p>Biasanya menggunakan min-width atau max-width untuk menyesuaikan tampilan.</p><h4>Contoh Kode</h4><pre class=\"code-block\">@media (max-width: 768px) {\n    .container {\n        flex-direction: column;\n    }\n}</pre><h4>Kesimpulan</h4><p>Media queries membuat website tampil baik di semua perangkat.</p>" },
-  { judul: "CSS 20 - Properti Position", konten: "<h4>Pengertian</h4><p>Position menentukan bagaimana elemen diposisikan dalam halaman.</p><h4>Penjelasan</h4><p>Nilai: static, relative, absolute, fixed, sticky.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.fixed {\n    position: fixed;\n    top: 0;\n    width: 100%;\n}\n.relative {\n    position: relative;\n    top: 10px;\n}</pre><h4>Kesimpulan</h4><p>Position memberikan kontrol penuh atas posisi elemen di halaman.</p>" },
-
-  // 21-40: CSS Lanjutan
-  { judul: "CSS 21 - Box Model", konten: "<h4>Pengertian</h4><p>Box model adalah konsep di mana setiap elemen HTML dianggap sebagai kotak yang terdiri dari margin, border, padding, dan konten.</p><h4>Penjelasan</h4><p>Total lebar elemen = margin + border + padding + konten. Memahami box model penting untuk layout.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.box {\n    width: 300px;\n    padding: 20px;\n    border: 2px solid black;\n    margin: 10px;\n}</pre><h4>Kesimpulan</h4><p>Box model adalah fondasi untuk memahami ukuran dan spasi elemen.</p>" },
-  { judul: "CSS 22 - Properti Opacity", konten: "<h4>Pengertian</h4><p>Opacity mengatur tingkat transparansi elemen, dari 0 (sepenuhnya transparan) hingga 1 (sepenuhnya terlihat).</p><h4>Penjelasan</h4><p>Berguna untuk efek hover, overlay, dan elemen semi-transparan.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.fade {\n    opacity: 0.5;\n}\n.fade:hover {\n    opacity: 1;\n}</pre><h4>Kesimpulan</h4><p>Opacity memberikan efek visual yang halus dan menarik.</p>" },
-  { judul: "CSS 23 - Properti Overflow", konten: "<h4>Pengertian</h4><p>Overflow mengatur apa yang terjadi saat konten lebih besar dari wadahnya.</p><h4>Penjelasan</h4><p>Nilai: visible, hidden, scroll, auto.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.container {\n    width: 200px;\n    height: 100px;\n    overflow: auto;\n}</pre><h4>Kesimpulan</h4><p>Overflow penting untuk mengelola konten yang melebihi batas elemen.</p>" },
-  { judul: "CSS 24 - Properti Z-Index", konten: "<h4>Pengertian</h4><p>Z-index mengatur tumpukan elemen (kedalaman) di halaman.</p><h4>Penjelasan</h4><p>Nilai lebih tinggi akan berada di atas nilai lebih rendah. Hanya berlaku untuk elemen dengan position selain static.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.atas {\n    position: relative;\n    z-index: 10;\n}\n.bawah {\n    position: relative;\n    z-index: 1;\n}</pre><h4>Kesimpulan</h4><p>Z-index penting untuk mengelola elemen yang saling tumpang tindih.</p>" },
-  { judul: "CSS 25 - Properti Box Shadow", konten: "<h4>Pengertian</h4><p>Box-shadow menambahkan bayangan di sekitar elemen.</p><h4>Penjelasan</h4><p>Parameter: offset-x, offset-y, blur, spread, warna.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.card {\n    box-shadow: 0 4px 8px rgba(0,0,0,0.1);\n}\n.card:hover {\n    box-shadow: 0 8px 16px rgba(0,0,0,0.2);\n}</pre><h4>Kesimpulan</h4><p>Box-shadow memberikan efek kedalaman dan dimensi pada elemen.</p>" },
-  { judul: "CSS 26 - Properti Text Shadow", konten: "<h4>Pengertian</h4><p>Text-shadow menambahkan bayangan pada teks.</p><h4>Penjelasan</h4><p>Parameter: offset-x, offset-y, blur, warna.</p><h4>Contoh Kode</h4><pre class=\"code-block\">h1 {\n    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);\n}</pre><h4>Kesimpulan</h4><p>Text-shadow membuat teks lebih menonjol dan mudah dibaca.</p>" },
-  { judul: "CSS 27 - Properti Border Radius", konten: "<h4>Pengertian</h4><p>Border-radius membuat sudut elemen menjadi melengkung.</p><h4>Penjelasan</h4><p>Bisa diatur untuk setiap sudut atau secara keseluruhan.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.card {\n    border-radius: 12px;\n}\n.circle {\n    border-radius: 50%;\n    width: 100px;\n    height: 100px;\n}</pre><h4>Kesimpulan</h4><p>Border-radius memberikan tampilan yang lebih modern dan halus.</p>" },
-  { judul: "CSS 28 - Properti Transition", konten: "<h4>Pengertian</h4><p>Transition mengatur perubahan properti secara halus saat terjadi perubahan.</p><h4>Penjelasan</h4><p>Berguna untuk efek hover, focus, atau perubahan state lainnya.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.btn {\n    transition: background-color 0.3s, transform 0.2s;\n}\n.btn:hover {\n    background-color: #2563EB;\n    transform: scale(1.05);\n}</pre><h4>Kesimpulan</h4><p>Transition membuat interaksi pengguna terasa lebih halus dan profesional.</p>" },
-  { judul: "CSS 29 - Properti Transform", konten: "<h4>Pengertian</h4><p>Transform memungkinkan memutar, memperbesar, memiringkan, atau menggeser elemen.</p><h4>Penjelasan</h4><p>Fungsi: rotate(), scale(), skew(), translate().</p><h4>Contoh Kode</h4><pre class=\"code-block\">.gambar:hover {\n    transform: rotate(10deg) scale(1.1);\n}\n.animasi {\n    transform: translateX(50px);\n}</pre><h4>Kesimpulan</h4><p>Transform memberikan efek visual yang dinamis dan menarik.</p>" },
-  { judul: "CSS 30 - Properti Animation", konten: "<h4>Pengertian</h4><p>Animation memungkinkan membuat animasi kompleks dengan keyframes.</p><h4>Penjelasan</h4><p>Keyframes mendefinisikan perubahan properti pada berbagai titik waktu.</p><h4>Contoh Kode</h4><pre class=\"code-block\">@keyframes slide {\n    from { transform: translateX(-100px); }\n    to { transform: translateX(0); }\n}\n.animasi {\n    animation: slide 0.5s ease-out;\n}</pre><h4>Kesimpulan</h4><p>Animation membuat website lebih hidup dan interaktif.</p>" },
-  { judul: "CSS 31 - Properti Filter", konten: "<h4>Pengertian</h4><p>Filter menerapkan efek visual seperti blur, brightness, contrast, dan lainnya pada elemen.</p><h4>Penjelasan</h4><p>Berguna untuk efek pada gambar, latar belakang, atau elemen lainnya.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.gambar {\n    filter: brightness(0.8) blur(2px);\n}\n.gambar:hover {\n    filter: brightness(1);\n}</pre><h4>Kesimpulan</h4><p>Filter memberikan efek visual kreatif tanpa perlu software editing.</p>" },
-  { judul: "CSS 32 - Properti Cursor", konten: "<h4>Pengertian</h4><p>Cursor mengubah tampilan kursor saat berada di atas elemen.</p><h4>Penjelasan</h4><p>Nilai umum: pointer, default, wait, text, grab, not-allowed.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.tombol { cursor: pointer; }\n.link { cursor: pointer; }\n.disabled { cursor: not-allowed; }</pre><h4>Kesimpulan</h4><p>Cursor memberi petunjuk visual tentang interaksi yang bisa dilakukan.</p>" },
-  { judul: "CSS 33 - Properti Outline", konten: "<h4>Pengertian</h4><p>Outline adalah garis di luar border yang tidak mempengaruhi layout.</p><h4>Penjelasan</h4><p>Berguna untuk fokus pada elemen seperti input atau button.</p><h4>Contoh Kode</h4><pre class=\"code-block\">input:focus {\n    outline: 2px solid #2563EB;\n    outline-offset: 2px;\n}</pre><h4>Kesimpulan</h4><p>Outline meningkatkan aksesibilitas dengan memberi indikasi elemen yang aktif.</p>" },
-  { judul: "CSS 34 - Properti Visibility", konten: "<h4>Pengertian</h4><p>Visibility mengatur apakah elemen terlihat atau tidak.</p><h4>Penjelasan</h4><p>Nilai: visible, hidden. Berbeda dengan display:none, elemen masih memakan ruang.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.hidden {\n    visibility: hidden;\n}\n.visible {\n    visibility: visible;\n}</pre><h4>Kesimpulan</h4><p>Visibility berguna untuk menyembunyikan elemen tanpa mengubah layout.</p>" },
-  { judul: "CSS 35 - Properti Object Fit", konten: "<h4>Pengertian</h4><p>Object-fit mengatur bagaimana gambar atau video memenuhi wadahnya.</p><h4>Penjelasan</h4><p>Nilai: fill, contain, cover, none, scale-down.</p><h4>Contoh Kode</h4><pre class=\"code-block\">img {\n    width: 200px;\n    height: 200px;\n    object-fit: cover;\n}</pre><h4>Kesimpulan</h4><p>Object-fit penting untuk konsistensi ukuran gambar dalam layout.</p>" },
-  { judul: "CSS 36 - Properti Aspect Ratio", konten: "<h4>Pengertian</h4><p>Aspect-ratio mempertahankan proporsi lebar dan tinggi elemen.</p><h4>Penjelasan</h4><p>Berguna untuk gambar, video, dan elemen yang perlu proporsi konsisten.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.video {\n    width: 100%;\n    aspect-ratio: 16 / 9;\n}</pre><h4>Kesimpulan</h4><p>Aspect-ratio memudahkan menjaga proporsi tanpa perhitungan manual.</p>" },
-  { judul: "CSS 37 - Properti Gap", konten: "<h4>Pengertian</h4><p>Gap mengatur jarak antar elemen dalam flexbox atau grid.</p><h4>Penjelasan</h4><p>Lebih praktis daripada margin untuk layout modern.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.flex {\n    display: flex;\n    gap: 20px;\n}\n.grid {\n    display: grid;\n    gap: 15px 25px; /* row column */\n}</pre><h4>Kesimpulan</h4><p>Gap adalah cara modern untuk mengatur jarak antar elemen.</p>" },
-  { judul: "CSS 38 - Properti Order (Flexbox)", konten: "<h4>Pengertian</h4><p>Order mengatur urutan tampilan elemen dalam flex container.</p><h4>Penjelasan</h4><p>Nilai default 0, semakin kecil nilai semakin awal tampil.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.item-1 { order: 2; }\n.item-2 { order: 1; }\n/* item-2 akan tampil lebih dulu */</pre><h4>Kesimpulan</h4><p>Order memberikan fleksibilitas mengatur urutan tanpa mengubah HTML.</p>" },
-  { judul: "CSS 39 - Properti Flex Grow & Shrink", konten: "<h4>Pengertian</h4><p>Flex-grow menentukan kemampuan elemen untuk membesar, flex-shrink untuk mengecil.</p><h4>Penjelasan</h4><p>Nilai 0 berarti tidak akan membesar/mengecil, 1 berarti bisa.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.item {\n    flex-grow: 1;\n    flex-shrink: 0;\n}</pre><h4>Kesimpulan</h4><p>Flex-grow dan shrink membuat layout lebih fleksibel dan adaptif.</p>" },
-  { judul: "CSS 40 - Properti Align Self", konten: "<h4>Pengertian</h4><p>Align-self mengatur alignment individu elemen di dalam flex container.</p><h4>Penjelasan</h4><p>Override dari align-items container.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.item-special {\n    align-self: flex-end;\n}</pre><h4>Kesimpulan</h4><p>Align-self memberikan kontrol individu pada alignment elemen.</p>" },
-
-  // 41-60: HTML Lanjutan + CSS Lanjutan
-  { judul: "HTML 21 - Semantic Element Header", konten: "<h4>Pengertian</h4><p>Header adalah elemen semantik untuk bagian atas halaman atau section.</p><h4>Penjelasan</h4><p>Berisi judul, logo, navigasi, atau informasi pengantar.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;header&gt;\n    &lt;h1&gt;Website Saya&lt;/h1&gt;\n    &lt;nav&gt;Menu&lt;/nav&gt;\n&lt;/header&gt;</pre><h4>Kesimpulan</h4><p>Header semantik membantu SEO dan struktur halaman.</p>" },
-  { judul: "HTML 22 - Semantic Element Nav", konten: "<h4>Pengertian</h4><p>Nav adalah elemen semantik untuk menu navigasi utama.</p><h4>Penjelasan</h4><p>Membantu mesin pencari memahami struktur navigasi.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;nav&gt;\n    &lt;a href=\"/\"&gt;Home&lt;/a&gt;\n    &lt;a href=\"/tentang\"&gt;Tentang&lt;/a&gt;\n    &lt;a href=\"/kontak\"&gt;Kontak&lt;/a&gt;\n&lt;/nav&gt;</pre><h4>Kesimpulan</h4><p>Nav meningkatkan aksesibilitas dan SEO website.</p>" },
-  { judul: "HTML 23 - Semantic Element Main", konten: "<h4>Pengertian</h4><p>Main adalah elemen semantik untuk konten utama halaman.</p><h4>Penjelasan</h4><p>Hanya satu main per halaman, menunjukkan bagian terpenting.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;main&gt;\n    &lt;h2&gt;Artikel Utama&lt;/h2&gt;\n    &lt;p&gt;Isi konten utama...&lt;/p&gt;\n&lt;/main&gt;</pre><h4>Kesimpulan</h4><p>Main membantu fokus pada konten paling penting.</p>" },
-  { judul: "HTML 24 - Semantic Element Article", konten: "<h4>Pengertian</h4><p>Article adalah elemen semantik untuk konten yang berdiri sendiri.</p><h4>Penjelasan</h4><p>Seperti postingan blog, berita, atau konten yang bisa dipisahkan.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;article&gt;\n    &lt;h2&gt;Judul Artikel&lt;/h2&gt;\n    &lt;p&gt;Isi artikel...&lt;/p&gt;\n&lt;/article&gt;</pre><h4>Kesimpulan</h4><p>Article meningkatkan struktur dan SEO konten.</p>" },
-  { judul: "HTML 25 - Semantic Element Section", konten: "<h4>Pengertian</h4><p>Section adalah elemen semantik untuk mengelompokkan konten terkait.</p><h4>Penjelasan</h4><p>Setiap section biasanya memiliki heading sendiri.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;section&gt;\n    &lt;h2&gt;Tentang Kami&lt;/h2&gt;\n    &lt;p&gt;Isi tentang perusahaan...&lt;/p&gt;\n&lt;/section&gt;</pre><h4>Kesimpulan</h4><p>Section membantu mengorganisir konten secara logis.</p>" },
-  { judul: "HTML 26 - Semantic Element Aside", konten: "<h4>Pengertian</h4><p>Aside adalah elemen semantik untuk konten tambahan atau sidebar.</p><h4>Penjelasan</h4><p>Bisa berisi link, iklan, atau informasi pendukung.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;aside&gt;\n    &lt;h3&gt;Artikel Terkait&lt;/h3&gt;\n    &lt;ul&gt;...&lt;/ul&gt;\n&lt;/aside&gt;</pre><h4>Kesimpulan</h4><p>Aside menampilkan informasi tambahan tanpa mengganggu konten utama.</p>" },
-  { judul: "HTML 27 - Semantic Element Footer", konten: "<h4>Pengertian</h4><p>Footer adalah elemen semantik untuk bagian bawah halaman.</p><h4>Penjelasan</h4><p>Berisi hak cipta, kontak, atau link penting.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;footer&gt;\n    &lt;p&gt;&copy; 2026 Website Saya&lt;/p&gt;\n    &lt;a href=\"mailto:email@domain.com\"&gt;Kontak&lt;/a&gt;\n&lt;/footer&gt;</pre><h4>Kesimpulan</h4><p>Footer memberikan informasi penutup dan navigasi tambahan.</p>" },
-  { judul: "HTML 28 - Semantic Element Figure", konten: "<h4>Pengertian</h4><p>Figure adalah elemen semantik untuk gambar dengan keterangan.</p><h4>Penjelasan</h4><p>Bisa digunakan untuk gambar, diagram, atau ilustrasi.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;figure&gt;\n    &lt;img src=\"foto.jpg\" alt=\"Deskripsi\"&gt;\n    &lt;figcaption&gt;Keterangan gambar&lt;/figcaption&gt;\n&lt;/figure&gt;</pre><h4>Kesimpulan</h4><p>Figure meningkatkan SEO dan aksesibilitas gambar.</p>" },
-  { judul: "HTML 29 - Semantic Element Mark", konten: "<h4>Pengertian</h4><p>Mark digunakan untuk menandai atau menyorot teks penting.</p><h4>Penjelasan</h4><p>Berguna untuk highlight kata kunci atau informasi penting.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;p&gt;Ini adalah &lt;mark&gt;teks penting&lt;/mark&gt; yang perlu diperhatikan.&lt;/p&gt;</pre><h4>Kesimpulan</h4><p>Mark membantu menarik perhatian pada bagian tertentu.</p>" },
-  { judul: "HTML 30 - Semantic Element Time", konten: "<h4>Pengertian</h4><p>Time digunakan untuk menandai tanggal atau waktu.</p><h4>Penjelasan</h4><p>Membantu mesin pencari dan pembaca memahami informasi waktu.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;time datetime=\"2026-08-07\"&gt;7 Agustus 2026&lt;/time&gt;</pre><h4>Kesimpulan</h4><p>Time memberikan struktur semantik pada informasi waktu.</p>" },
-  { judul: "CSS 41 - Variables CSS", konten: "<h4>Pengertian</h4><p>CSS variables (custom properties) menyimpan nilai yang bisa digunakan kembali.</p><h4>Penjelasan</h4><p>Memudahkan maintenance dan konsistensi tema.</p><h4>Contoh Kode</h4><pre class=\"code-block\">:root {\n    --primary: #2563EB;\n    --spacing: 20px;\n}\n.btn {\n    background: var(--primary);\n    margin: var(--spacing);\n}</pre><h4>Kesimpulan</h4><p>CSS variables membuat styling lebih efisien dan konsisten.</p>" },
-  { judul: "CSS 42 - Properti Clip Path", konten: "<h4>Pengertian</h4><p>Clip-path memotong elemen menjadi bentuk tertentu.</p><h4>Penjelasan</h4><p>Bisa membuat bentuk lingkaran, poligon, atau bentuk kustom.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.gambar {\n    clip-path: circle(50%);\n}\n.bentuk {\n    clip-path: polygon(0 0, 100% 0, 50% 100%);\n}</pre><h4>Kesimpulan</h4><p>Clip-path memberikan kreativitas dalam desain elemen.</p>" },
-  { judul: "CSS 43 - Properti Backdrop Filter", konten: "<h4>Pengertian</h4><p>Backdrop-filter menerapkan efek filter pada area di belakang elemen.</p><h4>Penjelasan</h4><p>Berguna untuk efek blur pada background.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.modal {\n    backdrop-filter: blur(10px);\n    background: rgba(255,255,255,0.5);\n}</pre><h4>Kesimpulan</h4><p>Backdrop-filter memberikan efek modern dan elegan.</p>" },
-  { judul: "CSS 44 - Properti Mix Blend Mode", konten: "<h4>Pengertian</h4><p>Mix-blend-mode mengatur bagaimana elemen bercampur dengan background.</p><h4>Penjelasan</h4><p>Berguna untuk efek kreatif seperti multiply, screen, overlay.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.teks {\n    mix-blend-mode: overlay;\n    color: white;\n}</pre><h4>Kesimpulan</h4><p>Mix-blend-mode memberikan efek visual yang unik.</p>" },
-  { judul: "CSS 45 - Properti Scroll Behavior", konten: "<h4>Pengertian</h4><p>Scroll-behavior mengatur perilaku scrolling di halaman.</p><h4>Penjelasan</h4><p>Nilai: auto (instan) atau smooth (halus).</p><h4>Contoh Kode</h4><pre class=\"code-block\">html {\n    scroll-behavior: smooth;\n}</pre><h4>Kesimpulan</h4><p>Scroll-behavior meningkatkan pengalaman pengguna.</p>" },
-  { judul: "CSS 46 - Properti User Select", konten: "<h4>Pengertian</h4><p>User-select mengatur apakah teks bisa dipilih oleh pengguna.</p><h4>Penjelasan</h4><p>Berguna untuk elemen yang tidak perlu dipilih.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.no-select {\n    user-select: none;\n}</pre><h4>Kesimpulan</h4><p>User-select penting untuk pengalaman pengguna yang lebih baik.</p>" },
-  { judul: "CSS 47 - Properti Pointer Events", konten: "<h4>Pengertian</h4><p>Pointer-events mengatur apakah elemen merespons interaksi mouse/touch.</p><h4>Penjelasan</h4><p>Nilai: auto (default) atau none (tidak responsif).</p><h4>Contoh Kode</h4><pre class=\"code-block\">.disabled {\n    pointer-events: none;\n    opacity: 0.5;\n}</pre><h4>Kesimpulan</h4><p>Pointer-events berguna untuk elemen yang dinonaktifkan.</p>" },
-  { judul: "CSS 48 - Properti Column Count", konten: "<h4>Pengertian</h4><p>Column-count membagi teks menjadi beberapa kolom seperti di koran.</p><h4>Penjelasan</h4><p>Berguna untuk layout teks yang lebih mudah dibaca.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.artikel {\n    column-count: 3;\n    column-gap: 30px;\n}</pre><h4>Kesimpulan</h4><p>Column-count membuat teks panjang lebih mudah dibaca.</p>" },
-  { judul: "CSS 49 - Properti Container Queries", konten: "<h4>Pengertian</h4><p>Container queries mirip media queries tapi berdasarkan ukuran container.</p><h4>Penjelasan</h4><p>Lebih fleksibel untuk komponen yang reusable.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.card-container {\n    container-type: inline-size;\n}\n@container (min-width: 400px) {\n    .card { display: flex; }\n}</pre><h4>Kesimpulan</h4><p>Container queries adalah masa depan CSS untuk komponen.</p>" },
-  { judul: "CSS 50 - Properti Color Scheme", konten: "<h4>Pengertian</h4><p>Color-scheme mengatur tema warna yang didukung halaman.</p><h4>Penjelasan</h4><p>Membantu browser menerapkan dark mode/light mode.</p><h4>Contoh Kode</h4><pre class=\"code-block\">:root {\n    color-scheme: light dark;\n}</pre><h4>Kesimpulan</h4><p>Color-scheme penting untuk mendukung dark mode.</p>" },
-
-  // 51-60: HTML & CSS Praktis
-  { judul: "Praktis 1 - Membuat Form Login", konten: "<h4>Pengertian</h4><p>Form login adalah elemen penting untuk autentikasi pengguna.</p><h4>Penjelasan</h4><p>Kombinasi input email/username dan password dengan tombol submit.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;form&gt;\n    &lt;input type=\"email\" placeholder=\"Email\" required&gt;\n    &lt;input type=\"password\" placeholder=\"Password\" required&gt;\n    &lt;button type=\"submit\"&gt;Login&lt;/button&gt;\n&lt;/form&gt;</pre><h4>Kesimpulan</h4><p>Form login sederhana namun penting untuk aplikasi web.</p>" },
-  { judul: "Praktis 2 - Membuat Card UI", konten: "<h4>Pengertian</h4><p>Card adalah komponen UI untuk menampilkan konten dalam kotak terpisah.</p><h4>Penjelasan</h4><p>Card biasanya memiliki gambar, judul, deskripsi, dan tombol.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;div class=\"card\"&gt;\n    &lt;img src=\"gambar.jpg\" alt=\"Gambar\"&gt;\n    &lt;h3&gt;Judul Card&lt;/h3&gt;\n    &lt;p&gt;Deskripsi...&lt;/p&gt;\n    &lt;button&gt;Detail&lt;/button&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Card adalah komponen serbaguna untuk berbagai konten.</p>" },
-  { judul: "Praktis 3 - Membuat Navbar", konten: "<h4>Pengertian</h4><p>Navbar adalah menu navigasi yang biasanya ada di bagian atas halaman.</p><h4>Penjelasan</h4><p>Navbar bisa horizontal atau vertikal, dan bisa sticky.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;nav&gt;\n    &lt;a href=\"/\"&gt;Home&lt;/a&gt;\n    &lt;a href=\"/about\"&gt;About&lt;/a&gt;\n    &lt;a href=\"/contact\"&gt;Contact&lt;/a&gt;\n&lt;/nav&gt;</pre><h4>Kesimpulan</h4><p>Navbar membantu navigasi pengguna di website.</p>" },
-  { judul: "Praktis 4 - Membuat Footer", konten: "<h4>Pengertian</h4><p>Footer adalah bagian bawah halaman yang berisi info tambahan.</p><h4>Penjelasan</h4><p>Biasanya berisi hak cipta, kontak, dan link sosial media.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;footer&gt;\n    &lt;p&gt;&copy; 2026 My Website&lt;/p&gt;\n    &lt;div&gt;Social Media&lt;/div&gt;\n&lt;/footer&gt;</pre><h4>Kesimpulan</h4><p>Footer memberikan informasi penting di bagian bawah.</p>" },
-  { judul: "Praktis 5 - Membuat Hero Section", konten: "<h4>Pengertian</h4><p>Hero section adalah bagian utama yang menarik perhatian di halaman.</p><h4>Penjelasan</h4><p>Biasanya memiliki judul besar, deskripsi, dan tombol CTA.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;section class=\"hero\"&gt;\n    &lt;h1&gt;Selamat Datang&lt;/h1&gt;\n    &lt;p&gt;Deskripsi menarik...&lt;/p&gt;\n    &lt;button&gt;Mulai&lt;/button&gt;\n&lt;/section&gt;</pre><h4>Kesimpulan</h4><p>Hero section memberi kesan pertama yang kuat.</p>" },
-  { judul: "Praktis 6 - Membuat Grid Gallery", konten: "<h4>Pengertian</h4><p>Grid gallery menampilkan gambar dalam layout grid yang rapi.</p><h4>Penjelasan</h4><p>Menggunakan CSS Grid untuk layout yang responsif.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.gallery {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\n    gap: 15px;\n}</pre><h4>Kesimpulan</h4><p>Grid gallery membuat galeri gambar terlihat profesional.</p>" },
-  { judul: "Praktis 7 - Membuat Modal Popup", konten: "<h4>Pengertian</h4><p>Modal popup adalah jendela yang muncul di atas halaman utama.</p><h4>Penjelasan</h4><p>Berguna untuk notifikasi, form, atau informasi tambahan.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;div class=\"modal\"&gt;\n    &lt;div class=\"modal-content\"&gt;\n        &lt;h3&gt;Judul Modal&lt;/h3&gt;\n        &lt;p&gt;Isi modal...&lt;/p&gt;\n        &lt;button&gt;Tutup&lt;/button&gt;\n    &lt;/div&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Modal popup meningkatkan interaksi dan komunikasi.</p>" },
-  { judul: "Praktis 8 - Membuat Accordion", konten: "<h4>Pengertian</h4><p>Accordion adalah menu yang dapat dibuka/tutup untuk menyimpan konten.</p><h4>Penjelasan</h4><p>Berguna untuk FAQ atau konten yang panjang.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;div class=\"accordion\"&gt;\n    &lt;button class=\"accordion-btn\"&gt;Pertanyaan 1&lt;/button&gt;\n    &lt;div class=\"accordion-content\"&gt;Jawaban...&lt;/div&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Accordion menghemat ruang dan rapi.</p>" },
-  { judul: "Praktis 9 - Membuat Tabs", konten: "<h4>Pengertian</h4><p>Tabs adalah navigasi untuk menampilkan konten dalam tab terpisah.</p><h4>Penjelasan</h4><p>Berguna untuk konten yang dikategorikan.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;div class=\"tabs\"&gt;\n    &lt;button class=\"tab-btn active\" data-tab=\"1\"&gt;Tab 1&lt;/button&gt;\n    &lt;button class=\"tab-btn\" data-tab=\"2\"&gt;Tab 2&lt;/button&gt;\n    &lt;div class=\"tab-content active\" id=\"tab1\"&gt;Konten 1&lt;/div&gt;\n    &lt;div class=\"tab-content\" id=\"tab2\"&gt;Konten 2&lt;/div&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Tabs membuat navigasi konten lebih mudah.</p>" },
-  { judul: "Praktis 10 - Membuat Responsive Layout", konten: "<h4>Pengertian</h4><p>Responsive layout menyesuaikan tampilan di semua ukuran layar.</p><h4>Penjelasan</h4><p>Menggunakan media queries, flexbox, dan grid.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n@media (max-width: 600px) {\n    .container {\n        grid-template-columns: 1fr;\n    }\n}</pre><h4>Kesimpulan</h4><p>Responsive layout adalah keharusan untuk semua website modern.</p>" },
-
-  // 61-70: CSS Lanjutan + Praktis
-  { judul: "Praktis 11 - Membuat Dark Mode", konten: "<h4>Pengertian</h4><p>Dark mode adalah tema gelap yang nyaman di mata.</p><h4>Penjelasan</h4><p>Menggunakan CSS variables dan media prefers-color-scheme.</p><h4>Contoh Kode</h4><pre class=\"code-block\">:root { --bg: white; --text: black; }\n@media (prefers-color-scheme: dark) {\n    :root { --bg: black; --text: white; }\n}</pre><h4>Kesimpulan</h4><p>Dark mode meningkatkan kenyamanan pengguna.</p>" },
-  { judul: "Praktis 12 - Membuat Loading Spinner", konten: "<h4>Pengertian</h4><p>Loading spinner memberi indikasi bahwa proses sedang berjalan.</p><h4>Penjelasan</h4><p>Menggunakan CSS animation untuk efek berputar.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.spinner {\n    width: 40px;\n    height: 40px;\n    border: 4px solid #ddd;\n    border-top: 4px solid #2563EB;\n    border-radius: 50%;\n    animation: spin 1s linear infinite;\n}\n@keyframes spin { to { transform: rotate(360deg); } }</pre><h4>Kesimpulan</h4><p>Loading spinner penting untuk UX.</p>" },
-  { judul: "Praktis 13 - Membuat Tooltip", konten: "<h4>Pengertian</h4><p>Tooltip menampilkan info tambahan saat hover.</p><h4>Penjelasan</h4><p>Menggunakan CSS positioning dan hover.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.tooltip:hover .tooltip-text {\n    visibility: visible;\n    opacity: 1;\n}</pre><h4>Kesimpulan</h4><p>Tooltip membantu menjelaskan elemen.</p>" },
-  { judul: "Praktis 14 - Membuat Dropdown Menu", konten: "<h4>Pengertian</h4><p>Dropdown menu menampilkan pilihan saat diklik atau hover.</p><h4>Penjelasan</h4><p>Menggunakan CSS display dan position.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.dropdown-content {\n    display: none;\n    position: absolute;\n}\n.dropdown:hover .dropdown-content {\n    display: block;\n}</pre><h4>Kesimpulan</h4><p>Dropdown menu menghemat ruang navigasi.</p>" },
-  { judul: "Praktis 15 - Membuat Progress Bar", konten: "<h4>Pengertian</h4><p>Progress bar menunjukkan kemajuan suatu proses.</p><h4>Penjelasan</h4><p>Menggunakan width yang berubah-ubah.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.progress {\n    width: 100%;\n    height: 10px;\n    background: #ddd;\n}\n.progress-bar {\n    height: 100%;\n    width: 70%;\n    background: #2563EB;\n}</pre><h4>Kesimpulan</h4><p>Progress bar memberi feedback visual.</p>" },
-  { judul: "Praktis 16 - Membuat Slider Gambar", konten: "<h4>Pengertian</h4><p>Slider menampilkan gambar bergantian.</p><h4>Penjelasan</h4><p>Menggunakan overflow hidden dan transform.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.slider {\n    overflow: hidden;\n}\n.slider-track {\n    display: flex;\n    transition: transform 0.5s;\n}</pre><h4>Kesimpulan</h4><p>Slider membuat konten lebih dinamis.</p>" },
-  { judul: "Praktis 17 - Membuat Breadcrumb", konten: "<h4>Pengertian</h4><p>Breadcrumb menunjukkan posisi halaman dalam hierarki.</p><h4>Penjelasan</h4><p>Berguna untuk navigasi dan SEO.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;nav class=\"breadcrumb\"&gt;\n    &lt;a href=\"/\"&gt;Home&lt;/a&gt; &gt;\n    &lt;a href=\"/category\"&gt;Category&lt;/a&gt; &gt;\n    &lt;span&gt;Current Page&lt;/span&gt;\n&lt;/nav&gt;</pre><h4>Kesimpulan</h4><p>Breadcrumb membantu orientasi pengguna.</p>" },
-  { judul: "Praktis 18 - Membuat Pagination", konten: "<h4>Pengertian</h4><p>Pagination membagi konten menjadi beberapa halaman.</p><h4>Penjelasan</h4><p>Berguna untuk daftar yang panjang.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;div class=\"pagination\"&gt;\n    &lt;a href=\"#\"&gt;1&lt;/a&gt;\n    &lt;a href=\"#\"&gt;2&lt;/a&gt;\n    &lt;a href=\"#\"&gt;3&lt;/a&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Pagination membuat navigasi konten lebih mudah.</p>" },
-  { judul: "Praktis 19 - Membuat Sticky Header", konten: "<h4>Pengertian</h4><p>Sticky header tetap di atas saat scroll.</p><h4>Penjelasan</h4><p>Menggunakan position: sticky.</p><h4>Contoh Kode</h4><pre class=\"code-block\">header {\n    position: sticky;\n    top: 0;\n    z-index: 100;\n}</pre><h4>Kesimpulan</h4><p>Sticky header meningkatkan navigasi.</p>" },
-  { judul: "Praktis 20 - Membuat Full Page Layout", konten: "<h4>Pengertian</h4><p>Full page layout menggunakan seluruh viewport.</p><h4>Penjelasan</h4><p>Menggunakan height: 100vh dan flexbox.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.page {\n    height: 100vh;\n    display: flex;\n    flex-direction: column;\n}</pre><h4>Kesimpulan</h4><p>Full page layout ideal untuk landing page.</p>" },
-
-  // 71-80: HTML & CSS Profesional
-  { judul: "Profesional 1 - CSS Reset", konten: "<h4>Pengertian</h4><p>CSS Reset menghapus style default browser.</p><h4>Penjelasan</h4><p>Memastikan konsistensi tampilan di semua browser.</p><h4>Contoh Kode</h4><pre class=\"code-block\">* { margin: 0; padding: 0; box-sizing: border-box; }</pre><h4>Kesimpulan</h4><p>CSS Reset penting untuk konsistensi cross-browser.</p>" },
-  { judul: "Profesional 2 - CSS Framework Concepts", konten: "<h4>Pengertian</h4><p>CSS framework seperti Bootstrap menggunakan class utility.</p><h4>Penjelasan</h4><p>Mempercepat development dengan komponen siap pakai.</p><h4>Contoh Kode</h4><pre class=\"code-block\">&lt;div class=\"container\"&gt;\n    &lt;div class=\"row\"&gt;\n        &lt;div class=\"col-6\"&gt;...&lt;/div&gt;\n    &lt;/div&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>CSS framework mempercepat pengembangan.</p>" },
-  { judul: "Profesional 3 - BEM Methodology", konten: "<h4>Pengertian</h4><p>BEM (Block, Element, Modifier) adalah metodologi penamaan CSS.</p><h4>Penjelasan</h4><p>Membuat kode lebih terstruktur dan mudah dipelihara.</p><h4>Contoh Kode</h4><pre class=\"code-block\">.card {}\n.card__title {}\n.card__button {}\n.card--featured {}</pre><h4>Kesimpulan</h4><p>BEM meningkatkan maintainability CSS.</p>" },
-  { judul: "Profesional 4 - CSS in JS", konten: "<h4>Pengertian</h4><p>CSS in JS adalah pendekatan menulis CSS di dalam JavaScript.</p><h4>Penjelasan</h4><p>Populer di React dengan styled-components.</p><h4>Contoh Kode</h4><pre class=\"code-block\">const Button = styled.button`\n    background: blue;\n    color: white;\n`;</pre><h4>Kesimpulan</h4><p>CSS in JS membawa CSS ke era modern.</p>" },
-  { judul: "Profesional 5 - PostCSS", konten: "<h4>Pengertian</h4><p>PostCSS adalah tool untuk memproses CSS dengan plugin.</p><h4>Penjelasan</h4><p>Mendukung autoprefixer, future CSS, dan optimasi.</p><h4>Contoh Kode</h4><pre class=\"code-block\">/* PostCSS dengan Autoprefixer */\n.flex { display: flex; }</pre><h4>Kesimpulan</h4><p>PostCSS meningkatkan efisiensi CSS development.</p>" },
-  { judul: "Profesional 6 - CSS Architecture", konten: "<h4>Pengertian</h4><p>CSS Architecture adalah cara mengorganisir CSS untuk skala besar.</p><h4>Penjelasan</h4><p>ITCSS, SMACSS, atau OOCSS adalah metodologi populer.</p><h4>Contoh Kode</h4><pre class=\"code-block\">/* ITCSS: Settings, Tools, Generic, Elements, Objects, Components, Utilities */</pre><h4>Kesimpulan</h4><p>CSS Architecture penting untuk proyek besar.</p>" },
-  { judul: "Profesional 7 - CSS Performance", konten: "<h4>Pengertian</h4><p>CSS Performance mengoptimalkan loading dan rendering CSS.</p><h4>Penjelasan</h4><p>Minify, critical CSS, dan mengurangi selector kompleks.</p><h4>Contoh Kode</h4><pre class=\"code-block\">/* Hindari selector nested dalam */\n.header .nav .item {}</pre><h4>Kesimpulan</h4><p>CSS Performance meningkatkan kecepatan website.</p>" },
-  { judul: "Profesional 8 - CSS Accessibility", konten: "<h4>Pengertian</h4><p>CSS Accessibility memastikan website bisa diakses semua orang.</p><h4>Penjelasan</h4><p>Kontras warna, font size, dan focus visible.</p><h4>Contoh Kode</h4><pre class=\"code-block\">a:focus {\n    outline: 2px solid blue;\n}</pre><h4>Kesimpulan</h4><p>CSS Accessibility penting untuk inklusivitas.</p>" },
-  { judul: "Profesional 9 - CSS Print Styles", konten: "<h4>Pengertian</h4><p>Print styles mengatur tampilan saat dicetak.</p><h4>Penjelasan</h4><p>Menggunakan @media print.</p><h4>Contoh Kode</h4><pre class=\"code-block\">@media print {\n    .no-print { display: none; }\n}</pre><h4>Kesimpulan</h4><p>Print styles penting untuk dokumen.</p>" },
-  { judul: "Profesional 10 - CSS Debugging", konten: "<h4>Pengertian</h4><p>CSS Debugging adalah proses menemukan dan memperbaiki error CSS.</p><h4>Penjelasan</h4><p>Gunakan DevTools, outline, dan console.</p><h4>Contoh Kode</h4><pre class=\"code-block\">* { outline: 1px solid red; }</pre><h4>Kesimpulan</h4><p>CSS Debugging skill penting untuk developer.</p>" }
+  { judul: "HTML 1 - Pengenalan HTML", konten: '<h4>Pengertian</h4><p>HTML (HyperText Markup Language) adalah bahasa standar yang digunakan untuk membuat halaman web. HTML berfungsi untuk menyusun struktur konten seperti teks, gambar, dan tautan.</p><h4>Penjelasan</h4><p>HTML menggunakan tag-tag khusus yang diapit oleh tanda &lt; &gt;. Setiap tag memiliki fungsi tertentu. Browser akan membaca tag-tag ini dan menampilkannya sebagai halaman web yang bisa dilihat oleh pengguna.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n    &lt;title&gt;Halaman Pertama&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n    &lt;h1&gt;Halo Dunia!&lt;/h1&gt;\n    &lt;p&gt;Ini adalah halaman web pertama saya.&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;</pre><h4>Kesimpulan</h4><p>HTML adalah pondasi dari semua website. Tanpa HTML, browser tidak akan bisa menampilkan konten apapun.</p>' },
+  { judul: "HTML 2 - Struktur Dasar HTML", konten: '<h4>Pengertian</h4><p>Setiap dokumen HTML memiliki struktur dasar yang harus diikuti agar browser dapat menampilkannya dengan benar.</p><h4>Penjelasan</h4><p>Struktur dasar HTML terdiri dari deklarasi DOCTYPE, elemen html, head, dan body. DOCTYPE memberi tahu browser versi HTML yang digunakan. Head berisi informasi meta dan title. Body berisi konten yang ditampilkan.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;!DOCTYPE html&gt;\n&lt;html lang="id"&gt;\n&lt;head&gt;\n    &lt;meta charset="UTF-8"&gt;\n    &lt;title&gt;Struktur HTML&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n    &lt;!-- Konten di sini --&gt;\n&lt;/body&gt;\n&lt;/html&gt;</pre><h4>Kesimpulan</h4><p>Struktur dasar HTML adalah template yang harus diikuti untuk setiap halaman web.</p>' },
+  { judul: "HTML 3 - Tag Heading", konten: '<h4>Pengertian</h4><p>Tag heading digunakan untuk membuat judul atau subjudul pada halaman web. Ada 6 tingkatan heading dari h1 hingga h6.</p><h4>Penjelasan</h4><p>h1 adalah heading paling penting dan terbesar, sedangkan h6 adalah yang terkecil. Heading membantu mesin pencari memahami hierarki konten.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;h1&gt;Judul Utama&lt;/h1&gt;\n&lt;h2&gt;Sub Judul&lt;/h2&gt;\n&lt;h3&gt;Judul Bagian&lt;/h3&gt;\n&lt;h4&gt;Sub Bagian&lt;/h4&gt;\n&lt;h5&gt;Keterangan&lt;/h5&gt;\n&lt;h6&gt;Catatan Kecil&lt;/h6&gt;</pre><h4>Kesimpulan</h4><p>Gunakan heading secara hierarkis untuk struktur konten yang baik dan SEO yang optimal.</p>' },
+  { judul: "HTML 4 - Tag Paragraf", konten: '<h4>Pengertian</h4><p>Tag paragraf digunakan untuk menampilkan teks dalam bentuk paragraf.</p><h4>Penjelasan</h4><p>Setiap paragraf akan dipisahkan oleh spasi kosong di antara paragraf lainnya. Ini membantu membaca teks dengan lebih nyaman.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;p&gt;Ini adalah paragraf pertama.&lt;/p&gt;\n&lt;p&gt;Ini adalah paragraf kedua yang terpisah oleh spasi.&lt;/p&gt;</pre><h4>Kesimpulan</h4><p>Paragraf membantu mengorganisir teks dan membuat halaman lebih mudah dibaca.</p>' },
+  { judul: "HTML 5 - Tag Link (Anchor)", konten: '<h4>Pengertian</h4><p>Tag anchor atau link digunakan untuk membuat tautan ke halaman lain atau ke bagian lain dalam halaman yang sama.</p><h4>Penjelasan</h4><p>Atribut href menentukan tujuan link. Teks di antara tag pembuka dan penutup akan menjadi teks yang bisa diklik.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;a href="https://www.example.com"&gt;Kunjungi Example&lt;/a&gt;\n&lt;a href="#bagian1"&gt;Lompat ke Bagian 1&lt;/a&gt;</pre><h4>Kesimpulan</h4><p>Link menghubungkan halaman web dan membuat internet menjadi jaringan yang saling terhubung.</p>' },
+  { judul: "HTML 6 - Tag Gambar", konten: '<h4>Pengertian</h4><p>Tag gambar digunakan untuk menampilkan gambar pada halaman web.</p><h4>Penjelasan</h4><p>Tag img adalah tag tunggal (tidak memiliki tag penutup). Atribut src menentukan lokasi gambar, alt memberikan teks alternatif jika gambar tidak bisa dimuat.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;img src="foto.jpg" alt="Deskripsi gambar" width="300" height="200"&gt;</pre><h4>Kesimpulan</h4><p>Gambar membuat halaman lebih menarik dan informatif. Selalu gunakan alt untuk aksesibilitas.</p>' },
+  { judul: "HTML 7 - Tag List (Daftar)", konten: '<h4>Pengertian</h4><p>Tag list digunakan untuk membuat daftar item. Ada dua jenis: unordered list (bullet) dan ordered list (angka).</p><h4>Penjelasan</h4><p>ul untuk daftar tidak berurutan, ol untuk daftar berurutan. Setiap item dalam daftar menggunakan tag li.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;ul&gt;\n    &lt;li&gt;Item 1&lt;/li&gt;\n    &lt;li&gt;Item 2&lt;/li&gt;\n&lt;/ul&gt;\n&lt;ol&gt;\n    &lt;li&gt;Langkah 1&lt;/li&gt;\n    &lt;li&gt;Langkah 2&lt;/li&gt;\n&lt;/ol&gt;</pre><h4>Kesimpulan</h4><p>List membantu menyajikan informasi terstruktur dengan rapi dan mudah dipahami.</p>' },
+  { judul: "HTML 8 - Tag Tabel", konten: '<h4>Pengertian</h4><p>Tag tabel digunakan untuk menampilkan data dalam bentuk baris dan kolom.</p><h4>Penjelasan</h4><p>table adalah tag utama, tr untuk baris, th untuk header, dan td untuk data.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;table border="1"&gt;\n    &lt;tr&gt;&lt;th&gt;Nama&lt;/th&gt;&lt;th&gt;Usia&lt;/th&gt;&lt;/tr&gt;\n    &lt;tr&gt;&lt;td&gt;Budi&lt;/td&gt;&lt;td&gt;20&lt;/td&gt;&lt;/tr&gt;\n    &lt;tr&gt;&lt;td&gt;Ani&lt;/td&gt;&lt;td&gt;22&lt;/td&gt;&lt;/tr&gt;\n&lt;/table&gt;</pre><h4>Kesimpulan</h4><p>Tabel sangat berguna untuk menampilkan data yang terstruktur dan mudah dibandingkan.</p>' },
+  { judul: "HTML 9 - Tag Div", konten: '<h4>Pengertian</h4><p>Div adalah tag blok yang digunakan untuk mengelompokkan elemen HTML untuk tujuan styling atau layout.</p><h4>Penjelasan</h4><p>Div adalah elemen blok yang bisa menampung elemen lain di dalamnya. Biasanya digunakan bersama CSS untuk mengatur tata letak.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div style="background:blue; padding:20px;"&gt;\n    &lt;h2&gt;Konten di dalam div&lt;/h2&gt;\n    &lt;p&gt;Ini adalah paragraf di dalam div.&lt;/p&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Div adalah elemen serbaguna untuk membangun layout halaman web yang kompleks.</p>' },
+  { judul: "HTML 10 - Tag Span", konten: '<h4>Pengertian</h4><p>Span adalah tag inline yang digunakan untuk memberi gaya pada bagian kecil dari teks.</p><h4>Penjelasan</h4><p>Berbeda dengan div yang merupakan blok, span hanya mempengaruhi teks di dalamnya tanpa memutus alur teks.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;p&gt;Teks biasa &lt;span style="color:red;"&gt;teks merah&lt;/span&gt; &lt;span style="font-weight:bold;"&gt;teks tebal&lt;/span&gt;&lt;/p&gt;</pre><h4>Kesimpulan</h4><p>Span berguna untuk styling inline tanpa mengganggu struktur layout.</p>' },
+  { judul: "HTML 11 - Tag Form", konten: '<h4>Pengertian</h4><p>Tag form digunakan untuk membuat formulir input data dari pengguna.</p><h4>Penjelasan</h4><p>Form bisa berisi berbagai elemen input seperti teks, checkbox, radio, tombol, dll.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;form action="proses.php" method="post"&gt;\n    &lt;label&gt;Nama:&lt;/label&gt;\n    &lt;input type="text" name="nama"&gt;\n    &lt;button type="submit"&gt;Kirim&lt;/button&gt;\n&lt;/form&gt;</pre><h4>Kesimpulan</h4><p>Form adalah elemen penting untuk interaksi pengguna dan pengumpulan data.</p>' },
+  { judul: "HTML 12 - Tag Input", konten: '<h4>Pengertian</h4><p>Tag input adalah elemen form yang digunakan untuk menerima input dari pengguna.</p><h4>Penjelasan</h4><p>Input memiliki berbagai tipe seperti text, password, email, number, date, checkbox, radio, file, dll.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;input type="text" placeholder="Nama Lengkap"&gt;\n&lt;input type="email" placeholder="email@domain.com"&gt;\n&lt;input type="password"&gt;\n&lt;input type="checkbox"&gt; Setuju</pre><h4>Kesimpulan</h4><p>Input memungkinkan pengguna berinteraksi dengan halaman web dan mengirimkan data.</p>' },
+  { judul: "HTML 13 - Tag Button", konten: '<h4>Pengertian</h4><p>Tag button digunakan untuk membuat tombol yang bisa diklik oleh pengguna.</p><h4>Penjelasan</h4><p>Tombol bisa digunakan untuk submit form, menjalankan JavaScript, atau navigasi.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;button type="submit"&gt;Kirim Data&lt;/button&gt;\n&lt;button type="button" onclick="alert(\'Halo!\')"&gt;Klik Aku&lt;/button&gt;</pre><h4>Kesimpulan</h4><p>Button adalah elemen interaktif yang penting untuk aksi pengguna di halaman web.</p>' },
+  { judul: "HTML 14 - Tag Label", konten: '<h4>Pengertian</h4><p>Tag label digunakan untuk memberi label atau keterangan pada elemen form.</p><h4>Penjelasan</h4><p>Label meningkatkan aksesibilitas karena pengguna bisa mengklik label untuk fokus ke input yang terkait.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;label for="nama"&gt;Nama:&lt;/label&gt;\n&lt;input type="text" id="nama" name="nama"&gt;</pre><h4>Kesimpulan</h4><p>Label meningkatkan pengalaman pengguna dan aksesibilitas form.</p>' },
+  { judul: "HTML 15 - Tag Select", konten: '<h4>Pengertian</h4><p>Tag select digunakan untuk membuat dropdown menu pilihan.</p><h4>Penjelasan</h4><p>Di dalam select terdapat option yang berisi pilihan-pilihan yang tersedia.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;select name="kota"&gt;\n    &lt;option value="jakarta"&gt;Jakarta&lt;/option&gt;\n    &lt;option value="bandung"&gt;Bandung&lt;/option&gt;\n    &lt;option value="surabaya"&gt;Surabaya&lt;/option&gt;\n&lt;/select&gt;</pre><h4>Kesimpulan</h4><p>Select memudahkan pengguna memilih dari daftar pilihan yang sudah disediakan.</p>' },
+  { judul: "HTML 16 - Tag Textarea", konten: '<h4>Pengertian</h4><p>Tag textarea digunakan untuk input teks dalam jumlah banyak atau panjang.</p><h4>Penjelasan</h4><p>Biasanya digunakan untuk komentar, pesan, atau deskripsi. Bisa diatur ukurannya dengan rows dan cols.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;textarea rows="4" cols="50" placeholder="Tulis komentar..."&gt;&lt;/textarea&gt;</pre><h4>Kesimpulan</h4><p>Textarea sangat berguna untuk input teks panjang dan komentar pengguna.</p>' },
+  { judul: "HTML 17 - Tag Fieldset", konten: '<h4>Pengertian</h4><p>Tag fieldset digunakan untuk mengelompokkan elemen-elemen form dalam satu kotak.</p><h4>Penjelasan</h4><p>Biasanya digunakan bersama legend untuk memberi judul pada kelompok form tersebut.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;fieldset&gt;\n    &lt;legend&gt;Data Diri&lt;/legend&gt;\n    &lt;label&gt;Nama: &lt;input type="text"&gt;&lt;/label&gt;\n    &lt;label&gt;Email: &lt;input type="email"&gt;&lt;/label&gt;\n&lt;/fieldset&gt;</pre><h4>Kesimpulan</h4><p>Fieldset membantu mengorganisir form yang panjang menjadi lebih terstruktur.</p>' },
+  { judul: "HTML 18 - Tag Audio", konten: '<h4>Pengertian</h4><p>Tag audio digunakan untuk menambahkan file audio ke halaman web.</p><h4>Penjelasan</h4><p>Dengan atribut controls, pengguna bisa memutar, menjeda, dan mengatur volume audio.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;audio controls&gt;\n    &lt;source src="musik.mp3" type="audio/mpeg"&gt;\n    Browser Anda tidak mendukung audio.\n&lt;/audio&gt;</pre><h4>Kesimpulan</h4><p>Audio memungkinkan halaman web menjadi lebih interaktif dengan suara atau musik.</p>' },
+  { judul: "HTML 19 - Tag Video", konten: '<h4>Pengertian</h4><p>Tag video digunakan untuk menambahkan video ke halaman web.</p><h4>Penjelasan</h4><p>Dengan atribut controls, pengguna bisa memutar, menjeda, dan mengatur volume video.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;video controls width="400"&gt;\n    &lt;source src="video.mp4" type="video/mp4"&gt;\n    Browser Anda tidak mendukung video.\n&lt;/video&gt;</pre><h4>Kesimpulan</h4><p>Video membuat halaman web lebih kaya dan menarik bagi pengguna.</p>' },
+  { judul: "HTML 20 - Tag Iframe", konten: '<h4>Pengertian</h4><p>Tag iframe digunakan untuk menampilkan halaman web lain di dalam halaman web.</p><h4>Penjelasan</h4><p>Iframe sering digunakan untuk menampilkan video YouTube, Google Maps, atau konten dari website lain.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;iframe src="https://www.youtube.com/embed/videoID" width="400" height="300"&gt;&lt;/iframe&gt;</pre><h4>Kesimpulan</h4><p>Iframe memungkinkan integrasi konten dari berbagai sumber dalam satu halaman.</p>' },
+  { judul: "CSS 1 - Pengenalan CSS", konten: '<h4>Pengertian</h4><p>CSS (Cascading Style Sheets) adalah bahasa yang digunakan untuk mengatur tampilan dan layout halaman web.</p><h4>Penjelasan</h4><p>CSS memisahkan konten (HTML) dari presentasi (tampilan). Ini membuat pengelolaan website lebih mudah dan fleksibel.</p><h4>Contoh Kode</h4><pre class="code-block">h1 {\n    color: blue;\n    font-size: 24px;\n}</pre><h4>Kesimpulan</h4><p>CSS adalah kunci untuk membuat website yang cantik dan profesional.</p>' },
+  { judul: "CSS 2 - Cara Menambahkan CSS", konten: '<h4>Pengertian</h4><p>Ada tiga cara menambahkan CSS ke HTML: inline (di dalam tag), internal (di head), dan eksternal (file terpisah).</p><h4>Penjelasan</h4><p>CSS eksternal adalah cara terbaik karena bisa digunakan di banyak halaman dan memudahkan maintenance.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;!-- Inline --&gt;\n&lt;p style="color:red;"&gt;Teks merah&lt;/p&gt;\n\n&lt;!-- Internal --&gt;\n&lt;style&gt; p { color: red; } &lt;/style&gt;\n\n&lt;!-- Eksternal --&gt;\n&lt;link rel="stylesheet" href="style.css"&gt;</pre><h4>Kesimpulan</h4><p>Gunakan CSS eksternal untuk proyek besar agar lebih terorganisir.</p>' },
+  { judul: "CSS 3 - Selektor Dasar", konten: '<h4>Pengertian</h4><p>Selektor CSS digunakan untuk memilih elemen HTML yang akan diberi gaya.</p><h4>Penjelasan</h4><p>Ada beberapa jenis selektor: elemen (p, h1), class (.nama), id (#id), dan kombinasi.</p><h4>Contoh Kode</h4><pre class="code-block">p { color: black; }\n.kotak { background: yellow; }\n#header { font-size: 30px; }</pre><h4>Kesimpulan</h4><p>Selektor adalah fondasi untuk mengatur gaya pada elemen tertentu.</p>' },
+  { judul: "CSS 4 - Properti Color", konten: '<h4>Pengertian</h4><p>Properti color digunakan untuk mengatur warna teks.</p><h4>Penjelasan</h4><p>Warna bisa ditentukan dengan nama (red), hex (#FF0000), rgb(255,0,0), atau hsl.</p><h4>Contoh Kode</h4><pre class="code-block">h1 { color: #2563EB; }\np { color: rgb(100, 100, 100); }\nspan { color: red; }</pre><h4>Kesimpulan</h4><p>Warna memberi karakter dan identitas pada tampilan website.</p>' },
+  { judul: "CSS 5 - Properti Background", konten: '<h4>Pengertian</h4><p>Properti background digunakan untuk mengatur latar belakang elemen.</p><h4>Penjelasan</h4><p>Bisa berupa warna, gambar, gradient, atau kombinasi.</p><h4>Contoh Kode</h4><pre class="code-block">body { background-color: #f0f0f0; }\n.card { background: white; }\n.hero { background-image: url(\'bg.jpg\'); }</pre><h4>Kesimpulan</h4><p>Background yang baik membuat elemen lebih menarik dan kontras.</p>' },
+  { judul: "CSS 6 - Properti Font", konten: '<h4>Pengertian</h4><p>Properti font digunakan untuk mengatur tampilan teks seperti jenis, ukuran, dan ketebalan.</p><h4>Penjelasan</h4><p>font-family untuk jenis huruf, font-size untuk ukuran, font-weight untuk ketebalan.</p><h4>Contoh Kode</h4><pre class="code-block">p {\n    font-family: Arial, sans-serif;\n    font-size: 16px;\n    font-weight: bold;\n}</pre><h4>Kesimpulan</h4><p>Font yang tepat membuat teks mudah dibaca dan enak dipandang.</p>' },
+  { judul: "CSS 7 - Properti Margin", konten: '<h4>Pengertian</h4><p>Margin adalah ruang kosong di luar elemen, memisahkan elemen dari elemen lain.</p><h4>Penjelasan</h4><p>Margin bisa diatur untuk setiap sisi: margin-top, margin-right, margin-bottom, margin-left.</p><h4>Contoh Kode</h4><pre class="code-block">.kotak {\n    margin: 20px;\n    margin: 10px 20px;\n    margin: 10px 20px 15px 25px;\n}</pre><h4>Kesimpulan</h4><p>Margin mengatur jarak antar elemen untuk layout yang rapi.</p>' },
+  { judul: "CSS 8 - Properti Padding", konten: '<h4>Pengertian</h4><p>Padding adalah ruang kosong di dalam elemen, antara border dan konten.</p><h4>Penjelasan</h4><p>Padding bisa diatur untuk setiap sisi, mirip dengan margin.</p><h4>Contoh Kode</h4><pre class="code-block">.kotak {\n    padding: 20px;\n    background: white;\n    border: 1px solid #ddd;\n}</pre><h4>Kesimpulan</h4><p>Padding memberikan ruang bernapas pada konten di dalam elemen.</p>' },
+  { judul: "CSS 9 - Properti Border", konten: '<h4>Pengertian</h4><p>Border adalah garis yang mengelilingi elemen.</p><h4>Penjelasan</h4><p>Border memiliki tiga komponen: width, style, dan color.</p><h4>Contoh Kode</h4><pre class="code-block">.kotak {\n    border: 2px solid #2563EB;\n    border-radius: 8px;\n}</pre><h4>Kesimpulan</h4><p>Border memberikan batas visual pada elemen dan membuatnya lebih jelas.</p>' },
+  { judul: "CSS 10 - Properti Width & Height", konten: '<h4>Pengertian</h4><p>Width dan height digunakan untuk mengatur ukuran elemen.</p><h4>Penjelasan</h4><p>Bisa menggunakan satuan px, %, em, rem, vw, vh, dll.</p><h4>Contoh Kode</h4><pre class="code-block">.card {\n    width: 300px;\n    height: 200px;\n}\n.responsif {\n    width: 100%;\n    max-width: 600px;\n}</pre><h4>Kesimpulan</h4><p>Ukuran elemen penting untuk layout yang konsisten dan responsif.</p>' },
+  { judul: "CSS 11 - Display Block & Inline", konten: '<h4>Pengertian</h4><p>Display menentukan bagaimana elemen ditampilkan: block, inline, inline-block, flex, grid, dll.</p><h4>Penjelasan</h4><p>Block mengambil lebar penuh, inline hanya selebar kontennya.</p><h4>Contoh Kode</h4><pre class="code-block">.blok { display: block; }\n.inline { display: inline; }\n.flex-container { display: flex; }</pre><h4>Kesimpulan</h4><p>Display adalah properti kunci untuk mengatur tata letak halaman.</p>' },
+  { judul: "CSS 12 - Flexbox Dasar", konten: '<h4>Pengertian</h4><p>Flexbox adalah metode layout modern untuk mengatur elemen dalam satu dimensi (baris atau kolom).</p><h4>Penjelasan</h4><p>Flexbox memudahkan mengatur alignment, spacing, dan distribusi elemen.</p><h4>Contoh Kode</h4><pre class="code-block">.container {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    gap: 20px;\n}</pre><h4>Kesimpulan</h4><p>Flexbox membuat layout menjadi lebih mudah dan fleksibel.</p>' },
+  { judul: "CSS 13 - Flexbox Justify Content", konten: '<h4>Pengertian</h4><p>Justify-content mengatur posisi elemen secara horizontal di dalam container flex.</p><h4>Penjelasan</h4><p>Nilai yang umum: flex-start, center, flex-end, space-between, space-around, space-evenly.</p><h4>Contoh Kode</h4><pre class="code-block">.container {\n    display: flex;\n    justify-content: space-between;\n}</pre><h4>Kesimpulan</h4><p>Justify-content membantu mendistribusikan elemen secara horizontal dengan rapi.</p>' },
+  { judul: "CSS 14 - Flexbox Align Items", konten: '<h4>Pengertian</h4><p>Align-items mengatur posisi elemen secara vertikal di dalam container flex.</p><h4>Penjelasan</h4><p>Nilai yang umum: stretch, flex-start, center, flex-end, baseline.</p><h4>Contoh Kode</h4><pre class="code-block">.container {\n    display: flex;\n    align-items: center;\n}</pre><h4>Kesimpulan</h4><p>Align-items membantu menyelaraskan elemen secara vertikal dengan mudah.</p>' },
+  { judul: "CSS 15 - Flexbox Flex Direction", konten: '<h4>Pengertian</h4><p>Flex-direction menentukan arah utama flex container: baris atau kolom.</p><h4>Penjelasan</h4><p>Nilai: row (default), row-reverse, column, column-reverse.</p><h4>Contoh Kode</h4><pre class="code-block">.container {\n    display: flex;\n    flex-direction: column;\n}</pre><h4>Kesimpulan</h4><p>Flex-direction memberi kontrol penuh atas arah layout elemen.</p>' },
+  { judul: "CSS 16 - Grid Dasar", konten: '<h4>Pengertian</h4><p>CSS Grid adalah metode layout dua dimensi (baris dan kolom) yang sangat powerful.</p><h4>Penjelasan</h4><p>Grid memungkinkan layout kompleks dengan baris dan kolom yang fleksibel.</p><h4>Contoh Kode</h4><pre class="code-block">.container {\n    display: grid;\n    grid-template-columns: 1fr 1fr 1fr;\n    gap: 20px;\n}</pre><h4>Kesimpulan</h4><p>Grid adalah solusi terbaik untuk layout dua dimensi yang kompleks.</p>' },
+  { judul: "CSS 17 - Grid Template Columns", konten: '<h4>Pengertian</h4><p>Grid-template-columns menentukan jumlah dan ukuran kolom di grid.</p><h4>Penjelasan</h4><p>Bisa menggunakan satuan px, %, fr (fraksi), auto, minmax, dll.</p><h4>Contoh Kode</h4><pre class="code-block">.grid {\n    display: grid;\n    grid-template-columns: 200px 1fr 2fr;\n}</pre><h4>Kesimpulan</h4><p>Grid-template-columns memberikan kontrol penuh atas struktur kolom.</p>' },
+  { judul: "CSS 18 - Grid Gap", konten: '<h4>Pengertian</h4><p>Grid gap adalah jarak antar sel (baris dan kolom) dalam grid.</p><h4>Penjelasan</h4><p>Bisa menggunakan gap, row-gap, atau column-gap.</p><h4>Contoh Kode</h4><pre class="code-block">.grid {\n    display: grid;\n    gap: 20px;\n    row-gap: 15px;\n    column-gap: 25px;\n}</pre><h4>Kesimpulan</h4><p>Gap membuat elemen grid memiliki jarak yang rapi dan konsisten.</p>' },
+  { judul: "CSS 19 - Responsif Media Queries", konten: '<h4>Pengertian</h4><p>Media queries digunakan untuk membuat website responsif dengan menerapkan CSS berbeda berdasarkan ukuran layar.</p><h4>Penjelasan</h4><p>Biasanya menggunakan min-width atau max-width untuk menyesuaikan tampilan.</p><h4>Contoh Kode</h4><pre class="code-block">@media (max-width: 768px) {\n    .container {\n        flex-direction: column;\n    }\n}</pre><h4>Kesimpulan</h4><p>Media queries membuat website tampil baik di semua perangkat.</p>' },
+  { judul: "CSS 20 - Properti Position", konten: '<h4>Pengertian</h4><p>Position menentukan bagaimana elemen diposisikan dalam halaman.</p><h4>Penjelasan</h4><p>Nilai: static, relative, absolute, fixed, sticky.</p><h4>Contoh Kode</h4><pre class="code-block">.fixed {\n    position: fixed;\n    top: 0;\n    width: 100%;\n}\n.relative {\n    position: relative;\n    top: 10px;\n}</pre><h4>Kesimpulan</h4><p>Position memberikan kontrol penuh atas posisi elemen di halaman.</p>' },
+  { judul: "CSS 21 - Box Model", konten: '<h4>Pengertian</h4><p>Box model adalah konsep di mana setiap elemen HTML dianggap sebagai kotak yang terdiri dari margin, border, padding, dan konten.</p><h4>Penjelasan</h4><p>Total lebar elemen = margin + border + padding + konten. Memahami box model penting untuk layout.</p><h4>Contoh Kode</h4><pre class="code-block">.box {\n    width: 300px;\n    padding: 20px;\n    border: 2px solid black;\n    margin: 10px;\n}</pre><h4>Kesimpulan</h4><p>Box model adalah fondasi untuk memahami ukuran dan spasi elemen.</p>' },
+  { judul: "CSS 22 - Properti Opacity", konten: '<h4>Pengertian</h4><p>Opacity mengatur tingkat transparansi elemen, dari 0 (sepenuhnya transparan) hingga 1 (sepenuhnya terlihat).</p><h4>Penjelasan</h4><p>Berguna untuk efek hover, overlay, dan elemen semi-transparan.</p><h4>Contoh Kode</h4><pre class="code-block">.fade {\n    opacity: 0.5;\n}\n.fade:hover {\n    opacity: 1;\n}</pre><h4>Kesimpulan</h4><p>Opacity memberikan efek visual yang halus dan menarik.</p>' },
+  { judul: "CSS 23 - Properti Overflow", konten: '<h4>Pengertian</h4><p>Overflow mengatur apa yang terjadi saat konten lebih besar dari wadahnya.</p><h4>Penjelasan</h4><p>Nilai: visible, hidden, scroll, auto.</p><h4>Contoh Kode</h4><pre class="code-block">.container {\n    width: 200px;\n    height: 100px;\n    overflow: auto;\n}</pre><h4>Kesimpulan</h4><p>Overflow penting untuk mengelola konten yang melebihi batas elemen.</p>' },
+  { judul: "CSS 24 - Properti Z-Index", konten: '<h4>Pengertian</h4><p>Z-index mengatur tumpukan elemen (kedalaman) di halaman.</p><h4>Penjelasan</h4><p>Nilai lebih tinggi akan berada di atas nilai lebih rendah. Hanya berlaku untuk elemen dengan position selain static.</p><h4>Contoh Kode</h4><pre class="code-block">.atas {\n    position: relative;\n    z-index: 10;\n}\n.bawah {\n    position: relative;\n    z-index: 1;\n}</pre><h4>Kesimpulan</h4><p>Z-index penting untuk mengelola elemen yang saling tumpang tindih.</p>' },
+  { judul: "CSS 25 - Properti Box Shadow", konten: '<h4>Pengertian</h4><p>Box-shadow menambahkan bayangan di sekitar elemen.</p><h4>Penjelasan</h4><p>Parameter: offset-x, offset-y, blur, spread, warna.</p><h4>Contoh Kode</h4><pre class="code-block">.card {\n    box-shadow: 0 4px 8px rgba(0,0,0,0.1);\n}\n.card:hover {\n    box-shadow: 0 8px 16px rgba(0,0,0,0.2);\n}</pre><h4>Kesimpulan</h4><p>Box-shadow memberikan efek kedalaman dan dimensi pada elemen.</p>' },
+  { judul: "CSS 26 - Properti Text Shadow", konten: '<h4>Pengertian</h4><p>Text-shadow menambahkan bayangan pada teks.</p><h4>Penjelasan</h4><p>Parameter: offset-x, offset-y, blur, warna.</p><h4>Contoh Kode</h4><pre class="code-block">h1 {\n    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);\n}</pre><h4>Kesimpulan</h4><p>Text-shadow membuat teks lebih menonjol dan mudah dibaca.</p>' },
+  { judul: "CSS 27 - Properti Border Radius", konten: '<h4>Pengertian</h4><p>Border-radius membuat sudut elemen menjadi melengkung.</p><h4>Penjelasan</h4><p>Bisa diatur untuk setiap sudut atau secara keseluruhan.</p><h4>Contoh Kode</h4><pre class="code-block">.card {\n    border-radius: 12px;\n}\n.circle {\n    border-radius: 50%;\n    width: 100px;\n    height: 100px;\n}</pre><h4>Kesimpulan</h4><p>Border-radius memberikan tampilan yang lebih modern dan halus.</p>' },
+  { judul: "CSS 28 - Properti Transition", konten: '<h4>Pengertian</h4><p>Transition mengatur perubahan properti secara halus saat terjadi perubahan.</p><h4>Penjelasan</h4><p>Berguna untuk efek hover, focus, atau perubahan state lainnya.</p><h4>Contoh Kode</h4><pre class="code-block">.btn {\n    transition: background-color 0.3s, transform 0.2s;\n}\n.btn:hover {\n    background-color: #2563EB;\n    transform: scale(1.05);\n}</pre><h4>Kesimpulan</h4><p>Transition membuat interaksi pengguna terasa lebih halus dan profesional.</p>' },
+  { judul: "CSS 29 - Properti Transform", konten: '<h4>Pengertian</h4><p>Transform memungkinkan memutar, memperbesar, memiringkan, atau menggeser elemen.</p><h4>Penjelasan</h4><p>Fungsi: rotate(), scale(), skew(), translate().</p><h4>Contoh Kode</h4><pre class="code-block">.gambar:hover {\n    transform: rotate(10deg) scale(1.1);\n}\n.animasi {\n    transform: translateX(50px);\n}</pre><h4>Kesimpulan</h4><p>Transform memberikan efek visual yang dinamis dan menarik.</p>' },
+  { judul: "CSS 30 - Properti Animation", konten: '<h4>Pengertian</h4><p>Animation memungkinkan membuat animasi kompleks dengan keyframes.</p><h4>Penjelasan</h4><p>Keyframes mendefinisikan perubahan properti pada berbagai titik waktu.</p><h4>Contoh Kode</h4><pre class="code-block">@keyframes slide {\n    from { transform: translateX(-100px); }\n    to { transform: translateX(0); }\n}\n.animasi {\n    animation: slide 0.5s ease-out;\n}</pre><h4>Kesimpulan</h4><p>Animation membuat website lebih hidup dan interaktif.</p>' },
+  { judul: "CSS 31 - Properti Filter", konten: '<h4>Pengertian</h4><p>Filter menerapkan efek visual seperti blur, brightness, contrast, dan lainnya pada elemen.</p><h4>Penjelasan</h4><p>Berguna untuk efek pada gambar, latar belakang, atau elemen lainnya.</p><h4>Contoh Kode</h4><pre class="code-block">.gambar {\n    filter: brightness(0.8) blur(2px);\n}\n.gambar:hover {\n    filter: brightness(1);\n}</pre><h4>Kesimpulan</h4><p>Filter memberikan efek visual kreatif tanpa perlu software editing.</p>' },
+  { judul: "CSS 32 - Properti Cursor", konten: '<h4>Pengertian</h4><p>Cursor mengubah tampilan kursor saat berada di atas elemen.</p><h4>Penjelasan</h4><p>Nilai umum: pointer, default, wait, text, grab, not-allowed.</p><h4>Contoh Kode</h4><pre class="code-block">.tombol { cursor: pointer; }\n.disabled { cursor: not-allowed; }</pre><h4>Kesimpulan</h4><p>Cursor memberi petunjuk visual tentang interaksi yang bisa dilakukan.</p>' },
+  { judul: "CSS 33 - Properti Outline", konten: '<h4>Pengertian</h4><p>Outline adalah garis di luar border yang tidak mempengaruhi layout.</p><h4>Penjelasan</h4><p>Berguna untuk fokus pada elemen seperti input atau button.</p><h4>Contoh Kode</h4><pre class="code-block">input:focus {\n    outline: 2px solid #2563EB;\n    outline-offset: 2px;\n}</pre><h4>Kesimpulan</h4><p>Outline meningkatkan aksesibilitas dengan memberi indikasi elemen yang aktif.</p>' },
+  { judul: "CSS 34 - Properti Visibility", konten: '<h4>Pengertian</h4><p>Visibility mengatur apakah elemen terlihat atau tidak.</p><h4>Penjelasan</h4><p>Nilai: visible, hidden. Berbeda dengan display:none, elemen masih memakan ruang.</p><h4>Contoh Kode</h4><pre class="code-block">.hidden {\n    visibility: hidden;\n}\n.visible {\n    visibility: visible;\n}</pre><h4>Kesimpulan</h4><p>Visibility berguna untuk menyembunyikan elemen tanpa mengubah layout.</p>' },
+  { judul: "CSS 35 - Properti Object Fit", konten: '<h4>Pengertian</h4><p>Object-fit mengatur bagaimana gambar atau video memenuhi wadahnya.</p><h4>Penjelasan</h4><p>Nilai: fill, contain, cover, none, scale-down.</p><h4>Contoh Kode</h4><pre class="code-block">img {\n    width: 200px;\n    height: 200px;\n    object-fit: cover;\n}</pre><h4>Kesimpulan</h4><p>Object-fit penting untuk konsistensi ukuran gambar dalam layout.</p>' },
+  { judul: "CSS 36 - Properti Aspect Ratio", konten: '<h4>Pengertian</h4><p>Aspect-ratio mempertahankan proporsi lebar dan tinggi elemen.</p><h4>Penjelasan</h4><p>Berguna untuk gambar, video, dan elemen yang perlu proporsi konsisten.</p><h4>Contoh Kode</h4><pre class="code-block">.video {\n    width: 100%;\n    aspect-ratio: 16 / 9;\n}</pre><h4>Kesimpulan</h4><p>Aspect-ratio memudahkan menjaga proporsi tanpa perhitungan manual.</p>' },
+  { judul: "CSS 37 - Properti Gap", konten: '<h4>Pengertian</h4><p>Gap mengatur jarak antar elemen dalam flexbox atau grid.</p><h4>Penjelasan</h4><p>Lebih praktis daripada margin untuk layout modern.</p><h4>Contoh Kode</h4><pre class="code-block">.flex {\n    display: flex;\n    gap: 20px;\n}\n.grid {\n    display: grid;\n    gap: 15px 25px;\n}</pre><h4>Kesimpulan</h4><p>Gap adalah cara modern untuk mengatur jarak antar elemen.</p>' },
+  { judul: "CSS 38 - Properti Order (Flexbox)", konten: '<h4>Pengertian</h4><p>Order mengatur urutan tampilan elemen dalam flex container.</p><h4>Penjelasan</h4><p>Nilai default 0, semakin kecil nilai semakin awal tampil.</p><h4>Contoh Kode</h4><pre class="code-block">.item-1 { order: 2; }\n.item-2 { order: 1; }</pre><h4>Kesimpulan</h4><p>Order memberikan fleksibilitas mengatur urutan tanpa mengubah HTML.</p>' },
+  { judul: "CSS 39 - Properti Flex Grow & Shrink", konten: '<h4>Pengertian</h4><p>Flex-grow menentukan kemampuan elemen untuk membesar, flex-shrink untuk mengecil.</p><h4>Penjelasan</h4><p>Nilai 0 berarti tidak akan membesar/mengecil, 1 berarti bisa.</p><h4>Contoh Kode</h4><pre class="code-block">.item {\n    flex-grow: 1;\n    flex-shrink: 0;\n}</pre><h4>Kesimpulan</h4><p>Flex-grow dan shrink membuat layout lebih fleksibel dan adaptif.</p>' },
+  { judul: "CSS 40 - Properti Align Self", konten: '<h4>Pengertian</h4><p>Align-self mengatur alignment individu elemen di dalam flex container.</p><h4>Penjelasan</h4><p>Override dari align-items container.</p><h4>Contoh Kode</h4><pre class="code-block">.item-special {\n    align-self: flex-end;\n}</pre><h4>Kesimpulan</h4><p>Align-self memberikan kontrol individu pada alignment elemen.</p>' },
+  { judul: "HTML 21 - Semantic Element Header", konten: '<h4>Pengertian</h4><p>Header adalah elemen semantik untuk bagian atas halaman atau section.</p><h4>Penjelasan</h4><p>Berisi judul, logo, navigasi, atau informasi pengantar.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;header&gt;\n    &lt;h1&gt;Website Saya&lt;/h1&gt;\n    &lt;nav&gt;Menu&lt;/nav&gt;\n&lt;/header&gt;</pre><h4>Kesimpulan</h4><p>Header semantik membantu SEO dan struktur halaman.</p>' },
+  { judul: "HTML 22 - Semantic Element Nav", konten: '<h4>Pengertian</h4><p>Nav adalah elemen semantik untuk menu navigasi utama.</p><h4>Penjelasan</h4><p>Membantu mesin pencari memahami struktur navigasi.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;nav&gt;\n    &lt;a href="/"&gt;Home&lt;/a&gt;\n    &lt;a href="/tentang"&gt;Tentang&lt;/a&gt;\n    &lt;a href="/kontak"&gt;Kontak&lt;/a&gt;\n&lt;/nav&gt;</pre><h4>Kesimpulan</h4><p>Nav meningkatkan aksesibilitas dan SEO website.</p>' },
+  { judul: "HTML 23 - Semantic Element Main", konten: '<h4>Pengertian</h4><p>Main adalah elemen semantik untuk konten utama halaman.</p><h4>Penjelasan</h4><p>Hanya satu main per halaman, menunjukkan bagian terpenting.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;main&gt;\n    &lt;h2&gt;Artikel Utama&lt;/h2&gt;\n    &lt;p&gt;Isi konten utama...&lt;/p&gt;\n&lt;/main&gt;</pre><h4>Kesimpulan</h4><p>Main membantu fokus pada konten paling penting.</p>' },
+  { judul: "HTML 24 - Semantic Element Article", konten: '<h4>Pengertian</h4><p>Article adalah elemen semantik untuk konten yang berdiri sendiri.</p><h4>Penjelasan</h4><p>Seperti postingan blog, berita, atau konten yang bisa dipisahkan.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;article&gt;\n    &lt;h2&gt;Judul Artikel&lt;/h2&gt;\n    &lt;p&gt;Isi artikel...&lt;/p&gt;\n&lt;/article&gt;</pre><h4>Kesimpulan</h4><p>Article meningkatkan struktur dan SEO konten.</p>' },
+  { judul: "HTML 25 - Semantic Element Section", konten: '<h4>Pengertian</h4><p>Section adalah elemen semantik untuk mengelompokkan konten terkait.</p><h4>Penjelasan</h4><p>Setiap section biasanya memiliki heading sendiri.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;section&gt;\n    &lt;h2&gt;Tentang Kami&lt;/h2&gt;\n    &lt;p&gt;Isi tentang perusahaan...&lt;/p&gt;\n&lt;/section&gt;</pre><h4>Kesimpulan</h4><p>Section membantu mengorganisir konten secara logis.</p>' },
+  { judul: "HTML 26 - Semantic Element Aside", konten: '<h4>Pengertian</h4><p>Aside adalah elemen semantik untuk konten tambahan atau sidebar.</p><h4>Penjelasan</h4><p>Bisa berisi link, iklan, atau informasi pendukung.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;aside&gt;\n    &lt;h3&gt;Artikel Terkait&lt;/h3&gt;\n    &lt;ul&gt;...&lt;/ul&gt;\n&lt;/aside&gt;</pre><h4>Kesimpulan</h4><p>Aside menampilkan informasi tambahan tanpa mengganggu konten utama.</p>' },
+  { judul: "HTML 27 - Semantic Element Footer", konten: '<h4>Pengertian</h4><p>Footer adalah elemen semantik untuk bagian bawah halaman.</p><h4>Penjelasan</h4><p>Berisi hak cipta, kontak, atau link penting.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;footer&gt;\n    &lt;p&gt;&copy; 2026 Website Saya&lt;/p&gt;\n    &lt;a href="mailto:email@domain.com"&gt;Kontak&lt;/a&gt;\n&lt;/footer&gt;</pre><h4>Kesimpulan</h4><p>Footer memberikan informasi penutup dan navigasi tambahan.</p>' },
+  { judul: "HTML 28 - Semantic Element Figure", konten: '<h4>Pengertian</h4><p>Figure adalah elemen semantik untuk gambar dengan keterangan.</p><h4>Penjelasan</h4><p>Bisa digunakan untuk gambar, diagram, atau ilustrasi.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;figure&gt;\n    &lt;img src="foto.jpg" alt="Deskripsi"&gt;\n    &lt;figcaption&gt;Keterangan gambar&lt;/figcaption&gt;\n&lt;/figure&gt;</pre><h4>Kesimpulan</h4><p>Figure meningkatkan SEO dan aksesibilitas gambar.</p>' },
+  { judul: "HTML 29 - Semantic Element Mark", konten: '<h4>Pengertian</h4><p>Mark digunakan untuk menandai atau menyorot teks penting.</p><h4>Penjelasan</h4><p>Berguna untuk highlight kata kunci atau informasi penting.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;p&gt;Ini adalah &lt;mark&gt;teks penting&lt;/mark&gt; yang perlu diperhatikan.&lt;/p&gt;</pre><h4>Kesimpulan</h4><p>Mark membantu menarik perhatian pada bagian tertentu.</p>' },
+  { judul: "HTML 30 - Semantic Element Time", konten: '<h4>Pengertian</h4><p>Time digunakan untuk menandai tanggal atau waktu.</p><h4>Penjelasan</h4><p>Membantu mesin pencari dan pembaca memahami informasi waktu.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;time datetime="2026-08-07"&gt;7 Agustus 2026&lt;/time&gt;</pre><h4>Kesimpulan</h4><p>Time memberikan struktur semantik pada informasi waktu.</p>' },
+  { judul: "CSS 41 - Variables CSS", konten: '<h4>Pengertian</h4><p>CSS variables (custom properties) menyimpan nilai yang bisa digunakan kembali.</p><h4>Penjelasan</h4><p>Memudahkan maintenance dan konsistensi tema.</p><h4>Contoh Kode</h4><pre class="code-block">:root {\n    --primary: #2563EB;\n    --spacing: 20px;\n}\n.btn {\n    background: var(--primary);\n    margin: var(--spacing);\n}</pre><h4>Kesimpulan</h4><p>CSS variables membuat styling lebih efisien dan konsisten.</p>' },
+  { judul: "CSS 42 - Properti Clip Path", konten: '<h4>Pengertian</h4><p>Clip-path memotong elemen menjadi bentuk tertentu.</p><h4>Penjelasan</h4><p>Bisa membuat bentuk lingkaran, poligon, atau bentuk kustom.</p><h4>Contoh Kode</h4><pre class="code-block">.gambar {\n    clip-path: circle(50%);\n}\n.bentuk {\n    clip-path: polygon(0 0, 100% 0, 50% 100%);\n}</pre><h4>Kesimpulan</h4><p>Clip-path memberikan kreativitas dalam desain elemen.</p>' },
+  { judul: "CSS 43 - Properti Backdrop Filter", konten: '<h4>Pengertian</h4><p>Backdrop-filter menerapkan efek filter pada area di belakang elemen.</p><h4>Penjelasan</h4><p>Berguna untuk efek blur pada background.</p><h4>Contoh Kode</h4><pre class="code-block">.modal {\n    backdrop-filter: blur(10px);\n    background: rgba(255,255,255,0.5);\n}</pre><h4>Kesimpulan</h4><p>Backdrop-filter memberikan efek modern dan elegan.</p>' },
+  { judul: "CSS 44 - Properti Mix Blend Mode", konten: '<h4>Pengertian</h4><p>Mix-blend-mode mengatur bagaimana elemen bercampur dengan background.</p><h4>Penjelasan</h4><p>Berguna untuk efek kreatif seperti multiply, screen, overlay.</p><h4>Contoh Kode</h4><pre class="code-block">.teks {\n    mix-blend-mode: overlay;\n    color: white;\n}</pre><h4>Kesimpulan</h4><p>Mix-blend-mode memberikan efek visual yang unik.</p>' },
+  { judul: "CSS 45 - Properti Scroll Behavior", konten: '<h4>Pengertian</h4><p>Scroll-behavior mengatur perilaku scrolling di halaman.</p><h4>Penjelasan</h4><p>Nilai: auto (instan) atau smooth (halus).</p><h4>Contoh Kode</h4><pre class="code-block">html {\n    scroll-behavior: smooth;\n}</pre><h4>Kesimpulan</h4><p>Scroll-behavior meningkatkan pengalaman pengguna.</p>' },
+  { judul: "CSS 46 - Properti User Select", konten: '<h4>Pengertian</h4><p>User-select mengatur apakah teks bisa dipilih oleh pengguna.</p><h4>Penjelasan</h4><p>Berguna untuk elemen yang tidak perlu dipilih.</p><h4>Contoh Kode</h4><pre class="code-block">.no-select {\n    user-select: none;\n}</pre><h4>Kesimpulan</h4><p>User-select penting untuk pengalaman pengguna yang lebih baik.</p>' },
+  { judul: "CSS 47 - Properti Pointer Events", konten: '<h4>Pengertian</h4><p>Pointer-events mengatur apakah elemen merespons interaksi mouse/touch.</p><h4>Penjelasan</h4><p>Nilai: auto (default) atau none (tidak responsif).</p><h4>Contoh Kode</h4><pre class="code-block">.disabled {\n    pointer-events: none;\n    opacity: 0.5;\n}</pre><h4>Kesimpulan</h4><p>Pointer-events berguna untuk elemen yang dinonaktifkan.</p>' },
+  { judul: "CSS 48 - Properti Column Count", konten: '<h4>Pengertian</h4><p>Column-count membagi teks menjadi beberapa kolom seperti di koran.</p><h4>Penjelasan</h4><p>Berguna untuk layout teks yang lebih mudah dibaca.</p><h4>Contoh Kode</h4><pre class="code-block">.artikel {\n    column-count: 3;\n    column-gap: 30px;\n}</pre><h4>Kesimpulan</h4><p>Column-count membuat teks panjang lebih mudah dibaca.</p>' },
+  { judul: "CSS 49 - Properti Container Queries", konten: '<h4>Pengertian</h4><p>Container queries mirip media queries tapi berdasarkan ukuran container.</p><h4>Penjelasan</h4><p>Lebih fleksibel untuk komponen yang reusable.</p><h4>Contoh Kode</h4><pre class="code-block">.card-container {\n    container-type: inline-size;\n}\n@container (min-width: 400px) {\n    .card { display: flex; }\n}</pre><h4>Kesimpulan</h4><p>Container queries adalah masa depan CSS untuk komponen.</p>' },
+  { judul: "CSS 50 - Properti Color Scheme", konten: '<h4>Pengertian</h4><p>Color-scheme mengatur tema warna yang didukung halaman.</p><h4>Penjelasan</h4><p>Membantu browser menerapkan dark mode/light mode.</p><h4>Contoh Kode</h4><pre class="code-block">:root {\n    color-scheme: light dark;\n}</pre><h4>Kesimpulan</h4><p>Color-scheme penting untuk mendukung dark mode.</p>' },
+  { judul: "Praktis 1 - Membuat Form Login", konten: '<h4>Pengertian</h4><p>Form login adalah elemen penting untuk autentikasi pengguna.</p><h4>Penjelasan</h4><p>Kombinasi input email/username dan password dengan tombol submit.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;form&gt;\n    &lt;input type="email" placeholder="Email" required&gt;\n    &lt;input type="password" placeholder="Password" required&gt;\n    &lt;button type="submit"&gt;Login&lt;/button&gt;\n&lt;/form&gt;</pre><h4>Kesimpulan</h4><p>Form login sederhana namun penting untuk aplikasi web.</p>' },
+  { judul: "Praktis 2 - Membuat Card UI", konten: '<h4>Pengertian</h4><p>Card adalah komponen UI untuk menampilkan konten dalam kotak terpisah.</p><h4>Penjelasan</h4><p>Card biasanya memiliki gambar, judul, deskripsi, dan tombol.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div class="card"&gt;\n    &lt;img src="gambar.jpg" alt="Gambar"&gt;\n    &lt;h3&gt;Judul Card&lt;/h3&gt;\n    &lt;p&gt;Deskripsi...&lt;/p&gt;\n    &lt;button&gt;Detail&lt;/button&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Card adalah komponen serbaguna untuk berbagai konten.</p>' },
+  { judul: "Praktis 3 - Membuat Navbar", konten: '<h4>Pengertian</h4><p>Navbar adalah menu navigasi yang biasanya ada di bagian atas halaman.</p><h4>Penjelasan</h4><p>Navbar bisa horizontal atau vertikal, dan bisa sticky.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;nav&gt;\n    &lt;a href="/"&gt;Home&lt;/a&gt;\n    &lt;a href="/about"&gt;About&lt;/a&gt;\n    &lt;a href="/contact"&gt;Contact&lt;/a&gt;\n&lt;/nav&gt;</pre><h4>Kesimpulan</h4><p>Navbar membantu navigasi pengguna di website.</p>' },
+  { judul: "Praktis 4 - Membuat Footer", konten: '<h4>Pengertian</h4><p>Footer adalah bagian bawah halaman yang berisi info tambahan.</p><h4>Penjelasan</h4><p>Biasanya berisi hak cipta, kontak, dan link sosial media.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;footer&gt;\n    &lt;p&gt;&copy; 2026 My Website&lt;/p&gt;\n    &lt;div&gt;Social Media&lt;/div&gt;\n&lt;/footer&gt;</pre><h4>Kesimpulan</h4><p>Footer memberikan informasi penting di bagian bawah.</p>' },
+  { judul: "Praktis 5 - Membuat Hero Section", konten: '<h4>Pengertian</h4><p>Hero section adalah bagian utama yang menarik perhatian di halaman.</p><h4>Penjelasan</h4><p>Biasanya memiliki judul besar, deskripsi, dan tombol CTA.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;section class="hero"&gt;\n    &lt;h1&gt;Selamat Datang&lt;/h1&gt;\n    &lt;p&gt;Deskripsi menarik...&lt;/p&gt;\n    &lt;button&gt;Mulai&lt;/button&gt;\n&lt;/section&gt;</pre><h4>Kesimpulan</h4><p>Hero section memberi kesan pertama yang kuat.</p>' },
+  { judul: "Praktis 6 - Membuat Grid Gallery", konten: '<h4>Pengertian</h4><p>Grid gallery menampilkan gambar dalam layout grid yang rapi.</p><h4>Penjelasan</h4><p>Menggunakan CSS Grid untuk layout yang responsif.</p><h4>Contoh Kode</h4><pre class="code-block">.gallery {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\n    gap: 15px;\n}</pre><h4>Kesimpulan</h4><p>Grid gallery membuat galeri gambar terlihat profesional.</p>' },
+  { judul: "Praktis 7 - Membuat Modal Popup", konten: '<h4>Pengertian</h4><p>Modal popup adalah jendela yang muncul di atas halaman utama.</p><h4>Penjelasan</h4><p>Berguna untuk notifikasi, form, atau informasi tambahan.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div class="modal"&gt;\n    &lt;div class="modal-content"&gt;\n        &lt;h3&gt;Judul Modal&lt;/h3&gt;\n        &lt;p&gt;Isi modal...&lt;/p&gt;\n        &lt;button&gt;Tutup&lt;/button&gt;\n    &lt;/div&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Modal popup meningkatkan interaksi dan komunikasi.</p>' },
+  { judul: "Praktis 8 - Membuat Accordion", konten: '<h4>Pengertian</h4><p>Accordion adalah menu yang dapat dibuka/tutup untuk menyimpan konten.</p><h4>Penjelasan</h4><p>Berguna untuk FAQ atau konten yang panjang.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div class="accordion"&gt;\n    &lt;button class="accordion-btn"&gt;Pertanyaan 1&lt;/button&gt;\n    &lt;div class="accordion-content"&gt;Jawaban...&lt;/div&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Accordion menghemat ruang dan rapi.</p>' },
+  { judul: "Praktis 9 - Membuat Tabs", konten: '<h4>Pengertian</h4><p>Tabs adalah navigasi untuk menampilkan konten dalam tab terpisah.</p><h4>Penjelasan</h4><p>Berguna untuk konten yang dikategorikan.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div class="tabs"&gt;\n    &lt;button class="tab-btn active" data-tab="1"&gt;Tab 1&lt;/button&gt;\n    &lt;button class="tab-btn" data-tab="2"&gt;Tab 2&lt;/button&gt;\n    &lt;div class="tab-content active" id="tab1"&gt;Konten 1&lt;/div&gt;\n    &lt;div class="tab-content" id="tab2"&gt;Konten 2&lt;/div&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Tabs membuat navigasi konten lebih mudah.</p>' },
+  { judul: "Praktis 10 - Membuat Responsive Layout", konten: '<h4>Pengertian</h4><p>Responsive layout menyesuaikan tampilan di semua ukuran layar.</p><h4>Penjelasan</h4><p>Menggunakan media queries, flexbox, dan grid.</p><h4>Contoh Kode</h4><pre class="code-block">.container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n@media (max-width: 600px) {\n    .container {\n        grid-template-columns: 1fr;\n    }\n}</pre><h4>Kesimpulan</h4><p>Responsive layout adalah keharusan untuk semua website modern.</p>' },
+  { judul: "Praktis 11 - Membuat Dark Mode", konten: '<h4>Pengertian</h4><p>Dark mode adalah tema gelap yang nyaman di mata.</p><h4>Penjelasan</h4><p>Menggunakan CSS variables dan media prefers-color-scheme.</p><h4>Contoh Kode</h4><pre class="code-block">:root { --bg: white; --text: black; }\n@media (prefers-color-scheme: dark) {\n    :root { --bg: black; --text: white; }\n}</pre><h4>Kesimpulan</h4><p>Dark mode meningkatkan kenyamanan pengguna.</p>' },
+  { judul: "Praktis 12 - Membuat Loading Spinner", konten: '<h4>Pengertian</h4><p>Loading spinner memberi indikasi bahwa proses sedang berjalan.</p><h4>Penjelasan</h4><p>Menggunakan CSS animation untuk efek berputar.</p><h4>Contoh Kode</h4><pre class="code-block">.spinner {\n    width: 40px;\n    height: 40px;\n    border: 4px solid #ddd;\n    border-top: 4px solid #2563EB;\n    border-radius: 50%;\n    animation: spin 1s linear infinite;\n}\n@keyframes spin { to { transform: rotate(360deg); } }</pre><h4>Kesimpulan</h4><p>Loading spinner penting untuk UX.</p>' },
+  { judul: "Praktis 13 - Membuat Tooltip", konten: '<h4>Pengertian</h4><p>Tooltip menampilkan info tambahan saat hover.</p><h4>Penjelasan</h4><p>Menggunakan CSS positioning dan hover.</p><h4>Contoh Kode</h4><pre class="code-block">.tooltip:hover .tooltip-text {\n    visibility: visible;\n    opacity: 1;\n}</pre><h4>Kesimpulan</h4><p>Tooltip membantu menjelaskan elemen.</p>' },
+  { judul: "Praktis 14 - Membuat Dropdown Menu", konten: '<h4>Pengertian</h4><p>Dropdown menu menampilkan pilihan saat diklik atau hover.</p><h4>Penjelasan</h4><p>Menggunakan CSS display dan position.</p><h4>Contoh Kode</h4><pre class="code-block">.dropdown-content {\n    display: none;\n    position: absolute;\n}\n.dropdown:hover .dropdown-content {\n    display: block;\n}</pre><h4>Kesimpulan</h4><p>Dropdown menu menghemat ruang navigasi.</p>' },
+  { judul: "Praktis 15 - Membuat Progress Bar", konten: '<h4>Pengertian</h4><p>Progress bar menunjukkan kemajuan suatu proses.</p><h4>Penjelasan</h4><p>Menggunakan width yang berubah-ubah.</p><h4>Contoh Kode</h4><pre class="code-block">.progress {\n    width: 100%;\n    height: 10px;\n    background: #ddd;\n}\n.progress-bar {\n    height: 100%;\n    width: 70%;\n    background: #2563EB;\n}</pre><h4>Kesimpulan</h4><p>Progress bar memberi feedback visual.</p>' },
+  { judul: "Praktis 16 - Membuat Slider Gambar", konten: '<h4>Pengertian</h4><p>Slider menampilkan gambar bergantian.</p><h4>Penjelasan</h4><p>Menggunakan overflow hidden dan transform.</p><h4>Contoh Kode</h4><pre class="code-block">.slider {\n    overflow: hidden;\n}\n.slider-track {\n    display: flex;\n    transition: transform 0.5s;\n}</pre><h4>Kesimpulan</h4><p>Slider membuat konten lebih dinamis.</p>' },
+  { judul: "Praktis 17 - Membuat Breadcrumb", konten: '<h4>Pengertian</h4><p>Breadcrumb menunjukkan posisi halaman dalam hierarki.</p><h4>Penjelasan</h4><p>Berguna untuk navigasi dan SEO.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;nav class="breadcrumb"&gt;\n    &lt;a href="/"&gt;Home&lt;/a&gt; &gt;\n    &lt;a href="/category"&gt;Category&lt;/a&gt; &gt;\n    &lt;span&gt;Current Page&lt;/span&gt;\n&lt;/nav&gt;</pre><h4>Kesimpulan</h4><p>Breadcrumb membantu orientasi pengguna.</p>' },
+  { judul: "Praktis 18 - Membuat Pagination", konten: '<h4>Pengertian</h4><p>Pagination membagi konten menjadi beberapa halaman.</p><h4>Penjelasan</h4><p>Berguna untuk daftar yang panjang.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div class="pagination"&gt;\n    &lt;a href="#"&gt;1&lt;/a&gt;\n    &lt;a href="#"&gt;2&lt;/a&gt;\n    &lt;a href="#"&gt;3&lt;/a&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>Pagination membuat navigasi konten lebih mudah.</p>' },
+  { judul: "Praktis 19 - Membuat Sticky Header", konten: '<h4>Pengertian</h4><p>Sticky header tetap di atas saat scroll.</p><h4>Penjelasan</h4><p>Menggunakan position: sticky.</p><h4>Contoh Kode</h4><pre class="code-block">header {\n    position: sticky;\n    top: 0;\n    z-index: 100;\n}</pre><h4>Kesimpulan</h4><p>Sticky header meningkatkan navigasi.</p>' },
+  { judul: "Praktis 20 - Membuat Full Page Layout", konten: '<h4>Pengertian</h4><p>Full page layout menggunakan seluruh viewport.</p><h4>Penjelasan</h4><p>Menggunakan height: 100vh dan flexbox.</p><h4>Contoh Kode</h4><pre class="code-block">.page {\n    height: 100vh;\n    display: flex;\n    flex-direction: column;\n}</pre><h4>Kesimpulan</h4><p>Full page layout ideal untuk landing page.</p>' },
+  { judul: "Profesional 1 - CSS Reset", konten: '<h4>Pengertian</h4><p>CSS Reset menghapus style default browser.</p><h4>Penjelasan</h4><p>Memastikan konsistensi tampilan di semua browser.</p><h4>Contoh Kode</h4><pre class="code-block">* { margin: 0; padding: 0; box-sizing: border-box; }</pre><h4>Kesimpulan</h4><p>CSS Reset penting untuk konsistensi cross-browser.</p>' },
+  { judul: "Profesional 2 - CSS Framework Concepts", konten: '<h4>Pengertian</h4><p>CSS framework seperti Bootstrap menggunakan class utility.</p><h4>Penjelasan</h4><p>Mempercepat development dengan komponen siap pakai.</p><h4>Contoh Kode</h4><pre class="code-block">&lt;div class="container"&gt;\n    &lt;div class="row"&gt;\n        &lt;div class="col-6"&gt;...&lt;/div&gt;\n    &lt;/div&gt;\n&lt;/div&gt;</pre><h4>Kesimpulan</h4><p>CSS framework mempercepat pengembangan.</p>' },
+  { judul: "Profesional 3 - BEM Methodology", konten: '<h4>Pengertian</h4><p>BEM (Block, Element, Modifier) adalah metodologi penamaan CSS.</p><h4>Penjelasan</h4><p>Membuat kode lebih terstruktur dan mudah dipelihara.</p><h4>Contoh Kode</h4><pre class="code-block">.card {}\n.card__title {}\n.card__button {}\n.card--featured {}</pre><h4>Kesimpulan</h4><p>BEM meningkatkan maintainability CSS.</p>' },
+  { judul: "Profesional 4 - CSS in JS", konten: '<h4>Pengertian</h4><p>CSS in JS adalah pendekatan menulis CSS di dalam JavaScript.</p><h4>Penjelasan</h4><p>Populer di React dengan styled-components.</p><h4>Contoh Kode</h4><pre class="code-block">const Button = styled.button`\n    background: blue;\n    color: white;\n`;</pre><h4>Kesimpulan</h4><p>CSS in JS membawa CSS ke era modern.</p>' },
+  { judul: "Profesional 5 - PostCSS", konten: '<h4>Pengertian</h4><p>PostCSS adalah tool untuk memproses CSS dengan plugin.</p><h4>Penjelasan</h4><p>Mendukung autoprefixer, future CSS, dan optimasi.</p><h4>Contoh Kode</h4><pre class="code-block">.flex { display: flex; }</pre><h4>Kesimpulan</h4><p>PostCSS meningkatkan efisiensi CSS development.</p>' },
+  { judul: "Profesional 6 - CSS Architecture", konten: '<h4>Pengertian</h4><p>CSS Architecture adalah cara mengorganisir CSS untuk skala besar.</p><h4>Penjelasan</h4><p>ITCSS, SMACSS, atau OOCSS adalah metodologi populer.</p><h4>Contoh Kode</h4><pre class="code-block">Settings, Tools, Generic, Elements, Objects, Components, Utilities</pre><h4>Kesimpulan</h4><p>CSS Architecture penting untuk proyek besar.</p>' },
+  { judul: "Profesional 7 - CSS Performance", konten: '<h4>Pengertian</h4><p>CSS Performance mengoptimalkan loading dan rendering CSS.</p><h4>Penjelasan</h4><p>Minify, critical CSS, dan mengurangi selector kompleks.</p><h4>Contoh Kode</h4><pre class="code-block">.header .nav .item {}</pre><h4>Kesimpulan</h4><p>CSS Performance meningkatkan kecepatan website.</p>' },
+  { judul: "Profesional 8 - CSS Accessibility", konten: '<h4>Pengertian</h4><p>CSS Accessibility memastikan website bisa diakses semua orang.</p><h4>Penjelasan</h4><p>Kontras warna, font size, dan focus visible.</p><h4>Contoh Kode</h4><pre class="code-block">a:focus {\n    outline: 2px solid blue;\n}</pre><h4>Kesimpulan</h4><p>CSS Accessibility penting untuk inklusivitas.</p>' },
+  { judul: "Profesional 9 - CSS Print Styles", konten: '<h4>Pengertian</h4><p>Print styles mengatur tampilan saat dicetak.</p><h4>Penjelasan</h4><p>Menggunakan @media print.</p><h4>Contoh Kode</h4><pre class="code-block">@media print {\n    .no-print { display: none; }\n}</pre><h4>Kesimpulan</h4><p>Print styles penting untuk dokumen.</p>' },
+  { judul: "Profesional 10 - CSS Debugging", konten: '<h4>Pengertian</h4><p>CSS Debugging adalah proses menemukan dan memperbaiki error CSS.</p><h4>Penjelasan</h4><p>Gunakan DevTools, outline, dan console.</p><h4>Contoh Kode</h4><pre class="code-block">* { outline: 1px solid red; }</pre><h4>Kesimpulan</h4><p>CSS Debugging skill penting untuk developer.</p>' }
 ];
 
-// ======================== FUNGSI ========================
+const soalMudah = [
+  { q: "HTML adalah singkatan dari...", opsi: ["HyperText Markup Language", "Hyper Transfer Markup Language", "High Text Machine Language", "Home Tool Markup Language"], jawab: 0, penjelasan: "HTML adalah HyperText Markup Language, bahasa standar untuk membuat halaman web." },
+  { q: "Tag untuk membuat judul utama adalah...", opsi: ["h1", "title", "header", "heading"], jawab: 0, penjelasan: "h1 adalah heading paling penting dan terbesar di halaman web." },
+  { q: "Tag untuk membuat paragraf adalah...", opsi: ["p", "par", "paragraph", "text"], jawab: 0, penjelasan: "Tag p digunakan untuk membuat paragraf." },
+  { q: "Tag untuk membuat hyperlink adalah...", opsi: ["a", "link", "href", "url"], jawab: 0, penjelasan: "Tag a (anchor) dengan atribut href digunakan untuk membuat link." },
+  { q: "Tag untuk menampilkan gambar adalah...", opsi: ["img", "image", "picture", "photo"], jawab: 0, penjelasan: "Tag img dengan atribut src digunakan untuk menampilkan gambar." },
+  { q: "Atribut untuk menyebutkan lokasi gambar adalah...", opsi: ["src", "href", "link", "url"], jawab: 0, penjelasan: "src (source) menentukan lokasi file gambar." },
+  { q: "Tag untuk daftar tidak berurutan adalah...", opsi: ["ul", "ol", "list", "dl"], jawab: 0, penjelasan: "ul (unordered list) membuat daftar dengan bullet." },
+  { q: "Tag untuk daftar berurutan adalah...", opsi: ["ol", "ul", "list", "dl"], jawab: 0, penjelasan: "ol (ordered list) membuat daftar dengan angka." },
+  { q: "Tag untuk item di dalam list adalah...", opsi: ["li", "item", "list", "el"], jawab: 0, penjelasan: "li (list item) adalah tag untuk setiap item dalam list." },
+  { q: "Tag untuk membuat baris tabel adalah...", opsi: ["tr", "td", "th", "row"], jawab: 0, penjelasan: "tr (table row) membuat baris di tabel." },
+  { q: "Tag untuk membuat header sel tabel adalah...", opsi: ["th", "td", "tr", "head"], jawab: 0, penjelasan: "th (table header) untuk sel header di tabel." },
+  { q: "Tag untuk membuat sel data tabel adalah...", opsi: ["td", "th", "tr", "cell"], jawab: 0, penjelasan: "td (table data) untuk sel data di tabel." },
+  { q: "Tag untuk membuat form input adalah...", opsi: ["input", "form", "text", "field"], jawab: 0, penjelasan: "input digunakan untuk menerima data dari user." },
+  { q: "Tag untuk membuat tombol adalah...", opsi: ["button", "btn", "click", "input"], jawab: 0, penjelasan: "button membuat tombol yang bisa diklik." },
+  { q: "CSS adalah singkatan dari...", opsi: ["Cascading Style Sheets", "Computer Style Sheets", "Creative Style Sheets", "Colorful Style Sheets"], jawab: 0, penjelasan: "CSS adalah Cascading Style Sheets, bahasa untuk mengatur tampilan web." },
+  { q: "Properti untuk mengatur warna teks adalah...", opsi: ["color", "text-color", "font-color", "text"], jawab: 0, penjelasan: "Properti color digunakan untuk mengatur warna teks." },
+  { q: "Properti untuk mengatur warna latar adalah...", opsi: ["background-color", "bg", "color-bg", "fill"], jawab: 0, penjelasan: "background-color mengatur warna latar belakang elemen." },
+  { q: "Properti untuk mengatur ukuran huruf adalah...", opsi: ["font-size", "text-size", "size", "font"], jawab: 0, penjelasan: "font-size mengatur ukuran huruf." },
+  { q: "Properti untuk mengatur margin adalah...", opsi: ["margin", "spacing", "padding", "border"], jawab: 0, penjelasan: "margin mengatur jarak luar elemen." },
+  { q: "Properti untuk mengatur padding adalah...", opsi: ["padding", "margin", "spacing", "gap"], jawab: 0, penjelasan: "padding mengatur jarak dalam elemen." }
+];
+
+const soalSedang = [
+  { q: "Tag untuk membuat form di HTML adalah...", opsi: ["form", "input", "field", "container"], jawab: 0, penjelasan: "form adalah tag utama untuk membuat formulir di HTML." },
+  { q: "Tag untuk dropdown menu adalah...", opsi: ["select", "dropdown", "option", "menu"], jawab: 0, penjelasan: "Tag select dengan option membuat dropdown menu." },
+  { q: "Tag untuk area teks panjang adalah...", opsi: ["textarea", "input", "text", "area"], jawab: 0, penjelasan: "textarea digunakan untuk input teks panjang atau multi-baris." },
+  { q: "Tag semantik untuk bagian navigasi adalah...", opsi: ["nav", "menu", "header", "aside"], jawab: 0, penjelasan: "nav adalah elemen semantik untuk navigasi." },
+  { q: "Tag semantik untuk konten utama adalah...", opsi: ["main", "body", "content", "article"], jawab: 0, penjelasan: "main adalah elemen semantik untuk konten utama halaman." },
+  { q: "Tag semantik untuk artikel adalah...", opsi: ["article", "section", "post", "aside"], jawab: 0, penjelasan: "article untuk konten yang bisa berdiri sendiri seperti postingan." },
+  { q: "Properti untuk sudut melengkung adalah...", opsi: ["border-radius", "border-corner", "corner-radius", "round"], jawab: 0, penjelasan: "border-radius membuat sudut elemen melengkung." },
+  { q: "Properti untuk efek transisi halus adalah...", opsi: ["transition", "animation", "transform", "effect"], jawab: 0, penjelasan: "transition mengatur perubahan properti secara halus." },
+  { q: "Nilai display untuk membuat flex container adalah...", opsi: ["flex", "block", "inline", "grid"], jawab: 0, penjelasan: "display: flex membuat elemen menjadi flex container." },
+  { q: "Properti untuk mengatur jarak antar flex item adalah...", opsi: ["gap", "margin", "padding", "space"], jawab: 0, penjelasan: "gap mengatur jarak antar elemen flex atau grid." },
+  { q: "Properti untuk mengatur posisi elemen adalah...", opsi: ["position", "placement", "location", "align"], jawab: 0, penjelasan: "position mengatur bagaimana elemen diposisikan." },
+  { q: "Nilai position yang membuat elemen tetap di tempat saat scroll adalah...", opsi: ["sticky", "fixed", "relative", "absolute"], jawab: 0, penjelasan: "position: sticky membuat elemen menempel pada posisi tertentu saat scroll." },
+  { q: "Properti untuk mengubah ukuran/rotasi elemen adalah...", opsi: ["transform", "transition", "animation", "resize"], jawab: 0, penjelasan: "transform untuk rotate, scale, skew, translate." },
+  { q: "Media query berguna untuk...", opsi: ["Membuat tampilan responsif", "Menambahkan animasi", "Menghapus elemen", "Menyimpan data"], jawab: 0, penjelasan: "Media queries menyesuaikan tampilan berdasarkan ukuran layar." },
+  { q: "Box-shadow berguna untuk...", opsi: ["Menambahkan bayangan pada elemen", "Menambah border", "Mengubah warna", "Menyembunyikan elemen"], jawab: 0, penjelasan: "box-shadow memberi efek bayangan pada elemen." },
+  { q: "Properti opacity bernilai 0 berarti...", opsi: ["Elemen transparan sepenuhnya", "Elemen terlihat penuh", "Elemen berwarna hitam", "Elemen tidak ada"], jawab: 0, penjelasan: "opacity 0 berarti elemen transparan sepenuhnya (tidak terlihat)." },
+  { q: "Untuk membuat animasi digunakan properti...", opsi: ["animation", "transition", "transform", "move"], jawab: 0, penjelasan: "animation dengan keyframes untuk animasi kompleks." },
+  { q: "Grid layout menggunakan display bernilai...", opsi: ["grid", "flex", "block", "table"], jawab: 0, penjelasan: "display: grid membuat CSS Grid layout." },
+  { q: "Properti untuk mengatur sudut pandang kolom adalah...", opsi: ["grid-template-columns", "grid-col", "column", "grid-columns"], jawab: 0, penjelasan: "grid-template-columns menentukan struktur kolom grid." },
+  { q: "Tag untuk embed video di HTML5 adalah...", opsi: ["video", "embed", "movie", "media"], jawab: 0, penjelasan: "video adalah tag HTML5 untuk menyematkan video." }
+];
+
+const soalSulit = [
+  { q: "Perbedaan utama antara semantic HTML dan div adalah...", opsi: ["Semantic HTML punya makna, div hanya container", "Semantic HTML lebih cepat", "div lebih SEO friendly", "Tidak ada bedanya"], jawab: 0, penjelasan: "Semantic HTML memberi makna ke mesin pencari dan screen reader, div hanya container generik." },
+  { q: "Box-sizing: border-box mempengaruhi...", opsi: ["Width mencakup padding dan border", "Height jadi otomatis", "Margin otomatis hilang", "Font size jadi responsif"], jawab: 0, penjelasan: "border-box membuat width mencakup padding dan border." },
+  { q: "Perbedaan position absolute dan fixed adalah...", opsi: ["Absolute relatif ke parent, fixed ke viewport", "Sama saja", "Fixed tidak berfungsi di mobile", "Absolute selalu di tengah"], jawab: 0, penjelasan: "Absolute relatif ke parent berposition, fixed relatif ke viewport browser." },
+  { q: "CSS Variables dideklarasikan dengan sintaks...", opsi: ["--nama: value", "$nama: value", "@nama: value", "#nama: value"], jawab: 0, penjelasan: "CSS Variables (custom properties) menggunakan --nama: value." },
+  { q: "Untuk memanggil CSS Variable digunakan...", opsi: ["var(--nama)", "variable(--nama)", "get(--nama)", "$nama"], jawab: 0, penjelasan: "Fungsi var() digunakan untuk mengakses nilai CSS Variable." },
+  { q: "Perbedaan rem dan em adalah...", opsi: ["rem relatif ke root font-size, em ke parent", "Sama saja", "em relatif ke root", "rem selalu lebih besar"], jawab: 0, penjelasan: "rem relatif terhadap font-size root, em relatif terhadap font-size parent." },
+  { q: "Flex-grow: 1 pada semua item menyebabkan...", opsi: ["Item membagi ruang sama rata", "Item menghilang", "Item jadi vertikal", "Item jadi kecil"], jawab: 0, penjelasan: "flex-grow 1 membuat item membagi space tersedia sama rata." },
+  { q: "Selector > memilih...", opsi: ["Child langsung", "Semua descendant", "Sibling", "Parent"], jawab: 0, penjelasan: "Selector > memilih child langsung saja, bukan semua keturunan." },
+  { q: "Selector + memilih...", opsi: ["Sibling berikutnya", "Child", "Parent", "Semua sibling"], jawab: 0, penjelasan: "Selector + (adjacent sibling) memilih elemen saudara berikutnya." },
+  { q: "Media query prefers-color-scheme berfungsi...", opsi: ["Deteksi tema preferensi user", "Deteksi ukuran layar", "Deteksi browser", "Deteksi koneksi"], jawab: 0, penjelasan: "prefers-color-scheme mendeteksi apakah user pakai dark/light mode." },
+  { q: "Container queries berbeda dari media queries karena...", opsi: ["Berdasarkan ukuran container, bukan viewport", "Lebih cepat", "Lebih lambat", "Tidak ada bedanya"], jawab: 0, penjelasan: "Container queries responsif terhadap ukuran container induknya, bukan viewport." },
+  { q: "Aspect-ratio: 16 / 9 berguna untuk...", opsi: ["Menjaga rasio 16:9", "Mengatur ukuran 16x9", "Membuat grid 16x9", "Menghapus rasio"], jawab: 0, penjelasan: "aspect-ratio menjaga proporsi lebar dan tinggi elemen." },
+  { q: "CSS @supports berguna untuk...", opsi: ["Cek dukungan properti di browser", "Membuat animasi", "Import CSS", "Membuat variable"], jab: 0, penjelasan: "@supports memeriksa apakah browser mendukung fitur CSS tertentu." },
+  { q: "Mix-blend-mode: multiply menghasilkan...", opsi: ["Efek penggabungan warna gelap", "Efek blur", "Efek transparan", "Efek terang"], jawab: 0, penjelasan: "multiply menggelapkan hasil penggabungan warna." },
+  { q: "Backdrop-filter: blur() berguna untuk...", opsi: ["Blur elemen di belakang elemen", "Blur elemen sendiri", "Blur teks", "Blur border"], jawab: 0, penjelasan: "backdrop-filter memblur area di belakang elemen, populer untuk glassmorphism." },
+  { q: "Grid-template-areas berguna untuk...", opsi: ["Menamai area grid", "Membuat kolom otomatis", "Menghapus grid", "Mengubah warna grid"], jawab: 0, penjelasan: "grid-template-areas menamai area grid untuk layout yang lebih mudah dibaca." },
+  { q: "Clamp() pada CSS berguna untuk...", opsi: ["Nilai dinamis dengan batas min/max", "Menghapus nilai", "Mengubah warna", "Membuat animasi"], jawab: 0, penjelasan: "clamp(min, prefer, max) memberi nilai dinamis dengan batas atas dan bawah." },
+  { q: "Perbedaan pseudo-class dan pseudo-element adalah...", opsi: ["Pseudo-class untuk state, pseudo-element untuk bagian elemen", "Sama saja", "Pseudo-element pakai : (titik satu)", "Pseudo-class pakai :: (titik dua)"], jawab: 0, penjelasan: "Pseudo-class (:hover) untuk state, pseudo-element (::before) untuk bagian elemen." },
+  { q: "Will-change pada CSS berguna untuk...", opsi: ["Optimasi performa animasi", "Menghapus elemen", "Mengubah warna", "Menambah animasi"], jawab: 0, penjelasan: "will-change memberi hint ke browser tentang properti yang akan berubah." },
+  { q: "Cascade dalam CSS berarti...", opsi: ["Urutan prioritas penerapan style", "Animasi CSS", "Framework CSS", "Variabel CSS"], jawab: 0, penjelasan: "Cascade menentukan prioritas style berdasarkan specificity dan urutan deklarasi." }
+];
+
+let latihanSoal = [];
+let latihanIdx = 0;
+let latihanBenar = 0;
+let latihanSalah = 0;
+let latihanTingkat = 'mudah';
+let latihanTerjawab = false;
+
 function loadLocalProgress() {
   const storedDate = localStorage.getItem('htmlcssDate');
   if (storedDate === todayStr) {
@@ -1085,6 +1564,8 @@ function openMateri(index) {
 
     document.getElementById('halamanUtama').classList.add('hidden');
     document.getElementById('materiView').classList.remove('hidden');
+    document.getElementById('latihanView').classList.add('hidden');
+    document.getElementById('fabLatihan').classList.add('hidden');
 
     document.getElementById('judulMateriView').innerHTML = materiList[index].judul;
     document.getElementById('isiMateriDetail').innerHTML = materiList[index].konten;
@@ -1109,7 +1590,169 @@ function prevMateri() {
 
 function backToList() {
   document.getElementById('materiView').classList.add('hidden');
+  document.getElementById('latihanView').classList.add('hidden');
   document.getElementById('halamanUtama').classList.remove('hidden');
+  document.getElementById('fabLatihan').classList.remove('hidden');
+  renderBagian();
+}
+
+function bukaPilihTingkat() {
+  if (!currentUser) {
+    showAlert('Silakan masuk ke akun Anda terlebih dahulu.', false);
+    return;
+  }
+
+  document.getElementById('halamanUtama').classList.add('hidden');
+  document.getElementById('materiView').classList.add('hidden');
+  document.getElementById('latihanView').classList.remove('hidden');
+  document.getElementById('latihanPilihTingkat').classList.remove('hidden');
+  document.getElementById('latihanMain').classList.add('hidden');
+  document.getElementById('fabLatihan').classList.add('hidden');
+}
+
+function mulaiLatihanSoal(tingkat) {
+  if (!currentUser) {
+    showAlert('Silakan masuk ke akun Anda terlebih dahulu.', false);
+    return;
+  }
+
+  latihanTingkat = tingkat;
+  if (tingkat === 'mudah') latihanSoal = soalMudah.slice();
+  else if (tingkat === 'sedang') latihanSoal = soalSedang.slice();
+  else latihanSoal = soalSulit.slice();
+
+  latihanSoal.sort(function() { return 0.5 - Math.random(); });
+  latihanSoal = latihanSoal.slice(0, 20);
+
+  latihanIdx = 0;
+  latihanBenar = 0;
+  latihanSalah = 0;
+  latihanTerjawab = false;
+
+  document.getElementById('latihanPilihTingkat').classList.add('hidden');
+  document.getElementById('latihanMain').classList.remove('hidden');
+
+  document.getElementById('judulLatihan').innerText = 'Latihan ' + tingkat.charAt(0).toUpperCase() + tingkat.slice(1);
+  document.getElementById('latihanProgressWrap').style.display = 'block';
+  document.getElementById('latihanSoalWrap').classList.remove('hidden');
+  document.getElementById('latihanHasilWrap').classList.add('hidden');
+
+  tampilkanSoal();
+}
+
+function tampilkanSoal() {
+  const soal = latihanSoal[latihanIdx];
+  latihanTerjawab = false;
+
+  document.getElementById('latihanProgressText').innerText = 'Soal ' + (latihanIdx + 1) + ' dari ' + latihanSoal.length;
+  document.getElementById('latihanScoreText').innerText = 'Benar: ' + latihanBenar;
+  document.getElementById('latihanProgressBar').style.width = ((latihanIdx) / latihanSoal.length * 100) + '%';
+
+  document.getElementById('latihanPertanyaan').innerText = soal.q;
+
+  const opsiWrap = document.getElementById('latihanOpsiWrap');
+  opsiWrap.innerHTML = '';
+  const label = ['A', 'B', 'C', 'D'];
+
+  soal.opsi.forEach(function(o, idx) {
+    const btn = document.createElement('button');
+    btn.className = 'latihan-opsi';
+    btn.innerHTML = '<span class="opsi-label">' + label[idx] + '</span><span>' + o + '</span>';
+    btn.onclick = function() { jawabSoal(idx); };
+    opsiWrap.appendChild(btn);
+  });
+
+  document.getElementById('latihanPenjelasanWrap').classList.add('hidden');
+  document.getElementById('latihanLanjutBtn').classList.add('hidden');
+}
+
+function jawabSoal(pilihan) {
+  if (latihanTerjawab) return;
+  latihanTerjawab = true;
+
+  const soal = latihanSoal[latihanIdx];
+  const opsiList = document.querySelectorAll('#latihanOpsiWrap .latihan-opsi');
+
+  opsiList.forEach(function(el, idx) {
+    el.classList.add('disabled');
+    if (idx === soal.jawab) el.classList.add('correct');
+    if (idx === pilihan && pilihan !== soal.jawab) el.classList.add('wrong');
+  });
+
+  if (pilihan === soal.jawab) {
+    latihanBenar++;
+  } else {
+    latihanSalah++;
+  }
+
+  document.getElementById('latihanScoreText').innerText = 'Benar: ' + latihanBenar;
+
+  const penjelasanWrap = document.getElementById('latihanPenjelasanWrap');
+  penjelasanWrap.innerHTML = '<b>' + (pilihan === soal.jawab ? '✓ Benar!' : '✗ Salah') + '</b><br>' + soal.penjelasan;
+  penjelasanWrap.classList.remove('hidden');
+
+  const lanjutBtn = document.getElementById('latihanLanjutBtn');
+  lanjutBtn.classList.remove('hidden');
+  lanjutBtn.innerText = (latihanIdx + 1 < latihanSoal.length) ? 'Soal Berikutnya' : 'Lihat Hasil';
+}
+
+function lanjutSoal() {
+  if (latihanIdx + 1 < latihanSoal.length) {
+    latihanIdx++;
+    tampilkanSoal();
+  } else {
+    tampilkanHasil();
+  }
+}
+
+function tampilkanHasil() {
+  document.getElementById('latihanSoalWrap').classList.add('hidden');
+  document.getElementById('latihanProgressWrap').style.display = 'none';
+  document.getElementById('latihanHasilWrap').classList.remove('hidden');
+
+  const total = latihanSoal.length;
+  const nilai = Math.round(latihanBenar / total * 100);
+
+  document.getElementById('hasilBenar').innerText = latihanBenar;
+  document.getElementById('hasilSalah').innerText = latihanSalah;
+  document.getElementById('hasilNilai').innerText = nilai;
+
+  let title = 'Luar Biasa!';
+  let subtitle = 'Kamu menguasai materi dengan sangat baik.';
+  let gradient = 'linear-gradient(135deg, #2563EB, #60A5FA)';
+  let iconPath = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+
+  if (nilai < 60) {
+    title = 'Perlu Belajar Lagi';
+    subtitle = 'Baca ulang materi lalu coba lagi ya.';
+    gradient = 'linear-gradient(135deg, #DC2626, #F87171)';
+    iconPath = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+  } else if (nilai < 80) {
+    title = 'Bagus!';
+    subtitle = 'Kamu sudah cukup paham, terus berlatih!';
+    gradient = 'linear-gradient(135deg, #D97706, #FBBF24)';
+    iconPath = '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>';
+  }
+
+  document.getElementById('hasilTitle').innerText = title;
+  document.getElementById('hasilSubtitle').innerText = subtitle;
+
+  const iconWrap = document.getElementById('hasilIconWrap');
+  if (iconWrap) {
+    iconWrap.style.background = gradient;
+    iconWrap.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 36px; height: 36px;">' + iconPath + '</svg>';
+  }
+}
+
+function ulangiLatihan() {
+  mulaiLatihanSoal(latihanTingkat);
+}
+
+function keluarLatihan() {
+  document.getElementById('latihanView').classList.add('hidden');
+  document.getElementById('materiView').classList.add('hidden');
+  document.getElementById('halamanUtama').classList.remove('hidden');
+  document.getElementById('fabLatihan').classList.remove('hidden');
   renderBagian();
 }
 

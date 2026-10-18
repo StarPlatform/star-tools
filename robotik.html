@@ -520,92 +520,84 @@
   }
 
   /* ===== Tampilan Laptop / PC ===== */
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
     }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .sidebar-nav .logout-link { margin-top:auto; }
 
     .app-container {
-      max-width: 720px;
-      margin: 36px auto;
-      background: #FFFFFF;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      min-height: auto;
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
     }
-
-    body.dark .app-container {
-      background: #111827;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
 
     .app-header {
-      border-radius: 20px 20px 0 0;
-      position: relative;
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1100px) / 2 + 32px));
     }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    .app-title { font-size:22px; }
+    .close-btn:hover { background:rgba(37,99,235,.10); }
 
+    /* kiri: penjelasan, kanan: pilih bahasa pemrograman + aktivasi */
     .screen {
-      padding: 24px 24px 30px;
+      width:100%; max-width:1100px; margin:0 auto; padding:32px 32px 40px;
+      display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); column-gap:28px; align-items:start;
     }
+    .side-col { grid-column:1; min-width:0; }
+    .main-col { grid-column:2; min-width:0; display:flex; flex-direction:column; }
+    #pilihMateriCard { order:-1; }
+    .card-modern { padding:26px; border-radius:22px; margin-bottom:20px; }
+    .side-col > .card-modern:last-child, .main-col > .card-modern:last-child { margin-bottom:0; }
+    .section-title { font-size:20px; letter-spacing:-.3px; }
+    .text-muted { font-size:14px; }
 
-    .card-modern {
-      padding: 24px;
-      margin-bottom: 24px;
-      border-radius: 24px;
+    #pilihMateriCard, body.dark #pilihMateriCard {
+      background:transparent; border:0; box-shadow:none; padding:0; border-radius:0; margin-bottom:24px;
     }
-
-    .grid-materi {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 14px;
-    }
-
+    #pilihMateriCard .section-title { font-size:26px; letter-spacing:-.4px; margin-bottom:18px; }
+    .grid-materi { display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:16px; }
     .btn-materi {
-      padding: 18px 20px;
-      font-size: 15px;
-      border-radius: 20px;
+      padding:34px 16px; border-radius:22px; min-height:150px; font-size:16px; font-weight:700;
+      transition:border-color .15s, box-shadow .15s, transform .15s;
     }
+    .btn-materi:hover { border-color:#9DB9F2; box-shadow:0 12px 28px rgba(37,99,235,.10); transform:translateY(-3px); }
+    body.dark .btn-materi:hover { border-color:#2F4A8A; box-shadow:none; }
+    .btn-materi:active { transform:scale(.98); }
 
-    .alert-card {
-      width: 340px;
-      padding: 28px 26px;
-      border-radius: 28px;
-    }
+    .input-modern { padding:14px 18px; font-size:15px; }
+    .input-modern:focus { border-color:#2563EB; box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+    .btn-full { transition:filter .15s; }
+    .btn-full:hover { filter:brightness(1.08); }
 
-    .sidebar-nav {
-      border-radius: 0 20px 20px 0;
-    }
-
-    .status-row {
-      flex-wrap: nowrap;
-    }
-
-    .premium-indicator,
-    .limit-indicator {
-      font-size: 14px;
-      padding: 8px 20px;
-    }
-
-    .input-modern {
-      padding: 16px 20px;
-      font-size: 16px;
-      border-radius: 60px;
-    }
-
-    .btn-full {
-      padding: 16px;
-      font-size: 16px;
-      border-radius: 44px;
-    }
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
+    .alert-card { max-width:380px; padding:28px 26px; border-radius:28px; }
   }
+
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .screen { grid-template-columns:minmax(0,290px) minmax(0,1fr); column-gap:20px; padding:24px; }
+  }
+
 </style>
 </head>
 <body>
@@ -638,6 +630,7 @@
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
+    <div class="sidebar-brand">STools</div>
     <a href="#" onclick="goTo('index.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
     </a>
@@ -665,6 +658,7 @@
 
   <!-- Main Screen -->
   <div class="screen" id="mainScreen">
+    <div class="side-col">
     <!-- Welcome Section tanpa nama akun -->
     <div id="welcomeSection">
       <div class="card-modern">
@@ -709,6 +703,9 @@
       </ul>
     </div>
 
+    </div>
+
+    <div class="main-col">
     <!-- Aktivasi Premium -->
     <div class="card-modern">
       <div class="section-title">
@@ -735,7 +732,11 @@
         <button class="btn-materi" onclick="selectMateri('dasarrobotic')">
           Dasar Robotik
         </button>
+        <button class="btn-materi" onclick="selectMateri('arduino')">
+          Arduino
+        </button>
       </div>
+    </div>
     </div>
   </div>
 
@@ -828,7 +829,6 @@ function updateUI() {
     badge.className = 'premium-indicator active';
     limitCounter.innerText = 'Tak Terbatas';
   } else if (isPremium) {
-    // Premium tanpa expiry (harusnya gak terjadi, tapi jaga-jaga)
     badge.innerText = 'Premium Robotik';
     badge.className = 'premium-indicator active';
     limitCounter.innerText = 'Tak Terbatas';
@@ -994,6 +994,9 @@ async function selectMateri(language) {
   switch(language) {
     case 'dasarrobotic':
       targetPage = 'dasar-robotik.html';
+      break;
+    case 'arduino':
+      targetPage = 'arduino.html';
       break;
     default:
       targetPage = 'robotik.html';

@@ -738,117 +738,147 @@
   }
 
   /* ===== Tampilan Laptop / PC ===== */
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+
+  /* ===== KARTU KUOTA ===== */
+  .limit-info, body.dark .limit-info {
+    display:block; padding:16px 18px 18px; border-radius:16px; margin-bottom:18px;
+    background:#fff; border:1px solid #E2E8F0;
+  }
+  body.dark .limit-info { background:#111827; border-color:#1E293B; }
+  .lim-top { display:flex; align-items:center; gap:12px; }
+  .lim-ico {
+    width:40px; height:40px; border-radius:12px; background:#EFF6FF; color:#2563EB;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .lim-ico svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  body.dark .lim-ico { background:rgba(37,99,235,.18); color:#93C5FD; }
+  .lim-txt { flex:1; min-width:0; }
+  .limit-info .label { font-size:14px; font-weight:600; color:#0F172A; }
+  body.dark .limit-info .label { color:#F1F5F9; }
+  .lim-sub { font-size:12px; color:#94A3B8; margin-top:2px; }
+  .limit-info .count { font-size:13px; color:#64748B; white-space:nowrap; text-align:right; }
+  body.dark .limit-info .count { color:#94A3B8; }
+  .limit-info .count b { font-size:26px; font-weight:700; color:#2563EB; letter-spacing:-.5px; margin-right:4px; }
+  body.dark .limit-info .count b { color:#60A5FA; }
+  .lim-bar { height:8px; background:#E2E8F0; border-radius:99px; overflow:hidden; margin-top:14px; }
+  body.dark .lim-bar { background:#1E293B; }
+  .lim-bar > div { height:100%; width:100%; border-radius:99px; background:#2563EB; transition:width .4s, background .2s; }
+  .limit-info.low .count b { color:#D97706; } .limit-info.low .lim-bar > div { background:#F59E0B; }
+  .limit-info.empty .count b { color:#DC2626; } .limit-info.empty .lim-bar > div { background:#DC2626; }
+
+  /* ===== SOAL PILIHAN GANDA ===== */
+  .opt-tag { font-weight:500; color:#94A3B8; }
+  .pg-toolbar { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+  .pg-seg { display:inline-flex; background:#F1F5F9; border-radius:10px; padding:3px; }
+  body.dark .pg-seg { background:#1E293B; }
+  .pg-seg button {
+    border:none; background:transparent; padding:6px 14px; border-radius:8px; font-size:12.5px; font-weight:600;
+    color:#64748B; cursor:pointer; font-family:inherit;
+  }
+  .pg-seg button.active { background:#fff; color:#2563EB; box-shadow:0 1px 3px rgba(15,23,42,.12); }
+  body.dark .pg-seg button.active { background:#334155; color:#93C5FD; box-shadow:none; }
+  .pg-count { font-size:12px; color:#64748B; }
+  .pg-card { border:1px solid #E2E8F0; border-radius:16px; padding:14px; margin-bottom:12px; background:#F8FAFC; }
+  body.dark .pg-card { background:#0F172A; border-color:#1E293B; }
+  .pg-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .pg-num { font-size:13px; font-weight:700; color:#2563EB; }
+  body.dark .pg-num { color:#93C5FD; }
+  .pg-del { border:none; background:transparent; color:#94A3B8; cursor:pointer; width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+  .pg-del:hover { background:rgba(220,38,38,.10); color:#DC2626; }
+  .pg-del svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .pg-card textarea.input-field { min-height:70px; margin-bottom:10px; }
+  .input-group label.pg-opt { display:flex; align-items:center; gap:10px; margin-bottom:8px; position:relative; }
+  .pg-opt input[type=radio] { position:absolute; opacity:0; width:34px; height:34px; margin:0; cursor:pointer; }
+  .pg-letter {
+    width:34px; height:34px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:700; background:#fff; border:2px solid #CBD5E1; color:#64748B; cursor:pointer; transition:.15s;
+  }
+  body.dark .pg-letter { background:#1E293B; border-color:#475569; color:#94A3B8; }
+  .pg-opt input[type=radio]:checked + .pg-letter { background:#16A34A; border-color:#16A34A; color:#fff; }
+  .pg-opt input[type=radio]:focus-visible + .pg-letter { outline:3px solid rgba(37,99,235,.35); outline-offset:2px; }
+  .pg-opt .input-field { flex:1; min-width:0; padding:10px 14px; font-size:14px; }
+  .pg-hint { font-size:11.5px; color:#94A3B8; margin-top:2px; }
+  .btn-add-soal {
+    width:100%; padding:12px; border:2px dashed #BFD3F5; background:transparent; color:#2563EB; border-radius:14px;
+    font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; transition:.15s;
+  }
+  .btn-add-soal:hover { background:rgba(37,99,235,.06); border-color:#2563EB; }
+  body.dark .btn-add-soal { border-color:#2F4A8A; color:#93C5FD; }
+
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
     }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .logout-link { margin-top:auto; }
 
     .app-container {
-      max-width: 720px;
-      margin: 36px auto;
-      background: #FFFFFF;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      min-height: auto;
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
     }
-
-    body.dark .app-container {
-      background: #111827;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
 
     .app-header {
-      border-radius: 20px 20px 0 0;
-      position: relative;
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1100px) / 2 + 32px)); justify-content:flex-end;
     }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    .app-header .logo-area { display:none; }
+    .header-btn:hover { background:rgba(37,99,235,.10); }
 
-    .page-container {
-      padding: 24px 24px 30px;
+    /* kiri: info + kuota, kanan: formulir */
+    .page-container { width:100%; max-width:1100px; margin:0 auto; padding:32px 32px 40px; overflow:visible; flex:1; }
+    .page-container > .card, body.dark .page-container > .card {
+      display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); gap:28px; align-items:start;
+      background:transparent; border:0; box-shadow:none; padding:0; margin:0; border-radius:0;
     }
+    .gen-side { position:sticky; top:92px; }
+    .gen-side .card-title { font-size:26px; letter-spacing:-.4px; }
+    .gen-side .card-sub { font-size:15px; margin-bottom:20px; }
+    .gen-form {
+      background:#fff; border:1px solid #E2E8F0; border-radius:22px; padding:28px; min-width:0;
+    }
+    body.dark .gen-form { background:#111827; border-color:#1E293B; }
 
-    .card {
-      padding: 24px;
-      border-radius: 20px;
-    }
+    .input-field { padding:14px 16px; border-radius:12px; font-size:15px; }
+    .input-field:focus { border-color:#2563EB; box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+    textarea.input-field { min-height:110px; }
+    .file-upload { padding:22px; border-radius:14px; font-size:14px; transition:border-color .15s, background .15s; }
+    .file-upload:hover { border-color:#2563EB; background:rgba(37,99,235,.04); }
+    .file-upload svg { width:32px; height:32px; }
+    .btn-save { padding:15px; font-size:15.5px; border-radius:14px; transition:filter .15s; }
+    .btn-save:hover { filter:brightness(1.08); }
+    .link-box { padding:10px 14px; border-radius:12px; }
+    .link-box .link-text { font-size:14px; }
 
-    .sidebar-nav {
-      border-radius: 0 20px 20px 0;
-    }
-
-    .input-field {
-      padding: 14px 16px;
-      border-radius: 12px;
-      font-size: 15px;
-    }
-
-    textarea.input-field {
-      min-height: 100px;
-    }
-
-    .btn-save {
-      padding: 16px;
-      font-size: 16px;
-      border-radius: 40px;
-    }
-
-    .card-title {
-      font-size: 20px;
-    }
-
-    .limit-info {
-      padding: 12px 16px;
-      border-radius: 12px;
-    }
-
-    .limit-info .label {
-      font-size: 14px;
-    }
-
-    .limit-info .count {
-      font-size: 15px;
-    }
-
-    .link-box {
-      padding: 10px 14px;
-      border-radius: 12px;
-    }
-
-    .link-box .link-text {
-      font-size: 14px;
-    }
-
-    .file-upload {
-      padding: 18px;
-      border-radius: 12px;
-      font-size: 14px;
-    }
-
-    .file-upload svg {
-      width: 32px;
-      height: 32px;
-    }
-
-    .alert-box {
-      max-width: 360px;
-      padding: 28px 26px;
-      border-radius: 28px;
-    }
-
-    .toast {
-      max-width: 400px;
-      padding: 14px 28px;
-      font-size: 15px;
-      border-radius: 14px;
-    }
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
+    .toast { left:calc(50% + 120px); max-width:400px; padding:14px 28px; font-size:15px; border-radius:14px; }
+    .alert-box { max-width:360px; padding:28px 26px; border-radius:26px; }
   }
+
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .page-container > .card { grid-template-columns:minmax(0,290px) minmax(0,1fr); gap:20px; }
+    .page-container { padding:24px; }
+  }
+
 </style>
 </head>
 <body>
@@ -894,6 +924,7 @@
         <line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
+    <div class="sidebar-brand">STools</div>
     <a href="#" onclick="goTo('index.html')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
@@ -919,6 +950,10 @@
         <circle cx="12" cy="7" r="4"/>
       </svg> Akun
     </a>
+    <a href="#" onclick="goTo('kegiatan.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Daftar Tugas
+    </a>
     <a href="#" onclick="goTo('teman.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
     </a>
@@ -940,6 +975,7 @@
   <div class="page-container">
 
     <div class="card">
+      <div class="gen-side">
       <div class="card-title">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
@@ -951,11 +987,20 @@
       <div class="card-sub">Buat tugas dan dapatkan link untuk dibagikan ke murid.</div>
 
       <!-- LIMIT INFO -->
-      <div class="limit-info">
-        <span class="label">Sisa kuota minggu ini</span>
-        <span class="count" id="sisaKuota">10 / 10</span>
+      <div class="limit-info" id="limitInfo">
+        <div class="lim-top">
+          <div class="lim-ico"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div class="lim-txt">
+            <div class="label">Sisa kuota minggu ini</div>
+            <div class="lim-sub" id="kuotaSub">Kuota diperbarui setiap minggu</div>
+          </div>
+          <div class="count" id="sisaKuota"><b>10</b>/ 10</div>
+        </div>
+        <div class="lim-bar"><div id="kuotaBar"></div></div>
+      </div>
       </div>
 
+      <div class="gen-form">
       <!-- FORM -->
       <div class="input-group">
         <label>Judul Tugas</label>
@@ -990,6 +1035,19 @@
         </div>
       </div>
 
+      <div class="input-group">
+        <label>Soal Pilihan Ganda <span class="opt-tag">(opsional)</span></label>
+        <div class="pg-toolbar">
+          <div class="pg-seg" id="pgSeg">
+            <button type="button" class="active" data-n="4">A – D</button>
+            <button type="button" data-n="5">A – E</button>
+          </div>
+          <span class="pg-count" id="pgCount">Belum ada soal</span>
+        </div>
+        <div id="pgList"></div>
+        <button type="button" class="btn-add-soal" onclick="tambahSoal()">+ Tambah Soal</button>
+      </div>
+
       <!-- TOMBOL DENGAN LOADING STATE -->
       <button class="btn-save" id="btnBuatTugas" onclick="buatTugas()">
         <span class="spinner"></span>
@@ -1005,6 +1063,7 @@
           <button class="copy-btn" onclick="copyLink()">Salin</button>
         </div>
         <div class="sub">Bagikan link ini ke murid-muridmu untuk mengerjakan tugas.</div>
+      </div>
       </div>
     </div>
 
@@ -1084,7 +1143,15 @@ function loadLimit() {
       data.jumlah = 0;
     }
     var sisa = data.max - data.jumlah;
-    document.getElementById('sisaKuota').innerText = sisa + ' / ' + data.max;
+    if (sisa < 0) sisa = 0;
+    document.getElementById('sisaKuota').innerHTML = '<b>' + sisa + '</b>/ ' + data.max;
+    document.getElementById('kuotaBar').style.width = (data.max ? Math.round(sisa / data.max * 100) : 0) + '%';
+    var box = document.getElementById('limitInfo');
+    box.classList.toggle('low', sisa > 0 && sisa <= 3);
+    box.classList.toggle('empty', sisa === 0);
+    document.getElementById('kuotaSub').textContent =
+      sisa === 0 ? 'Kuota habis, tunggu minggu depan' :
+      (sisa <= 3 ? 'Kuota hampir habis' : 'Kuota diperbarui setiap minggu');
   });
 }
 
@@ -1129,6 +1196,101 @@ function hapusFile() {
   document.getElementById('filePreview').classList.add('hidden');
 }
 
+
+// ===== SOAL PILIHAN GANDA =====
+var MAX_SOAL = 30;
+var pgJumlah = 4;
+var pgSoal = [];
+var HURUF = ['A', 'B', 'C', 'D', 'E'];
+
+function pgEsc(t) {
+  return String(t).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+function tambahSoal() {
+  if (pgSoal.length >= MAX_SOAL) {
+    showToast('Maksimal ' + MAX_SOAL + ' soal!', 'error');
+    return;
+  }
+  pgSoal.push({ teks: '', opsi: ['', '', '', '', ''], kunci: -1 });
+  renderPG();
+  var cards = document.querySelectorAll('.pg-card');
+  var last = cards[cards.length - 1];
+  if (last) {
+    last.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    var ta = last.querySelector('textarea');
+    if (ta) ta.focus({ preventScroll: true });
+  }
+}
+
+function renderPG() {
+  var list = document.getElementById('pgList');
+  list.innerHTML = pgSoal.map(function(q, i) {
+    var opts = '';
+    for (var k = 0; k < pgJumlah; k++) {
+      opts += '<label class="pg-opt">' +
+        '<input type="radio" name="kunci' + i + '" data-i="' + i + '" data-k="' + k + '"' + (q.kunci === k ? ' checked' : '') + ' aria-label="Kunci jawaban ' + HURUF[k] + '">' +
+        '<span class="pg-letter">' + HURUF[k] + '</span>' +
+        '<input type="text" class="input-field" data-i="' + i + '" data-o="' + k + '" maxlength="200" placeholder="Pilihan ' + HURUF[k] + '" value="' + pgEsc(q.opsi[k]) + '">' +
+        '</label>';
+    }
+    return '<div class="pg-card">' +
+      '<div class="pg-head"><span class="pg-num">Soal ' + (i + 1) + '</span>' +
+      '<button type="button" class="pg-del" data-del="' + i + '" aria-label="Hapus soal ' + (i + 1) + '">' +
+      '<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></div>' +
+      '<textarea class="input-field" data-i="' + i + '" data-q="1" maxlength="500" placeholder="Tulis pertanyaan...">' + pgEsc(q.teks) + '</textarea>' +
+      opts +
+      '<div class="pg-hint">Klik huruf untuk menandai kunci jawaban.</div>' +
+      '</div>';
+  }).join('');
+  document.getElementById('pgCount').textContent = pgSoal.length ? pgSoal.length + ' soal' : 'Belum ada soal';
+}
+
+document.getElementById('pgList').addEventListener('input', function(e) {
+  var t = e.target, i = t.getAttribute('data-i');
+  if (i === null) return;
+  if (t.getAttribute('data-q')) pgSoal[i].teks = t.value;
+  else if (t.getAttribute('data-o') !== null) pgSoal[i].opsi[t.getAttribute('data-o')] = t.value;
+});
+
+document.getElementById('pgList').addEventListener('change', function(e) {
+  var t = e.target;
+  if (t.type === 'radio') pgSoal[t.getAttribute('data-i')].kunci = parseInt(t.getAttribute('data-k'));
+});
+
+document.getElementById('pgList').addEventListener('click', function(e) {
+  var b = e.target.closest('[data-del]');
+  if (!b) return;
+  pgSoal.splice(parseInt(b.getAttribute('data-del')), 1);
+  renderPG();
+});
+
+document.getElementById('pgSeg').addEventListener('click', function(e) {
+  var b = e.target.closest('button');
+  if (!b) return;
+  pgJumlah = parseInt(b.getAttribute('data-n'));
+  Array.prototype.forEach.call(this.children, function(x) { x.classList.toggle('active', x === b); });
+  pgSoal.forEach(function(q) { if (q.kunci >= pgJumlah) q.kunci = -1; });
+  renderPG();
+});
+
+// validasi & ubah ke format simpan; kembalikan pesan error (string) atau array soal
+function kumpulkanPG() {
+  var hasil = [];
+  for (var i = 0; i < pgSoal.length; i++) {
+    var q = pgSoal[i], no = i + 1;
+    if (!q.teks.trim()) return 'Pertanyaan soal no. ' + no + ' belum diisi!';
+    var opsi = [];
+    for (var k = 0; k < pgJumlah; k++) {
+      if (!q.opsi[k].trim()) return 'Pilihan ' + HURUF[k] + ' pada soal no. ' + no + ' belum diisi!';
+      opsi.push(q.opsi[k].trim());
+    }
+    if (q.kunci < 0) return 'Pilih kunci jawaban untuk soal no. ' + no + '!';
+    hasil.push({ no: no, teks: q.teks.trim(), opsi: opsi, kunci: q.kunci });
+  }
+  return hasil;
+}
+
 function buatTugas() {
   var btn = document.getElementById('btnBuatTugas');
   
@@ -1158,6 +1320,12 @@ function buatTugas() {
     return;
   }
 
+  var soalPG = kumpulkanPG();
+  if (typeof soalPG === 'string') {
+    showAlert(soalPG);
+    return;
+  }
+
   btn.disabled = true;
   btn.classList.add('loading');
 
@@ -1177,6 +1345,12 @@ function buatTugas() {
 
   if (fileBase64) {
     dataTugas.foto_soal = fileBase64;
+  }
+
+  if (soalPG.length) {
+    dataTugas.soal_pg = soalPG;
+    dataTugas.jumlah_soal = soalPG.length;
+    dataTugas.jumlah_opsi = pgJumlah;
   }
 
   db.ref('tugas/' + kode).set(dataTugas).then(function() {
@@ -1199,6 +1373,8 @@ function buatTugas() {
     document.getElementById('deskripsiTugas').value = '';
     document.getElementById('durasiTugas').value = '';
     hapusFile();
+    pgSoal = [];
+    renderPG();
 
     loadLimit();
     showToast('Tugas berhasil dibuat! 🎉');

@@ -119,17 +119,54 @@
   .footer { text-align:center; padding:14px; font-size:11px; color:#64748B; }
   body.dark .footer { color:#94A3B8; }
 
+  
+
+  /* ===== DESKTOP: halaman pelacak layar penuh ===== */
   @media (min-width: 900px) {
-    body { background:linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%); min-height:100vh; }
-    body.dark { background:linear-gradient(160deg, #0B1120 0%, #111827 60%); }
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
     .app-container {
-      max-width:720px; margin:36px auto; min-height:auto; background:#F1F5F9; border-radius:20px;
-      border:1px solid #E2E8F0; box-shadow:0 20px 50px -12px rgba(15,23,42,0.12); overflow:hidden; padding-bottom:24px;
+      max-width:none; width:100%; margin:0; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
     }
-    body.dark .app-container { background:#0B1120; border-color:#1E293B; box-shadow:0 20px 50px -12px rgba(0,0,0,0.5); }
-    .app-header { border-radius:20px 20px 0 0; }
-    #mapEl { height:420px; }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
+
+    .app-header {
+      justify-content:flex-start; min-height:68px; background:rgba(255,255,255,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1200px) / 2 + 32px));
+    }
+    body.dark .app-header { background:rgba(17,24,39,.88); }
+    .app-title { font-size:22px; }
+
+    .screen { width:100%; max-width:1200px; margin:0 auto; padding:28px 32px 32px; }
+
+    /* status (memuat, tidak valid, minta izin, dll.) sebagai panel di tengah */
+    .center-state {
+      flex:0 0 auto; width:100%; max-width:480px; margin:6vh auto 0; padding:52px 40px;
+      background:#fff; border:1px solid #E2E8F0; border-radius:24px; box-shadow:0 2px 8px rgba(0,0,0,.04);
+    }
+    body.dark .center-state { background:#111827; border-color:#1E293B; }
+    .center-state h2 { font-size:21px; }
+    .center-state p { font-size:14.5px; max-width:340px; }
+    .name-input { max-width:340px; padding:14px 18px; font-size:15px; }
+    .name-input:focus { box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+    .btn-full { max-width:340px; padding:14px; font-size:15px; transition:filter .15s; }
+    .btn-full:hover { filter:brightness(1.08); }
+
+    /* peta memenuhi layar */
+    #stateApproved:not(.hidden) { flex:1; display:flex; flex-direction:column; }
+    #stateApproved .card-modern { flex:1; display:flex; flex-direction:column; padding:24px; border-radius:24px; margin-bottom:0; }
+    #mapEl { flex:1 1 auto; height:auto; min-height:440px; border-radius:18px; }
+    .map-header-row { margin-bottom:16px; }
+    .status-badge { font-size:13.5px; padding:8px 16px; }
+    .map-header-row .updated-text { font-size:13px; }
+    .note-box { margin-top:16px; padding:14px 18px; }
+    .note-box p { font-size:13px; }
+
+    .footer { background:transparent; padding:18px; }
   }
+
 </style>
 </head>
 <body>

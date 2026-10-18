@@ -685,100 +685,77 @@
   }
 
   /* ===== Tampilan Laptop / PC ===== */
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
     }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .logout-link { margin-top:auto; }
 
     .app-container {
-      max-width: 720px;
-      margin: 36px auto;
-      background: #FFFFFF;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      min-height: auto;
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
     }
-
-    body.dark .app-container {
-      background: #111827;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
 
     .app-header {
-      border-radius: 20px 20px 0 0;
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1100px) / 2 + 32px));
     }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    .app-title { font-size:22px; }
+    .close-btn:hover { background:rgba(37,99,235,.10); }
 
-    .sidebar-nav {
-      border-radius: 0 20px 20px 0;
-    }
-
+    /* kiri: info + panduan, kanan: area kerja */
     .screen {
-      padding: 24px 24px 30px;
+      width:100%; max-width:1100px; margin:0 auto; padding:28px 32px 40px;
+      display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); gap:24px; align-items:start;
     }
+    .side-info { position:sticky; top:92px; }
+    .main-area { min-width:0; }
+    .card-modern { padding:26px; border-radius:22px; margin-bottom:16px; }
+    .side-info .card-modern:last-child, .main-area .card-modern:last-child { margin-bottom:0; }
+    .section-title { font-size:19px; }
 
-    .card-modern {
-      padding: 24px;
-      border-radius: 20px;
-    }
+    .input-modern { padding:14px 18px; border-radius:14px; font-size:15px; }
+    .input-modern:focus { border-color:#2563EB; box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+        .btn-modern { padding:14px 20px; border-radius:14px; font-size:15px; }
+    .btn-sm { padding:11px 24px !important; font-size:14px; }
+    .btn-modern.primary:hover { background:#1D4ED8; }
+    .btn-modern:hover { filter:brightness(.97); }
 
-    .bottom-nav {
-      max-width: 720px;
-      border-radius: 0 0 20px 20px;
-    }
+    .table-wrap { border-radius:16px; }
+    .table-wrap table th, .table-wrap table td { padding:13px 18px; font-size:14.5px; }
 
-    .section-title {
-      font-size: 20px;
-    }
+    .step-item { padding:12px 14px; border-radius:12px; }
+    .step-item .text { font-size:13.5px; }
 
-    .input-modern {
-      padding: 14px 18px;
-      border-radius: 14px;
-      font-size: 15px;
-    }
-
-    .btn-modern {
-      padding: 14px 20px;
-      border-radius: 14px;
-      font-size: 15px;
-    }
-
-    .btn-sm {
-      padding: 10px 20px;
-      font-size: 13px;
-    }
-
-    .table-wrap {
-      border-radius: 16px;
-    }
-
-    .table-wrap table th,
-    .table-wrap table td {
-      padding: 12px 16px;
-      font-size: 14px;
-    }
-
-    .footer-app {
-      margin-bottom: 0;
-    }
-
-    .alert-card {
-      max-width: 360px;
-      padding: 28px;
-      border-radius: 28px;
-    }
-
-    .input-group .input-modern:last-child {
-      max-width: 120px;
-    }
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
+    .alert-card { max-width:380px; padding:30px 28px; border-radius:26px; }
   }
+
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .screen { grid-template-columns:minmax(0,290px) minmax(0,1fr); gap:20px; padding:24px; }
+  }
+
 </style>
 </head>
 <body>
@@ -810,6 +787,7 @@
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
+    <div class="sidebar-brand">STools</div>
     <a href="#" onclick="goTo('index.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
     </a>
@@ -821,6 +799,10 @@
     </a>
     <a href="#" onclick="goTo('akun.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Akun
+    </a>
+    <a href="#" onclick="goTo('kegiatan.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Daftar Tugas
     </a>
     <a href="#" onclick="goTo('teman.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
@@ -836,6 +818,7 @@
   </div>
 
   <div class="screen">
+    <div class="side-info">
     <!-- Welcome -->
     <div class="card-modern">
       <div class="section-title">
@@ -875,6 +858,9 @@
       </div>
     </div>
 
+    </div>
+
+    <div class="main-area">
     <!-- Tabel Ranking -->
     <div class="card-modern">
       <div class="section-title">
@@ -899,6 +885,7 @@
           <tbody id="tabelNilai"></tbody>
         </table>
       </div>
+    </div>
     </div>
   </div>
 

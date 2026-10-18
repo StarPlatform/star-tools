@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Laporan Kas - STools</title>
+
+<link rel="icon" type="image/png" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<style>
+  :root {
+    --bg: #F1F5F9;
+    --card: #FFFFFF;
+    --text: #0F172A;
+    --text-soft: #64748B;
+    --text-faint: #94A3B8;
+    --border: #E2E8F0;
+    --primary: #2563EB;
+    --success: #059669;
+    --success-soft: #ECFDF5;
+    --danger: #DC2626;
+    --danger-soft: #FEF2F2;
+    --field-bg: #F8FAFE;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0B1120;
+      --card: #111827;
+      --text: #F1F5F9;
+      --text-soft: #94A3B8;
+      --text-faint: #64748B;
+      --border: #1E293B;
+      --primary: #60A5FA;
+      --success: #34D399;
+      --success-soft: #0F2A20;
+      --danger: #F87171;
+      --danger-soft: #3A1414;
+      --field-bg: #1E293B;
+    }
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+    overflow-x: hidden;
+  }
+
+  .halaman {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 12px 12px 28px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 22px;
+    padding: 18px 16px 16px;
+    color: #FFFFFF;
+    background:
+      radial-gradient(circle at 90% 0%, rgba(255, 255, 255, 0.18), transparent 45%),
+      linear-gradient(145deg, #1E40AF 0%, #2563EB 55%, #3B82F6 100%);
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .hero-atas {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .hero-judul {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .hero-judul small {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .hero-judul h1 {
+    margin-top: 3px;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .hero-judul p {
+    margin-top: 4px;
+    font-size: 12px;
+    opacity: 0.85;
+    line-height: 1.4;
+  }
+
+  .sudut {
+    flex-shrink: 0;
+    max-width: 44%;
+    text-align: right;
+    padding: 8px 11px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(6px);
+  }
+
+  .sudut span {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    opacity: 0.85;
+  }
+
+  .sudut b {
+    display: block;
+    margin-top: 1px;
+    font-size: 15px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .sudut em {
+    display: block;
+    margin-top: 1px;
+    font-style: normal;
+    font-size: 10px;
+    opacity: 0.8;
+  }
+
+  .saldo {
+    margin-top: 16px;
+  }
+
+  .saldo span {
+    display: block;
+    font-size: 11.5px;
+    opacity: 0.8;
+  }
+
+  .saldo b {
+    display: block;
+    margin-top: 1px;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+  }
+
+  .dua {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .kotak {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 11px 13px;
+  }
+
+  .kotak span {
+    display: block;
+    font-size: 11.5px;
+    color: var(--text-soft);
+  }
+
+  .kotak b {
+    display: block;
+    margin-top: 2px;
+    font-size: 15px;
+  }
+
+  .kotak.masuk b {
+    color: var(--success);
+  }
+
+  .kotak.keluar b {
+    color: var(--danger);
+  }
+
+  .kartu {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 14px 12px;
+    margin-bottom: 10px;
+  }
+
+  .judul-kartu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 0 2px;
+  }
+
+  .judul-kartu h2 {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .bulan {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .bulan button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--field-bg);
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .bulan button:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .bulan span {
+    min-width: 104px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .rekap {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .rekap th {
+    padding: 0 1px 6px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--text-faint);
+    text-align: center;
+  }
+
+  .rekap th.nm {
+    text-align: left;
+    padding-left: 4px;
+  }
+
+  .rekap th.tg {
+    text-align: right;
+    padding-right: 4px;
+  }
+
+  .rekap th.sekarang span {
+    display: inline-block;
+    min-width: 18px;
+    padding: 1px 0;
+    border-radius: 6px;
+    background: var(--primary);
+    color: #FFFFFF;
+  }
+
+  .rekap td {
+    padding: 4px 1px;
+    border-top: 1px solid var(--border);
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .rekap td.nm {
+    padding: 6px 4px;
+    text-align: left;
+    font-weight: 600;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .rekap td.tg {
+    padding-right: 4px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
+
+  .rekap td.tg.utang {
+    color: var(--danger);
+  }
+
+  .rekap td.tg.lunas {
+    color: var(--success);
+  }
+
+  .rekap td.tg.tunggu {
+    color: var(--text-faint);
+  }
+
+  .c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 24px;
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .c.lunas {
+    background: #FEF08A;
+    color: #854D0E;
+  }
+
+  .c.cicil {
+    background: #FED7AA;
+    color: #9A3412;
+  }
+
+  .c.belum {
+    background: var(--danger-soft);
+    box-shadow: inset 0 0 0 1px rgba(220, 38, 38, 0.35);
+  }
+
+  .c.nanti {
+    background: transparent;
+    border: 1px dashed var(--border);
+  }
+
+  .catatan {
+    margin: 10px 2px 0;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--text-soft);
+  }
+
+  .legenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin: 8px 2px 0;
+    font-size: 11px;
+    color: var(--text-soft);
+  }
+
+  .legenda i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+    margin-right: 5px;
+    vertical-align: -2px;
+  }
+
+  .transaksi {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 2px;
+    border-top: 1px solid var(--border);
+  }
+
+  .transaksi:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .transaksi .info {
+    min-width: 0;
+  }
+
+  .transaksi .ket {
+    font-size: 13px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .transaksi .tgl {
+    font-size: 11.5px;
+    color: var(--text-faint);
+    margin-top: 1px;
+  }
+
+  .transaksi .nilai {
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .transaksi .nilai.masuk {
+    color: var(--success);
+  }
+
+  .transaksi .nilai.keluar {
+    color: var(--danger);
+  }
+
+  .lagi {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--field-bg);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  .pesan {
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 13.5px;
+    padding: 28px 12px;
+    line-height: 1.6;
+  }
+
+  .pesan b {
+    display: block;
+    color: var(--text);
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .kaki {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    padding: 6px 0 0;
+    line-height: 1.6;
+  }
+
+  .sembunyi {
+    display: none !important;
+  }
+
+  @media (min-width: 900px) {
+    .halaman {
+      padding-top: 28px;
+    }
+
+    .hero-judul h1 {
+      font-size: 26px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="halaman">
+  <div class="hero">
+    <div class="hero-atas">
+      <div class="hero-judul">
+        <small>Laporan Uang Kas</small>
+        <h1 id="namaKelas">Memuat...</h1>
+        <p id="infoPeriode"></p>
+      </div>
+      <div class="sudut sembunyi" id="sudutTagihan"></div>
+    </div>
+    <div class="saldo sembunyi" id="blokSaldo">
+      <span>Saldo kas</span>
+      <b id="totalSaldo">Rp 0</b>
+    </div>
+  </div>
+
+  <div id="pesanUtama" class="kartu pesan sembunyi"></div>
+
+  <div id="isi" class="sembunyi">
+    <div class="dua">
+      <div class="kotak masuk"><span>Total pemasukan</span><b id="totalMasuk">Rp 0</b></div>
+      <div class="kotak keluar"><span>Total pengeluaran</span><b id="totalKeluar">Rp 0</b></div>
+    </div>
+
+    <div class="kartu">
+      <div class="judul-kartu">
+        <h2>Iuran per Murid</h2>
+        <div class="bulan">
+          <button type="button" id="tombolSebelum" onclick="ubahBulan(-1)" aria-label="Bulan sebelumnya">&#8249;</button>
+          <span id="labelBulan"></span>
+          <button type="button" id="tombolSesudah" onclick="ubahBulan(1)" aria-label="Bulan berikutnya">&#8250;</button>
+        </div>
+      </div>
+      <div id="tabelRekap"></div>
+      <div class="legenda" id="legenda">
+        <span><i style="background:#FEF08A"></i>Lunas</span>
+        <span><i style="background:#FED7AA"></i>Cicil</span>
+        <span><i style="background:var(--danger-soft);box-shadow:inset 0 0 0 1px rgba(220,38,38,.35)"></i>Belum bayar</span>
+        <span><i style="border:1px dashed var(--border)"></i>Belum jatuh tempo</span>
+      </div>
+      <p class="catatan" id="catatanTagihan"></p>
+    </div>
+
+    <div class="kartu">
+      <div class="judul-kartu"><h2>Transaksi Terbaru</h2></div>
+      <div id="daftarTransaksi"></div>
+      <button type="button" class="lagi sembunyi" id="tombolLagi" onclick="tampilkanLagi()">Tampilkan lebih banyak</button>
+    </div>
+  </div>
+
+  <div class="kaki">
+    <div id="infoPembaruan"></div>
+    <div>Star Platform | STools 2026</div>
+  </div>
+</div>
+
+<script>
+var firebaseConfig = {
+  apiKey: "AIzaSyDgr_nHqvpMsiG4lBkYckzxRErkskXj_6E",
+  authDomain: "laporanstartools-c18b2.firebaseapp.com",
+  databaseURL: "https://laporanstartools-c18b2-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "laporanstartools-c18b2"
+};
+
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+var db = firebase.database();
+
+var DAFTAR_BULAN = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+var NAMA_HARI = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+var JUMLAH_AWAL = 8;
+var MAKS_TAHUN = 15;
+
+var kelasId = "";
+var sekarang = new Date();
+var tahun = sekarang.getFullYear();
+var bulan = sekarang.getMonth();
+var jumlahTampil = JUMLAH_AWAL;
+
+var pengaturan = {};
+var daftarSiswa = {};
+var dataTahun = {};
+var riwayat = [];
+
+var langganan = [];
+var langgananTahun = {};
+var menunggu = false;
+var tampilSudahTerbuka = false;
+
+function el(id) {
+  return document.getElementById(id);
+}
+
+function escapeHtml(teks) {
+  return String(teks)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function rupiah(angka) {
+  return "Rp " + Number(angka || 0).toLocaleString("id-ID");
+}
+
+function ringkasNominal(angka) {
+  var n = Number(angka) || 0;
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, "").replace(".", ",") + "jt";
+  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "").replace(".", ",") + "k";
+  return String(n);
+}
+
+function tampilkanPesan(judul, isi) {
+  el("isi").classList.add("sembunyi");
+  el("blokSaldo").classList.add("sembunyi");
+  el("sudutTagihan").classList.add("sembunyi");
+  var kotak = el("pesanUtama");
+  kotak.innerHTML = "<b>" + escapeHtml(judul) + "</b>" + escapeHtml(isi);
+  kotak.classList.remove("sembunyi");
+}
+
+function tahunDataLama() {
+  return Number(pengaturan.tahunData) || new Date().getFullYear();
+}
+
+function pathTahun(nilaiTahun) {
+  if (Number(nilaiTahun) === tahunDataLama()) return "kas/" + kelasId + "/kas";
+  return "kas/" + kelasId + "/kasTahun/" + Number(nilaiTahun);
+}
+
+function frekuensiBulan(nilaiTahun, indeksBulan) {
+  var kunci = nilaiTahun + "-" + String(indeksBulan + 1).padStart(2, "0");
+  var khusus = pengaturan.frekuensiBulan && pengaturan.frekuensiBulan[kunci];
+  return Number(khusus) || Number(pengaturan.frekuensi) || 1;
+}
+
+function dataBulan(nilaiTahun, indeksBulan) {
+  return (dataTahun[nilaiTahun] || {})[DAFTAR_BULAN[indeksBulan]] || {};
+}
+
+function jumlahSlot(nilaiTahun, indeksBulan) {
+  var data = dataBulan(nilaiTahun, indeksBulan);
+  var jumlah = 0;
+  Object.keys(data).forEach(function(nama) {
+    jumlah = Math.max(jumlah, Number(data[nama].frekuensi) || 0);
+  });
+  return jumlah || frekuensiBulan(nilaiTahun, indeksBulan);
+}
+
+function slotSekarang(jumlah, hari) {
+  if (jumlah <= 1) return 1;
+  if (jumlah === 2) return hari <= 15 ? 1 : 2;
+  return Math.min(jumlah, Math.ceil(hari / 7));
+}
+
+function satuanSlot(jumlah) {
+  if (jumlah >= 3) return "minggu";
+  if (jumlah === 2) return "paruh bulan";
+  return "bulan";
+}
+
+function labelPeriode(jumlah, slot) {
+  if (jumlah >= 3) return "Minggu ke-" + slot;
+  if (jumlah === 2) return "Paruh ke-" + slot;
+  return "Bulan ini";
+}
+
+function tahunAwal() {
+  var akhir = new Date().getFullYear();
+  var awal = Math.min(tahunDataLama(), akhir);
+  if (pengaturan.bulanMulai) {
+    var t = Number(String(pengaturan.bulanMulai).split("-")[0]);
+    if (t) awal = Math.min(t, akhir);
+  }
+  return Math.max(awal, akhir - MAKS_TAHUN + 1);
+}
+
+function semuaMuat() {
+  var akhir = new Date().getFullYear();
+  for (var y = tahunAwal(); y <= akhir; y++) {
+    if (dataTahun[y] === undefined) return false;
+  }
+  return true;
+}
+
+function indeksMulai() {
+  if (pengaturan.bulanMulai) {
+    var bagian = String(pengaturan.bulanMulai).split("-");
+    var t = Number(bagian[0]);
+    var m = Number(bagian[1]) - 1;
+    if (t && m >= 0 && m < 12) return t * 12 + m;
+  }
+  var terkecil = null;
+  Object.keys(dataTahun).forEach(function(y) {
+    DAFTAR_BULAN.forEach(function(nama, i) {
+      if (Object.keys((dataTahun[y] || {})[nama] || {}).length > 0) {
+        var idx = Number(y) * 12 + i;
+        if (terkecil === null || idx < terkecil) terkecil = idx;
+      }
+    });
+  });
+  return terkecil;
+}
+
+function hitungTagihan(nama) {
+  var mulai = indeksMulai();
+  var kini = sekarang.getFullYear() * 12 + sekarang.getMonth();
+  if (mulai === null || mulai > kini) return 0;
+
+  var dasar = Number(pengaturan.nominal) || 0;
+  var total = 0;
+
+  for (var idx = mulai; idx <= kini; idx++) {
+    var y = Math.floor(idx / 12);
+    var m = idx % 12;
+    var jumlah = jumlahSlot(y, m);
+    var batas = idx === kini ? slotSekarang(jumlah, sekarang.getDate()) : jumlah;
+    var rec = dataBulan(y, m)[nama];
+    var nominal = rec ? (Number(rec.nominal) || dasar) : dasar;
+
+    for (var slot = 1; slot <= batas; slot++) {
+      var bayar = rec && rec.bayar ? Number(rec.bayar[slot]) || 0 : 0;
+      if (nominal > bayar) total += nominal - bayar;
+    }
+  }
+  return total;
+}
+
+function daftarNama(nilaiTahun, indeksBulan) {
+  var kumpulan = {};
+  Object.keys(daftarSiswa).forEach(function(nama) {
+    kumpulan[nama] = true;
+  });
+  Object.keys(dataBulan(nilaiTahun, indeksBulan)).forEach(function(nama) {
+    kumpulan[nama] = true;
+  });
+  return Object.keys(kumpulan).sort(function(a, b) {
+    return a.localeCompare(b, "id");
+  });
+}
+
+function gambarHero() {
+  var tgl = sekarang.getDate();
+  var jumlahKini = jumlahSlot(sekarang.getFullYear(), sekarang.getMonth());
+  var slotKini = slotSekarang(jumlahKini, tgl);
+
+  el("infoPeriode").textContent = NAMA_HARI[sekarang.getDay()] + ", " + tgl + " " + DAFTAR_BULAN[sekarang.getMonth()] + " " + sekarang.getFullYear() + " · " + labelPeriode(jumlahKini, slotKini);
+
+  var sudut = el("sudutTagihan");
+  if (!semuaMuat()) {
+    sudut.classList.add("sembunyi");
+    return;
+  }
+
+  var total = 0;
+  var orang = 0;
+  daftarNama(sekarang.getFullYear(), sekarang.getMonth()).forEach(function(nama) {
+    var t = hitungTagihan(nama);
+    if (t > 0) {
+      total += t;
+      orang++;
+    }
+  });
+
+  if (total > 0) {
+    sudut.innerHTML = "<span>Perlu dibayar</span><b>" + rupiah(total) + "</b><em>" + orang + " murid belum lunas</em>";
+  } else {
+    sudut.innerHTML = "<span>Tagihan</span><b>Semua lunas</b>";
+  }
+  sudut.classList.remove("sembunyi");
+}
+
+function gambarRingkasan() {
+  var masuk = 0;
+  var keluar = 0;
+  riwayat.forEach(function(r) {
+    var nominal = Number(r.nominal) || 0;
+    if (r.jenis === "masuk") masuk += nominal;
+    else keluar += nominal;
+  });
+  el("totalMasuk").textContent = rupiah(masuk);
+  el("totalKeluar").textContent = rupiah(keluar);
+  el("totalSaldo").textContent = rupiah(masuk - keluar);
+}
+
+function batasBulan() {
+  var kini = sekarang.getFullYear() * 12 + sekarang.getMonth();
+  var mulai = indeksMulai();
+  if (mulai === null || mulai > kini) mulai = kini;
+  return { bawah: mulai, atas: kini };
+}
+
+function ubahBulan(delta) {
+  var batas = batasBulan();
+  var idx = Math.min(batas.atas, Math.max(batas.bawah, tahun * 12 + bulan + delta));
+  tahun = Math.floor(idx / 12);
+  bulan = idx % 12;
+  gambarRekap();
+}
+
+function lebarSlot(jumlah) {
+  if (jumlah <= 4) return 32;
+  if (jumlah <= 6) return 28;
+  if (jumlah <= 8) return 24;
+  return 20;
+}
+
+function gambarRekap() {
+  var batas = batasBulan();
+  var idx = Math.min(batas.atas, Math.max(batas.bawah, tahun * 12 + bulan));
+  tahun = Math.floor(idx / 12);
+  bulan = idx % 12;
+
+  el("labelBulan").textContent = DAFTAR_BULAN[bulan] + " " + tahun;
+  el("tombolSebelum").disabled = idx <= batas.bawah;
+  el("tombolSesudah").disabled = idx >= batas.atas;
+
+  var nama = daftarNama(tahun, bulan);
+  if (nama.length === 0) {
+    el("tabelRekap").innerHTML = '<div class="pesan">Belum ada murid yang tercatat.</div>';
+    el("legenda").classList.add("sembunyi");
+    el("catatanTagihan").textContent = "";
+    return;
+  }
+  el("legenda").classList.remove("sembunyi");
+
+  var jumlah = jumlahSlot(tahun, bulan);
+  var dasar = Number(pengaturan.nominal) || 0;
+  var kini = batas.atas;
+  var mulai = indeksMulai();
+  var dihitung = mulai !== null && idx >= mulai;
+  var batasSlot = idx === kini ? slotSekarang(jumlah, sekarang.getDate()) : jumlah;
+  var siap = semuaMuat();
+  var lebar = lebarSlot(jumlah);
+
+  var h = '<table class="rekap"><colgroup><col>';
+  for (var c = 0; c < jumlah; c++) h += '<col style="width:' + lebar + 'px">';
+  h += '<col style="width:72px"></colgroup><thead><tr><th class="nm">Nama</th>';
+  for (var s = 1; s <= jumlah; s++) {
+    var tandai = idx === kini && s === batasSlot;
+    h += '<th' + (tandai ? ' class="sekarang"' : '') + '><span>' + s + '</span></th>';
+  }
+  h += '<th class="tg">Tagihan</th></tr></thead><tbody>';
+
+  nama.forEach(function(n) {
+    var rec = dataBulan(tahun, bulan)[n];
+    var nominal = rec ? (Number(rec.nominal) || dasar) : dasar;
+    h += '<tr><td class="nm">' + escapeHtml(n) + '</td>';
+
+    for (var slot = 1; slot <= jumlah; slot++) {
+      var bayar = rec && rec.bayar ? Number(rec.bayar[slot]) || 0 : 0;
+      var kelas = "nanti";
+      var isi = "";
+      if (bayar > 0) {
+        if (nominal > 0 && bayar >= nominal) {
+          kelas = "lunas";
+          isi = "✓";
+        } else {
+          kelas = "cicil";
+          isi = ringkasNominal(bayar);
+        }
+      } else if (dihitung && slot <= batasSlot && nominal > 0) {
+        kelas = "belum";
+      }
+      h += '<td><div class="c ' + kelas + '">' + isi + '</div></td>';
+    }
+
+    if (!siap) {
+      h += '<td class="tg tunggu">...</td>';
+    } else {
+      var tagihan = hitungTagihan(n);
+      if (tagihan > 0) h += '<td class="tg utang">' + Number(tagihan).toLocaleString("id-ID") + '</td>';
+      else h += '<td class="tg lunas">Lunas</td>';
+    }
+    h += '</tr>';
+  });
+
+  el("tabelRekap").innerHTML = h + '</tbody></table>';
+
+  var jumlahKini = jumlahSlot(sekarang.getFullYear(), sekarang.getMonth());
+  var slotKini = slotSekarang(jumlahKini, sekarang.getDate());
+  el("catatanTagihan").textContent = "Angka 1 sampai " + jumlah + " menunjukkan " + satuanSlot(jumlah) + " ke- dalam bulan ini. Tagihan adalah total iuran yang belum dibayar sampai " + labelPeriode(jumlahKini, slotKini).toLowerCase() + " " + DAFTAR_BULAN[sekarang.getMonth()] + " " + sekarang.getFullYear() + ". Periode setelahnya belum dihitung.";
+}
+
+function gambarTransaksi() {
+  var kotak = el("daftarTransaksi");
+  if (riwayat.length === 0) {
+    kotak.innerHTML = '<div class="pesan">Belum ada transaksi.</div>';
+    el("tombolLagi").classList.add("sembunyi");
+    return;
+  }
+
+  var tampil = riwayat.slice(0, jumlahTampil);
+  kotak.innerHTML = tampil.map(function(r) {
+    var masuk = r.jenis === "masuk";
+    var judul = r.nama || (masuk ? "Pemasukan" : "Pengeluaran");
+    var keterangan = r.keterangan ? judul + " · " + r.keterangan : judul;
+    var tanggal = r.waktu ? new Date(r.waktu).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" }) : (r.tanggal || "");
+    return '<div class="transaksi"><div class="info"><div class="ket">' + escapeHtml(keterangan) + '</div><div class="tgl">' + escapeHtml(tanggal) + '</div></div>' +
+      '<div class="nilai ' + (masuk ? 'masuk' : 'keluar') + '">' + (masuk ? '+' : '-') + ' ' + rupiah(r.nominal) + '</div></div>';
+  }).join("");
+
+  el("tombolLagi").classList.toggle("sembunyi", riwayat.length <= jumlahTampil);
+}
+
+function tampilkanLagi() {
+  jumlahTampil += JUMLAH_AWAL;
+  gambarTransaksi();
+}
+
+function gambarSemua() {
+  menunggu = false;
+  sekarang = new Date();
+  gambarRingkasan();
+  gambarHero();
+  gambarRekap();
+  gambarTransaksi();
+  el("infoPembaruan").textContent = "Diperbarui " + sekarang.toLocaleString("id-ID", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+}
+
+function jadwalkanGambar() {
+  if (menunggu) return;
+  menunggu = true;
+  requestAnimationFrame(gambarSemua);
+}
+
+function galatMuat() {
+  tampilkanPesan("Laporan tidak dapat dimuat", "Akses ke data ditolak atau koneksi bermasalah. Silakan hubungi pengelola kas kelas.");
+}
+
+function sinkronTahun() {
+  var perlu = {};
+  var akhir = new Date().getFullYear();
+  for (var y = tahunAwal(); y <= akhir; y++) perlu[y] = pathTahun(y);
+
+  Object.keys(langgananTahun).forEach(function(y) {
+    if (perlu[y] !== langgananTahun[y].path) {
+      langgananTahun[y].ref.off("value", langgananTahun[y].fungsi);
+      delete langgananTahun[y];
+      delete dataTahun[y];
+    }
+  });
+
+  Object.keys(perlu).forEach(function(y) {
+    if (langgananTahun[y]) return;
+    var ref = db.ref(perlu[y]);
+    var fungsi = function(snap) {
+      dataTahun[y] = snap.val() || {};
+      jadwalkanGambar();
+    };
+    ref.on("value", fungsi, galatMuat);
+    langgananTahun[y] = { ref: ref, fungsi: fungsi, path: perlu[y] };
+  });
+}
+
+function bukaTampilan() {
+  if (tampilSudahTerbuka) return;
+  tampilSudahTerbuka = true;
+  el("pesanUtama").classList.add("sembunyi");
+  el("isi").classList.remove("sembunyi");
+  el("blokSaldo").classList.remove("sembunyi");
+}
+
+function pasang(ref, fungsi) {
+  ref.on("value", fungsi, galatMuat);
+  langganan.push({ ref: ref, fungsi: fungsi });
+}
+
+function mulai() {
+  var token = new URLSearchParams(location.search).get("t");
+  if (!token || !/^[A-Za-z0-9_-]{8,64}$/.test(token)) {
+    el("namaKelas").textContent = "Link tidak valid";
+    tampilkanPesan("Link tidak valid", "Periksa kembali link laporan yang Anda terima dari pengelola kas kelas.");
+    return;
+  }
+
+  db.ref("laporanLink/" + token).once("value").then(function(snap) {
+    var id = snap.val();
+    if (!id || typeof id !== "string") {
+      el("namaKelas").textContent = "Link tidak aktif";
+      tampilkanPesan("Link tidak aktif", "Link laporan ini sudah dimatikan atau tidak ditemukan. Mintalah link terbaru kepada pengelola kas kelas.");
+      return;
+    }
+
+    kelasId = id;
+
+    return db.ref("kelas/" + kelasId + "/nama").once("value").then(function(snapNama) {
+      el("namaKelas").textContent = snapNama.val() || "Kelas";
+      document.title = "Laporan Kas " + (snapNama.val() || "") + " - STools";
+
+      pasang(db.ref("kas/" + kelasId + "/pengaturan"), function(s) {
+        pengaturan = s.val() || {};
+        sinkronTahun();
+        bukaTampilan();
+        jadwalkanGambar();
+      });
+
+      pasang(db.ref("kas/" + kelasId + "/siswa"), function(s) {
+        daftarSiswa = s.val() || {};
+        jadwalkanGambar();
+      });
+
+      pasang(db.ref("keuangan/" + kelasId + "/riwayat"), function(s) {
+        var daftar = [];
+        s.forEach(function(anak) {
+          daftar.push(anak.val());
+        });
+        daftar.sort(function(a, b) {
+          return (b.waktu || 0) - (a.waktu || 0);
+        });
+        riwayat = daftar;
+        jadwalkanGambar();
+      });
+    });
+  }).catch(function() {
+    el("namaKelas").textContent = "Laporan Kas";
+    tampilkanPesan("Laporan tidak dapat dimuat", "Periksa koneksi internet Anda lalu muat ulang halaman ini.");
+  });
+}
+
+mulai();
+</script>
+</body>
+</html>

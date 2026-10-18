@@ -497,6 +497,7 @@
   .total { stroke: #FBBF24; }
   .tugas { stroke: #F59E0B; }
   .catatanNilai { stroke: #EC4899; }
+  .linkJawaban { stroke: #14B8A6; }
 
   .welcome-text {
     font-size: 20px;
@@ -757,57 +758,118 @@
     }
   }
 
-  /* ===== Tampilan Laptop / PC ===== */
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
-    }
-
-    .app-container {
-      max-width: 760px;
-      margin: 36px auto;
-      min-height: auto;
-      background: #F1F5F9;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-      overflow: hidden;
-      padding-bottom: 24px;
-    }
-
-    body.dark .app-container {
-      background: #0B1120;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    }
-
-    .app-header {
-      border-radius: 20px 20px 0 0;
-    }
-
-    .bottom-nav {
-      position: static;
-      max-width: 760px;
-      width: 100%;
-      margin: 24px auto 36px;
-      border-radius: 16px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 8px 24px -8px rgba(15, 23, 42, 0.1);
-    }
-
-    body.dark .bottom-nav {
-      border-color: #1E293B;
-    }
-
-    .grid-2 {
-      grid-template-columns: 1fr 1fr 1fr;
+  @media (max-width: 899px) {
+    #featureGrid .feature-btn:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
     }
   }
+
+  .sidebar-brand { display:none; }
+
+  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
+
+    /* sidebar jadi permanen di kiri */
+    .sidebar-overlay { display:none !important; }
+    .close-sidebar-icon, .menu-icon, .bottom-nav { display:none !important; }
+    .sidebar-nav {
+      left:0; width:240px; padding:24px 14px 20px; gap:2px;
+      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30;
+      overflow-y:auto;
+    }
+    body.dark .sidebar-nav { border-right-color:#1E293B; }
+    .sidebar-brand {
+      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
+      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
+    .sidebar-nav a:hover { background:#F1F5F9; }
+    body.dark .sidebar-nav a:hover { background:#16203A; }
+    .sidebar-nav a.active-link:hover { background:#DBEAFE; }
+    body.dark .sidebar-nav a.active-link:hover { background:#1E3A5F; }
+    .logout-link { margin-top:auto; }
+
+    /* area utama tanpa kotak pembungkus */
+    .app-container {
+      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
+    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
+
+    .app-header {
+      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
+      padding:0 max(32px, calc((100% - 1080px) / 2 + 32px));
+    }
+    body.dark .app-header { background:rgba(11,17,32,.88); }
+    #mainHeader { justify-content:flex-end; }
+    #mainHeader .logo-area { display:none; }
+    .header-back { padding:8px 14px 8px 8px; border-radius:12px; margin-left:-8px; }
+    .header-back:hover { background:rgba(37,99,235,.08); }
+    .bell-btn:hover { background:rgba(37,99,235,.10); }
+
+    .screen { width:100%; max-width:1080px; margin:0 auto; padding:28px 32px 48px; }
+
+    /* beranda */
+    #pageMain.active { display:flex; flex-direction:column; gap:32px; }
+    #pageMain > * { margin:0; }
+    #pageMain > .banner-container { order:0; }
+    #pageMain > .welcome-card { order:1; }
+    #pageMain > .features-card { order:2; }
+    #pageMain > .visi-card { order:3; }
+
+    .card-modern.plain, body.dark .card-modern.plain {
+      background:transparent; border:0; box-shadow:none; padding:0; margin:0; border-radius:0;
+    }
+
+    .welcome-card {
+      display:grid; grid-template-columns:minmax(0,1fr) minmax(0,420px); column-gap:32px; align-items:center;
+    }
+    .welcome-card .welcome-text { font-size:30px; letter-spacing:-.5px; margin:0; }
+    .welcome-card .subtext { font-size:15px; margin:4px 0 0; }
+    .welcome-card #searchBox {
+      grid-column:2; grid-row:1 / span 2; margin:0; height:50px; border-radius:14px; padding:0 18px; font-size:14.5px;
+    }
+    body.dark .welcome-card #searchBox { background:#111827; border-color:#1E293B; }
+
+    .banner-container { border-radius:24px; }
+    .banner { height:190px; border-radius:24px; padding:0 48px; }
+    .banner h2 { font-size:26px; margin-bottom:8px; letter-spacing:-.3px; }
+    .banner p { font-size:15px; max-width:520px; }
+    .banner-dots { padding-top:12px; }
+
+    .section-header { margin-bottom:18px; }
+    .section-header h2 { font-size:22px; letter-spacing:-.3px; }
+    .section-header .view-all { padding:7px 16px; font-size:13.5px; }
+    .section-header .view-all:hover { background:rgba(37,99,235,.16); }
+
+    .grid-2 { grid-template-columns:repeat(auto-fill, minmax(135px, 1fr)); gap:14px; }
+    .grid-3 { grid-template-columns:repeat(auto-fill, minmax(165px, 1fr)); gap:14px; }
+    .feature-btn {
+      background:#fff; min-height:116px; border-radius:18px; transition:border-color .15s, box-shadow .15s, transform .15s;
+    }
+    .feature-btn:hover { border-color:#9DB9F2; box-shadow:0 8px 20px rgba(37,99,235,.08); transform:translateY(-2px); }
+    .feature-btn:active { transform:scale(.97); }
+    .feature-btn span { font-size:13px; }
+    body.dark .feature-btn { background:#111827; border-color:#1E293B; }
+    body.dark .feature-btn:hover { border-color:#2F4A8A; box-shadow:none; }
+    .category-label { margin:22px 0 12px; }
+
+    /* visi & misi dua kolom */
+    .visi-card {
+      display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto 1fr; grid-auto-flow:column;
+      column-gap:56px; padding:32px 36px; border-radius:24px;
+    }
+    .visi-card h2 { font-size:20px !important; margin-bottom:12px !important; }
+    .visi-card p, .visi-card ul { margin-bottom:0 !important; }
+    body.dark .visi-card p, body.dark .visi-card ul { color:#94A3B8 !important; }
+
+    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
+  }
+
 </style>
 </head>
 <body>
@@ -865,6 +927,7 @@
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </div>
+    <div class="sidebar-brand">STools</div>
     <a href="#" class="active-link" onclick="goTo('index.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
     </a>
@@ -876,6 +939,9 @@
     </a>
     <a href="#" onclick="goTo('akun.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Akun
+    </a>
+    <a href="#" onclick="goTo('kegiatan.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Daftar Tugas
     </a>
     <a href="#" onclick="goTo('teman.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/></svg> Teman
@@ -920,14 +986,14 @@
       </div>
 
       <!-- WELCOME -->
-      <div class="card-modern">
+      <div class="card-modern plain welcome-card">
         <div class="welcome-text" id="welcomeText">Selamat Datang, User</div>
         <div class="subtext">Jelajahi semua fitur STools</div>
         <input type="text" id="searchBox" placeholder="Cari mapel atau fitur...">
       </div>
 
       <!-- SEMUA FITUR -->
-      <div class="card-modern">
+      <div class="card-modern plain features-card">
         <div class="section-header">
           <h2>Semua Fitur</h2>
           <button class="view-all" onclick="showAllFeatures()">Lihat Semua</button>
@@ -936,7 +1002,7 @@
       </div>
 
       <!-- VISI MISI -->
-      <div class="card-modern">
+      <div class="card-modern visi-card">
         <h2 style="font-size:17px;font-weight:700;margin-bottom:8px;">Visi</h2>
         <p style="font-size:14px;color:#64748B;line-height:1.6;margin-bottom:12px;">Menjadi platform pendidikan hybrid yang merata, inovatif, dan transparan dalam menciptakan generasi yang cerdas, berpikir kritis, serta siap menghadapi dunia kerja maupun membangun usaha secara mandiri.</p>
         <h2 style="font-size:17px;font-weight:700;margin-bottom:8px;">Misi</h2>
@@ -953,7 +1019,7 @@
 
     <!-- ==================== HALAMAN SEMUA FITUR ==================== -->
     <div id="pageAllFeatures" class="page">
-      <div class="card-modern">
+      <div class="card-modern plain">
         <div class="section-header">
           <h2>
             Semua Fitur
@@ -1139,7 +1205,8 @@ const homeGrid = [
   { type: "subject", name: "Sains", icon: "sains", link: "sains.html" },
   { type: "subject", name: "Robotik", icon: "robotik", link: "robotik.html" },
   { type: "feature", name: "Absensi Digital", icon: "absensi", link: "absensi-digital.html" },
-  { type: "feature", name: "Keuangan Digital", icon: "keuangan", link: "keuangan.html" }
+  { type: "feature", name: "Keuangan Digital", icon: "keuangan", link: "keuangan.html" },
+  { type: "feature", name: "Link Jawaban", icon: "linkJawaban", link: "jawaban.html", badge: "Baru" }
 ];
 
 function renderHomeGrid() {
@@ -1183,6 +1250,7 @@ const allFeatures = [
   { name: "Rangking", icon: "ranking", link: "ranking.html" },
   { name: "Total Nilai", icon: "total", link: "total.html" },
   { name: "Tugas Digital", icon: "tugas", link: "kelas.html" },
+  { name: "Link Jawaban", icon: "linkJawaban", link: "jawaban.html", badge: "Baru" },
   { name: "Catatan Nilai", icon: "catatanNilai", link: "nilai.html" }
 ];
 
@@ -1205,7 +1273,8 @@ const iconColors = {
   total: "#FBBF24",
   nita: "#8B5CF6",
   tugas: "#F59E0B",
-  catatanNilai: "#EC4899"
+  catatanNilai: "#EC4899",
+  linkJawaban: "#14B8A6"
 };
 
 const iconPaths = {
@@ -1222,6 +1291,7 @@ const iconPaths = {
   total: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>',
   nita: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="8" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="11" r="1" fill="currentColor" stroke="none"/>',
   tugas: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+  linkJawaban: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
   catatanNilai: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9.5 13.5l1.5 1.5 3-3"/><line x1="8" y1="17.5" x2="13" y2="17.5"/>'
 };
 

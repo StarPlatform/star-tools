@@ -14,6 +14,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
 
 <style>
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -629,7 +630,6 @@
     color: #64748B;
   }
 
-  /* ===== MARQUEE NAME (auto-scroll only if name doesn't fit) ===== */
   .marquee-wrap {
     overflow: hidden;
     white-space: nowrap;
@@ -651,7 +651,6 @@
     100% { transform: translateX(0); }
   }
 
-  /* Premium Banner Styles */
   .friend-item.has-banner, .search-result-item.has-banner {
     position: relative;
     overflow: hidden;
@@ -1392,23 +1391,9 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   }
 
-  #profilePopupHeader.has-banner #profilePopupName { 
-    color: #fff !important; 
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3); 
-  }
-  #profilePopupHeader.has-banner #profilePopupBio { 
-    color: rgba(255,255,255,0.85) !important; 
-    text-shadow: 0 1px 6px rgba(0,0,0,0.2); 
-  }
-  #profilePopupHeader.has-banner #profilePopupAvatar { 
-    box-shadow: 0 3px 12px rgba(0,0,0,0.25); 
-    border: 2.5px solid rgba(255,255,255,0.9);
-  }
-
   .profile-popup-header {
     position: relative;
-    padding: 20px 20px 14px;
-    margin-top: 44px;
+    padding: 24px 52px 14px 20px;
   }
 
   .friend-status-pill {
@@ -1476,58 +1461,259 @@
   }
   .btn-outline:active { transform: scale(0.97); }
 
-  @media (min-width: 900px) {
-    body {
-      background: linear-gradient(160deg, #EFF6FF 0%, #F8FAFE 60%);
-      min-height: 100vh;
-    }
+  
 
-    body.dark {
-      background: linear-gradient(160deg, #0B1120 0%, #111827 60%);
-    }
+  .scanner-overlay { position:fixed; inset:0; background:#000; z-index:250; display:none; flex-direction:column; }
+  .scanner-overlay.active { display:flex; }
+  .scanner-top { display:flex; align-items:center; justify-content:space-between; padding:calc(14px + env(safe-area-inset-top, 0px)) 18px 14px; color:#fff; position:relative; z-index:2; }
+  .scanner-top b { font-size:16px; }
+  .scanner-close { width:40px; height:40px; border-radius:50%; border:none; background:rgba(255,255,255,.18); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .scanner-close svg { width:20px; height:20px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; }
+  .scanner-stage { position:relative; flex:1; overflow:hidden; }
+  .scanner-stage video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .scanner-frame { position:absolute; left:50%; top:50%; width:min(70vw,280px); aspect-ratio:1/1; transform:translate(-50%,-50%); border:3px solid #fff; border-radius:24px; box-shadow:0 0 0 999px rgba(0,0,0,.5); }
+  .scanner-hint { position:absolute; left:0; right:0; bottom:calc(40px + env(safe-area-inset-bottom, 0px)); text-align:center; color:#fff; font-size:14px; padding:0 24px; }
+
+  #friendList .friend-item {
+    padding: 14px;
+    margin-bottom: 8px;
+    border-bottom: none;
+    border-radius: 18px;
+  }
+
+  #friendList .friend-item:last-child {
+    margin-bottom: 0;
+  }
+
+  #friendList .friend-item:not(.has-banner) {
+    background: #F8FAFE;
+  }
+
+  body.dark #friendList .friend-item:not(.has-banner) {
+    background: #1E293B;
+  }
+
+  #friendList .friend-item.has-banner .friend-info {
+    margin-top: 0;
+  }
+
+  #friendList .friend-actions .btn-icon.chat {
+    width: 40px;
+    height: 40px;
+    background: #DBEAFE;
+  }
+
+  #friendList .friend-actions .btn-icon.chat svg {
+    width: 19px;
+    height: 19px;
+    stroke: #2563EB;
+  }
+
+  body.dark #friendList .friend-actions .btn-icon.chat {
+    background: #1E3A8A;
+  }
+
+  body.dark #friendList .friend-actions .btn-icon.chat svg {
+    stroke: #93C5FD;
+  }
+
+  #friendList .friend-item.has-banner .friend-actions .btn-icon.chat {
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+  }
+
+  #friendList .friend-item.has-banner .friend-actions .btn-icon.chat svg {
+    stroke: #fff !important;
+  }
+
+  .pin-icon {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.7;
+  }
+
+  #profilePopupInfo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  #profilePopupInfo:empty {
+    display: none;
+  }
+
+  .info-chip {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 99px;
+    background: #EFF6FF;
+    color: #2563EB;
+  }
+
+  body.dark .info-chip {
+    background: #1E3A8A;
+    color: #93C5FD;
+  }
+
+  .popup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .popup-grid .btn {
+    margin: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 13px;
+  }
+
+  body.dark #profilePopupName {
+    color: #F1F5F9 !important;
+  }
+
+  body.dark #profilePopupBio {
+    color: #94A3B8 !important;
+  }
+
+
+
+
+  /* ===== Ikon tab (hanya tampil di desktop) ===== */
+  .tab-icon { display:none; }
+
+  /* ===== DESKTOP: tampilan aplikasi penuh, tanpa kontainer ganda ===== */
+  @media (min-width: 900px) {
+    body { background:#F8FAFC; }
+    body.dark { background:#0B1120; }
 
     .app-container {
-      max-width: 760px;
-      margin: 36px auto;
-      min-height: auto;
-      background: #F1F5F9;
-      border-radius: 20px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 20px 50px -12px rgba(15,23,42,0.12);
-      overflow: hidden;
-      padding-bottom: 24px;
+      max-width:none; width:100%; min-height:100vh; margin:0; padding:0;
+      border:0; border-radius:0; box-shadow:none; overflow:visible;
+      background:#F8FAFC;
     }
-
-    body.dark .app-container {
-      background: #0B1120;
-      border-color: #1E293B;
-      box-shadow: 0 20px 50px -12px rgba(0,0,0,0.5);
-    }
+    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
 
     .app-header {
-      border-radius: 20px 20px 0 0;
+      min-height:72px; border-radius:0;
+      padding:0 max(32px, calc((100% - 1120px) / 2 + 32px));
+      box-shadow:0 1px 0 rgba(15,23,42,.02);
+    }
+    .app-title { font-size:22px; }
+    .back-btn:hover { background:rgba(37,99,235,.10); }
+
+    .screen {
+      width:100%; max-width:1120px; margin:0 auto; padding:36px 32px 48px;
+      display:grid; grid-template-columns:230px minmax(0,1fr); gap:48px; align-items:start;
     }
 
-    .bottom-nav {
-      position: static;
-      max-width: 760px;
-      width: 100%;
-      margin: 24px auto 36px;
-      border-radius: 16px;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 8px 24px -8px rgba(15,23,42,0.1);
+    /* tab jadi menu samping */
+    .tabs-pill {
+      flex-direction:column; gap:4px; padding:0; margin:0; overflow:visible;
+      background:transparent; border:0; border-radius:0;
+      position:sticky; top:108px;
     }
-
-    body.dark .bottom-nav {
-      border-color: #1E293B;
+    body.dark .tabs-pill { background:transparent; border:0; }
+    .tab-item {
+      display:flex; align-items:center; gap:12px; text-align:left;
+      min-height:48px; padding:0 16px; font-size:14px; border-radius:12px;
     }
+    .tab-item:hover { background:#EAF0F8; color:#0F172A; }
+    body.dark .tab-item:hover { background:#16203A; color:#F1F5F9; }
+    .tab-item.active, .tab-item.active:hover {
+      background:#E3EDFF; color:#1D4ED8; box-shadow:none;
+    }
+    body.dark .tab-item.active, body.dark .tab-item.active:hover {
+      background:rgba(37,99,235,.22); color:#93C5FD;
+    }
+    .tab-icon {
+      display:block; width:20px; height:20px; flex-shrink:0;
+      stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+    }
+    #requestBadge { margin-left:auto !important; }
 
+    /* isi langsung di atas halaman, tanpa kartu pembungkus */
+    .tab-content { min-width:0; }
+    .card-modern, body.dark .card-modern {
+      background:transparent; border:0; box-shadow:none; padding:0; margin:0; border-radius:0;
+    }
+    .card-modern h2 { font-size:24px; letter-spacing:-.4px; margin-bottom:6px; }
+    .card-modern .subtext { font-size:14px; margin-bottom:22px; }
+
+    /* pencarian */
+    .search-row { max-width:600px; }
+    .scan-btn { max-width:600px; }
+    .search-row .input { background:#fff; }
+    body.dark .search-row .input { background:#111827; }
+
+    /* daftar jadi grid */
+    .list-grid {
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:12px;
+    }
+    .list-grid > :not(.friend-item):not(.search-result-item) { grid-column:1 / -1; }
+
+    #friendList .friend-item, #requestList .friend-item, #searchResult .search-result-item,
+    #friendList .friend-item.has-banner, #requestList .friend-item.has-banner,
+    #searchResult .search-result-item.has-banner { margin:0; }
+
+    #friendList .friend-item:not(.has-banner),
+    #requestList .friend-item:not(.has-banner),
+    #searchResult .search-result-item:not(.has-banner) {
+      background:#fff; border:1px solid #E2E8F0; border-radius:16px; padding:14px 16px;
+      transition:border-color .15s, box-shadow .15s;
+    }
+    #friendList .friend-item:not(.has-banner):hover,
+    #requestList .friend-item:not(.has-banner):hover,
+    #searchResult .search-result-item:not(.has-banner):hover {
+      border-color:#BFD3F5; box-shadow:0 4px 14px rgba(37,99,235,.08);
+    }
+    body.dark #friendList .friend-item:not(.has-banner),
+    body.dark #requestList .friend-item:not(.has-banner),
+    body.dark #searchResult .search-result-item:not(.has-banner) {
+      background:#111827; border-color:#1E293B;
+    }
+    body.dark #friendList .friend-item:not(.has-banner):hover,
+    body.dark #requestList .friend-item:not(.has-banner):hover,
+    body.dark #searchResult .search-result-item:not(.has-banner):hover {
+      border-color:#2F4A8A; box-shadow:none;
+    }
+    .friend-item.has-banner, .search-result-item.has-banner { transition:transform .15s; }
+    .friend-item.has-banner:hover, .search-result-item.has-banner:hover { transform:translateY(-1px); }
+    .friend-item:active, .search-result-item:active { opacity:1; }
+
+    .empty-state { padding:72px 20px; }
+
+    /* footer menempel di bawah layar */
+    .footer-app { margin-top:auto; background:transparent; padding:20px; }
+
+    /* chat jadi dialog di tengah */
+    .chat-backdrop { align-items:center; backdrop-filter:blur(4px); }
     .chat-panel {
-      max-width: 560px;
-      height: 80vh;
-      border-radius: 24px;
+      max-width:520px; height:min(760px, 86vh); border-radius:24px;
+      box-shadow:0 30px 80px rgba(0,0,0,.28);
+    }
+
+    .scanner-stage {
+      align-self:center; width:min(92vw, 620px); height:min(78vh, 700px);
+      min-height:420px; border-radius:28px; margin-bottom:24px;
     }
   }
+
+  /* layar sedang: menu samping lebih ramping */
+  @media (min-width: 900px) and (max-width: 1099px) {
+    .screen { grid-template-columns:200px minmax(0,1fr); gap:32px; }
+  }
+
 </style>
 </head>
 <body>
@@ -1556,23 +1742,27 @@
 
   <div class="screen">
     <div class="tabs-pill" role="tablist">
-      <button class="tab-item active" data-tab="tabCari" onclick="switchTab('tabCari')">Cari</button>
+      <button class="tab-item active" data-tab="tabCari" onclick="switchTab('tabCari')"><svg class="tab-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Cari</button>
       <button class="tab-item" data-tab="tabPermintaan" onclick="switchTab('tabPermintaan')">
-        Permintaan
+        <svg class="tab-icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="17" y1="11" x2="23" y2="11"/></svg>Permintaan
         <span id="requestBadge" style="background:#DC2626;color:#fff;font-size:10px;padding:1px 8px;border-radius:10px;margin-left:4px;display:none;">0</span>
       </button>
-      <button class="tab-item" data-tab="tabTeman" onclick="switchTab('tabTeman')">Teman</button>
+      <button class="tab-item" data-tab="tabTeman" onclick="switchTab('tabTeman')"><svg class="tab-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Teman</button>
     </div>
 
     <div id="tabCari" class="tab-content active">
       <div class="card-modern">
         <h2>Cari Teman</h2>
         <p class="subtext">Cari pengguna lain dengan nama pengguna.</p>
-        <div style="display:flex; gap:8px; margin-bottom:8px;">
+        <div class="search-row" style="display:flex; gap:8px; margin-bottom:8px;">
           <input type="text" id="searchInput" class="input" placeholder="Cari nama pengguna..." autocomplete="off" style="margin-bottom:0; flex:1;">
           <button class="btn btn-primary" style="width:auto; padding:12px 20px; min-height:48px;" onclick="cariPengguna()">Cari</button>
         </div>
-        <div id="searchResult">
+        <button class="btn scan-btn" style="margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:8px;" onclick="bukaScanner()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>
+          Scan QR Teman
+        </button>
+        <div id="searchResult" class="list-grid">
           <div class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -1588,7 +1778,7 @@
       <div class="card-modern">
         <h2>Permintaan Pertemanan</h2>
         <p class="subtext">Orang yang ingin berteman dengan kamu.</p>
-        <div id="requestList">
+        <div id="requestList" class="list-grid">
           <div class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
@@ -1604,7 +1794,7 @@
       <div class="card-modern">
         <h2>Daftar Teman</h2>
         <p class="subtext">Teman yang sudah kamu terima.</p>
-        <div id="friendList">
+        <div id="friendList" class="list-grid">
           <div class="loading-spinner">
             <div class="spinner"></div>
           </div>
@@ -1668,6 +1858,19 @@
   </div>
 </div>
 
+<div id="scannerOverlay" class="scanner-overlay">
+  <div class="scanner-top">
+    <b>Scan QR Teman</b>
+    <button class="scanner-close" onclick="tutupScanner()" aria-label="Tutup"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="scanner-stage">
+    <video id="scanVideo" playsinline muted></video>
+    <div class="scanner-frame"></div>
+    <div class="scanner-hint" id="scanHint">Arahkan kamera ke QR Pertemanan milik temanmu</div>
+  </div>
+  <canvas id="scanCanvas" style="display:none;"></canvas>
+</div>
+
 <div id="globalAlert" class="alert-overlay">
   <div class="alert-card">
     <h3 id="alertTitle">Pemberitahuan</h3>
@@ -1690,6 +1893,7 @@
         </div>
       </div>
       <p id="profilePopupBio" style="font-size:13px;color:#64748B;line-height:1.5;position:relative;z-index:2;margin:0;">Belum ada bio</p>
+      <div id="profilePopupInfo"></div>
     </div>
     <div style="padding:16px 20px 20px;">
       <div id="profilePopupActions"></div>
@@ -1726,7 +1930,6 @@ let searchTimeout = null;
 let friendListCache = [];
 let requestListCache = [];
 
-// ===== PREMIUM LEVEL CACHE =====
 const premiumLevelCache = {};
 
 function applyMarquee(wrapEl) {
@@ -1764,7 +1967,6 @@ function getPremiumLevel(premiumMapel) {
   return result;
 }
 
-// ===== UTILITY FUNCTIONS =====
 function goTo(page) {
   window.location.href = page;
 }
@@ -1840,7 +2042,6 @@ function openChatFoto() {
   }
 }
 
-// ===== OPTIMIZED: getUserData with cache =====
 function getUserData(uid, callback) {
   if (userCache[uid]) {
     callback(userCache[uid]);
@@ -1855,7 +2056,6 @@ function getUserData(uid, callback) {
   });
 }
 
-// ===== OPTIMIZED: Batch get users =====
 function getUsersBatch(uids, callback) {
   const cached = [];
   const needFetch = [];
@@ -1888,7 +2088,6 @@ function getUsersBatch(uids, callback) {
   });
 }
 
-// ===== SWITCH TAB =====
 function switchTab(tabId) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
@@ -1899,7 +2098,6 @@ function switchTab(tabId) {
   if (tabId === 'tabTeman') loadFriendsOptimized();
 }
 
-// ===== OPTIMIZED: LOAD FRIENDS =====
 function loadFriendsOptimized() {
   const uid = currentUser;
   if (!uid) return;
@@ -1934,7 +2132,11 @@ function loadFriendsOptimized() {
     })
     .then(function(results) {
       if (!results) return;
-      
+
+      results.sort(function(a, b) {
+        return (isPinned(b.uid) ? 1 : 0) - (isPinned(a.uid) ? 1 : 0);
+      });
+
       let html = '';
       results.forEach(function({ uid, data }) {
         const profile = data.profile || {};
@@ -1961,6 +2163,7 @@ function loadFriendsOptimized() {
               <div class="name-wrapper">
                 <span class="name" style="display:flex;align-items:center;gap:5px;">
                   <span class="marquee-wrap" id="marqueeWrap1_${uid}"><span class="marquee-text">${nama}</span></span>
+                  ${isPinned(uid) ? '<svg class="pin-icon" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 3h6l-1 7 3 3v2H7v-2l3-3z"/></svg>' : ''}
                   ${profile.verified ? `<span class="verified" style="display:inline-flex;width:15px;height:15px;flex-shrink:0;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M12 2l2.2 2 3-.5.8 2.9 2.9.8-.5 3 2 2-2 2 .5 3-2.9.8-.8 2.9-3-.5-2.2 2-2.2-2-3 .5-.8-2.9-2.9-.8.5-3-2-2 2-2-.5-3 2.9-.8.8-2.9 3 .5z" fill="#3B82F6"/><path d="M8 12.5l2.5 2.5 5.5-6" fill="none" stroke="white" stroke-width="2"/></svg></span>` : ''}
                 </span>
               </div>
@@ -1989,7 +2192,6 @@ function loadFriendsOptimized() {
     });
 }
 
-// ===== OPTIMIZED: LOAD REQUESTS =====
 function loadRequestsOptimized() {
   const uid = currentUser;
   if (!uid) return;
@@ -2086,7 +2288,6 @@ function loadRequestsOptimized() {
     });
 }
 
-// ===== FRIEND ACTIONS =====
 function kirimPermintaan(targetUid) {
   const uid = currentUser;
   db.ref('users/' + uid + '/friends/' + targetUid).once('value').then(function(snap) {
@@ -2142,7 +2343,6 @@ function hapusTeman(targetUid) {
   });
 }
 
-// ===== SEARCH =====
 function fetchAllUsersOnce(callback) {
   const now = Date.now();
   if (allUsersCache && (now - allUsersCacheTime) < 60000) { 
@@ -2176,7 +2376,6 @@ function performSearch(query) {
   }
   resultDiv.innerHTML = '<div style="text-align:center;padding:20px;color:#94A3B8;">Mencari...</div>';
 
-  // Debounce search
   if (searchTimeout) clearTimeout(searchTimeout);
   searchTimeout = setTimeout(function() {
     fetchAllUsersOnce(function(data) {
@@ -2243,7 +2442,6 @@ function performSearch(query) {
         `;
       });
       resultDiv.innerHTML = html;
-      // Check status for each result
       results.forEach(function(user) {
         cekStatusPertemanan(user.uid);
         applyMarquee(document.getElementById('searchNameWrap_' + user.uid));
@@ -2278,15 +2476,13 @@ function cekStatusPertemanan(targetUid) {
   });
 }
 
-// ===== PROFILE POPUP =====
 function openProfilePopup(uidKey) {
   profilePopupTarget = uidKey;
   document.getElementById('profilePopupOverlay').style.display = 'flex';
   document.getElementById('profilePopupName').innerHTML = 'Memuat...';
   document.getElementById('profilePopupBio').innerText = '';
   document.getElementById('profilePopupActions').innerHTML = '';
-  const header = document.getElementById('profilePopupHeader');
-  header.classList.remove('has-banner', 'premium-silver', 'premium-gold', 'premium-platinum', 'premium-diamond');
+  document.getElementById('profilePopupInfo').innerHTML = '';
 
   getUserData(uidKey, function(user) {
     if (profilePopupTarget !== uidKey) return;
@@ -2295,10 +2491,6 @@ function openProfilePopup(uidKey) {
     const foto = profile.foto || '';
     const bio = profile.bio || 'Belum ada bio';
     const verified = profile.verified;
-    const level = getPremiumLevel(user.premium);
-    if (level.level !== 'standard') {
-      header.classList.add('has-banner', 'premium-' + level.color);
-    }
 
     const avatarBox = document.getElementById('profilePopupAvatar');
     avatarBox.innerHTML = foto ? `<img src="${foto}" style="width:100%;height:100%;object-fit:cover;">` : nama.charAt(0).toUpperCase();
@@ -2310,6 +2502,17 @@ function openProfilePopup(uidKey) {
     }
     document.getElementById('profilePopupName').innerHTML = nameHtml;
     document.getElementById('profilePopupBio').innerText = bio;
+
+    const infoChips = [profile.sekolah, profile.kelas, profile.jurusan]
+      .filter(function(v) { return v && String(v).trim(); })
+      .map(function(v) {
+        const el = document.createElement('span');
+        el.className = 'info-chip';
+        el.textContent = v;
+        return el.outerHTML;
+      })
+      .join('');
+    document.getElementById('profilePopupInfo').innerHTML = infoChips;
   });
 
   if (uidKey === currentUser) {
@@ -2323,6 +2526,7 @@ function openProfilePopup(uidKey) {
     let actionsHtml = '';
     if (status === 'accepted') {
       actionsHtml += `<button class="btn btn-outline" onclick="closeProfilePopup();openChat('${uidKey}')" style="margin-bottom:8px;">Kirim Pesan</button>`;
+      actionsHtml += `<div class="popup-grid"><button class="btn btn-outline" onclick="togglePin('${uidKey}')">${isPinned(uidKey) ? 'Lepas Sematan' : 'Sematkan Teman'}</button><button class="btn btn-outline" onclick="bagikanProfil('${uidKey}')">Bagikan Profil</button></div>`;
       actionsHtml += `<button class="btn btn-outline" onclick="closeProfilePopup();toggleBlokirDariPopup('${uidKey}')" id="popupBlokirBtn" style="margin-bottom:8px;">Blokir Teman</button>`;
       actionsHtml += `<button class="btn btn-danger" onclick="closeProfilePopup();hapusTeman('${uidKey}')">Hapus Pertemanan</button>`;
       document.getElementById('profilePopupActions').innerHTML = actionsHtml;
@@ -2344,6 +2548,49 @@ function openProfilePopup(uidKey) {
     }
     document.getElementById('profilePopupActions').innerHTML = actionsHtml;
   });
+}
+
+function kunciSematan() {
+  return 'teman_disematkan_' + currentUser;
+}
+
+function ambilDisematkan() {
+  try {
+    return JSON.parse(localStorage.getItem(kunciSematan()) || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function isPinned(uid) {
+  return ambilDisematkan().indexOf(uid) !== -1;
+}
+
+function togglePin(uid) {
+  const daftar = ambilDisematkan();
+  const index = daftar.indexOf(uid);
+  if (index === -1) {
+    daftar.push(uid);
+  } else {
+    daftar.splice(index, 1);
+  }
+  localStorage.setItem(kunciSematan(), JSON.stringify(daftar));
+  closeProfilePopup();
+  loadFriendsOptimized();
+}
+
+function bagikanProfil(uid) {
+  const tautan = new URL('teman.html', location.href).href + '?add=' + encodeURIComponent(uid);
+  const teks = 'Tambahkan teman di STools: ' + tautan;
+  if (navigator.share) {
+    navigator.share({ title: 'STools', text: teks }).catch(function() {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(tautan).then(function() {
+      showAlert('Berhasil', 'Tautan profil berhasil disalin.');
+    });
+  } else {
+    showAlert('Tidak Didukung', 'Perangkat ini tidak mendukung fitur berbagi.');
+  }
 }
 
 function closeProfilePopup() {
@@ -2372,7 +2619,6 @@ function toggleBlokirDariPopup(targetUid) {
   });
 }
 
-// ===== CHAT =====
 function openChat(targetUid) {
   chatTarget = targetUid;
   document.getElementById('chatBackdrop').style.display = 'flex';
@@ -2573,7 +2819,6 @@ document.addEventListener('click', function(e) {
   }
 });
 
-// ===== ONLINE STATUS =====
 function updateOnlineStatus() {
   const uid = currentUser;
   if (!uid) return;
@@ -2596,12 +2841,178 @@ function updateOnlineStatus() {
   });
 }
 
-// ===== THEME =====
 if (localStorage.getItem('theme') === 'dark') {
   document.body.classList.add('dark');
 }
 
-// ===== AUTH =====
+var PENDING_ADD_KEY = 'pendingAddFriend';
+
+function ambilAddParam() {
+  var p = new URLSearchParams(location.search).get('add');
+  if (p) {
+    history.replaceState(null, '', location.pathname);
+    return p;
+  }
+  try {
+    var saved = JSON.parse(localStorage.getItem(PENDING_ADD_KEY) || 'null');
+    localStorage.removeItem(PENDING_ADD_KEY);
+    if (saved && saved.uid && Date.now() - saved.t < 10 * 60 * 1000) return saved.uid;
+  } catch (e) {}
+  return null;
+}
+
+function simpanAddParam() {
+  var p = new URLSearchParams(location.search).get('add');
+  if (p) localStorage.setItem(PENDING_ADD_KEY, JSON.stringify({ uid: p, t: Date.now() }));
+}
+
+function prosesQRTeman(targetUid) {
+  if (!currentUser) { showAlert('Login dulu', 'Kamu perlu login untuk menambah teman.'); return; }
+  if (!targetUid || /[.#$\[\]\/]/.test(targetUid)) { showAlert('QR tidak valid', 'QR ini bukan QR pertemanan STools.'); return; }
+  if (targetUid === currentUser) { showAlert('Info', 'Itu QR milik kamu sendiri.'); return; }
+
+  Promise.all([
+    db.ref('users/' + currentUser + '/friends/' + targetUid).once('value'),
+    db.ref('users/' + currentUser + '/blocked/' + targetUid).once('value'),
+    db.ref('users/' + targetUid + '/blocked/' + currentUser).once('value')
+  ]).then(function(r) {
+    var status = r[0].val(), iBlocked = r[1].exists(), theyBlocked = r[2].exists();
+    getUserData(targetUid, function(user) {
+      var profile = user.profile;
+      if (!profile) { showAlert('Tidak ditemukan', 'Pengguna dari QR ini tidak ditemukan.'); return; }
+      var nama = profile.nama || 'Pengguna';
+
+      if (iBlocked) { showAlert('Info', 'Kamu memblokir ' + nama + '. Buka blokirnya dulu lewat profilnya.'); return; }
+      if (theyBlocked) { showAlert('Tidak bisa', 'Permintaan pertemanan ke ' + nama + ' tidak bisa dikirim.'); return; }
+      if (status === 'accepted') { showAlert('Info', 'Kamu sudah berteman dengan ' + nama + '.'); return; }
+      if (status === 'pending_sent') { showAlert('Info', 'Permintaan ke ' + nama + ' sudah terkirim, tinggal menunggu diterima.'); return; }
+      if (status === 'pending_received') {
+        showConfirm('Terima pertemanan', nama + ' sudah mengirim permintaan ke kamu. Terima sekarang?', 'Terima', function() { terimaPermintaan(targetUid); });
+        return;
+      }
+      showConfirm('Tambah teman', 'Kirim permintaan pertemanan ke ' + nama + '?', 'Kirim', function() { kirimPermintaan(targetUid); });
+    });
+  }).catch(function(err) { showAlert('Gagal', err.message); });
+}
+
+var scanStream = null, scanTimer = null, scanDetector = null, scanBusy = false, scanLastInvalid = '';
+
+function bukaScanner() {
+  if (!currentUser) { showAlert('Login dulu', 'Kamu perlu login untuk menambah teman.'); return; }
+  if (scanStream) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    showAlert('Tidak didukung', 'Browser ini tidak mendukung kamera. Coba buka lewat Chrome atau Safari dengan HTTPS.'); return;
+  }
+  document.getElementById('scannerOverlay').classList.add('active');
+  var opts = { video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false };
+  navigator.mediaDevices.getUserMedia(opts).catch(function() {
+    return navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+  }).then(function(stream) {
+    if (!document.getElementById('scannerOverlay').classList.contains('active')) {
+      stream.getTracks().forEach(function(t) { t.stop(); }); return;
+    }
+    scanStream = stream;
+    var v = document.getElementById('scanVideo');
+    v.setAttribute('playsinline', '');
+    v.muted = true;
+    v.srcObject = stream;
+    var playResult = v.play();
+    if (playResult && playResult.catch) playResult.catch(function() {});
+    if ('BarcodeDetector' in window) {
+      try { scanDetector = new BarcodeDetector({ formats: ['qr_code'] }); }
+      catch (e) { scanDetector = null; }
+    }
+    function mulai() {
+      if (!scanStream) return;
+      clearInterval(scanTimer);
+      scanTimer = setInterval(bacaFrame, 220);
+    }
+    if (v.readyState >= 2 && v.videoWidth) mulai();
+    else v.onloadedmetadata = function() { var pr = v.play(); if (pr && pr.catch) pr.catch(function() {}); mulai(); };
+  }).catch(function() {
+    document.getElementById('scannerOverlay').classList.remove('active');
+    showAlert('Izin kamera', 'Izinkan akses kamera di pengaturan browser untuk scan QR.');
+  });
+}
+
+function tutupScanner() {
+  clearInterval(scanTimer);
+  scanTimer = null;
+  scanBusy = false;
+  scanDetector = null;
+  var v = document.getElementById('scanVideo');
+  if (v) { v.onloadedmetadata = null; try { v.pause(); } catch (e) {} v.srcObject = null; }
+  if (scanStream) { scanStream.getTracks().forEach(function(t) { t.stop(); }); scanStream = null; }
+  document.getElementById('scannerOverlay').classList.remove('active');
+}
+
+function tanganiQRTeman(teks) {
+  if (!teks) return false;
+  var uid = null;
+  try {
+    var u = new URL(teks, window.location.href);
+    if ((u.pathname.split('/').pop() || '').toLowerCase() === 'teman.html') uid = u.searchParams.get('add');
+  } catch (e) {}
+  if (!uid) {
+    var hint = document.getElementById('scanHint');
+    if (hint && scanLastInvalid !== teks) {
+      scanLastInvalid = teks;
+      hint.innerText = 'QR ini bukan QR pertemanan STools, coba QR lain';
+    }
+    return false;
+  }
+  if (uid === currentUser) {
+    tutupScanner();
+    showAlert('Info', 'Itu adalah QR pertemanan milik kamu sendiri.');
+    return true;
+  }
+  tutupScanner();
+  prosesQRTeman(uid);
+  return true;
+}
+
+function bacaFrame() {
+  if (scanBusy || !scanStream) return;
+  var v = document.getElementById('scanVideo');
+  if (!v || !v.videoWidth || !v.videoHeight) return;
+  scanBusy = true;
+  function lanjutJsQR() {
+    if (!scanStream) { scanBusy = false; return; }
+    try {
+      var c = document.getElementById('scanCanvas');
+      var scale = Math.min(1, 1000 / v.videoWidth);
+      c.width = Math.max(1, Math.round(v.videoWidth * scale));
+      c.height = Math.max(1, Math.round(v.videoHeight * scale));
+      var ctx = c.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(v, 0, 0, c.width, c.height);
+      var img = ctx.getImageData(0, 0, c.width, c.height);
+      var hasil = jsQR(img.data, img.width, img.height, { inversionAttempts: 'attemptBoth' });
+      if (hasil && tanganiQRTeman(hasil.data)) { scanBusy = false; return; }
+      if (!hasil && scanStream) {
+        // Percobaan kedua: tingkatkan kontras untuk QR yang agak pudar.
+        var d = img.data;
+        for (var i = 0; i < d.length; i += 4) {
+          var gray = (d[i] * 0.299 + d[i+1] * 0.587 + d[i+2] * 0.114);
+          var val = gray > 145 ? 255 : 0;
+          d[i] = d[i+1] = d[i+2] = val;
+        }
+        ctx.putImageData(img, 0, 0);
+        var hasil2 = jsQR(ctx.getImageData(0, 0, c.width, c.height).data, c.width, c.height, { inversionAttempts: 'attemptBoth' });
+        if (hasil2) tanganiQRTeman(hasil2.data);
+      }
+    } catch (e) {}
+    scanBusy = false;
+  }
+  if (scanDetector) {
+    scanDetector.detect(v).then(function(codes) {
+      if (codes) for (var i = 0; i < codes.length; i++) if (tanganiQRTeman(codes[i].rawValue)) return;
+    }).catch(function() {}).then(lanjutJsQR);
+  } else lanjutJsQR();
+}
+
+window.addEventListener('pagehide', tutupScanner);
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') tutupScanner(); });
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     currentUser = user.uid;
@@ -2609,21 +3020,25 @@ firebase.auth().onAuthStateChanged(function(user) {
     loadRequestsOptimized();
     loadFriendsOptimized();
     fetchAllUsersOnce(function() {});
+    var addUid = ambilAddParam();
+    if (addUid) prosesQRTeman(addUid);
   } else {
     if (localStorage.getItem('isGuest') !== 'true') {
+      simpanAddParam();
       window.location.href = 'login.html';
+    } else if (new URLSearchParams(location.search).get('add')) {
+      history.replaceState(null, '', location.pathname);
+      showAlert('Login dulu', 'Kamu perlu login untuk menambah teman lewat QR.');
     }
   }
 });
 
-// ===== EVENT LISTENERS =====
 document.getElementById('searchInput').addEventListener('keypress', function(e) {
   if (e.key === 'Enter') cariPengguna();
 });
 document.getElementById('searchInput').addEventListener('input', function(e) {
   const query = e.target.value.trim();
   if (!query) performSearch('');
-  // Debounce handled inside performSearch
 });
 </script>
 </body>
