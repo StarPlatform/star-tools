@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Login - STools</title>
+<title>Masuk - STools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 
 <link rel="icon" type="image/png" href="logo.jpg">
@@ -555,77 +555,6 @@
     .brand-main li span.d { font-size:14px; line-height:1.5; color:rgba(255,255,255,.78); }
     .brand-foot { font-size:12px; color:rgba(255,255,255,.65); position:relative; z-index:1; }
 
-    /* ===== ANIMASI PANEL KIRI DESKTOP ===== */
-    .brand-panel::before,
-    .brand-panel::after {
-      content:"";
-      position:absolute;
-      border-radius:50%;
-      pointer-events:none;
-      filter:blur(2px);
-      opacity:.22;
-    }
-
-    .brand-panel::before {
-      width:340px;
-      height:340px;
-      top:-120px;
-      right:-90px;
-      background:rgba(255,255,255,.18);
-      animation:floatOrb 8s ease-in-out infinite;
-    }
-
-    .brand-panel::after {
-      width:280px;
-      height:280px;
-      bottom:-110px;
-      left:-100px;
-      background:rgba(96,165,250,.28);
-      animation:floatOrbReverse 10s ease-in-out infinite;
-    }
-
-    .brand-main {
-      animation:brandContentIn .8s cubic-bezier(.22,1,.36,1) both;
-    }
-
-    .brand-main li {
-      animation:featureIn .7s cubic-bezier(.22,1,.36,1) both;
-    }
-
-    .brand-main li:nth-child(1) { animation-delay:.15s; }
-    .brand-main li:nth-child(2) { animation-delay:.28s; }
-    .brand-main li:nth-child(3) { animation-delay:.41s; }
-
-    .brand-main li .ic {
-      transition:transform .3s ease, background .3s ease, box-shadow .3s ease;
-    }
-
-    .brand-main li:hover .ic {
-      transform:translateY(-4px) scale(1.06);
-      background:rgba(255,255,255,.24);
-      box-shadow:0 10px 24px rgba(15,23,42,.15);
-    }
-
-    @keyframes floatOrb {
-      0%,100% { transform:translate3d(0,0,0) scale(1); }
-      50% { transform:translate3d(-35px,28px,0) scale(1.08); }
-    }
-
-    @keyframes floatOrbReverse {
-      0%,100% { transform:translate3d(0,0,0) scale(1); }
-      50% { transform:translate3d(30px,-24px,0) scale(1.1); }
-    }
-
-    @keyframes brandContentIn {
-      from { opacity:0; transform:translateX(-28px); }
-      to { opacity:1; transform:translateX(0); }
-    }
-
-    @keyframes featureIn {
-      from { opacity:0; transform:translateY(14px); }
-      to { opacity:1; transform:translateY(0); }
-    }
-
     /* form di kanan, langsung di atas halaman */
     .login-container, #forgotPasswordContainer {
       grid-column:2; grid-row:1; align-self:center; justify-self:center;
@@ -639,10 +568,10 @@
     .login-header { text-align:center; margin-bottom:30px; }
     .login-header .app-icon { display:none; }
     .login-header h1 {
-      font-size:30px; letter-spacing:-.5px; background:none; color:#0F172A; -webkit-text-fill-color:currentColor;
+      font-size:29px; letter-spacing:-.5px; background:none; color:#0F172A; -webkit-text-fill-color:currentColor; white-space:nowrap;
     }
     body.dark .login-header h1 { color:#F1F5F9; }
-    .login-header .tagline { font-size:14.5px; margin-top:8px; }
+    .login-header .tagline { font-size:14.5px; margin:8px auto 0; max-width:400px; line-height:1.55; text-wrap:balance; }
 
     .input-group input { padding:15px 18px; border-radius:14px; font-size:15px; }
     .forgot-password { text-align:right; margin:-2px 0 8px; }
@@ -652,16 +581,90 @@
     body.dark .btn-login:hover { background:#2563EB; }
     .btn-google:hover { background:#F8FAFC; }
     body.dark .btn-google:hover { background:#273449; }
-    .switch-container { text-align:left; }
+    .switch-container { text-align:center; }
     .switch span, .switch-guest { cursor:pointer; }
-    .switch-guest { padding-left:0; }
+    .switch-guest { padding-left:0; display:inline-block; }
 
     /* form reset password */
     #forgotPasswordContainer > div:first-child,
-    #forgotPasswordContainer > div:last-child { text-align:left !important; }
+    #forgotPasswordContainer > div:last-child { text-align:center !important; }
     #forgotPasswordContainer h2 { font-size:30px !important; letter-spacing:-.5px; background:none !important; color:#0F172A !important; -webkit-text-fill-color:currentColor !important; }
     body.dark #forgotPasswordContainer h2 { color:#F1F5F9 !important; }
     #forgotPasswordContainer > div:first-child p { font-size:14.5px !important; margin-top:8px !important; }
+
+
+    /* ===== ANIMASI PANEL KIRI (desktop saja) ===== */
+    .brand-fx { position:absolute; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
+    .brand-fx::before {
+      content:""; position:absolute; inset:0; opacity:.5;
+      background-image:radial-gradient(rgba(255,255,255,.22) 1.2px, transparent 1.4px);
+      background-size:30px 30px;
+      -webkit-mask-image:radial-gradient(ellipse at 30% 40%, #000 0%, transparent 70%);
+              mask-image:radial-gradient(ellipse at 30% 40%, #000 0%, transparent 70%);
+      animation:gridDrift 24s linear infinite;
+    }
+    .orb { position:absolute; border-radius:50%; filter:blur(48px); opacity:.55; will-change:transform; }
+    .orb.o1 { width:380px; height:380px; left:-120px; top:-100px; background:#60A5FA; animation:orbA 17s ease-in-out infinite; }
+    .orb.o2 { width:320px; height:320px; right:-100px; top:34%; background:#818CF8; animation:orbB 21s ease-in-out infinite; }
+    .orb.o3 { width:300px; height:300px; left:22%; bottom:-140px; background:#38BDF8; animation:orbC 19s ease-in-out infinite; }
+    body.dark .orb { opacity:.35; }
+    .spark {
+      position:absolute; bottom:-20px; border-radius:50%; background:rgba(255,255,255,.85);
+      box-shadow:0 0 12px 2px rgba(255,255,255,.55); opacity:0; animation:rise linear infinite;
+    }
+    .spark.s1 { left:8%;  width:5px; height:5px; animation-duration:13s; animation-delay:0s; }
+    .spark.s2 { left:19%; width:3px; height:3px; animation-duration:16s; animation-delay:3s; }
+    .spark.s3 { left:31%; width:6px; height:6px; animation-duration:14s; animation-delay:6s; }
+    .spark.s4 { left:44%; width:4px; height:4px; animation-duration:18s; animation-delay:1.5s; }
+    .spark.s5 { left:57%; width:5px; height:5px; animation-duration:15s; animation-delay:8s; }
+    .spark.s6 { left:69%; width:3px; height:3px; animation-duration:17s; animation-delay:4.5s; }
+    .spark.s7 { left:81%; width:6px; height:6px; animation-duration:13.5s; animation-delay:10s; }
+    .spark.s8 { left:92%; width:4px; height:4px; animation-duration:19s; animation-delay:2s; }
+
+    .brand-top, .brand-main, .brand-foot { z-index:1; }
+    .brand-top { animation:fadeUp .7s cubic-bezier(.2,.8,.2,1) both; }
+    .brand-logo { animation:floaty 5s ease-in-out 1s infinite; }
+    .brand-main h2 { animation:fadeUp .8s cubic-bezier(.2,.8,.2,1) .15s both; }
+    .brand-main ul { gap:6px; }
+    .brand-main li {
+      padding:12px 14px; margin:0 -14px; border-radius:18px; border:1px solid transparent;
+      animation:fadeUp .8s cubic-bezier(.2,.8,.2,1) both, liGlow 9s ease-in-out infinite;
+    }
+    .brand-main li:nth-child(1) { animation-delay:.35s, 1.6s; }
+    .brand-main li:nth-child(2) { animation-delay:.5s,  4.6s; }
+    .brand-main li:nth-child(3) { animation-delay:.65s, 7.6s; }
+    .brand-main li:nth-child(1) .ic { animation:icPulse 9s ease-in-out 1.6s infinite; }
+    .brand-main li:nth-child(2) .ic { animation:icPulse 9s ease-in-out 4.6s infinite; }
+    .brand-main li:nth-child(3) .ic { animation:icPulse 9s ease-in-out 7.6s infinite; }
+    .brand-foot { animation:fadeUp .8s ease .9s both; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+    @keyframes floaty { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-5px); } }
+    @keyframes liGlow {
+      0%, 30%, 100% { background:transparent; border-color:transparent; transform:translateX(0); }
+      6%, 24% { background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.22); transform:translateX(8px); }
+    }
+    @keyframes icPulse {
+      0%, 30%, 100% { background:rgba(255,255,255,.16); box-shadow:0 0 0 0 rgba(255,255,255,0); }
+      6%, 24% { background:rgba(255,255,255,.30); box-shadow:0 0 0 8px rgba(255,255,255,.10); }
+    }
+    @keyframes orbA { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(110px,90px) scale(1.18); } }
+    @keyframes orbB { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(-120px,-70px) scale(1.12); } }
+    @keyframes orbC { 0%,100% { transform:translate(0,0) scale(1); } 50% { transform:translate(130px,-60px) scale(1.2); } }
+    @keyframes rise {
+      0% { transform:translateY(0) scale(.6); opacity:0; }
+      12% { opacity:.9; }
+      85% { opacity:.6; }
+      100% { transform:translateY(-105vh) scale(1.1); opacity:0; }
+    }
+    @keyframes gridDrift { from { background-position:0 0; } to { background-position:30px 60px; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .brand-fx *, .brand-fx::before, .brand-top, .brand-logo, .brand-main h2, .brand-main li, .brand-main li .ic, .brand-foot {
+        animation:none !important;
+      }
+      .spark { display:none; }
+    }
 
     #customAlert > div { max-width:360px; padding:32px 28px; border-radius:28px; }
   }
@@ -671,22 +674,17 @@
     .brand-main h2 { font-size:30px; }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .brand-panel::before,
-    .brand-panel::after,
-    .brand-main,
-    .brand-main li {
-      animation:none !important;
-      transform:none !important;
-    }
-  }
-
 </style>
 </head>
 <body>
 
 <!-- PANEL MEREK (hanya tampil di desktop) -->
 <aside class="brand-panel" aria-hidden="true">
+  <div class="brand-fx">
+    <i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i>
+    <i class="spark s1"></i><i class="spark s2"></i><i class="spark s3"></i><i class="spark s4"></i>
+    <i class="spark s5"></i><i class="spark s6"></i><i class="spark s7"></i><i class="spark s8"></i>
+  </div>
   <div class="brand-top">
     <span class="brand-logo"><img src="logo.jpg" alt="" onerror="this.parentNode.style.display='none'"></span>
     <span class="brand-name">STools</span>
@@ -770,7 +768,7 @@
       Belum memiliki akun? <span>Daftar</span>
     </div>
     <div class="switch-guest" onclick="skipLogin()">
-      Lewati masuk (Masuk sebagai Guest)
+      Lewati masuk (sebagai Guest)
     </div>
   </div>
 
@@ -788,7 +786,7 @@
   </div>
   <button class="btn-login" onclick="handleResetPassword()">Kirim Link Reset</button>
   <div style="text-align:center; margin-top:16px;">
-    <span style="font-size:13px; color:#2563EB; cursor:pointer; font-weight:600;" onclick="closeForgotPassword()">Kembali ke Login</span>
+    <span style="font-size:13px; color:#2563EB; cursor:pointer; font-weight:600;" onclick="closeForgotPassword()">Kembali ke halaman masuk</span>
   </div>
 </div>
 
@@ -854,14 +852,14 @@
     isLogin = !isLogin;
 
     document.getElementById("title").innerText = isLogin ? "Selamat Datang Kembali" : "Daftarkan Akun";
-    document.getElementById("actionBtn").innerText = isLogin ? "Login" : "Daftar";
+    document.getElementById("actionBtn").innerText = isLogin ? "Masuk" : "Daftar";
 
     const usernameGroup = document.getElementById("usernameGroup");
     usernameGroup.style.display = isLogin ? "none" : "block";
 
     document.querySelector(".switch").innerHTML = isLogin
       ? 'Belum memiliki akun? <span>Daftar</span>'
-      : 'Sudah punya akun? <span>Masuk</span>';
+      : 'Sudah memiliki akun? <span>Masuk</span>';
   }
 
   function signup() {
@@ -927,7 +925,7 @@
       case 'auth/network-request-failed':
         return 'Koneksi gagal. Periksa internet kamu.';
       case 'auth/email-already-in-use':
-        return 'Email ini sudah terdaftar. Silakan login.';
+        return 'Email ini sudah terdaftar. Silakan masuk.';
       case 'auth/weak-password':
         return 'Password terlalu lemah. Minimal 6 karakter.';
       default:
@@ -1090,7 +1088,7 @@
 
     } catch (error) {
       if (error.code !== 'auth/popup-closed-by-user') {
-        showCustomAlert("Gagal login dengan Google: " + error.message);
+        showCustomAlert("Gagal masuk dengan Google: " + error.message);
       }
     }
   }
