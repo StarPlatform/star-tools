@@ -26,676 +26,179 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  body {
-    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    background: #F1F5F9;
-    color: #0F172A;
-  }
-
-  body.dark {
-    background: #0B1120;
-    color: #F1F5F9;
-  }
-
-  body.dark .card-modern,
-  body.dark .app-header,
-  body.dark .sidebar-nav,
-  body.dark .alert-card {
-    background: #111827;
-    border-color: #1E293B;
-  }
-
-  body.dark .materi-btn {
-    background: #1E293B;
-    border-color: #334155;
-    color: #E2E8F0;
-  }
-
-  body.dark .materi-btn .materi-num {
-    background: #1D2B4A;
-    color: #60A5FA;
-  }
-
-  body.dark .materi-btn .materi-text .materi-sub {
-    color: #94A3B8;
-  }
-
-  body.dark .materi-btn .materi-status {
-    color: #475569;
-  }
-
-  body.dark .materi-btn.opened {
-    background: #111827;
-    border-color: #1D3A6E;
-  }
-
-  body.dark .materi-btn.opened .materi-status {
-    background: #14311F;
-    color: #4ADE80;
-  }
-
-  body.dark .materi-content p {
-    color: #CBD5E1;
-  }
-
-  body.dark .materi-content h4 {
-    color: #60A5FA;
-  }
-
-  body.dark .box.benar {
-    background: #0F2A1A;
-    border-left-color: #34D399;
-    color: #86EFAC;
-  }
-
-  body.dark .box.salah {
-    background: #2A0F0F;
-    border-left-color: #F87171;
-    color: #FCA5A5;
-  }
-
-  body.dark .progress-stats {
-    color: #94A3B8;
-    border-top-color: #1E293B;
-  }
-
-  body.dark .progress-stats .stat {
-    color: #60A5FA;
-  }
-
-  .app-container {
-    max-width: 560px;
-    margin: 0 auto;
-    background: #F1F5F9;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-
-  body.dark .app-container {
-    background: #0B1120;
-  }
-
-  .app-header {
-    background: #FFFFFF;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #E2E8F0;
-    position: sticky;
-    top: 0;
-    z-index: 20;
-  }
-
-  body.dark .app-header {
-    background: #111827;
-    border-bottom-color: #1E293B;
-  }
-
-  .logo-area {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .menu-icon {
-    width: 40px;
-    height: 40px;
-    background: #F8FAFE;
-    border-radius: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 1px solid #E2E8F0;
-  }
-
-  body.dark .menu-icon {
-    background: #1E293B;
-    border-color: #334155;
-  }
-
-  .menu-icon svg {
-    stroke: #0F172A;
-  }
-
-  body.dark .menu-icon svg {
-    stroke: #F1F5F9;
-  }
-
-  .app-title {
-    font-weight: 700;
-    font-size: 20px;
-    letter-spacing: -0.3px;
-    background: linear-gradient(135deg, #2563EB, #60A5FA);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .sidebar-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    z-index: 100;
-    visibility: hidden;
-    opacity: 0;
-    transition: 0.25s;
-  }
-
-  .sidebar-overlay.active {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  .sidebar-nav {
-    position: fixed;
-    top: 0;
-    left: -280px;
-    width: 280px;
-    height: 100%;
-    background: #FFFFFF;
-    z-index: 101;
-    transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    padding: 70px 20px 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
-  }
-
-  .sidebar-nav.active {
-    left: 0;
-  }
-
-  .sidebar-nav a {
-    padding: 14px 18px;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 18px;
-    text-decoration: none;
-    color: #0F172A;
-    transition: 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  body.dark .sidebar-nav a {
-    color: #F1F5F9;
-  }
-
-  .sidebar-nav a:active {
-    background: #DBEAFE;
-  }
-
-  body.dark .sidebar-nav a:active {
-    background: #1E293B;
-  }
-
-  .logout-link {
-    margin-top: 20px;
-    border-top: 1px solid #E2E8F0;
-    padding-top: 16px;
-  }
-
-  body.dark .logout-link {
-    border-top-color: #334155;
-  }
-
-  .logout-link a {
-    color: #DC2626 !important;
-  }
-
-  .logout-link a svg {
-    stroke: #DC2626;
-  }
-
-  .close-sidebar-icon {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 30px;
-  }
-
-  .close-btn {
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: 0.2s;
-    border: none;
-  }
-
-  body.dark .close-btn {
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  .close-btn:active {
-    transform: scale(0.92);
-  }
-
-  .close-btn svg {
-    stroke: #0F172A;
-    width: 22px;
-    height: 22px;
-  }
-
-  body.dark .close-btn svg {
-    stroke: #F1F5F9;
-  }
-
-  .screen {
-    padding: 20px 18px 30px;
-    flex: 1;
-  }
-
-  .card-modern {
-    background: #FFFFFF;
-    border-radius: 28px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    border: 1px solid #E2E8F0;
-  }
-
-  .section-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .grid-bagian {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 8px;
-  }
-
-  .materi-btn {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: #F8FAFE;
-    border: 1.5px solid #E2E8F0;
-    padding: 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    color: #0F172A;
-    transition: 0.15s;
-  }
-
-  .materi-btn:active {
-    transform: scale(0.98);
-  }
-
-  .materi-btn .materi-num {
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
-    background: #EFF6FF;
-    color: #2563EB;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 15px;
-    flex-shrink: 0;
-    transition: 0.15s;
-  }
-
-  .materi-btn .materi-text {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .materi-btn .materi-text .materi-title {
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .materi-btn .materi-text .materi-sub {
-    font-size: 12px;
-    color: #64748B;
-    margin-top: 2px;
-  }
-
-  .materi-btn .materi-status {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #CBD5E1;
-  }
-
-  .materi-btn .materi-status svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .materi-btn.opened {
-    background: #FFFFFF;
-    border-color: #BFDBFE;
-  }
-
-  .materi-btn.opened .materi-num {
-    background: #2563EB;
-    color: #fff;
-  }
-
-  .materi-btn.opened .materi-status {
-    background: #DCFCE7;
-    color: #16A34A;
-  }
-
-  .btn-full {
-    background: #2563EB;
-    border: none;
-    color: white;
-    font-weight: 600;
-    padding: 14px;
-    border-radius: 44px;
-    font-size: 15px;
-    width: 100%;
-    cursor: pointer;
-  }
-
-  .btn-full:active {
-    transform: scale(0.97);
-  }
-
-  .btn-outline {
-    background: transparent;
-    border: 1.5px solid #2563EB;
-    color: #2563EB;
-    padding: 12px;
-    border-radius: 44px;
-    font-weight: 600;
-    width: 100%;
-    margin-top: 8px;
-    cursor: pointer;
-  }
-
-  .nav-buttons {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
-  }
-
-  .nav-buttons button {
-    flex: 1;
-  }
-
-  .materi-content {
-    line-height: 1.65;
-    font-size: 15px;
-  }
-
-  .materi-content h4 {
-    font-size: 18px;
-    margin: 20px 0 10px 0;
-    color: #2563EB;
-    font-weight: 700;
-  }
-
-  .materi-content p {
-    margin-bottom: 12px;
-    color: #334155;
-  }
-
-  .materi-content .box {
-    padding: 10px 12px;
-    margin: 6px 0;
-    border-radius: 8px;
-    font-size: 14px;
-    line-height: 1.4;
-    border-left: 5px solid;
-  }
-
-  .materi-content .benar {
-    background: #E8F8EE;
-    border-left-color: #2ECC71;
-    color: #1E7A3B;
-  }
-
-  .materi-content .salah {
-    background: #FDEAEA;
-    border-left-color: #E74C3C;
-    color: #A3261B;
-  }
-
-  .alert-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(6px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 200;
-  }
-
-  .alert-card {
-    background: #FFFFFF;
-    width: 300px;
-    border-radius: 32px;
-    padding: 24px 22px;
-    text-align: center;
-    border: 1px solid #E2E8F0;
-  }
-
-  body.dark .alert-card {
-    background: #111827;
-    border-color: #1E293B;
-  }
-
-  .footer-app {
-    text-align: center;
-    padding: 20px;
-    font-size: 12px;
-    color: #64748B;
-    border-top: 1px solid #E2E8F0;
-  }
-
-  body.dark .footer-app {
-    color: #94A3B8;
-    border-top-color: #1E293B;
-  }
-
-  .progress-stats {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0 0 0;
-    font-size: 13px;
-    color: #64748B;
-    border-top: 1px solid #E2E8F0;
-    margin-top: 12px;
-    padding-top: 12px;
-  }
-
-  body.dark .progress-stats {
-    color: #94A3B8;
-    border-top-color: #1E293B;
-  }
-
-  .progress-stats .stat {
-    font-weight: 600;
-    color: #2563EB;
-  }
-
-  body.dark .progress-stats .stat {
-    color: #60A5FA;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  /* ===== Tampilan Laptop / PC ===== */
-  
-
-/* ===== LATIHAN SOAL BAHASA INGGRIS ===== */
-.latihan-opsi{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:#F8FAFE;border:2px solid #E2E8F0;border-radius:14px;cursor:pointer;transition:.15s;font-size:14px;line-height:1.5;color:#0F172A;font-family:inherit;text-align:left;width:100%}
-.latihan-opsi:active{transform:scale(.98)}
-.latihan-opsi .opsi-label{width:26px;height:26px;border-radius:50%;background:#FFF;border:2px solid #E2E8F0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;color:#64748B}
-.latihan-opsi.correct{background:#DCFCE7;border-color:#16A34A;color:#15803D}
-.latihan-opsi.correct .opsi-label{background:#16A34A;border-color:#16A34A;color:#fff}
-.latihan-opsi.wrong{background:#FEE2E2;border-color:#DC2626;color:#B91C1C}
-.latihan-opsi.wrong .opsi-label{background:#DC2626;border-color:#DC2626;color:#fff}
-.latihan-opsi.disabled{pointer-events:none;opacity:.9}
-.fab-latihan{position:fixed;right:20px;bottom:90px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#60A5FA);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 20px rgba(37,99,235,.4),0 4px 10px rgba(0,0,0,.1);z-index:50;transition:transform .2s;font-family:inherit}
-.fab-latihan:active{transform:scale(.92)}
-.fab-latihan svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.fab-latihan .fab-tooltip{position:absolute;right:70px;top:50%;transform:translateY(-50%);background:#0F172A;color:#fff;padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
-.fab-latihan:hover .fab-tooltip{opacity:1}
-.pilih-tingkat-btn{display:flex;align-items:center;gap:16px;padding:18px 20px;background:#FFF;border:2px solid #E2E8F0;border-radius:20px;cursor:pointer;transition:.15s;font-family:inherit;text-align:left;width:100%}
-.pilih-tingkat-btn:active{transform:scale(.98)}
-.pilih-tingkat-btn .tingkat-icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pilih-tingkat-btn .tingkat-icon svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.pilih-tingkat-btn .tingkat-info{flex:1;min-width:0}
-.pilih-tingkat-btn .tingkat-title{font-size:16px;font-weight:700;color:#0F172A;margin-bottom:2px}
-.pilih-tingkat-btn .tingkat-sub{font-size:12.5px;color:#64748B}
-.pilih-tingkat-btn .tingkat-arrow{color:#CBD5E1;flex-shrink:0}
-.pilih-tingkat-btn .tingkat-arrow svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.pilih-tingkat-btn.mudah{border-color:#BBF7D0}.pilih-tingkat-btn.mudah .tingkat-icon{background:#DCFCE7;color:#16A34A}
-.pilih-tingkat-btn.sedang{border-color:#FDE68A}.pilih-tingkat-btn.sedang .tingkat-icon{background:#FEF3C7;color:#D97706}
-.pilih-tingkat-btn.sulit{border-color:#FECACA}.pilih-tingkat-btn.sulit .tingkat-icon{background:#FEE2E2;color:#DC2626}
-body.dark .latihan-opsi{background:#1E293B;border-color:#334155;color:#E2E8F0}
-body.dark .latihan-opsi .opsi-label{background:#111827;border-color:#475569;color:#CBD5E1}
-body.dark .pilih-tingkat-btn{background:#111827;border-color:#334155}
-body.dark .pilih-tingkat-btn .tingkat-title{color:#F1F5F9}
-body.dark #latihanPertanyaan{color:#F1F5F9 !important}
-body.dark #latihanPenjelasanWrap{background:#172554 !important;color:#BFDBFE !important;border-left-color:#60A5FA !important}
-body.dark #latihanProgressBar{background:linear-gradient(90deg,#60A5FA,#93C5FD) !important}
-
-
-
-  /* perbaikan mode gelap: teks soal & jalur progres latihan */
-  body.dark #latihanPertanyaan { color:#F1F5F9 !important; }
-  body.dark #latihanProgressWrap > div:nth-of-type(2) { background:#1E293B !important; }
-
-  .sidebar-brand { display:none; }
-
-  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #F1F5F9; color: #0F172A; }
+  body.dark { background: #0B1120; color: #F1F5F9; }
+  body.dark .card-modern, body.dark .app-header, body.dark .sidebar-nav, body.dark .alert-card { background: #111827; border-color: #1E293B; }
+  body.dark .materi-btn { background: #1E293B; border-color: #334155; color: #E2E8F0; }
+  body.dark .materi-btn .materi-num { background: #1D2B4A; color: #60A5FA; }
+  body.dark .materi-btn .materi-text .materi-sub { color: #94A3B8; }
+  body.dark .materi-btn .materi-status { color: #475569; }
+  body.dark .materi-btn.opened { background: #111827; border-color: #1D3A6E; }
+  body.dark .materi-btn.opened .materi-status { background: #14311F; color: #4ADE80; }
+  body.dark .materi-content p { color: #CBD5E1; }
+  body.dark .materi-content h4 { color: #60A5FA; }
+  body.dark .box.benar { background: #0F2A1A; border-left-color: #34D399; color: #86EFAC; }
+  body.dark .box.salah { background: #2A0F0F; border-left-color: #F87171; color: #FCA5A5; }
+  body.dark .progress-stats { color: #94A3B8; border-top-color: #1E293B; }
+  body.dark .progress-stats .stat { color: #60A5FA; }
+  .app-container { max-width: 560px; margin: 0 auto; background: #F1F5F9; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
+  body.dark .app-container { background: #0B1120; }
+  .app-header { background: #FFFFFF; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 20; }
+  body.dark .app-header { background: #111827; border-bottom-color: #1E293B; }
+  .logo-area { display: flex; align-items: center; gap: 12px; }
+  .menu-icon { width: 40px; height: 40px; background: #F8FAFE; border-radius: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #E2E8F0; }
+  body.dark .menu-icon { background: #1E293B; border-color: #334155; }
+  .menu-icon svg { stroke: #0F172A; }
+  body.dark .menu-icon svg { stroke: #F1F5F9; }
+  .app-title { font-weight: 700; font-size: 20px; letter-spacing: -0.3px; background: linear-gradient(135deg, #2563EB, #60A5FA); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); z-index: 100; visibility: hidden; opacity: 0; transition: 0.25s; }
+  .sidebar-overlay.active { visibility: visible; opacity: 1; }
+  .sidebar-nav { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #FFFFFF; z-index: 101; transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); padding: 70px 20px 30px; display: flex; flex-direction: column; gap: 4px; box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1); }
+  .sidebar-nav.active { left: 0; }
+  .sidebar-nav a { padding: 14px 18px; font-size: 16px; font-weight: 500; border-radius: 18px; text-decoration: none; color: #0F172A; transition: 0.2s; display: flex; align-items: center; gap: 14px; }
+  body.dark .sidebar-nav a { color: #F1F5F9; }
+  .sidebar-nav a:active { background: #DBEAFE; }
+  body.dark .sidebar-nav a:active { background: #1E293B; }
+  .logout-link { margin-top: 20px; border-top: 1px solid #E2E8F0; padding-top: 16px; }
+  body.dark .logout-link { border-top-color: #334155; }
+  .logout-link a { color: #DC2626 !important; }
+  .logout-link a svg { stroke: #DC2626; }
+  .close-sidebar-icon { position: absolute; top: 20px; right: 20px; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 30px; }
+  .close-btn { width: 40px; height: 40px; background: rgba(0, 0, 0, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; border: none; }
+  body.dark .close-btn { background: rgba(255, 255, 255, 0.05); }
+  .close-btn:active { transform: scale(0.92); }
+  .close-btn svg { stroke: #0F172A; width: 22px; height: 22px; }
+  body.dark .close-btn svg { stroke: #F1F5F9; }
+  .screen { padding: 20px 18px 30px; flex: 1; }
+  .card-modern { background: #FFFFFF; border-radius: 28px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); border: 1px solid #E2E8F0; }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .grid-bagian { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .materi-btn { display: flex; align-items: center; gap: 14px; background: #F8FAFE; border: 1.5px solid #E2E8F0; padding: 14px; border-radius: 20px; cursor: pointer; color: #0F172A; transition: 0.15s; }
+  .materi-btn:active { transform: scale(0.98); }
+  .materi-btn .materi-num { width: 42px; height: 42px; border-radius: 14px; background: #EFF6FF; color: #2563EB; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; flex-shrink: 0; transition: 0.15s; }
+  .materi-btn .materi-text { flex: 1; min-width: 0; }
+  .materi-btn .materi-text .materi-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .materi-btn .materi-text .materi-sub { font-size: 12px; color: #64748B; margin-top: 2px; }
+  .materi-btn .materi-status { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #CBD5E1; }
+  .materi-btn .materi-status svg { width: 16px; height: 16px; }
+  .materi-btn.opened { background: #FFFFFF; border-color: #BFDBFE; }
+  .materi-btn.opened .materi-num { background: #2563EB; color: #fff; }
+  .materi-btn.opened .materi-status { background: #DCFCE7; color: #16A34A; }
+  .btn-full { background: #2563EB; border: none; color: white; font-weight: 600; padding: 14px; border-radius: 44px; font-size: 15px; width: 100%; cursor: pointer; }
+  .btn-full:active { transform: scale(0.97); }
+  .btn-outline { background: transparent; border: 1.5px solid #2563EB; color: #2563EB; padding: 12px; border-radius: 44px; font-weight: 600; width: 100%; margin-top: 8px; cursor: pointer; }
+  .nav-buttons { display: flex; gap: 12px; margin-top: 20px; }
+  .nav-buttons button { flex: 1; }
+  .materi-content { line-height: 1.65; font-size: 15px; }
+  .materi-content h4 { font-size: 18px; margin: 20px 0 10px 0; color: #2563EB; font-weight: 700; }
+  .materi-content p { margin-bottom: 12px; color: #334155; }
+  .materi-content .box { padding: 10px 12px; margin: 6px 0; border-radius: 8px; font-size: 14px; line-height: 1.4; border-left: 5px solid; }
+  .materi-content .benar { background: #E8F8EE; border-left-color: #2ECC71; color: #1E7A3B; }
+  .materi-content .salah { background: #FDEAEA; border-left-color: #E74C3C; color: #A3261B; }
+  .alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; z-index: 200; }
+  .alert-card { background: #FFFFFF; width: 300px; border-radius: 32px; padding: 24px 22px; text-align: center; border: 1px solid #E2E8F0; }
+  body.dark .alert-card { background: #111827; border-color: #1E293B; }
+  .footer-app { text-align: center; padding: 20px; font-size: 12px; color: #64748B; border-top: 1px solid #E2E8F0; }
+  body.dark .footer-app { color: #94A3B8; border-top-color: #1E293B; }
+  .progress-stats { display: flex; justify-content: space-between; align-items: center; padding: 8px 0 0 0; font-size: 13px; color: #64748B; border-top: 1px solid #E2E8F0; margin-top: 12px; padding-top: 12px; }
+  body.dark .progress-stats { color: #94A3B8; border-top-color: #1E293B; }
+  .progress-stats .stat { font-weight: 600; color: #2563EB; }
+  body.dark .progress-stats .stat { color: #60A5FA; }
+  .hidden { display: none; }
+  .latihan-opsi { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: #F8FAFE; border: 2px solid #E2E8F0; border-radius: 14px; cursor: pointer; transition: .15s; font-size: 14px; line-height: 1.5; color: #0F172A; font-family: inherit; text-align: left; width: 100%; }
+  .latihan-opsi:active { transform: scale(.98); }
+  .latihan-opsi .opsi-label { width: 26px; height: 26px; border-radius: 50%; background: #FFF; border: 2px solid #E2E8F0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; color: #64748B; }
+  .latihan-opsi.correct { background: #DCFCE7; border-color: #16A34A; color: #15803D; }
+  .latihan-opsi.correct .opsi-label { background: #16A34A; border-color: #16A34A; color: #fff; }
+  .latihan-opsi.wrong { background: #FEE2E2; border-color: #DC2626; color: #B91C1C; }
+  .latihan-opsi.wrong .opsi-label { background: #DC2626; border-color: #DC2626; color: #fff; }
+  .latihan-opsi.disabled { pointer-events: none; opacity: .9; }
+  .fab-latihan { position: fixed; right: 20px; bottom: 90px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #2563EB, #60A5FA); color: #fff; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(37, 99, 235, .4), 0 4px 10px rgba(0, 0, 0, .1); z-index: 50; transition: transform .2s; font-family: inherit; }
+  .fab-latihan:active { transform: scale(.92); }
+  .fab-latihan svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .fab-latihan .fab-tooltip { position: absolute; right: 70px; top: 50%; transform: translateY(-50%); background: #0F172A; color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .fab-latihan:hover .fab-tooltip { opacity: 1; }
+  .pilih-tingkat-btn { display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: #FFF; border: 2px solid #E2E8F0; border-radius: 20px; cursor: pointer; transition: .15s; font-family: inherit; text-align: left; width: 100%; }
+  .pilih-tingkat-btn:active { transform: scale(.98); }
+  .pilih-tingkat-btn .tingkat-icon { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pilih-tingkat-btn .tingkat-icon svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .pilih-tingkat-btn .tingkat-info { flex: 1; min-width: 0; }
+  .pilih-tingkat-btn .tingkat-title { font-size: 16px; font-weight: 700; color: #0F172A; margin-bottom: 2px; }
+  .pilih-tingkat-btn .tingkat-sub { font-size: 12.5px; color: #64748B; }
+  .pilih-tingkat-btn .tingkat-arrow { color: #CBD5E1; flex-shrink: 0; }
+  .pilih-tingkat-btn .tingkat-arrow svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .pilih-tingkat-btn.mudah { border-color: #BBF7D0; }
+  .pilih-tingkat-btn.mudah .tingkat-icon { background: #DCFCE7; color: #16A34A; }
+  .pilih-tingkat-btn.sedang { border-color: #FDE68A; }
+  .pilih-tingkat-btn.sedang .tingkat-icon { background: #FEF3C7; color: #D97706; }
+  .pilih-tingkat-btn.sulit { border-color: #FECACA; }
+  .pilih-tingkat-btn.sulit .tingkat-icon { background: #FEE2E2; color: #DC2626; }
+  body.dark .latihan-opsi { background: #1E293B; border-color: #334155; color: #E2E8F0; }
+  body.dark .latihan-opsi .opsi-label { background: #111827; border-color: #475569; color: #CBD5E1; }
+  body.dark .pilih-tingkat-btn { background: #111827; border-color: #334155; }
+  body.dark .pilih-tingkat-btn .tingkat-title { color: #F1F5F9; }
+  body.dark #latihanPertanyaan { color: #F1F5F9 !important; }
+  body.dark #latihanPenjelasanWrap { background: #172554 !important; color: #BFDBFE !important; border-left-color: #60A5FA !important; }
+  body.dark #latihanProgressBar { background: linear-gradient(90deg, #60A5FA, #93C5FD) !important; }
+  body.dark #latihanPertanyaan { color: #F1F5F9 !important; }
+  body.dark #latihanProgressWrap > div:nth-of-type(2) { background: #1E293B !important; }
+  .sidebar-brand { display: none; }
   @media (min-width: 900px) {
-    body { background:#F8FAFC; }
-    body.dark { background:#0B1120; }
-
-    .sidebar-overlay { display:none !important; }
-    .close-sidebar-icon, .menu-icon { display:none !important; }
-    .sidebar-nav {
-      left:0; width:240px; padding:24px 14px 20px; gap:2px;
-      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
-    }
-    body.dark .sidebar-nav { border-right-color:#1E293B; }
-    .sidebar-brand {
-      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
-      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
-    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
-    .sidebar-nav a:hover { background:#F1F5F9; }
-    body.dark .sidebar-nav a:hover { background:#16203A; }
-    .sidebar-nav .logout-link { margin-top:auto; }
-
-    .app-container {
-      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
-      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
-    }
-    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
-
-    .app-header {
-      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
-      padding:0 max(32px, calc((100% - 1100px) / 2 + 32px));
-    }
-    body.dark .app-header { background:rgba(11,17,32,.88); }
-    .app-title { font-size:22px; }
-    .close-btn:hover { background:rgba(37,99,235,.10); }
-
-    .screen { width:100%; max-width:1100px; margin:0 auto; padding:32px 32px 48px; }
-    .card-modern { padding:26px; border-radius:22px; margin-bottom:0; }
-    .section-title { font-size:20px; letter-spacing:-.3px; }
-
-    /* daftar materi: kiri status, kanan daftar 2 kolom */
-    #halamanUtama:not(.hidden) {
-      display:grid; grid-template-columns:minmax(0,320px) minmax(0,1fr); column-gap:28px; align-items:start;
-    }
-    #halamanUtama > .card-modern:nth-child(1) { position:sticky; top:92px; }
-    #halamanUtama > .card-modern { min-width:0; }
-    .grid-bagian { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
-    .grid-bagian .materi-btn { min-width:0; }
-    .grid-bagian .materi-btn .materi-text .materi-title { white-space:normal; overflow:visible; text-overflow:clip; word-break:break-word; line-height:1.3; }
-    .materi-btn { transition:border-color .15s, box-shadow .15s, transform .15s; }
-    .materi-btn:not(.locked):hover { border-color:#9DB9F2; box-shadow:0 8px 20px rgba(37,99,235,.08); transform:translateY(-2px); }
-    body.dark .materi-btn:not(.locked):hover { border-color:#2F4A8A; box-shadow:none; }
-
-    /* baca materi & latihan: kolom tengah */
-    #materiView:not(.hidden) { max-width:800px; margin:0 auto; }
-    #materiView > .card-modern { padding:36px 40px; }
-    #materiView .section-title { font-size:24px; letter-spacing:-.4px; margin-bottom:18px; }
-    .materi-content { font-size:16px; line-height:1.75; }
-    .materi-content h4 { font-size:19px; }
-    .materi-content pre { font-size:14px; padding:16px 18px; }
-    .btn-full, .btn-outline { transition:filter .15s, background .15s; }
-    .btn-full:hover { filter:brightness(1.08); }
-    .btn-outline:hover { background:rgba(37,99,235,.06); }
-    .nav-buttons { margin-top:28px; align-items:stretch; }
-    .nav-buttons .btn-outline, .nav-buttons .btn-full { height:48px; min-height:48px; margin:0; padding:0 16px; display:flex; align-items:center; justify-content:center; }
-
-    #latihanView:not(.hidden) { max-width:700px; margin:0 auto; }
-    .latihan-opsi { transition:border-color .15s, background .15s, transform .1s; }
-    .latihan-opsi:not(.disabled):hover { border-color:#93B4F5; }
-    .pilih-tingkat-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(37,99,235,.08); }
-
-    .fab-latihan { right:32px; bottom:32px; width:64px; height:64px; }
-    .fab-latihan:hover { transform:translateY(-3px); }
-
-    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
-    .alert-card { max-width:380px; padding:28px 26px; border-radius:26px; }
+    body { background: #F8FAFC; }
+    body.dark { background: #0B1120; }
+    .sidebar-overlay { display: none !important; }
+    .close-sidebar-icon, .menu-icon { display: none !important; }
+    .sidebar-nav { left: 0; width: 240px; padding: 24px 14px 20px; gap: 2px; box-shadow: none; border-right: 1px solid #E2E8F0; transition: none; z-index: 30; overflow-y: auto; }
+    body.dark .sidebar-nav { border-right-color: #1E293B; }
+    .sidebar-brand { display: block; padding: 2px 16px 22px; font-size: 22px; font-weight: 700; letter-spacing: -.3px; background: linear-gradient(135deg, #2563EB, #60A5FA); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .sidebar-nav a { padding: 12px 16px; font-size: 14.5px; border-radius: 12px; }
+    .sidebar-nav a:hover { background: #F1F5F9; }
+    body.dark .sidebar-nav a:hover { background: #16203A; }
+    .sidebar-nav .logout-link { margin-top: auto; }
+    .app-container { max-width: none; width: auto; margin: 0 0 0 240px; min-height: 100vh; padding: 0; border: 0; border-radius: 0; box-shadow: none; overflow: visible; background: #F8FAFC; }
+    body.dark .app-container { background: #0B1120; border: 0; box-shadow: none; }
+    .app-header { min-height: 68px; border-radius: 0; background: rgba(248, 250, 252, .88); backdrop-filter: blur(10px); padding: 0 max(32px, calc((100% - 1100px) / 2 + 32px)); }
+    body.dark .app-header { background: rgba(11, 17, 32, .88); }
+    .app-title { font-size: 22px; }
+    .close-btn:hover { background: rgba(37, 99, 235, .10); }
+    .screen { width: 100%; max-width: 1100px; margin: 0 auto; padding: 32px 32px 48px; }
+    .card-modern { padding: 26px; border-radius: 22px; margin-bottom: 0; }
+    .section-title { font-size: 20px; letter-spacing: -.3px; }
+    #halamanUtama:not(.hidden) { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); column-gap: 28px; align-items: start; }
+    #halamanUtama > .card-modern:nth-child(1) { position: sticky; top: 92px; }
+    #halamanUtama > .card-modern { min-width: 0; }
+    .grid-bagian { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .grid-bagian .materi-btn { min-width: 0; }
+    .grid-bagian .materi-btn .materi-text .materi-title { white-space: normal; overflow: visible; text-overflow: clip; word-break: break-word; line-height: 1.3; }
+    .materi-btn { transition: border-color .15s, box-shadow .15s, transform .15s; }
+    .materi-btn:not(.locked):hover { border-color: #9DB9F2; box-shadow: 0 8px 20px rgba(37, 99, 235, .08); transform: translateY(-2px); }
+    body.dark .materi-btn:not(.locked):hover { border-color: #2F4A8A; box-shadow: none; }
+    #materiView:not(.hidden) { max-width: 800px; margin: 0 auto; }
+    #materiView > .card-modern { padding: 36px 40px; }
+    #materiView .section-title { font-size: 24px; letter-spacing: -.4px; margin-bottom: 18px; }
+    .materi-content { font-size: 16px; line-height: 1.75; }
+    .materi-content h4 { font-size: 19px; }
+    .materi-content pre { font-size: 14px; padding: 16px 18px; }
+    .btn-full, .btn-outline { transition: filter .15s, background .15s; }
+    .btn-full:hover { filter: brightness(1.08); }
+    .btn-outline:hover { background: rgba(37, 99, 235, .06); }
+    .nav-buttons { margin-top: 28px; align-items: stretch; }
+    .nav-buttons .btn-outline, .nav-buttons .btn-full { height: 48px; min-height: 48px; margin: 0; padding: 0 16px; display: flex; align-items: center; justify-content: center; }
+    #latihanView:not(.hidden) { max-width: 700px; margin: 0 auto; }
+    .latihan-opsi { transition: border-color .15s, background .15s, transform .1s; }
+    .latihan-opsi:not(.disabled):hover { border-color: #93B4F5; }
+    .pilih-tingkat-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 99, 235, .08); }
+    .fab-latihan { right: 32px; bottom: 32px; width: 64px; height: 64px; }
+    .fab-latihan:hover { transform: translateY(-3px); }
+    .footer-app { margin: auto 0 0; padding: 20px; background: transparent; }
+    .alert-card { max-width: 380px; padding: 28px 26px; border-radius: 26px; }
   }
-
   @media (min-width: 900px) and (max-width: 1099px) {
-    .screen { padding:24px; }
-    #halamanUtama:not(.hidden) { grid-template-columns:minmax(0,280px) minmax(0,1fr); column-gap:20px; }
-    .grid-bagian { grid-template-columns:minmax(0,1fr); }
+    .screen { padding: 24px; }
+    #halamanUtama:not(.hidden) { grid-template-columns: minmax(0, 280px) minmax(0, 1fr); column-gap: 20px; }
+    .grid-bagian { grid-template-columns: minmax(0, 1fr); }
   }
-
-
 </style>
 
 <script id="latihan-fab-controller">
@@ -771,6 +274,9 @@ function syncLatihanFab() {
     <a href="#" onclick="goTo('lokasi.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokasi
     </a>
+    <a href="#" onclick="goTo('kalender.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Kalender
+    </a>
     <div class="logout-link">
       <a href="#" onclick="logoutAction()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.7"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Keluar
@@ -820,7 +326,6 @@ function syncLatihanFab() {
         <button class="btn-outline" id="backToListBtn" style="margin-top: 12px;">Kembali ke Daftar</button>
       </div>
     </div>
-
 
     <div id="latihanView" class="hidden">
       <div id="latihanPilihTingkat">
@@ -929,9 +434,8 @@ let currentMateriIdx = 0;
 
 const STORAGE_KEY = 'inggrisProgress';
 
-// ======================== 100 MATERI BAHASA INGGRIS ========================
 const materiList = [
-  // 1-25: DASAR TATA BAHASA
+
   {
     judul: "Inggris 1 - Simple Present Tense",
     konten: '<h4>Pengertian</h4><p>Simple Present Tense adalah tense yang digunakan untuk menyatakan kebiasaan atau fakta.</p><h4>Penjelasan</h4><p>Menggunakan verb 1 dan ditambah s/es untuk he, she, it.</p><h4>Contoh</h4><div class="box benar">She eats every day.</div><div class="box salah">She eat every day.</div><h4>Kesimpulan</h4><p>Digunakan untuk aktivitas rutin dan fakta umum.</p>'
@@ -1032,7 +536,7 @@ const materiList = [
     judul: "Inggris 25 - Present Perfect Tense",
     konten: '<h4>Pengertian</h4><p>Present Perfect Tense digunakan untuk kejadian yang sudah terjadi dan masih relevan.</p><h4>Penjelasan</h4><p>Menggunakan have/has + verb 3.</p><h4>Contoh</h4><div class="box benar">I have finished my homework.</div><div class="box salah">I have finish my homework.</div><h4>Kesimpulan</h4><p>Digunakan untuk pengalaman atau hasil.</p>'
   },
-  // 26-50: LANJUTAN TATA BAHASA
+
   {
     judul: "Inggris 26 - Past Continuous Tense",
     konten: '<h4>Pengertian</h4><p>Past Continuous Tense digunakan untuk kejadian yang sedang berlangsung di masa lalu.</p><h4>Penjelasan</h4><p>was/were + verb ing.</p><h4>Contoh</h4><div class="box benar">I was sleeping at 8 PM.</div><div class="box salah">I was sleep at 8 PM.</div><h4>Kesimpulan</h4><p>Menjelaskan aktivitas yang sedang terjadi di masa lalu.</p>'
@@ -1133,7 +637,7 @@ const materiList = [
     judul: "Inggris 50 - Agreement and Disagreement",
     konten: '<h4>Pengertian</h4><p>Agreement and disagreement adalah cara setuju atau tidak setuju.</p><h4>Penjelasan</h4><p>Contoh: I agree, I disagree.</p><h4>Contoh</h4><div class="box benar">I agree with you.</div><div class="box salah">I am agree you.</div><h4>Kesimpulan</h4><p>Digunakan untuk menyatakan pendapat.</p>'
   },
-  // 51-75: TOPIK LANJUTAN
+
   {
     judul: "Inggris 51 - Conditional Sentence Type 2",
     konten: '<h4>Pengertian</h4><p>Conditional sentence type 2 adalah pengandaian yang tidak realistis.</p><h4>Penjelasan</h4><p>If + past, would + verb.</p><h4>Contoh</h4><div class="box benar">If I were rich, I would travel.</div><div class="box salah">If I am rich, I travel.</div><h4>Kesimpulan</h4><p>Untuk kondisi yang tidak nyata.</p>'
@@ -1234,7 +738,7 @@ const materiList = [
     judul: "Inggris 75 - Adverbial Clause of Comparison",
     konten: '<h4>Pengertian</h4><p>Adverbial clause of comparison adalah klausa keterangan perbandingan.</p><h4>Penjelasan</h4><p>Contoh: as...as, than.</p><h4>Contoh</h4><div class="box benar">He is as tall as his father.</div><div class="box salah">He is tall as his father.</div><h4>Kesimpulan</h4><p>Menjelaskan perbandingan.</p>'
   },
-  // 76-100: TOPIK LANJUTAN DAN PRAKTIS
+
   {
     judul: "Inggris 76 - Noun Clause",
     konten: '<h4>Pengertian</h4><p>Noun clause adalah klausa yang berfungsi sebagai kata benda.</p><h4>Penjelasan</h4><p>Dimulai dengan that, whether, if, wh-words.</p><h4>Contoh</h4><div class="box benar">I know that he is honest.</div><div class="box salah">I know that he honest.</div><h4>Kesimpulan</h4><p>Berfungsi sebagai subject atau object.</p>'
@@ -1337,7 +841,6 @@ const materiList = [
   }
 ];
 
-// ======================== PROGRESS LOCALSTORAGE ========================
 function loadProgress() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
@@ -1367,7 +870,6 @@ function markAsOpened(index) {
   }
 }
 
-// ======================== UI FUNCTIONS ========================
 function renderBagian() {
   const container = document.getElementById('listBagianGrid');
   if (!container) return;
@@ -1482,8 +984,6 @@ function logoutAction() {
   });
 }
 
-
-// ======================== LATIHAN SOAL BAHASA INGGRIS ========================
 const soalMudah = [{"q":"Choose the correct sentence.","opsi":["She go to school every day.","She goes to school every day.","She going to school every day.","She gone to school every day."],"jawab":1,"penjelasan":"Untuk subject she pada Simple Present, kata kerja mendapat akhiran -s/-es: goes."},{"q":"What is the past form of “go”?","opsi":["goed","goes","went","gone"],"jawab":2,"penjelasan":"Bentuk lampau dari go adalah went."},{"q":"Choose the correct article: “I saw ___ elephant.”","opsi":["a","an","the","-"],"jawab":1,"penjelasan":"Elephant diawali bunyi vokal, sehingga digunakan an."},{"q":"What is the opposite of “expensive”?","opsi":["cheap","large","heavy","strong"],"jawab":0,"penjelasan":"Expensive berarti mahal, sedangkan lawannya adalah cheap, yaitu murah."},{"q":"Choose the correct plural form of “child”.","opsi":["childs","childes","children","childrens"],"jawab":2,"penjelasan":"Bentuk jamak tidak beraturan dari child adalah children."},{"q":"Complete: “They ___ playing football now.”","opsi":["is","am","are","be"],"jawab":2,"penjelasan":"Subject they menggunakan are pada Present Continuous."},{"q":"What does “happy” mean?","opsi":["sedih","marah","senang","takut"],"jawab":2,"penjelasan":"Happy berarti senang atau bahagia."},{"q":"Choose the correct sentence.","opsi":["I has a book.","I have a book.","I having a book.","I haves a book."],"jawab":1,"penjelasan":"Subject I menggunakan have."},{"q":"Which word is a noun?","opsi":["beautiful","quickly","teacher","run"],"jawab":2,"penjelasan":"Teacher adalah kata benda yang berarti guru."},{"q":"Complete: “There ___ three apples on the table.”","opsi":["is","am","are","be"],"jawab":2,"penjelasan":"Three apples adalah bentuk jamak, sehingga digunakan there are."},{"q":"What is the comparative form of “small”?","opsi":["smallest","more small","smaller","smallly"],"jawab":2,"penjelasan":"Comparative dari small adalah smaller."},{"q":"Choose the correct pronoun: “___ am a student.”","opsi":["He","They","I","She"],"jawab":2,"penjelasan":"I digunakan untuk menyatakan diri sendiri sebagai subject."},{"q":"Complete: “Please ___ the door.”","opsi":["close","closes","closed","closing"],"jawab":0,"penjelasan":"Kalimat perintah menggunakan bentuk dasar verb: close."},{"q":"Which word means “cepat”?","opsi":["slow","fast","late","weak"],"jawab":1,"penjelasan":"Fast berarti cepat."},{"q":"Choose the correct sentence.","opsi":["He can swims.","He can swimming.","He can swim.","He cans swim."],"jawab":2,"penjelasan":"Setelah modal can, gunakan verb dasar: swim."},{"q":"Complete: “My sister is ___ than me.”","opsi":["tall","taller","tallest","more tall"],"jawab":1,"penjelasan":"Perbandingan dua orang menggunakan comparative: taller."},{"q":"Which word is an adjective?","opsi":["beautiful","beauty","beautifully","beautify"],"jawab":0,"penjelasan":"Beautiful adalah adjective yang menerangkan noun."},{"q":"Choose the correct question.","opsi":["Where you live?","Where do you live?","Where does you live?","Where living you?"],"jawab":1,"penjelasan":"Untuk pertanyaan Simple Present dengan subject you, gunakan do: Where do you live?"},{"q":"Complete: “I ___ coffee every morning.”","opsi":["drink","drinks","drinking","drank"],"jawab":0,"penjelasan":"Subject I menggunakan bentuk dasar drink pada Simple Present."},{"q":"What does “library” mean?","opsi":["rumah sakit","perpustakaan","kantor","pasar"],"jawab":1,"penjelasan":"Library berarti perpustakaan."}];
 const soalSedang = [{"q":"Complete: “I ___ my homework before dinner yesterday.”","opsi":["finish","finished","have finished","finishing"],"jawab":1,"penjelasan":"Yesterday menunjukkan masa lalu, sehingga digunakan Simple Past: finished."},{"q":"Choose the correct sentence.","opsi":["She has lived here since 2020.","She have lived here since 2020.","She has live here since 2020.","She living here since 2020."],"jawab":0,"penjelasan":"Present Perfect menggunakan has + past participle untuk subject she: has lived."},{"q":"Complete: “When I arrived, they ___ dinner.”","opsi":["eat","ate","were eating","have eaten"],"jawab":2,"penjelasan":"Aktivitas yang sedang berlangsung ketika kejadian lain terjadi menggunakan Past Continuous: were eating."},{"q":"Choose the correct conditional sentence.","opsi":["If it rains, I will stay home.","If it will rain, I stay home.","If it rains, I stayed home.","If it raining, I will stay home."],"jawab":0,"penjelasan":"Conditional Type 1 menggunakan if + Simple Present, lalu will + verb dasar."},{"q":"Complete: “By next week, I ___ the project.”","opsi":["finish","finished","will have finished","am finishing"],"jawab":2,"penjelasan":"By + waktu masa depan menunjukkan Future Perfect: will have finished."},{"q":"Which sentence is passive voice?","opsi":["The chef cooked the meal.","The meal was cooked by the chef.","The chef is cooking the meal.","The chef cooks meals."],"jawab":1,"penjelasan":"Pada passive voice, objek menjadi fokus: The meal was cooked by the chef."},{"q":"Choose the correct reported speech: He said, “I am tired.”","opsi":["He said that he is tired.","He said that I was tired.","He said that he was tired.","He says that he was tired."],"jawab":2,"penjelasan":"Dalam reported speech masa lampau, am biasanya berubah menjadi was dan pronoun menyesuaikan."},{"q":"Complete: “She is interested ___ learning English.”","opsi":["on","at","in","for"],"jawab":2,"penjelasan":"Ungkapan yang benar adalah interested in + gerund."},{"q":"Choose the correct sentence.","opsi":["I have been studying for two hours.","I have studying for two hours.","I has been study for two hours.","I am been studying for two hours."],"jawab":0,"penjelasan":"Present Perfect Continuous menggunakan have/has been + verb-ing."},{"q":"Which is correct?","opsi":["He is the most tall student.","He is the taller student.","He is the tallest student.","He is tallest than me."],"jawab":2,"penjelasan":"Superlative dari tall adalah the tallest."},{"q":"Complete: “If I ___ you, I would apologize.”","opsi":["am","was","were","be"],"jawab":2,"penjelasan":"Conditional Type 2 secara umum menggunakan were untuk semua subject setelah if dalam bentuk formal."},{"q":"Choose the correct sentence.","opsi":["She suggested to go home.","She suggested going home.","She suggested go home.","She suggesting to go home."],"jawab":1,"penjelasan":"Suggest biasanya diikuti gerund: suggested going."},{"q":"Complete: “Neither John nor his friends ___ ready.”","opsi":["is","are","was","be"],"jawab":1,"penjelasan":"Pada neither...nor, verb mengikuti subject terdekat. Friends adalah jamak, sehingga are."},{"q":"Choose the correct relative pronoun: “The woman ___ lives next door is a doctor.”","opsi":["which","who","where","when"],"jawab":1,"penjelasan":"Who digunakan untuk orang."},{"q":"Complete: “I wish I ___ more time.”","opsi":["have","had","will have","am having"],"jawab":1,"penjelasan":"Wish untuk keadaan yang tidak sesuai kenyataan saat ini umumnya menggunakan past tense: had."},{"q":"Which sentence uses a gerund as the subject?","opsi":["I enjoy reading.","Reading is useful.","I read books.","She is reading."],"jawab":1,"penjelasan":"Reading berfungsi sebagai subject pada kalimat Reading is useful."},{"q":"Choose the correct form: “She made me ___ the room.”","opsi":["to clean","clean","cleaning","cleaned"],"jawab":1,"penjelasan":"Setelah make + object, gunakan verb dasar: made me clean."},{"q":"Complete: “He has worked here ___ five years.”","opsi":["since","for","during","from"],"jawab":1,"penjelasan":"For digunakan untuk durasi: for five years."},{"q":"Which sentence is grammatically correct?","opsi":["There is many reasons.","There are many reasons.","There be many reasons.","There has many reasons."],"jawab":1,"penjelasan":"Many reasons adalah plural, sehingga digunakan there are."},{"q":"Choose the correct question tag: “You are coming, ___?”","opsi":["are you","aren't you","don't you","won't you"],"jawab":1,"penjelasan":"Kalimat utama positif dengan are menggunakan tag negatif: aren't you?"}];
 const soalSulit = [{"q":"Choose the grammatically correct sentence.","opsi":["Had I known about the meeting, I would have attended.","Had I knew about the meeting, I would attend.","If I had knew, I would have attended.","Had I known, I will have attended."],"jawab":0,"penjelasan":"Inversion pada conditional Type 3 menggunakan Had + subject + past participle, lalu would have + past participle."},{"q":"Which sentence has correct parallel structure?","opsi":["She likes reading, to write, and swimming.","She likes reading, writing, and swimming.","She likes to read, writing, and to swim.","She likes read, write, and swimming."],"jawab":1,"penjelasan":"Semua unsur daftar menggunakan bentuk gerund yang sejajar: reading, writing, swimming."},{"q":"Choose the correct sentence.","opsi":["Walking to school, the rain started.","Walking to school, I saw the rain.","Walking to school, the street was wet.","Walking to school, a car was passing me."],"jawab":1,"penjelasan":"Modifier “Walking to school” harus memiliki subject yang dapat melakukan tindakan berjalan, yaitu I."},{"q":"Which sentence uses inversion correctly?","opsi":["Never I have seen such a view.","Never have I seen such a view.","Never did I saw such a view.","Never I saw have such a view."],"jawab":1,"penjelasan":"Setelah adverb negatif di awal, auxiliary ditempatkan sebelum subject: Never have I seen..."},{"q":"Choose the correct mixed conditional.","opsi":["If I had studied harder, I would have a better job now.","If I study harder, I would have had a better job.","If I had study harder, I would have a better job now.","If I studied harder, I would have had a better job now."],"jawab":0,"penjelasan":"Mixed conditional dapat menghubungkan kondisi masa lalu dengan akibat yang masih berlaku sekarang: had studied → would have."},{"q":"Which sentence is the most appropriate for formal academic writing?","opsi":["The results show that the method works.","The results kinda show the method works.","The results are like showing the method works.","The results show the method is super good."],"jawab":0,"penjelasan":"Kalimat pertama jelas, objektif, dan menggunakan gaya formal."},{"q":"Choose the correct use of “despite”.","opsi":["Despite of the rain, we continued.","Despite the rain, we continued.","Despite it was raining, we continued.","Despite of raining, we continued."],"jawab":1,"penjelasan":"Despite langsung diikuti noun atau gerund phrase tanpa “of”: Despite the rain..."},{"q":"Choose the correct sentence.","opsi":["It is essential that he be present.","It is essential that he is be present.","It is essential that he was present.","It is essential he being present."],"jawab":0,"penjelasan":"Subjunctive setelah ungkapan seperti it is essential dapat menggunakan bentuk dasar be."},{"q":"Which sentence correctly uses “no sooner”?","opsi":["No sooner I had arrived than it rained.","No sooner had I arrived than it rained.","No sooner did I arrived than it rained.","No sooner had I arrive than it rained."],"jawab":1,"penjelasan":"Pola yang benar adalah No sooner + had + subject + past participle + than..."},{"q":"Choose the correct sentence with a participial phrase.","opsi":["Having finished the report, Maya sent it to her manager.","Having finish the report, Maya sent it.","Having finished the report, the manager was sent it.","Having finishing the report, Maya sent it."],"jawab":0,"penjelasan":"Having + past participle membentuk perfect participial phrase dan subject-nya harus sesuai dengan Maya."},{"q":"Which sentence correctly uses “hardly”?","opsi":["Hardly had we arrived when the lights went out.","Hardly we had arrived when the lights went out.","Hardly did we arrived when the lights went out.","Hardly had we arrive when the lights went out."],"jawab":0,"penjelasan":"Pola yang benar adalah Hardly + had + subject + past participle + when..."},{"q":"Choose the correct form after “recommend”.","opsi":["I recommend that he applies now.","I recommend that he apply now.","I recommend him to applies now.","I recommend that he applied now."],"jawab":1,"penjelasan":"Dalam gaya formal, recommend that + subject + base verb dapat digunakan: recommend that he apply."},{"q":"Which sentence has the clearest meaning?","opsi":["The teacher told the student that he was late.","Being late, the teacher told the student.","The teacher, who was late, told the student.","The teacher told the late student he was."],"jawab":0,"penjelasan":"Kalimat pertama secara struktur lengkap dan paling mudah dipahami tanpa modifier yang menggantung."},{"q":"Choose the correct noun clause.","opsi":["I don't know where does she live.","I don't know where she lives.","I don't know where does she lives.","I don't know where she live."],"jawab":1,"penjelasan":"Dalam embedded question/noun clause, susunan kembali menjadi subject + verb: where she lives."},{"q":"Which sentence correctly uses “would rather”?","opsi":["I would rather stay home than go out.","I would rather to stay home than go out.","I would rather staying home than go out.","I would rather stay home than going out."],"jawab":0,"penjelasan":"Pola yang umum adalah would rather + base verb + than + base verb."},{"q":"Choose the correct inversion after “only then”.","opsi":["Only then I understood the problem.","Only then did I understand the problem.","Only then I did understand the problem.","Only then understood I did the problem."],"jawab":1,"penjelasan":"Only then di awal kalimat dapat memicu inversion: did + subject + base verb."},{"q":"Which sentence correctly uses “not only...but also”?","opsi":["She is not only smart but also hardworking.","She not only is smart but also hardworking is.","She is not only smart but also she hardworking.","She not only smart but also hardworking."],"jawab":0,"penjelasan":"Struktur kedua bagian harus sejajar: smart dan hardworking sama-sama adjective."},{"q":"Choose the correct reduced relative clause.","opsi":["The man standing by the door is my teacher.","The man is standing by the door is my teacher.","The man stood by the door is my teacher.","The man standing by the door he is my teacher."],"jawab":0,"penjelasan":"Standing by the door merupakan reduced relative clause yang menerangkan the man."},{"q":"Which sentence correctly uses “whereas”?","opsi":["I prefer tea, whereas my brother prefers coffee.","I prefer tea, whereas prefers my brother coffee.","I prefer tea whereas my brother coffee.","Whereas I prefer tea, my brother prefers."],"jawab":0,"penjelasan":"Whereas menghubungkan dua klausa lengkap untuk menunjukkan kontras."},{"q":"Choose the correct sentence for a professional email.","opsi":["I wanna know if you got my file.","Please let me know whether you have received my file.","Tell me you got my file, okay?","Did you get my file? Let me know ASAP!!!"],"jawab":1,"penjelasan":"Pilihan kedua menggunakan bahasa yang sopan dan profesional untuk email."}];
@@ -1612,7 +1112,6 @@ function keluarLatihan() {
   renderBagian();
 }
 
-
 document.getElementById('prevBtn').onclick = prevMateri;
 document.getElementById('nextBtn').onclick = nextMateri;
 document.getElementById('backToListBtn').onclick = backToList;
@@ -1652,5 +1151,7 @@ document.addEventListener('DOMContentLoaded', function () {
   syncLatihanFab();
 });
 </script>
+<script src="telepon.js"></script>
+<script src="translate.js"></script>
 </body>
 </html>

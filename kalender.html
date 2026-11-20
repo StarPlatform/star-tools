@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>STools - Kalender Pendidikan</title>
+<link rel="icon" type="image/png" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  :root { --bg: #F1F5F9; --card: #FFFFFF; --bd: #E2E8F0; --tx: #0F172A; --sub: #64748B; --soft: #F8FAFE; --blue: #2563EB; }
+  body.dark, html.dark-pre { --bg: #0B1120; --card: #111827; --bd: #1E293B; --tx: #F1F5F9; --sub: #94A3B8; --soft: #1E293B; }
+  body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--tx); }
+  .app { max-width: 640px; margin: 0 auto; min-height: 100vh; }
+  .app-header { background: var(--card); padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--bd); position: sticky; top: 0; z-index: 20; }
+  .menu-icon { width: 40px; height: 40px; background: var(--soft); border-radius: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--bd); flex-shrink: 0; }
+  .menu-icon svg { stroke: var(--tx); }
+  .app-title { font-weight: 700; font-size: 20px; letter-spacing: -.3px; background: linear-gradient(135deg, #2563EB, #60A5FA); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sidebar-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, .4); z-index: 100; opacity: 0; visibility: hidden; transition: .3s; }
+  .sidebar-overlay.active { opacity: 1; visibility: visible; }
+  .sidebar-nav { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: var(--card); z-index: 101; transition: .3s cubic-bezier(.2, .9, .4, 1.1); padding: 70px 20px 30px; display: flex; flex-direction: column; gap: 4px; box-shadow: 4px 0 20px rgba(0, 0, 0, .1); overflow-y: auto; }
+  .sidebar-nav.active { left: 0; }
+  .sidebar-nav a { padding: 14px 18px; font-size: 16px; font-weight: 500; border-radius: 18px; text-decoration: none; color: var(--tx); display: flex; align-items: center; gap: 14px; }
+  .sidebar-nav a:active { background: #DBEAFE; }
+  body.dark .sidebar-nav a:active { background: #1E293B; }
+  .sidebar-nav a.active-link { background: #DBEAFE; color: #2563EB; }
+  body.dark .sidebar-nav a.active-link { background: #1E3A8A; color: #93C5FD; }
+  .close-sidebar-icon { position: absolute; top: 20px; right: 20px; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+  .close-sidebar-icon svg { stroke: var(--tx); }
+  .sidebar-brand { display: none; }
+
+  .wrap { padding: 16px 16px 48px; display: flex; flex-direction: column; gap: 14px; }
+  .kal-kanan { display: contents; }
+  .o-hero { order: 0; }
+  .o-akan { order: 1; }
+  .o-filter { order: 2; }
+  .o-kal { order: 3; }
+  .o-detail { order: 4; }
+  .o-list { order: 5; }
+  .kal-kiri { order: 3; display: flex; flex-direction: column; gap: 14px; }
+
+  .hero { position: relative; overflow: hidden; border-radius: 26px; padding: 20px; color: #fff; background: linear-gradient(135deg, #4F46E5 0%, #2563EB 60%, #0EA5E9 100%); box-shadow: 0 10px 28px rgba(79, 70, 229, .26); }
+  .hero::before { content: ''; position: absolute; width: 190px; height: 190px; border-radius: 50%; background: rgba(255, 255, 255, .1); top: -70px; right: -50px; }
+  .hero::after { content: ''; position: absolute; width: 120px; height: 120px; border-radius: 50%; background: rgba(255, 255, 255, .07); bottom: -50px; left: -30px; }
+  .hero > * { position: relative; z-index: 1; }
+  .hero .lbl { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; opacity: .9; }
+  .hero .lbl svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .hero .jdl { font-size: 25px; font-weight: 800; letter-spacing: -.4px; margin-top: 6px; line-height: 1.2; }
+  .hero .sub { font-size: 13px; opacity: .92; margin-top: 4px; line-height: 1.5; }
+  .prog { height: 8px; border-radius: 99px; background: rgba(255, 255, 255, .22); margin-top: 16px; overflow: hidden; }
+  .prog div { height: 100%; border-radius: 99px; background: #fff; transition: width .4s; }
+  .prog-ket { display: flex; justify-content: space-between; font-size: 11.5px; opacity: .92; margin-top: 6px; }
+  .tiles { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); gap: 8px; margin-top: 14px; }
+  .tile { background: rgba(255, 255, 255, .16); border: 1px solid rgba(255, 255, 255, .22); border-radius: 16px; padding: 10px 6px; text-align: center; }
+  .tile b { display: block; font-size: 22px; line-height: 1.1; }
+  .tile span { display: block; font-size: 10.5px; opacity: .92; margin-top: 3px; line-height: 1.3; }
+
+  .akan { display: flex; align-items: center; gap: 12px; padding: 10px 0; cursor: pointer; }
+  .akan + .akan { border-top: 1px solid var(--bd); }
+  .akan .bar { width: 4px; align-self: stretch; border-radius: 4px; flex-shrink: 0; }
+  .akan .isi { flex: 1; min-width: 0; }
+  .akan .nm { font-size: 14px; font-weight: 600; word-break: break-word; }
+  .akan .tg { font-size: 11.5px; color: var(--sub); margin-top: 2px; }
+  .pill { flex-shrink: 0; font-size: 11.5px; font-weight: 700; padding: 5px 11px; border-radius: 99px; background: var(--soft); border: 1px solid var(--bd); color: var(--sub); white-space: nowrap; }
+  .pill.dekat { background: rgba(239, 68, 68, .12); color: #EF4444; border-color: transparent; }
+  .pill.jalan { background: rgba(37, 99, 235, .12); color: var(--blue); border-color: transparent; }
+
+  .filters { display: flex; gap: 8px; overflow-x: auto; padding: 2px 0 4px; scrollbar-width: none; }
+  .filters::-webkit-scrollbar { display: none; }
+  .chip { flex-shrink: 0; border: 1px solid var(--bd); background: var(--card); color: var(--tx); padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 7px; transition: .15s; font-family: inherit; }
+  .chip i { width: 8px; height: 8px; border-radius: 50%; display: block; }
+  .chip.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .chip.active i { box-shadow: 0 0 0 2px rgba(255, 255, 255, .7); }
+  .chip:active { transform: scale(.95); }
+  .card { background: var(--card); border: 1px solid var(--bd); border-radius: 24px; padding: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, .04); }
+  .month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .month-nav .ttl { text-align: center; }
+  .month-nav .ttl h2 { font-size: 18px; font-weight: 700; }
+  .month-nav .ttl p { font-size: 12px; color: var(--sub); margin-top: 2px; }
+  .nav-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--bd); background: var(--soft); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--tx); }
+  .nav-btn svg { stroke: var(--tx); }
+  .nav-btn:active { transform: scale(.92); }
+  .today-row { display: flex; justify-content: center; margin: 6px 0 10px; }
+  .today-btn { border: none; background: rgba(37, 99, 235, .1); color: var(--blue); font-weight: 600; font-size: 12.5px; padding: 6px 14px; border-radius: 999px; cursor: pointer; font-family: inherit; }
+  body.dark .today-btn { background: rgba(59, 130, 246, .15); color: #60A5FA; }
+  .dow, .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .dow div { text-align: center; font-size: 11.5px; font-weight: 600; color: var(--sub); padding: 6px 0; }
+  .dow div:first-child { color: #EF4444; }
+  .cell { aspect-ratio: 1 / 1.08; border: none; background: transparent; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--tx); font-family: inherit; position: relative; }
+  .cell.blank { visibility: hidden; pointer-events: none; }
+  .cell .num { font-size: 14px; font-weight: 600; }
+  .cell.sun .num { color: #EF4444; }
+  .cell.nas { background: rgba(239, 68, 68, .13); }
+  .cell.nas .num { color: #EF4444; font-weight: 800; }
+  .cell.cuti { background: rgba(249, 115, 22, .14); }
+  .cell.cuti .num { color: #EA580C; font-weight: 800; }
+  .cell.libs { background: rgba(139, 92, 246, .14); }
+  .cell.libs .num { color: #7C3AED; font-weight: 800; }
+  body.dark .cell.libs .num { color: #A78BFA; }
+  .cell.today { box-shadow: inset 0 0 0 2px var(--blue); }
+  .cell.sel { background: var(--blue); }
+  .cell.sel .num { color: #fff; }
+  .cell:active { transform: scale(.94); }
+  .dots { display: flex; gap: 3px; height: 5px; }
+  .dots i { width: 5px; height: 5px; border-radius: 50%; display: block; }
+  .cell.sel .dots i { box-shadow: 0 0 0 1px #fff; }
+  .sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 10px; }
+  .sec-head h3 { font-size: 16px; font-weight: 700; }
+  .add-btn { border: none; background: var(--blue); color: #fff; font-weight: 600; font-size: 12.5px; padding: 8px 14px; border-radius: 999px; cursor: pointer; flex-shrink: 0; font-family: inherit; }
+  .add-btn:active { transform: scale(.95); }
+  .ev { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+  .ev + .ev { border-top: 1px solid var(--bd); }
+  .ev-date { width: 46px; height: 50px; border-radius: 14px; background: var(--soft); border: 1px solid var(--bd); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ev-date b { font-size: 17px; line-height: 1.1; }
+  .ev-date span { font-size: 10.5px; color: var(--sub); }
+  .ev-body { flex: 1; min-width: 0; }
+  .ev-name { font-size: 14px; font-weight: 600; word-break: break-word; }
+  .ev-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--sub); margin-top: 3px; flex-wrap: wrap; }
+  .ev-tag i { width: 7px; height: 7px; border-radius: 50%; display: block; }
+  .ev-del { border: none; background: transparent; color: #DC2626; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ev-del:active { background: rgba(220, 38, 38, .12); }
+  .empty { text-align: center; color: var(--sub); font-size: 13px; padding: 14px 0 6px; }
+  .detail-date { font-size: 13px; color: var(--sub); margin: -6px 0 2px; }
+  .detail-akad { display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 4px; padding: 5px 11px; border-radius: 99px; background: rgba(79, 70, 229, .1); color: #4F46E5; font-size: 11.5px; font-weight: 700; }
+  body.dark .detail-akad { background: rgba(129, 140, 248, .16); color: #A5B4FC; }
+  .detail-akad.libur { background: var(--soft); color: var(--sub); }
+  .overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, .55); backdrop-filter: blur(5px); display: none; align-items: flex-end; justify-content: center; z-index: 200; }
+  .overlay.show { display: flex; }
+  .sheet { width: 100%; max-width: 640px; max-height: 92vh; overflow-y: auto; background: var(--card); border-radius: 26px 26px 0 0; padding: 22px 20px 28px; animation: up .25s ease; }
+  @keyframes up { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .sheet h3 { font-size: 17px; margin-bottom: 4px; }
+  .sheet label { display: block; font-size: 12.5px; font-weight: 600; color: var(--sub); margin: 12px 0 6px; }
+  .sheet input { width: 100%; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--bd); background: var(--soft); color: var(--tx); font-size: 14.5px; font-family: inherit; }
+  .sheet input:focus { outline: none; border-color: var(--blue); }
+  .dua { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .dua input { min-width: 0; }
+  .jenis-pilih { display: flex; gap: 8px; }
+  .jenis-pilih button { flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 11px 6px; border-radius: 14px; border: 1.5px solid var(--bd); background: var(--soft); color: var(--tx); font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; }
+  .jenis-pilih button i { width: 9px; height: 9px; border-radius: 50%; display: block; }
+  .jenis-pilih button.on { border-color: var(--blue); background: rgba(37, 99, 235, .1); color: var(--blue); }
+  .sheet-actions { display: flex; gap: 10px; margin-top: 18px; }
+  .btn { flex: 1; border: none; border-radius: 999px; padding: 13px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  .btn.pri { background: var(--blue); color: #fff; }
+  .btn.sec { background: var(--soft); color: var(--tx); border: 1px solid var(--bd); }
+  .btn:active { transform: scale(.97); }
+  .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px); background: #0F172A; color: #fff; padding: 11px 18px; border-radius: 999px; font-size: 13px; opacity: 0; pointer-events: none; transition: .25s; z-index: 300; max-width: 90%; text-align: center; }
+  body.dark .toast { background: #F1F5F9; color: #0F172A; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  @media (min-width: 900px) {
+    body { background: #F8FAFC; }
+    body.dark { background: #0B1120; }
+    .sidebar-overlay { display: none !important; }
+    .close-sidebar-icon, .menu-icon { display: none !important; }
+    .sidebar-nav { left: 0; width: 240px; padding: 24px 14px 20px; gap: 2px; box-shadow: none; border-right: 1px solid var(--bd); transition: none; z-index: 30; }
+    .sidebar-brand { display: block; padding: 2px 16px 22px; font-size: 22px; font-weight: 700; letter-spacing: -.3px; background: linear-gradient(135deg, #2563EB, #60A5FA); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .sidebar-nav a { padding: 12px 16px; font-size: 14.5px; border-radius: 12px; }
+    .sidebar-nav a:hover { background: #F1F5F9; }
+    body.dark .sidebar-nav a:hover { background: #16203A; }
+    .sidebar-nav a.active-link:hover { background: #DBEAFE; }
+    body.dark .sidebar-nav a.active-link:hover { background: #1E3A8A; }
+    .app { max-width: none; width: auto; margin: 0 0 0 240px; }
+    .app-header { min-height: 68px; background: rgba(248, 250, 252, .88); backdrop-filter: blur(10px); padding: 0 max(32px, calc((100% - 1040px) / 2 + 32px)); }
+    body.dark .app-header { background: rgba(11, 17, 32, .88); }
+    .app-title { font-size: 22px; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 28px 32px 48px; display: grid; grid-template-columns: minmax(0, 1fr) 340px; column-gap: 18px; row-gap: 14px; align-items: start; }
+    .o-hero { grid-column: 1 / -1; grid-row: 1; order: 0; }
+    .o-filter { grid-column: 1 / -1; grid-row: 2; order: 0; }
+    .kal-kiri { grid-column: 1; grid-row: 3; order: 0; }
+    .kal-kanan { grid-column: 2; grid-row: 3; display: flex; flex-direction: column; gap: 14px; }
+    .o-akan, .o-detail, .o-list { order: 0; }
+    .filters { flex-wrap: wrap; overflow: visible; }
+    .hero { padding: 26px 28px; }
+    .hero .jdl { font-size: 30px; }
+    .tile b { font-size: 26px; }
+  }
+
+  /* ===== Skeleton Shimmer ===== */
+  :root { --sk-base: #E2E8F0; --sk-hi: #F8FAFC; }
+  body.dark { --sk-base: #1E293B; --sk-hi: #334155; }
+  @keyframes skShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .sk-pending { color: transparent !important; text-shadow: none !important; background: linear-gradient(90deg, var(--sk-base) 25%, var(--sk-hi) 50%, var(--sk-base) 75%) !important; background-size: 200% 100% !important; animation: skShimmer 1.4s ease-in-out infinite; pointer-events: none; user-select: none; border-color: transparent !important; }
+  .sk-pending * { visibility: hidden; }
+  .sk-block { display: block; border-radius: 10px; background: linear-gradient(90deg, var(--sk-base) 25%, var(--sk-hi) 50%, var(--sk-base) 75%); background-size: 200% 100%; animation: skShimmer 1.4s ease-in-out infinite; }
+  .sk-row { height: 58px; border-radius: 14px; margin-bottom: 10px; }
+  .sk-table { display: flex; flex-direction: column; gap: 8px; padding: 6px 0; }
+  .sk-line { display: flex; gap: 8px; align-items: center; }
+  .sk-line .sk-block { height: 22px; flex: 1; }
+  .sk-line .sk-block.sk-name { flex: 0 0 34%; }
+  .sk-line.sk-head .sk-block { height: 26px; opacity: .8; }
+  @media (prefers-reduced-motion: reduce) { .sk-pending, .sk-block { animation: none !important; } }
+/* ===== Skeleton Shimmer+ (animasi tambahan) ===== */
+  :root { --sk-hi: #FFFFFF; }
+  body.dark { --sk-hi: #475569; }
+  @keyframes skPulse { 0%, 100% { opacity: 1; } 50% { opacity: .6; } }
+  @keyframes skReveal { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
+  @keyframes skPop { 0% { opacity: 0; transform: scale(.9); } 60% { opacity: 1; transform: scale(1.04); } 100% { opacity: 1; transform: scale(1); } }
+  .sk-pending, .sk-block { background-image: linear-gradient(100deg, var(--sk-base) 30%, var(--sk-hi) 50%, var(--sk-base) 70%) !important; background-size: 250% 100% !important; animation: skShimmer 1.1s linear infinite, skPulse 1.8s ease-in-out infinite; }
+  .sk-reveal { animation: skPop .5s cubic-bezier(.2,.8,.2,1) both; }
+  .sk-first > :not(.sk-block) { animation: skReveal .5s cubic-bezier(.2,.8,.2,1) both; }
+  .sk-was .table-wrap, .sk-was > p { animation: skReveal .5s cubic-bezier(.2,.8,.2,1) both; }
+  .grid-bagian > .sk-block:nth-child(2), .sk-table .sk-line:nth-child(2) .sk-block, #loadingState > :nth-child(2), #skIsi > :nth-child(2), #daftarGuruList > .sk-block:nth-child(2) { animation-delay: 0.12s, 0.12s; }
+  .grid-bagian > .sk-block:nth-child(3), .sk-table .sk-line:nth-child(3) .sk-block, #loadingState > :nth-child(3), #skIsi > :nth-child(3), #daftarGuruList > .sk-block:nth-child(3) { animation-delay: 0.24s, 0.24s; }
+  .grid-bagian > .sk-block:nth-child(4), .sk-table .sk-line:nth-child(4) .sk-block, #loadingState > :nth-child(4), #skIsi > :nth-child(4), #daftarGuruList > .sk-block:nth-child(4) { animation-delay: 0.36s, 0.36s; }
+  .grid-bagian > .sk-block:nth-child(5), .sk-table .sk-line:nth-child(5) .sk-block, #loadingState > :nth-child(5), #skIsi > :nth-child(5), #daftarGuruList > .sk-block:nth-child(5) { animation-delay: 0.48s, 0.48s; }
+  .grid-bagian > .sk-block:nth-child(6), .sk-table .sk-line:nth-child(6) .sk-block, #loadingState > :nth-child(6), #skIsi > :nth-child(6), #daftarGuruList > .sk-block:nth-child(6) { animation-delay: 0.6s, 0.6s; }
+  .grid-bagian > .sk-block:nth-child(7), .sk-table .sk-line:nth-child(7) .sk-block, #loadingState > :nth-child(7), #skIsi > :nth-child(7), #daftarGuruList > .sk-block:nth-child(7) { animation-delay: 0.72s, 0.72s; }
+  .grid-bagian > .sk-block:nth-child(8), .sk-table .sk-line:nth-child(8) .sk-block, #loadingState > :nth-child(8), #skIsi > :nth-child(8), #daftarGuruList > .sk-block:nth-child(8) { animation-delay: 0.84s, 0.84s; }
+  .sk-first > :nth-child(2) { animation-delay: 0.05s; }
+  .sk-first > :nth-child(3) { animation-delay: 0.1s; }
+  .sk-first > :nth-child(4) { animation-delay: 0.15s; }
+  .sk-first > :nth-child(5) { animation-delay: 0.2s; }
+  .sk-first > :nth-child(6) { animation-delay: 0.25s; }
+  .sk-first > :nth-child(7) { animation-delay: 0.3s; }
+  .sk-first > :nth-child(8) { animation-delay: 0.35s; }
+  .sk-first > :nth-child(9) { animation-delay: 0.4s; }
+  .sk-first > :nth-child(10) { animation-delay: 0.45s; }
+  .sk-first > :nth-child(11) { animation-delay: 0.5s; }
+  .sk-first > :nth-child(12) { animation-delay: 0.55s; }
+  @media (prefers-reduced-motion: reduce) { .sk-reveal, .sk-first > *, .sk-was .table-wrap, .sk-was > p, #mainContent { animation: none !important; } }
+</style>
+
+<script>
+  try { if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark-pre'); } catch (e) {}
+</script>
+</head>
+<body>
+
+<div class="app">
+  <div class="app-header">
+    <div class="menu-icon" onclick="openSidebar()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </div>
+    <span class="app-title">Kalender Pendidikan</span>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <div class="sidebar-nav" id="sidebarNav">
+    <div class="close-sidebar-icon" onclick="closeSidebar()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+    <div class="sidebar-brand">STools</div>
+    <a href="index.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Utama
+    </a>
+    <a href="berita.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg> Berita
+    </a>
+    <a href="premium.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Premium
+    </a>
+    <a href="akun.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Akun
+    </a>
+    <a href="kegiatan.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Daftar Tugas
+    </a>
+    <a href="kalender.html" class="active-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Kalender
+    </a>
+    <a href="teman.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Teman
+    </a>
+    <a href="lokasi.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokasi
+    </a>
+  </div>
+
+  <div class="wrap">
+    <div class="hero o-hero" id="hero"></div>
+
+    <div class="kal-kanan">
+      <div class="card o-akan" id="akanCard">
+        <div class="sec-head"><h3>Akan Datang</h3></div>
+        <div id="akanList" class="sk-first"><span class="sk-block sk-row"></span><span class="sk-block sk-row"></span><span class="sk-block sk-row"></span></div>
+      </div>
+
+      <div class="card o-detail">
+        <div class="sec-head">
+          <h3 id="detailTitle">Agenda Tanggal Ini</h3>
+          <button class="add-btn" id="addBtn">+ Agenda</button>
+        </div>
+        <div class="detail-date" id="detailDate"></div>
+        <div id="detailAkad"></div>
+        <div id="detailList" class="sk-first"><span class="sk-block sk-row"></span><span class="sk-block sk-row"></span></div>
+      </div>
+
+      <div class="card o-list">
+        <div class="sec-head"><h3 id="listTitle">Acara Bulan Ini</h3></div>
+        <div id="monthList" class="sk-first"><span class="sk-block sk-row"></span><span class="sk-block sk-row"></span><span class="sk-block sk-row"></span></div>
+      </div>
+    </div>
+
+    <div class="filters o-filter" id="filters"></div>
+
+    <div class="kal-kiri">
+      <div class="card">
+        <div class="month-nav">
+          <button class="nav-btn" id="prevBtn" aria-label="Bulan sebelumnya">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <div class="ttl">
+            <h2 id="monthTitle"></h2>
+            <p id="monthSub"></p>
+          </div>
+          <button class="nav-btn" id="nextBtn" aria-label="Bulan berikutnya">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+        <div class="today-row"><button class="today-btn" id="todayBtn">Kembali ke hari ini</button></div>
+        <div class="dow">
+          <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+        </div>
+        <div class="grid" id="grid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modal">
+  <div class="sheet">
+    <h3>Tambah Agenda</h3>
+    <label>Jenis agenda</label>
+    <div class="jenis-pilih" id="jenisPilih"></div>
+    <label for="agJudul">Nama agenda</label>
+    <input type="text" id="agJudul" maxlength="80" placeholder="Contoh: Penilaian Tengah Semester">
+    <label for="agMapel">Mata pelajaran (opsional)</label>
+    <input type="text" id="agMapel" maxlength="40" placeholder="Contoh: Matematika">
+    <div class="dua">
+      <div>
+        <label for="agTanggal">Mulai</label>
+        <input type="date" id="agTanggal">
+      </div>
+      <div>
+        <label for="agSampai">Selesai (opsional)</label>
+        <input type="date" id="agSampai">
+      </div>
+    </div>
+    <div class="sheet-actions">
+      <button class="btn sec" id="agBatal">Batal</button>
+      <button class="btn pri" id="agSimpan">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+if (document.documentElement.classList.contains('dark-pre')) document.body.classList.add('dark');
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+
+var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+var BULAN_SING = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+var HARI_SING = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+var HARI_PJG = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+
+var JENIS = {
+  ujian: { label: 'Ujian', color: '#D97706' },
+  tugas: { label: 'Tugas', color: '#10B981' },
+  kegiatan: { label: 'Kegiatan Sekolah', color: '#14B8A6' },
+  akademik: { label: 'Kegiatan Akademik', color: '#4F46E5' },
+  sekolah: { label: 'Libur Sekolah', color: '#8B5CF6' },
+  nasional: { label: 'Libur Nasional', color: '#EF4444' },
+  cuti: { label: 'Cuti Bersama', color: '#F97316' },
+  penting: { label: 'Hari Penting', color: '#0EA5E9' }
+};
+
+var URUTAN = ['ujian', 'tugas', 'kegiatan', 'akademik', 'sekolah', 'nasional', 'cuti', 'penting'];
+var JENIS_AGENDA = ['ujian', 'tugas', 'kegiatan'];
+
+var FILTERS = [
+  { id: 'semua', label: 'Semua', color: null, jenis: null },
+  { id: 'ujian', label: 'Ujian', color: JENIS.ujian.color, jenis: ['ujian'] },
+  { id: 'tugas', label: 'Tugas', color: JENIS.tugas.color, jenis: ['tugas'] },
+  { id: 'akademik', label: 'Akademik', color: JENIS.akademik.color, jenis: ['akademik', 'kegiatan'] },
+  { id: 'libur', label: 'Libur', color: JENIS.nasional.color, jenis: ['sekolah', 'nasional', 'cuti'] },
+  { id: 'penting', label: 'Hari Penting', color: JENIS.penting.color, jenis: ['penting'] }
+];
+
+var LIBUR = {};
+
+function tambahLibur(jenis, daftar) {
+  daftar.forEach(function(d) { LIBUR[d[0]] = { nama: d[1], jenis: jenis }; });
+}
+
+tambahLibur('nasional', [
+  ['2026-01-01', 'Tahun Baru 2026 Masehi'],
+  ['2026-01-16', 'Isra Mikraj Nabi Muhammad saw.'],
+  ['2026-02-17', 'Tahun Baru Imlek 2577 Kongzili'],
+  ['2026-03-19', 'Hari Suci Nyepi (Tahun Baru Saka 1948)'],
+  ['2026-03-21', 'Idulfitri 1447 H'],
+  ['2026-03-22', 'Idulfitri 1447 H'],
+  ['2026-04-03', 'Wafat Yesus Kristus'],
+  ['2026-04-05', 'Kebangkitan Yesus Kristus (Paskah)'],
+  ['2026-05-01', 'Hari Buruh Internasional'],
+  ['2026-05-14', 'Kenaikan Yesus Kristus'],
+  ['2026-05-27', 'Iduladha 1447 H'],
+  ['2026-05-31', 'Hari Raya Waisak 2570 BE'],
+  ['2026-06-01', 'Hari Lahir Pancasila'],
+  ['2026-06-16', '1 Muharam Tahun Baru Islam 1448 H'],
+  ['2026-08-17', 'Proklamasi Kemerdekaan'],
+  ['2026-08-25', 'Maulid Nabi Muhammad saw.'],
+  ['2026-12-25', 'Kelahiran Yesus Kristus (Natal)'],
+  ['2027-01-01', 'Tahun Baru 2027 Masehi'],
+  ['2027-01-05', 'Isra Mikraj Nabi Muhammad saw.'],
+  ['2027-02-06', 'Tahun Baru Imlek 2578 Kongzili'],
+  ['2027-03-08', 'Hari Suci Nyepi (Tahun Baru Saka 1949)'],
+  ['2027-03-10', 'Idulfitri 1448 H'],
+  ['2027-03-11', 'Idulfitri 1448 H'],
+  ['2027-03-26', 'Wafat Yesus Kristus'],
+  ['2027-03-28', 'Kebangkitan Yesus Kristus (Paskah)'],
+  ['2027-05-01', 'Hari Buruh Internasional'],
+  ['2027-05-06', 'Kenaikan Yesus Kristus'],
+  ['2027-05-17', 'Iduladha 1448 H'],
+  ['2027-05-20', 'Hari Raya Waisak 2571 BE'],
+  ['2027-06-01', 'Hari Lahir Pancasila'],
+  ['2027-06-06', '1 Muharam Tahun Baru Islam 1449 H'],
+  ['2027-08-15', 'Maulid Nabi Muhammad saw.'],
+  ['2027-08-17', 'Proklamasi Kemerdekaan'],
+  ['2027-12-25', 'Kelahiran Yesus Kristus (Natal)'],
+  ['2027-12-26', 'Isra Mikraj Nabi Muhammad saw.']
+]);
+
+tambahLibur('cuti', [
+  ['2026-02-16', 'Cuti Bersama Tahun Baru Imlek'],
+  ['2026-03-18', 'Cuti Bersama Hari Suci Nyepi'],
+  ['2026-03-20', 'Cuti Bersama Idulfitri'],
+  ['2026-03-23', 'Cuti Bersama Idulfitri'],
+  ['2026-03-24', 'Cuti Bersama Idulfitri'],
+  ['2026-05-15', 'Cuti Bersama Kenaikan Yesus Kristus'],
+  ['2026-05-28', 'Cuti Bersama Iduladha'],
+  ['2026-12-24', 'Cuti Bersama Natal'],
+  ['2027-02-05', 'Cuti Bersama Tahun Baru Imlek'],
+  ['2027-03-09', 'Cuti Bersama Idulfitri'],
+  ['2027-03-12', 'Cuti Bersama Idulfitri'],
+  ['2027-03-15', 'Cuti Bersama Idulfitri'],
+  ['2027-03-25', 'Cuti Bersama Wafat Yesus Kristus'],
+  ['2027-05-18', 'Cuti Bersama Iduladha'],
+  ['2027-05-19', 'Cuti Bersama Waisak'],
+  ['2027-12-24', 'Cuti Bersama Natal']
+]);
+
+var PENTING = {
+  '04-21': 'Hari Kartini',
+  '05-02': 'Hari Pendidikan Nasional',
+  '05-20': 'Hari Kebangkitan Nasional',
+  '07-23': 'Hari Anak Nasional',
+  '08-14': 'Hari Pramuka',
+  '09-08': 'Hari Aksara Internasional',
+  '10-01': 'Hari Kesaktian Pancasila',
+  '10-22': 'Hari Santri',
+  '10-28': 'Hari Sumpah Pemuda',
+  '11-10': 'Hari Pahlawan',
+  '11-25': 'Hari Guru Nasional',
+  '12-22': 'Hari Ibu'
+};
+
+var TAHUN_AJARAN = [
+  {
+    nama: '2026/2027',
+    semester: [
+      { nama: 'Semester Ganjil', mulai: '2026-07-13', akhir: '2026-12-18' },
+      { nama: 'Semester Genap', mulai: '2027-01-04', akhir: '2027-06-25' }
+    ],
+    kegiatan: [
+      { tgl: '2026-07-13', nama: 'Hari Pertama Tahun Ajaran 2026/2027' },
+      { tgl: '2026-12-18', nama: 'Akhir Semester Ganjil dan Pembagian Rapor' },
+      { tgl: '2027-01-04', nama: 'Hari Pertama Semester Genap' },
+      { tgl: '2027-06-25', nama: 'Akhir Tahun Ajaran dan Pembagian Rapor' }
+    ],
+    libur: [
+      { nama: 'Libur Semester Ganjil', mulai: '2026-12-21', akhir: '2027-01-03' },
+      { nama: 'Libur Kenaikan Kelas', mulai: '2027-06-28', akhir: '2027-07-11' }
+    ]
+  }
+];
+
+var firebaseConfig = {
+  apiKey: "AIzaSyDgr_nHqvpMsiG4lBkYckzxRErkskXj_6E",
+  authDomain: "laporanstartools-c18b2.firebaseapp.com",
+  databaseURL: "https://laporanstartools-c18b2-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "laporanstartools-c18b2"
+};
+
+var db = null;
+var currentUser = null;
+var agenda = {};
+var filter = 'semua';
+var viewY, viewM, selKey;
+var jenisPilih = 'tugas';
+var SEMESTER = [];
+var AKAD = {};
+
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
+function mk(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
+function parseKey(k) { var p = k.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+function todayKey() { var t = new Date(); return mk(t.getFullYear(), t.getMonth(), t.getDate()); }
+function addDays(k, n) {
+  var d = parseKey(k);
+  d.setDate(d.getDate() + n);
+  return mk(d.getFullYear(), d.getMonth(), d.getDate());
+}
+function selisihHari(a, b) {
+  var x = parseKey(a), y = parseKey(b);
+  return Math.round((Date.UTC(y.getFullYear(), y.getMonth(), y.getDate()) - Date.UTC(x.getFullYear(), x.getMonth(), x.getDate())) / 86400000);
+}
+function formatPanjang(k) {
+  var d = parseKey(k);
+  return HARI_PJG[d.getDay()] + ', ' + d.getDate() + ' ' + BULAN[d.getMonth()] + ' ' + d.getFullYear();
+}
+function formatPendek(k) {
+  var d = parseKey(k);
+  return d.getDate() + ' ' + BULAN_SING[d.getMonth()];
+}
+function teksRentang(a, b) { return formatPendek(a) + ' – ' + formatPendek(b); }
+function el(tag, cls, text) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function tambahStatis(k, ev) {
+  if (!AKAD[k]) AKAD[k] = [];
+  AKAD[k].push(ev);
+}
+
+TAHUN_AJARAN.forEach(function(ta) {
+  ta.semester.forEach(function(s) {
+    SEMESTER.push({ ta: ta.nama, nama: s.nama, mulai: s.mulai, akhir: s.akhir, stat: null });
+  });
+  ta.kegiatan.forEach(function(g) {
+    tambahStatis(g.tgl, { judul: g.nama, jenis: 'akademik' });
+  });
+  ta.libur.forEach(function(l, i) {
+    var rid = 'sk-' + ta.nama + '-' + i;
+    var k = l.mulai;
+    while (k <= l.akhir) {
+      tambahStatis(k, { judul: l.nama, jenis: 'sekolah', rid: rid, dari: l.mulai, sampai: l.akhir });
+      k = addDays(k, 1);
+    }
+  });
+});
+
+function semesterDi(k) {
+  for (var i = 0; i < SEMESTER.length; i++) {
+    if (k >= SEMESTER[i].mulai && k <= SEMESTER[i].akhir) return SEMESTER[i];
+  }
+  return null;
+}
+
+function efektif(k) {
+  var h = parseKey(k).getDay();
+  if (h === 0 || h === 6) return false;
+  if (LIBUR[k]) return false;
+  return !!semesterDi(k);
+}
+
+function hitungStat(s) {
+  if (s.stat) return s.stat;
+  var total = 0;
+  var k = s.mulai;
+  while (k <= s.akhir) {
+    if (efektif(k)) total++;
+    k = addDays(k, 1);
+  }
+  s.stat = { total: total, minggu: Math.ceil((selisihHari(s.mulai, s.akhir) + 1) / 7) };
+  return s.stat;
+}
+
+function efektifSampai(s, k) {
+  var batas = k > s.akhir ? s.akhir : k;
+  var n = 0;
+  var d = s.mulai;
+  while (d <= batas) {
+    if (efektif(d)) n++;
+    d = addDays(d, 1);
+  }
+  return n;
+}
+
+function eventsOn(k) {
+  var out = [];
+  if (LIBUR[k]) out.push({ judul: LIBUR[k].nama, jenis: LIBUR[k].jenis });
+  (AKAD[k] || []).forEach(function(e) { out.push(e); });
+  var md = k.slice(5);
+  if (PENTING[md]) out.push({ judul: PENTING[md], jenis: 'penting' });
+  (agenda[k] || []).forEach(function(a) { out.push(a); });
+  out.sort(function(a, b) { return URUTAN.indexOf(a.jenis) - URUTAN.indexOf(b.jenis); });
+  return out;
+}
+
+function shown(ev) {
+  if (filter === 'semua') return true;
+  for (var i = 0; i < FILTERS.length; i++) {
+    if (FILTERS[i].id === filter) return FILTERS[i].jenis.indexOf(ev.jenis) !== -1;
+  }
+  return true;
+}
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer = setTimeout(function() { t.classList.remove('show'); }, 2200);
+}
+
+function openSidebar() { document.getElementById('sidebarOverlay').classList.add('active'); document.getElementById('sidebarNav').classList.add('active'); }
+function closeSidebar() { document.getElementById('sidebarOverlay').classList.remove('active'); document.getElementById('sidebarNav').classList.remove('active'); }
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSidebar(); });
+
+function loncat(k) {
+  var d = parseKey(k);
+  viewY = d.getFullYear();
+  viewM = d.getMonth();
+  selKey = k;
+  renderAll();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderHero() {
+  var box = document.getElementById('hero');
+  box.innerHTML = '';
+  var tk = todayKey();
+  var s = semesterDi(tk);
+  var lbl = el('div', 'lbl');
+  lbl.innerHTML = '<svg viewBox="0 0 24 24"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2.5 9 2.5 12 0v-5"/></svg>';
+  var tiles = [];
+
+  if (s) {
+    var st = hitungStat(s);
+    var minggu = Math.floor(selisihHari(s.mulai, tk) / 7) + 1;
+    var jalan = efektifSampai(s, tk);
+    var sisa = st.total - jalan;
+    var pct = st.total ? Math.round(jalan / st.total * 100) : 0;
+    lbl.appendChild(document.createTextNode('Tahun Ajaran ' + s.ta));
+    box.appendChild(lbl);
+    box.appendChild(el('div', 'jdl', s.nama));
+    box.appendChild(el('div', 'sub', 'Minggu ke-' + minggu + ' dari ' + st.minggu + ' · ' + formatPendek(s.mulai) + ' sampai ' + formatPendek(s.akhir)));
+    var prog = el('div', 'prog');
+    var isi = document.createElement('div');
+    isi.style.width = pct + '%';
+    prog.appendChild(isi);
+    box.appendChild(prog);
+    var ket = el('div', 'prog-ket');
+    ket.appendChild(el('span', '', pct + '% semester berjalan'));
+    ket.appendChild(el('span', '', st.total + ' hari efektif'));
+    box.appendChild(ket);
+    tiles = [
+      [jalan, 'Hari efektif berjalan'],
+      [sisa, 'Hari efektif tersisa'],
+      [Math.max(0, selisihHari(tk, s.akhir)), 'Hari menuju rapor']
+    ];
+  } else {
+    var libur = (AKAD[tk] || []).filter(function(e) { return e.jenis === 'sekolah'; })[0];
+    var berikut = null;
+    for (var i = 0; i < SEMESTER.length; i++) {
+      if (SEMESTER[i].mulai > tk) { berikut = SEMESTER[i]; break; }
+    }
+    if (libur && berikut) {
+      lbl.appendChild(document.createTextNode('Tahun Ajaran ' + berikut.ta));
+      box.appendChild(lbl);
+      box.appendChild(el('div', 'jdl', libur.judul));
+      box.appendChild(el('div', 'sub', 'Masuk kembali ' + formatPanjang(berikut.mulai)));
+      tiles = [
+        [selisihHari(tk, libur.sampai) + 1, 'Hari libur tersisa'],
+        [selisihHari(tk, berikut.mulai), 'Hari menuju masuk sekolah']
+      ];
+    } else if (berikut) {
+      lbl.appendChild(document.createTextNode('Tahun Ajaran ' + berikut.ta));
+      box.appendChild(lbl);
+      box.appendChild(el('div', 'jdl', 'Belum Dimulai'));
+      box.appendChild(el('div', 'sub', berikut.nama + ' dimulai ' + formatPanjang(berikut.mulai)));
+      tiles = [[selisihHari(tk, berikut.mulai), 'Hari menuju masuk sekolah']];
+    } else {
+      lbl.appendChild(document.createTextNode('Kalender Pendidikan'));
+      box.appendChild(lbl);
+      box.appendChild(el('div', 'jdl', 'Di Luar Tahun Ajaran'));
+      box.appendChild(el('div', 'sub', 'Data kalender akademik tersedia untuk tahun ajaran 2026/2027.'));
+    }
+  }
+
+  if (tiles.length) {
+    var wadah = el('div', 'tiles');
+    wadah.style.setProperty('--n', tiles.length);
+    tiles.forEach(function(t) {
+      var tile = el('div', 'tile');
+      tile.appendChild(el('b', '', String(t[0])));
+      tile.appendChild(el('span', '', t[1]));
+      wadah.appendChild(tile);
+    });
+    box.appendChild(wadah);
+  }
+}
+
+function renderAkan() {
+  var list = document.getElementById('akanList');
+  list.innerHTML = '';
+  var tk = todayKey();
+  var dilihat = {};
+  var hasil = [];
+  for (var i = 0; i < 240 && hasil.length < 4; i++) {
+    var k = addDays(tk, i);
+    var evs = eventsOn(k);
+    for (var j = 0; j < evs.length && hasil.length < 4; j++) {
+      var ev = evs[j];
+      if (ev.jenis === 'penting') continue;
+      var id = ev.rid || (k + '|' + ev.judul);
+      if (dilihat[id]) continue;
+      dilihat[id] = true;
+      hasil.push({ ev: ev, k: k });
+    }
+  }
+  if (!hasil.length) {
+    list.appendChild(el('div', 'empty', 'Belum ada acara yang akan datang.'));
+    return;
+  }
+  hasil.forEach(function(h) {
+    var ev = h.ev;
+    var row = el('div', 'akan');
+    var bar = el('div', 'bar');
+    bar.style.background = JENIS[ev.jenis].color;
+    var isi = el('div', 'isi');
+    isi.appendChild(el('div', 'nm', ev.judul));
+    var tg = JENIS[ev.jenis].label;
+    if (ev.mapel) tg += ' · ' + ev.mapel;
+    tg += ' · ' + (ev.rid ? teksRentang(ev.dari, ev.sampai) : formatPendek(h.k));
+    isi.appendChild(el('div', 'tg', tg));
+    var diff = selisihHari(tk, h.k);
+    var pill;
+    if (ev.rid && ev.dari <= tk) pill = el('span', 'pill jalan', 'Berlangsung');
+    else if (diff === 0) pill = el('span', 'pill dekat', 'Hari ini');
+    else if (diff === 1) pill = el('span', 'pill dekat', 'Besok');
+    else pill = el('span', 'pill' + (diff <= 7 ? ' dekat' : ''), diff + ' hari lagi');
+    row.appendChild(bar);
+    row.appendChild(isi);
+    row.appendChild(pill);
+    row.onclick = function() { loncat(h.k); };
+    list.appendChild(row);
+  });
+}
+
+function renderFilters() {
+  var box = document.getElementById('filters');
+  box.innerHTML = '';
+  FILTERS.forEach(function(f) {
+    var b = el('button', 'chip' + (filter === f.id ? ' active' : ''));
+    if (f.color) {
+      var dot = document.createElement('i');
+      dot.style.background = f.color;
+      b.appendChild(dot);
+    }
+    b.appendChild(document.createTextNode(f.label));
+    b.onclick = function() {
+      filter = f.id;
+      renderAll();
+    };
+    box.appendChild(b);
+  });
+}
+
+function renderCalendar() {
+  document.getElementById('monthTitle').textContent = BULAN[viewM] + ' ' + viewY;
+
+  var hariIni = todayKey();
+  var jumlahHari = new Date(viewY, viewM + 1, 0).getDate();
+  var awal = new Date(viewY, viewM, 1).getDay();
+  var nas = 0, cuti = 0, ef = 0, adaSemester = false;
+  for (var d = 1; d <= jumlahHari; d++) {
+    var kk = mk(viewY, viewM, d);
+    var info = LIBUR[kk];
+    if (info) { if (info.jenis === 'nasional') nas++; else cuti++; }
+    if (semesterDi(kk)) adaSemester = true;
+    if (efektif(kk)) ef++;
+  }
+  var parts = [];
+  if (adaSemester) parts.push(ef + ' hari efektif');
+  if (nas) parts.push(nas + ' libur nasional');
+  if (cuti) parts.push(cuti + ' cuti bersama');
+  var sub = parts.join(' · ');
+  if (!sub) {
+    sub = (viewY < 2026 || viewY > 2027) ? 'Data libur resmi tersedia untuk 2026–2027' : 'Tidak ada tanggal merah';
+  }
+  document.getElementById('monthSub').textContent = sub;
+
+  var grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  for (var i = 0; i < awal; i++) grid.appendChild(el('div', 'cell blank'));
+
+  for (var day = 1; day <= jumlahHari; day++) {
+    var k = mk(viewY, viewM, day);
+    var dow = new Date(viewY, viewM, day).getDay();
+    var evs = eventsOn(k).filter(shown);
+    var cls = 'cell';
+    if (dow === 0) cls += ' sun';
+    var adaNas = evs.some(function(e) { return e.jenis === 'nasional'; });
+    var adaCuti = evs.some(function(e) { return e.jenis === 'cuti'; });
+    var adaSek = evs.some(function(e) { return e.jenis === 'sekolah'; });
+    if (adaNas) cls += ' nas';
+    else if (adaCuti) cls += ' cuti';
+    else if (adaSek) cls += ' libs';
+    if (k === hariIni) cls += ' today';
+    if (k === selKey) cls += ' sel';
+
+    var b = el('button', cls);
+    b.appendChild(el('span', 'num', String(day)));
+    var dots = el('div', 'dots');
+    var seen = {};
+    evs.forEach(function(e) {
+      if (seen[e.jenis] || Object.keys(seen).length >= 3) return;
+      seen[e.jenis] = true;
+      var dot = document.createElement('i');
+      dot.style.background = JENIS[e.jenis].color;
+      dots.appendChild(dot);
+    });
+    b.appendChild(dots);
+    (function(key) {
+      b.onclick = function() {
+        selKey = key;
+        renderCalendar();
+        renderDetail();
+      };
+    })(k);
+    grid.appendChild(b);
+  }
+}
+
+function buatEvent(ev, key, tampilTanggal) {
+  var row = el('div', 'ev');
+  if (tampilTanggal) {
+    var d = parseKey(key);
+    var badge = el('div', 'ev-date');
+    badge.appendChild(el('b', '', String(d.getDate())));
+    badge.appendChild(el('span', '', HARI_SING[d.getDay()]));
+    row.appendChild(badge);
+  }
+  var body = el('div', 'ev-body');
+  body.appendChild(el('div', 'ev-name', ev.judul));
+  var tag = el('div', 'ev-tag');
+  var dot = document.createElement('i');
+  dot.style.background = JENIS[ev.jenis].color;
+  tag.appendChild(dot);
+  var teks = JENIS[ev.jenis].label;
+  if (ev.mapel) teks += ' · ' + ev.mapel;
+  if (ev.rid) teks += ' · ' + teksRentang(ev.dari, ev.sampai);
+  tag.appendChild(document.createTextNode(teks));
+  body.appendChild(tag);
+  row.appendChild(body);
+  if (ev.id) {
+    var del = el('button', 'ev-del');
+    del.setAttribute('aria-label', 'Hapus agenda');
+    del.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+    del.onclick = function() { hapusAgenda(ev.id, !!ev.rid); };
+    row.appendChild(del);
+  }
+  return row;
+}
+
+function renderDetail() {
+  document.getElementById('detailDate').textContent = formatPanjang(selKey);
+
+  var akad = document.getElementById('detailAkad');
+  akad.innerHTML = '';
+  var s = semesterDi(selKey);
+  if (s) {
+    var minggu = Math.floor(selisihHari(s.mulai, selKey) / 7) + 1;
+    akad.appendChild(el('span', 'detail-akad' + (efektif(selKey) ? '' : ' libur'), s.nama + ' · Minggu ke-' + minggu + ' · ' + (efektif(selKey) ? 'Hari efektif' : 'Bukan hari efektif')));
+  } else if ((AKAD[selKey] || []).some(function(e) { return e.jenis === 'sekolah'; })) {
+    akad.appendChild(el('span', 'detail-akad libur', 'Libur sekolah'));
+  }
+
+  var list = document.getElementById('detailList');
+  list.innerHTML = '';
+  var evs = eventsOn(selKey).filter(shown);
+  if (!evs.length) {
+    list.appendChild(el('div', 'empty', filter === 'semua' ? 'Tidak ada acara pada tanggal ini.' : 'Tidak ada acara pada tanggal ini untuk filter yang dipilih.'));
+    return;
+  }
+  evs.forEach(function(ev) { list.appendChild(buatEvent(ev, selKey, false)); });
+}
+
+function renderMonthList() {
+  document.getElementById('listTitle').textContent = 'Acara ' + BULAN[viewM] + ' ' + viewY;
+  var list = document.getElementById('monthList');
+  list.innerHTML = '';
+  var jumlahHari = new Date(viewY, viewM + 1, 0).getDate();
+  var total = 0;
+  var dilihat = {};
+  for (var d = 1; d <= jumlahHari; d++) {
+    var k = mk(viewY, viewM, d);
+    eventsOn(k).filter(shown).forEach(function(ev) {
+      if (ev.rid) {
+        if (dilihat[ev.rid]) return;
+        dilihat[ev.rid] = true;
+      }
+      list.appendChild(buatEvent(ev, k, true));
+      total++;
+    });
+  }
+  if (!total) list.appendChild(el('div', 'empty', 'Tidak ada acara pada bulan ini untuk filter yang dipilih.'));
+}
+
+var skAgenda = true;
+// Skeleton shimmer: lepas penanda loading saat data siap (+ pengaman 8 detik)
+function skDone() { document.querySelectorAll('.sk-pending').forEach(function (el) { el.classList.remove('sk-pending'); el.classList.add('sk-reveal'); }); setTimeout(function () { document.querySelectorAll('.sk-first').forEach(function (el) { el.classList.remove('sk-first'); }); }, 1500); }
+setTimeout(skDone, 8000);
+function skRowsHtml(n) { var h = ''; for (var i = 0; i < (n || 3); i++) h += '<span class="sk-block sk-row"></span>'; return h; }
+function skTableHtml(rows, cols) {
+  rows = rows || 6; cols = cols || 4;
+  var h = '<div class="sk-table" aria-busy="true" aria-label="Memuat data">';
+  for (var r = 0; r <= rows; r++) {
+    h += '<div class="sk-line' + (r === 0 ? ' sk-head' : '') + '"><span class="sk-block sk-name"></span>';
+    for (var c = 0; c < cols; c++) h += '<span class="sk-block"></span>';
+    h += '</div>';
+  }
+  return h + '</div>';
+}
+setTimeout(function () { if (skAgenda) { skAgenda = false; renderAll(); } }, 8000);
+
+function renderAll() {
+  renderHero();
+  if (!skAgenda) renderAkan();
+  renderFilters();
+  renderCalendar();
+  if (!skAgenda) { renderDetail(); renderMonthList(); }
+}
+
+function geserBulan(n) {
+  viewM += n;
+  if (viewM < 0) { viewM = 11; viewY--; }
+  if (viewM > 11) { viewM = 0; viewY++; }
+  var maks = new Date(viewY, viewM + 1, 0).getDate();
+  var p = selKey.split('-');
+  var hari = Math.min(+p[2], maks);
+  selKey = mk(viewY, viewM, hari);
+  renderCalendar();
+  renderDetail();
+  renderMonthList();
+}
+
+function gambarJenisPilih() {
+  var box = document.getElementById('jenisPilih');
+  box.innerHTML = '';
+  JENIS_AGENDA.forEach(function(j) {
+    var b = el('button', jenisPilih === j ? 'on' : '');
+    b.type = 'button';
+    var dot = document.createElement('i');
+    dot.style.background = JENIS[j].color;
+    b.appendChild(dot);
+    b.appendChild(document.createTextNode(JENIS[j].label.replace(' Sekolah', '')));
+    b.onclick = function() {
+      jenisPilih = j;
+      gambarJenisPilih();
+    };
+    box.appendChild(b);
+  });
+}
+
+function bukaModal() {
+  if (!currentUser) {
+    showToast('Masuk dahulu untuk menambah agenda.');
+    return;
+  }
+  document.getElementById('agJudul').value = '';
+  document.getElementById('agMapel').value = '';
+  document.getElementById('agTanggal').value = selKey;
+  document.getElementById('agSampai').value = '';
+  jenisPilih = 'tugas';
+  gambarJenisPilih();
+  document.getElementById('modal').classList.add('show');
+  setTimeout(function() { document.getElementById('agJudul').focus(); }, 150);
+}
+
+function tutupModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+function simpanAgenda() {
+  var judul = document.getElementById('agJudul').value.trim();
+  var mapel = document.getElementById('agMapel').value.trim();
+  var tanggal = document.getElementById('agTanggal').value;
+  var sampai = document.getElementById('agSampai').value;
+  if (!judul) { showToast('Nama agenda belum diisi.'); return; }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(tanggal)) { showToast('Tanggal tidak valid.'); return; }
+  if (sampai) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(sampai) || sampai < tanggal) { showToast('Tanggal selesai tidak boleh sebelum tanggal mulai.'); return; }
+    if (selisihHari(tanggal, sampai) > 60) { showToast('Rentang agenda maksimal 60 hari.'); return; }
+  }
+  if (!db || !currentUser) { showToast('Tidak dapat menyimpan. Coba lagi.'); return; }
+  var data = { tanggal: tanggal, judul: judul, jenis: jenisPilih, dibuat: Date.now() };
+  if (mapel) data.mapel = mapel;
+  if (sampai && sampai > tanggal) data.sampai = sampai;
+  db.ref('users/' + currentUser.uid + '/kalender').push(data).then(function() {
+    tutupModal();
+    var d = parseKey(tanggal);
+    viewY = d.getFullYear();
+    viewM = d.getMonth();
+    selKey = tanggal;
+    renderAll();
+    showToast('Agenda ditambahkan.');
+  }).catch(function() {
+    showToast('Gagal menyimpan agenda.');
+  });
+}
+
+function hapusAgenda(id, rentang) {
+  if (!db || !currentUser) return;
+  if (!confirm(rentang ? 'Hapus agenda ini beserta seluruh tanggalnya?' : 'Hapus agenda ini?')) return;
+  db.ref('users/' + currentUser.uid + '/kalender/' + id).remove().then(function() {
+    showToast('Agenda dihapus.');
+  }).catch(function() {
+    showToast('Gagal menghapus agenda.');
+  });
+}
+
+function muatAgenda(uid) {
+  db.ref('users/' + uid + '/kalender').on('value', function(snap) {
+    agenda = {};
+    snap.forEach(function(ch) {
+      var v = ch.val();
+      if (!v || !v.tanggal || !v.judul) return;
+      var jenis = JENIS_AGENDA.indexOf(v.jenis) !== -1 ? v.jenis : 'kegiatan';
+      var akhir = v.tanggal;
+      if (v.sampai && v.sampai > v.tanggal && selisihHari(v.tanggal, v.sampai) <= 60) akhir = v.sampai;
+      var k = v.tanggal;
+      while (k <= akhir) {
+        if (!agenda[k]) agenda[k] = [];
+        agenda[k].push({
+          id: ch.key,
+          judul: String(v.judul),
+          jenis: jenis,
+          mapel: v.mapel ? String(v.mapel) : '',
+          rid: akhir > v.tanggal ? ch.key : null,
+          dari: v.tanggal,
+          sampai: akhir
+        });
+        k = addDays(k, 1);
+      }
+    });
+    skAgenda = false; skDone();
+    renderAll();
+  });
+}
+
+(function init() {
+  var now = new Date();
+  viewY = now.getFullYear();
+  viewM = now.getMonth();
+  selKey = todayKey();
+
+  document.getElementById('prevBtn').onclick = function() { geserBulan(-1); };
+  document.getElementById('nextBtn').onclick = function() { geserBulan(1); };
+  document.getElementById('todayBtn').onclick = function() {
+    var t = new Date();
+    viewY = t.getFullYear();
+    viewM = t.getMonth();
+    selKey = todayKey();
+    renderAll();
+  };
+  document.getElementById('addBtn').onclick = bukaModal;
+  document.getElementById('agBatal').onclick = tutupModal;
+  document.getElementById('agSimpan').onclick = simpanAgenda;
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) tutupModal();
+  });
+  document.getElementById('agJudul').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') simpanAgenda();
+  });
+
+  var gridEl = document.getElementById('grid');
+  var sx = 0, sy = 0;
+  gridEl.addEventListener('touchstart', function(e) {
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+  }, { passive: true });
+  gridEl.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - sx;
+    var dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) geserBulan(dx < 0 ? 1 : -1);
+  }, { passive: true });
+
+  renderAll();
+
+  try {
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    firebase.auth().onAuthStateChanged(function(user) {
+      currentUser = user || null;
+      if (user) muatAgenda(user.uid);
+      else { skAgenda = false; skDone(); renderAll(); }
+    });
+  } catch (e) {}
+})();
+</script>
+<script src="telepon.js"></script>
+<script src="translate.js"></script>
+</body>
+</html>

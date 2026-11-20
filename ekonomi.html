@@ -26,917 +26,233 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  body {
-    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    background: #F1F5F9;
-    color: #0F172A;
-  }
-
-  body.dark {
-    background: #0B1120;
-    color: #F1F5F9;
-  }
-
-  body.dark .card-modern,
-  body.dark .app-header,
-  body.dark .sidebar-nav,
-  body.dark .alert-card {
-    background: #111827;
-    border-color: #1E293B;
-  }
-
-  body.dark .materi-btn {
-    background: #1E293B;
-    border-color: #334155;
-    color: #E2E8F0;
-  }
-
-  body.dark .materi-btn .materi-num {
-    background: #1D2B4A;
-    color: #60A5FA;
-  }
-
-  body.dark .materi-btn .materi-text .materi-sub {
-    color: #94A3B8;
-  }
-
-  body.dark .materi-btn .materi-status {
-    color: #475569;
-  }
-
-  body.dark .materi-btn.opened {
-    background: #111827;
-    border-color: #1D3A6E;
-  }
-
-  body.dark .materi-btn.opened .materi-status {
-    background: #14311F;
-    color: #4ADE80;
-  }
-
-  body.dark .premium-indicator {
-    background: #1E293B;
-    color: #60A5FA;
-  }
-
-  body.dark .premium-indicator.active {
-    background: #2563EB;
-    color: white;
-  }
-
-  body.dark .premium-indicator.warning {
-    background: #78350F;
-    color: #FBBF24;
-  }
-
-  body.dark .limit-indicator {
-    background: #1E293B;
-    color: #94A3B8;
-  }
-
-  body.dark .materi-content p {
-    color: #CBD5E1;
-  }
-
-  body.dark .materi-content h4 {
-    color: #60A5FA;
-  }
-
-  body.dark .latihan-opsi {
-    background: #1E293B;
-    border-color: #334155;
-    color: #E2E8F0;
-  }
-
-  body.dark .latihan-opsi .opsi-label {
-    background: #0F172A;
-    border-color: #334155;
-    color: #94A3B8;
-  }
-
-  body.dark .latihan-opsi.correct {
-    background: #14311F;
-    border-color: #16A34A;
-    color: #4ADE80;
-  }
-
-  body.dark .latihan-opsi.wrong {
-    background: #3A1414;
-    border-color: #DC2626;
-    color: #F87171;
-  }
-
-  body.dark #latihanPenjelasanWrap {
-    background: #1E3A5F !important;
-    color: #93C5FD !important;
-  }
-
-  body.dark #latihanHasilWrap > div:nth-of-type(2) {
-    background: #1E293B !important;
-  }
-
-  body.dark #hasilTitle {
-    color: #F1F5F9;
-  }
-
-  body.dark #hasilSubtitle {
-    color: #94A3B8;
-  }
-
-  body.dark #latihanPertanyaan {
-    color: #F1F5F9;
-  }
-
-  body.dark .fab-latihan {
-    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5), 0 4px 10px rgba(0,0,0,0.4);
-  }
-
-  body.dark .fab-latihan .fab-tooltip {
-    background: #1E293B;
-    color: #F1F5F9;
-  }
-
-  body.dark .pilih-tingkat-btn {
-    background: #111827;
-    border-color: #334155;
-  }
-
-  body.dark .pilih-tingkat-btn .tingkat-info .tingkat-title {
-    color: #F1F5F9;
-  }
-
-  body.dark .pilih-tingkat-btn .tingkat-info .tingkat-sub {
-    color: #94A3B8;
-  }
-
-  body.dark .pilih-tingkat-btn .tingkat-arrow {
-    color: #475569;
-  }
-
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #F1F5F9; color: #0F172A; }
+  body.dark { background: #0B1120; color: #F1F5F9; }
+  body.dark .card-modern, body.dark .app-header, body.dark .sidebar-nav, body.dark .alert-card { background: #111827; border-color: #1E293B; }
+  body.dark .materi-btn { background: #1E293B; border-color: #334155; color: #E2E8F0; }
+  body.dark .materi-btn .materi-num { background: #1D2B4A; color: #60A5FA; }
+  body.dark .materi-btn .materi-text .materi-sub { color: #94A3B8; }
+  body.dark .materi-btn .materi-status { color: #475569; }
+  body.dark .materi-btn.opened { background: #111827; border-color: #1D3A6E; }
+  body.dark .materi-btn.opened .materi-status { background: #14311F; color: #4ADE80; }
+  body.dark .premium-indicator { background: #1E293B; color: #60A5FA; }
+  body.dark .premium-indicator.active { background: #2563EB; color: white; }
+  body.dark .premium-indicator.warning { background: #78350F; color: #FBBF24; }
+  body.dark .limit-indicator { background: #1E293B; color: #94A3B8; }
+  body.dark .materi-content p { color: #CBD5E1; }
+  body.dark .materi-content h4 { color: #60A5FA; }
+  body.dark .latihan-opsi { background: #1E293B; border-color: #334155; color: #E2E8F0; }
+  body.dark .latihan-opsi .opsi-label { background: #0F172A; border-color: #334155; color: #94A3B8; }
+  body.dark .latihan-opsi.correct { background: #14311F; border-color: #16A34A; color: #4ADE80; }
+  body.dark .latihan-opsi.wrong { background: #3A1414; border-color: #DC2626; color: #F87171; }
+  body.dark #latihanPenjelasanWrap { background: #1E3A5F !important; color: #93C5FD !important; }
+  body.dark #latihanHasilWrap > div:nth-of-type(2) { background: #1E293B !important; }
+  body.dark #hasilTitle { color: #F1F5F9; }
+  body.dark #hasilSubtitle { color: #94A3B8; }
+  body.dark #latihanPertanyaan { color: #F1F5F9; }
+  body.dark .fab-latihan { box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5), 0 4px 10px rgba(0, 0, 0, 0.4); }
+  body.dark .fab-latihan .fab-tooltip { background: #1E293B; color: #F1F5F9; }
+  body.dark .pilih-tingkat-btn { background: #111827; border-color: #334155; }
+  body.dark .pilih-tingkat-btn .tingkat-info .tingkat-title { color: #F1F5F9; }
+  body.dark .pilih-tingkat-btn .tingkat-info .tingkat-sub { color: #94A3B8; }
+  body.dark .pilih-tingkat-btn .tingkat-arrow { color: #475569; }
   body.dark .pilih-tingkat-btn.mudah { border-color: #166534; }
   body.dark .pilih-tingkat-btn.mudah .tingkat-icon { background: #14311F; color: #4ADE80; }
   body.dark .pilih-tingkat-btn.sedang { border-color: #78350F; }
   body.dark .pilih-tingkat-btn.sedang .tingkat-icon { background: #3A1F0A; color: #FBBF24; }
   body.dark .pilih-tingkat-btn.sulit { border-color: #7F1D1D; }
   body.dark .pilih-tingkat-btn.sulit .tingkat-icon { background: #3A1414; color: #F87171; }
-
-  .app-container {
-    max-width: 560px;
-    margin: 0 auto;
-    background: #F1F5F9;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-
-  body.dark .app-container {
-    background: #0B1120;
-  }
-
-  .app-header {
-    background: #FFFFFF;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #E2E8F0;
-    position: sticky;
-    top: 0;
-    z-index: 20;
-  }
-
-  body.dark .app-header {
-    background: #111827;
-    border-bottom-color: #1E293B;
-  }
-
-  .logo-area {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .menu-icon {
-    width: 40px;
-    height: 40px;
-    background: #F8FAFE;
-    border-radius: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 1px solid #E2E8F0;
-  }
-
-  body.dark .menu-icon {
-    background: #1E293B;
-    border-color: #334155;
-  }
-
-  .menu-icon svg {
-    stroke: #0F172A;
-  }
-
-  body.dark .menu-icon svg {
-    stroke: #F1F5F9;
-  }
-
-  .app-title {
-    font-weight: 700;
-    font-size: 20px;
-    letter-spacing: -0.3px;
-    background: linear-gradient(135deg, #2563EB, #60A5FA);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .sidebar-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    z-index: 100;
-    visibility: hidden;
-    opacity: 0;
-    transition: 0.25s;
-  }
-
-  .sidebar-overlay.active {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  .sidebar-nav {
-    position: fixed;
-    top: 0;
-    left: -280px;
-    width: 280px;
-    height: 100%;
-    background: #FFFFFF;
-    z-index: 101;
-    transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    padding: 70px 20px 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
-  }
-
-  .sidebar-nav.active {
-    left: 0;
-  }
-
-  .sidebar-nav a {
-    padding: 14px 18px;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 18px;
-    text-decoration: none;
-    color: #0F172A;
-    transition: 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  body.dark .sidebar-nav a {
-    color: #F1F5F9;
-  }
-
-  .sidebar-nav a:active {
-    background: #DBEAFE;
-  }
-
-  body.dark .sidebar-nav a:active {
-    background: #1E293B;
-  }
-
-  .logout-link {
-    margin-top: 20px;
-    border-top: 1px solid #E2E8F0;
-    padding-top: 16px;
-  }
-
-  body.dark .logout-link {
-    border-top-color: #334155;
-  }
-
-  .logout-link a {
-    color: #DC2626 !important;
-  }
-
-  .logout-link a svg {
-    stroke: #DC2626;
-  }
-
-  .close-sidebar-icon {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 30px;
-  }
-
-  .close-btn {
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: 0.2s;
-    border: none;
-  }
-
-  body.dark .close-btn {
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  .close-btn:active {
-    transform: scale(0.92);
-  }
-
-  .close-btn svg {
-    stroke: #0F172A;
-    width: 22px;
-    height: 22px;
-  }
-
-  body.dark .close-btn svg {
-    stroke: #F1F5F9;
-  }
-
-  .screen {
-    padding: 20px 18px 30px;
-    flex: 1;
-  }
-
-  .card-modern {
-    background: #FFFFFF;
-    border-radius: 28px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    border: 1px solid #E2E8F0;
-  }
-
-  .section-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .status-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .premium-indicator {
-    background: #DBEAFE;
-    padding: 6px 16px;
-    border-radius: 40px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #2563EB;
-  }
-
-  .premium-indicator.active {
-    background: #2563EB;
-    color: white;
-  }
-
-  .premium-indicator.warning {
-    background: #FEF3C7;
-    color: #D97706;
-  }
-
-  .limit-indicator {
-    background: #F1F5F9;
-    padding: 6px 16px;
-    border-radius: 40px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #475569;
-  }
-
-  .grid-bagian {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 8px;
-  }
-
-  .materi-btn {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: #F8FAFE;
-    border: 1.5px solid #E2E8F0;
-    padding: 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    color: #0F172A;
-    transition: 0.15s;
-    text-align: left;
-    font-family: inherit;
-  }
-
-  .materi-btn:active {
-    transform: scale(0.98);
-  }
-
-  .materi-btn .materi-num {
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
-    background: #EFF6FF;
-    color: #2563EB;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 15px;
-    flex-shrink: 0;
-    transition: 0.15s;
-  }
-
-  .materi-btn .materi-text {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .materi-btn .materi-text .materi-title {
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .materi-btn .materi-text .materi-sub {
-    font-size: 12px;
-    color: #64748B;
-    margin-top: 2px;
-  }
-
-  .materi-btn .materi-status {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #CBD5E1;
-  }
-
-  .materi-btn .materi-status svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .materi-btn.opened {
-    background: #FFFFFF;
-    border-color: #BFDBFE;
-  }
-
-  .materi-btn.opened .materi-num {
-    background: #2563EB;
-    color: #fff;
-  }
-
-  .materi-btn.opened .materi-status {
-    background: #DCFCE7;
-    color: #16A34A;
-  }
-
-  .materi-btn.locked {
-    opacity: 0.55;
-    cursor: not-allowed;
-  }
-
-  .materi-btn.locked .materi-status {
-    color: #94A3B8;
-  }
-
-  .btn-full {
-    background: #2563EB;
-    border: none;
-    color: white;
-    font-weight: 600;
-    padding: 14px;
-    border-radius: 44px;
-    font-size: 15px;
-    width: 100%;
-    cursor: pointer;
-    font-family: inherit;
-  }
-
-  .btn-full:active {
-    transform: scale(0.97);
-  }
-
-  .btn-outline {
-    background: transparent;
-    border: 1.5px solid #2563EB;
-    color: #2563EB;
-    padding: 12px;
-    border-radius: 44px;
-    font-weight: 600;
-    width: 100%;
-    margin-top: 8px;
-    cursor: pointer;
-    font-family: inherit;
-  }
-
-  .nav-buttons {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
-  }
-
-  .nav-buttons button {
-    flex: 1;
-  }
-
-  .materi-content {
-    line-height: 1.65;
-    font-size: 15px;
-  }
-
-  .materi-content h4 {
-    font-size: 18px;
-    margin: 20px 0 10px 0;
-    color: #2563EB;
-    font-weight: 700;
-  }
-
-  .materi-content p {
-    margin-bottom: 12px;
-    color: #334155;
-  }
-
-  .latihan-opsi {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px 16px;
-    background: #F8FAFE;
-    border: 2px solid #E2E8F0;
-    border-radius: 14px;
-    cursor: pointer;
-    transition: 0.15s;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #0F172A;
-    font-family: inherit;
-    text-align: left;
-    width: 100%;
-  }
-
-  .latihan-opsi:active {
-    transform: scale(0.98);
-  }
-
-  .latihan-opsi .opsi-label {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    border: 2px solid #E2E8F0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 12px;
-    flex-shrink: 0;
-    color: #64748B;
-  }
-
-  .latihan-opsi.correct {
-    background: #DCFCE7;
-    border-color: #16A34A;
-    color: #15803D;
-  }
-
-  .latihan-opsi.correct .opsi-label {
-    background: #16A34A;
-    border-color: #16A34A;
-    color: #fff;
-  }
-
-  .latihan-opsi.wrong {
-    background: #FEE2E2;
-    border-color: #DC2626;
-    color: #B91C1C;
-  }
-
-  .latihan-opsi.wrong .opsi-label {
-    background: #DC2626;
-    border-color: #DC2626;
-    color: #fff;
-  }
-
-  .latihan-opsi.disabled {
-    pointer-events: none;
-    opacity: 0.85;
-  }
-
-  .fab-latihan {
-    position: fixed;
-    right: 20px;
-    bottom: 90px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #2563EB, #60A5FA);
-    color: #fff;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4), 0 4px 10px rgba(0,0,0,0.1);
-    z-index: 50;
-    transition: transform 0.2s, box-shadow 0.2s;
-    font-family: inherit;
-  }
-
-  .fab-latihan:active {
-    transform: scale(0.92);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5);
-  }
-
-  .fab-latihan svg {
-    width: 28px;
-    height: 28px;
-    stroke: #fff;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .fab-latihan .fab-tooltip {
-    position: absolute;
-    right: 70px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #0F172A;
-    color: #fff;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-  }
-
-  .fab-latihan:hover .fab-tooltip {
-    opacity: 1;
-  }
-
-  .pilih-tingkat-btn {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 18px 20px;
-    background: #FFFFFF;
-    border: 2px solid #E2E8F0;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: 0.15s;
-    font-family: inherit;
-    text-align: left;
-    width: 100%;
-  }
-
-  .pilih-tingkat-btn:active {
-    transform: scale(0.98);
-  }
-
-  .pilih-tingkat-btn .tingkat-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .pilih-tingkat-btn .tingkat-icon svg {
-    width: 26px;
-    height: 26px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .pilih-tingkat-btn .tingkat-info {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .pilih-tingkat-btn .tingkat-info .tingkat-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #0F172A;
-    margin-bottom: 2px;
-  }
-
-  .pilih-tingkat-btn .tingkat-info .tingkat-sub {
-    font-size: 12.5px;
-    color: #64748B;
-  }
-
-  .pilih-tingkat-btn .tingkat-arrow {
-    color: #CBD5E1;
-    flex-shrink: 0;
-  }
-
-  .pilih-tingkat-btn .tingkat-arrow svg {
-    width: 20px;
-    height: 20px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
+  .app-container { max-width: 560px; margin: 0 auto; background: #F1F5F9; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
+  body.dark .app-container { background: #0B1120; }
+  .app-header { background: #FFFFFF; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 20; }
+  body.dark .app-header { background: #111827; border-bottom-color: #1E293B; }
+  .logo-area { display: flex; align-items: center; gap: 12px; }
+  .menu-icon { width: 40px; height: 40px; background: #F8FAFE; border-radius: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid #E2E8F0; }
+  body.dark .menu-icon { background: #1E293B; border-color: #334155; }
+  .menu-icon svg { stroke: #0F172A; }
+  body.dark .menu-icon svg { stroke: #F1F5F9; }
+  .app-title { font-weight: 700; font-size: 20px; letter-spacing: -0.3px; background: linear-gradient(135deg, #2563EB, #60A5FA); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); z-index: 100; visibility: hidden; opacity: 0; transition: 0.25s; }
+  .sidebar-overlay.active { visibility: visible; opacity: 1; }
+  .sidebar-nav { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #FFFFFF; z-index: 101; transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); padding: 70px 20px 30px; display: flex; flex-direction: column; gap: 4px; box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1); }
+  .sidebar-nav.active { left: 0; }
+  .sidebar-nav a { padding: 14px 18px; font-size: 16px; font-weight: 500; border-radius: 18px; text-decoration: none; color: #0F172A; transition: 0.2s; display: flex; align-items: center; gap: 14px; }
+  body.dark .sidebar-nav a { color: #F1F5F9; }
+  .sidebar-nav a:active { background: #DBEAFE; }
+  body.dark .sidebar-nav a:active { background: #1E293B; }
+  .logout-link { margin-top: 20px; border-top: 1px solid #E2E8F0; padding-top: 16px; }
+  body.dark .logout-link { border-top-color: #334155; }
+  .logout-link a { color: #DC2626 !important; }
+  .logout-link a svg { stroke: #DC2626; }
+  .close-sidebar-icon { position: absolute; top: 20px; right: 20px; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 30px; }
+  .close-btn { width: 40px; height: 40px; background: rgba(0, 0, 0, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; border: none; }
+  body.dark .close-btn { background: rgba(255, 255, 255, 0.05); }
+  .close-btn:active { transform: scale(0.92); }
+  .close-btn svg { stroke: #0F172A; width: 22px; height: 22px; }
+  body.dark .close-btn svg { stroke: #F1F5F9; }
+  .screen { padding: 20px 18px 30px; flex: 1; }
+  .card-modern { background: #FFFFFF; border-radius: 28px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); border: 1px solid #E2E8F0; }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .status-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .premium-indicator { background: #DBEAFE; padding: 6px 16px; border-radius: 40px; font-size: 13px; font-weight: 600; color: #2563EB; }
+  .premium-indicator.active { background: #2563EB; color: white; }
+  .premium-indicator.warning { background: #FEF3C7; color: #D97706; }
+  .limit-indicator { background: #F1F5F9; padding: 6px 16px; border-radius: 40px; font-size: 13px; font-weight: 600; color: #475569; }
+  .grid-bagian { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .materi-btn { display: flex; align-items: center; gap: 14px; background: #F8FAFE; border: 1.5px solid #E2E8F0; padding: 14px; border-radius: 20px; cursor: pointer; color: #0F172A; transition: 0.15s; text-align: left; font-family: inherit; }
+  .materi-btn:active { transform: scale(0.98); }
+  .materi-btn .materi-num { width: 42px; height: 42px; border-radius: 14px; background: #EFF6FF; color: #2563EB; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; flex-shrink: 0; transition: 0.15s; }
+  .materi-btn .materi-text { flex: 1; min-width: 0; }
+  .materi-btn .materi-text .materi-title { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .materi-btn .materi-text .materi-sub { font-size: 12px; color: #64748B; margin-top: 2px; }
+  .materi-btn .materi-status { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #CBD5E1; }
+  .materi-btn .materi-status svg { width: 16px; height: 16px; }
+  .materi-btn.opened { background: #FFFFFF; border-color: #BFDBFE; }
+  .materi-btn.opened .materi-num { background: #2563EB; color: #fff; }
+  .materi-btn.opened .materi-status { background: #DCFCE7; color: #16A34A; }
+  .materi-btn.locked { opacity: 0.55; cursor: not-allowed; }
+  .materi-btn.locked .materi-status { color: #94A3B8; }
+  .btn-full { background: #2563EB; border: none; color: white; font-weight: 600; padding: 14px; border-radius: 44px; font-size: 15px; width: 100%; cursor: pointer; font-family: inherit; }
+  .btn-full:active { transform: scale(0.97); }
+  .btn-outline { background: transparent; border: 1.5px solid #2563EB; color: #2563EB; padding: 12px; border-radius: 44px; font-weight: 600; width: 100%; margin-top: 8px; cursor: pointer; font-family: inherit; }
+  .nav-buttons { display: flex; gap: 12px; margin-top: 20px; }
+  .nav-buttons button { flex: 1; }
+  .materi-content { line-height: 1.65; font-size: 15px; }
+  .materi-content h4 { font-size: 18px; margin: 20px 0 10px 0; color: #2563EB; font-weight: 700; }
+  .materi-content p { margin-bottom: 12px; color: #334155; }
+  .latihan-opsi { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: #F8FAFE; border: 2px solid #E2E8F0; border-radius: 14px; cursor: pointer; transition: 0.15s; font-size: 14px; line-height: 1.5; color: #0F172A; font-family: inherit; text-align: left; width: 100%; }
+  .latihan-opsi:active { transform: scale(0.98); }
+  .latihan-opsi .opsi-label { width: 26px; height: 26px; border-radius: 50%; background: #FFFFFF; border: 2px solid #E2E8F0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; color: #64748B; }
+  .latihan-opsi.correct { background: #DCFCE7; border-color: #16A34A; color: #15803D; }
+  .latihan-opsi.correct .opsi-label { background: #16A34A; border-color: #16A34A; color: #fff; }
+  .latihan-opsi.wrong { background: #FEE2E2; border-color: #DC2626; color: #B91C1C; }
+  .latihan-opsi.wrong .opsi-label { background: #DC2626; border-color: #DC2626; color: #fff; }
+  .latihan-opsi.disabled { pointer-events: none; opacity: 0.85; }
+  .fab-latihan { position: fixed; right: 20px; bottom: 90px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #2563EB, #60A5FA); color: #fff; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4), 0 4px 10px rgba(0, 0, 0, 0.1); z-index: 50; transition: transform 0.2s, box-shadow 0.2s; font-family: inherit; }
+  .fab-latihan:active { transform: scale(0.92); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.5); }
+  .fab-latihan svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .fab-latihan .fab-tooltip { position: absolute; right: 70px; top: 50%; transform: translateY(-50%); background: #0F172A; color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+  .fab-latihan:hover .fab-tooltip { opacity: 1; }
+  .pilih-tingkat-btn { display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: #FFFFFF; border: 2px solid #E2E8F0; border-radius: 20px; cursor: pointer; transition: 0.15s; font-family: inherit; text-align: left; width: 100%; }
+  .pilih-tingkat-btn:active { transform: scale(0.98); }
+  .pilih-tingkat-btn .tingkat-icon { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pilih-tingkat-btn .tingkat-icon svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .pilih-tingkat-btn .tingkat-info { flex: 1; min-width: 0; }
+  .pilih-tingkat-btn .tingkat-info .tingkat-title { font-size: 16px; font-weight: 700; color: #0F172A; margin-bottom: 2px; }
+  .pilih-tingkat-btn .tingkat-info .tingkat-sub { font-size: 12.5px; color: #64748B; }
+  .pilih-tingkat-btn .tingkat-arrow { color: #CBD5E1; flex-shrink: 0; }
+  .pilih-tingkat-btn .tingkat-arrow svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
   .pilih-tingkat-btn.mudah { border-color: #BBF7D0; }
   .pilih-tingkat-btn.mudah .tingkat-icon { background: #DCFCE7; color: #16A34A; }
   .pilih-tingkat-btn.mudah:active { border-color: #16A34A; }
-
   .pilih-tingkat-btn.sedang { border-color: #FDE68A; }
   .pilih-tingkat-btn.sedang .tingkat-icon { background: #FEF3C7; color: #D97706; }
   .pilih-tingkat-btn.sedang:active { border-color: #D97706; }
-
   .pilih-tingkat-btn.sulit { border-color: #FECACA; }
   .pilih-tingkat-btn.sulit .tingkat-icon { background: #FEE2E2; color: #DC2626; }
   .pilih-tingkat-btn.sulit:active { border-color: #DC2626; }
-
-  .alert-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(6px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 200;
-  }
-
-  .alert-card {
-    background: #FFFFFF;
-    width: 300px;
-    border-radius: 32px;
-    padding: 24px 22px;
-    text-align: center;
-    border: 1px solid #E2E8F0;
-  }
-
-  .footer-app {
-    text-align: center;
-    padding: 20px;
-    font-size: 12px;
-    color: #64748B;
-    border-top: 1px solid #E2E8F0;
-  }
-
-  body.dark .footer-app {
-    color: #94A3B8;
-    border-top-color: #1E293B;
-  }
-
-  .hidden {
-    display: none !important;
-  }
-
-  
-
-  /* perbaikan mode gelap: teks soal & jalur progres latihan */
-  body.dark #latihanPertanyaan { color:#F1F5F9 !important; }
-  body.dark #latihanProgressWrap > div:nth-of-type(2) { background:#1E293B !important; }
-
-  .sidebar-brand { display:none; }
-
-  /* ===== DESKTOP: aplikasi penuh dengan sidebar tetap ===== */
+  .alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; z-index: 200; }
+  .alert-card { background: #FFFFFF; width: 300px; border-radius: 32px; padding: 24px 22px; text-align: center; border: 1px solid #E2E8F0; }
+  .footer-app { text-align: center; padding: 20px; font-size: 12px; color: #64748B; border-top: 1px solid #E2E8F0; }
+  body.dark .footer-app { color: #94A3B8; border-top-color: #1E293B; }
+  .hidden { display: none !important; }
+  body.dark #latihanPertanyaan { color: #F1F5F9 !important; }
+  body.dark #latihanProgressWrap > div:nth-of-type(2) { background: #1E293B !important; }
+  .sidebar-brand { display: none; }
   @media (min-width: 900px) {
-    body { background:#F8FAFC; }
-    body.dark { background:#0B1120; }
-
-    .sidebar-overlay { display:none !important; }
-    .close-sidebar-icon, .menu-icon { display:none !important; }
-    .sidebar-nav {
-      left:0; width:240px; padding:24px 14px 20px; gap:2px;
-      box-shadow:none; border-right:1px solid #E2E8F0; transition:none; z-index:30; overflow-y:auto;
-    }
-    body.dark .sidebar-nav { border-right-color:#1E293B; }
-    .sidebar-brand {
-      display:block; padding:2px 16px 22px; font-size:22px; font-weight:700; letter-spacing:-.3px;
-      background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
-    .sidebar-nav a { padding:12px 16px; font-size:14.5px; border-radius:12px; }
-    .sidebar-nav a:hover { background:#F1F5F9; }
-    body.dark .sidebar-nav a:hover { background:#16203A; }
-    .sidebar-nav .logout-link { margin-top:auto; }
-
-    .app-container {
-      max-width:none; width:auto; margin:0 0 0 240px; min-height:100vh; padding:0;
-      border:0; border-radius:0; box-shadow:none; overflow:visible; background:#F8FAFC;
-    }
-    body.dark .app-container { background:#0B1120; border:0; box-shadow:none; }
-
-    .app-header {
-      min-height:68px; border-radius:0; background:rgba(248,250,252,.88); backdrop-filter:blur(10px);
-      padding:0 max(32px, calc((100% - 1100px) / 2 + 32px));
-    }
-    body.dark .app-header { background:rgba(11,17,32,.88); }
-    .app-title { font-size:22px; }
-    .close-btn:hover { background:rgba(37,99,235,.10); }
-
-    .screen { width:100%; max-width:1100px; margin:0 auto; padding:32px 32px 48px; }
-    .card-modern { padding:26px; border-radius:22px; margin-bottom:0; }
-    .section-title { font-size:20px; letter-spacing:-.3px; }
-
-    /* daftar materi: kiri status, kanan daftar 2 kolom */
-    #halamanUtama:not(.hidden) {
-      display:grid; grid-template-columns:minmax(0,320px) minmax(0,1fr); column-gap:28px; align-items:start;
-    }
-    #halamanUtama > .card-modern:nth-child(1) { position:sticky; top:92px; }
-    #halamanUtama > .card-modern { min-width:0; }
-    .grid-bagian { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
-    .grid-bagian .materi-btn { min-width:0; }
-    .grid-bagian .materi-btn .materi-text .materi-title { white-space:normal; overflow:visible; text-overflow:clip; word-break:break-word; line-height:1.3; }
-    .materi-btn { transition:border-color .15s, box-shadow .15s, transform .15s; }
-    .materi-btn:not(.locked):hover { border-color:#9DB9F2; box-shadow:0 8px 20px rgba(37,99,235,.08); transform:translateY(-2px); }
-    body.dark .materi-btn:not(.locked):hover { border-color:#2F4A8A; box-shadow:none; }
-
-    /* baca materi & latihan: kolom tengah */
-    #materiView:not(.hidden) { max-width:800px; margin:0 auto; }
-    #materiView > .card-modern { padding:36px 40px; }
-    #materiView .section-title { font-size:24px; letter-spacing:-.4px; margin-bottom:18px; }
-    .materi-content { font-size:16px; line-height:1.75; }
-    .materi-content h4 { font-size:19px; }
-    .materi-content pre { font-size:14px; padding:16px 18px; }
-    .btn-full, .btn-outline { transition:filter .15s, background .15s; }
-    .btn-full:hover { filter:brightness(1.08); }
-    .btn-outline:hover { background:rgba(37,99,235,.06); }
-    .nav-buttons { margin-top:28px; }
-
-    #latihanView:not(.hidden) { max-width:700px; margin:0 auto; }
-    .latihan-opsi { transition:border-color .15s, background .15s, transform .1s; }
-    .latihan-opsi:not(.disabled):hover { border-color:#93B4F5; }
-    .pilih-tingkat-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(37,99,235,.08); }
-
-    .fab-latihan { right:32px; bottom:32px; width:64px; height:64px; }
-    .fab-latihan:hover { transform:translateY(-3px); }
-
-    .footer-app { margin:auto 0 0; padding:20px; background:transparent; }
-    .alert-card { max-width:380px; padding:28px 26px; border-radius:26px; }
+    body { background: #F8FAFC; }
+    body.dark { background: #0B1120; }
+    .sidebar-overlay { display: none !important; }
+    .close-sidebar-icon, .menu-icon { display: none !important; }
+    .sidebar-nav { left: 0; width: 240px; padding: 24px 14px 20px; gap: 2px; box-shadow: none; border-right: 1px solid #E2E8F0; transition: none; z-index: 30; overflow-y: auto; }
+    body.dark .sidebar-nav { border-right-color: #1E293B; }
+    .sidebar-brand { display: block; padding: 2px 16px 22px; font-size: 22px; font-weight: 700; letter-spacing: -.3px; background: linear-gradient(135deg, #2563EB, #60A5FA); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .sidebar-nav a { padding: 12px 16px; font-size: 14.5px; border-radius: 12px; }
+    .sidebar-nav a:hover { background: #F1F5F9; }
+    body.dark .sidebar-nav a:hover { background: #16203A; }
+    .sidebar-nav .logout-link { margin-top: auto; }
+    .app-container { max-width: none; width: auto; margin: 0 0 0 240px; min-height: 100vh; padding: 0; border: 0; border-radius: 0; box-shadow: none; overflow: visible; background: #F8FAFC; }
+    body.dark .app-container { background: #0B1120; border: 0; box-shadow: none; }
+    .app-header { min-height: 68px; border-radius: 0; background: rgba(248, 250, 252, .88); backdrop-filter: blur(10px); padding: 0 max(32px, calc((100% - 1100px) / 2 + 32px)); }
+    body.dark .app-header { background: rgba(11, 17, 32, .88); }
+    .app-title { font-size: 22px; }
+    .close-btn:hover { background: rgba(37, 99, 235, .10); }
+    .screen { width: 100%; max-width: 1100px; margin: 0 auto; padding: 32px 32px 48px; }
+    .card-modern { padding: 26px; border-radius: 22px; margin-bottom: 0; }
+    .section-title { font-size: 20px; letter-spacing: -.3px; }
+    #halamanUtama:not(.hidden) { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); column-gap: 28px; align-items: start; }
+    #halamanUtama > .card-modern:nth-child(1) { position: sticky; top: 92px; }
+    #halamanUtama > .card-modern { min-width: 0; }
+    .grid-bagian { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .grid-bagian .materi-btn { min-width: 0; }
+    .grid-bagian .materi-btn .materi-text .materi-title { white-space: normal; overflow: visible; text-overflow: clip; word-break: break-word; line-height: 1.3; }
+    .materi-btn { transition: border-color .15s, box-shadow .15s, transform .15s; }
+    .materi-btn:not(.locked):hover { border-color: #9DB9F2; box-shadow: 0 8px 20px rgba(37, 99, 235, .08); transform: translateY(-2px); }
+    body.dark .materi-btn:not(.locked):hover { border-color: #2F4A8A; box-shadow: none; }
+    #materiView:not(.hidden) { max-width: 800px; margin: 0 auto; }
+    #materiView > .card-modern { padding: 36px 40px; }
+    #materiView .section-title { font-size: 24px; letter-spacing: -.4px; margin-bottom: 18px; }
+    .materi-content { font-size: 16px; line-height: 1.75; }
+    .materi-content h4 { font-size: 19px; }
+    .materi-content pre { font-size: 14px; padding: 16px 18px; }
+    .btn-full, .btn-outline { transition: filter .15s, background .15s; }
+    .btn-full:hover { filter: brightness(1.08); }
+    .btn-outline:hover { background: rgba(37, 99, 235, .06); }
+    .nav-buttons { margin-top: 28px; }
+    #latihanView:not(.hidden) { max-width: 700px; margin: 0 auto; }
+    .latihan-opsi { transition: border-color .15s, background .15s, transform .1s; }
+    .latihan-opsi:not(.disabled):hover { border-color: #93B4F5; }
+    .pilih-tingkat-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 99, 235, .08); }
+    .fab-latihan { right: 32px; bottom: 32px; width: 64px; height: 64px; }
+    .fab-latihan:hover { transform: translateY(-3px); }
+    .footer-app { margin: auto 0 0; padding: 20px; background: transparent; }
+    .alert-card { max-width: 380px; padding: 28px 26px; border-radius: 26px; }
   }
-
   @media (min-width: 900px) and (max-width: 1099px) {
-    .screen { padding:24px; }
-    #halamanUtama:not(.hidden) { grid-template-columns:minmax(0,280px) minmax(0,1fr); column-gap:20px; }
-    .grid-bagian { grid-template-columns:minmax(0,1fr); }
+    .screen { padding: 24px; }
+    #halamanUtama:not(.hidden) { grid-template-columns: minmax(0, 280px) minmax(0, 1fr); column-gap: 20px; }
+    .grid-bagian { grid-template-columns: minmax(0, 1fr); }
   }
 
-
+  /* ===== Skeleton Shimmer ===== */
+  :root { --sk-base: #E2E8F0; --sk-hi: #F8FAFC; }
+  body.dark { --sk-base: #1E293B; --sk-hi: #334155; }
+  @keyframes skShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .sk-pending { color: transparent; text-shadow: none !important; background: linear-gradient(90deg, var(--sk-base) 25%, var(--sk-hi) 50%, var(--sk-base) 75%) !important; background-size: 200% 100% !important; animation: skShimmer 1.4s ease-in-out infinite; pointer-events: none; user-select: none; border-color: transparent !important; }
+  .sk-pending * { visibility: hidden; }
+  .sk-block { display: block; border-radius: 14px; background: linear-gradient(90deg, var(--sk-base) 25%, var(--sk-hi) 50%, var(--sk-base) 75%); background-size: 200% 100%; animation: skShimmer 1.4s ease-in-out infinite; }
+  .sk-row { height: 58px; }
+  @media (prefers-reduced-motion: reduce) { .sk-pending, .sk-block { animation: none; } }
+/* ===== Skeleton Shimmer+ (animasi tambahan) ===== */
+  :root { --sk-hi: #FFFFFF; }
+  body.dark { --sk-hi: #475569; }
+  @keyframes skPulse { 0%, 100% { opacity: 1; } 50% { opacity: .6; } }
+  @keyframes skReveal { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
+  @keyframes skPop { 0% { opacity: 0; transform: scale(.9); } 60% { opacity: 1; transform: scale(1.04); } 100% { opacity: 1; transform: scale(1); } }
+  .sk-pending, .sk-block { background-image: linear-gradient(100deg, var(--sk-base) 30%, var(--sk-hi) 50%, var(--sk-base) 70%) !important; background-size: 250% 100% !important; animation: skShimmer 1.1s linear infinite, skPulse 1.8s ease-in-out infinite; }
+  .sk-reveal { animation: skPop .5s cubic-bezier(.2,.8,.2,1) both; }
+  .sk-first > :not(.sk-block) { animation: skReveal .5s cubic-bezier(.2,.8,.2,1) both; }
+  .sk-was .table-wrap, .sk-was > p { animation: skReveal .5s cubic-bezier(.2,.8,.2,1) both; }
+  .grid-bagian > .sk-block:nth-child(2), .sk-table .sk-line:nth-child(2) .sk-block, #loadingState > :nth-child(2), #skIsi > :nth-child(2), #daftarGuruList > .sk-block:nth-child(2) { animation-delay: 0.12s, 0.12s; }
+  .grid-bagian > .sk-block:nth-child(3), .sk-table .sk-line:nth-child(3) .sk-block, #loadingState > :nth-child(3), #skIsi > :nth-child(3), #daftarGuruList > .sk-block:nth-child(3) { animation-delay: 0.24s, 0.24s; }
+  .grid-bagian > .sk-block:nth-child(4), .sk-table .sk-line:nth-child(4) .sk-block, #loadingState > :nth-child(4), #skIsi > :nth-child(4), #daftarGuruList > .sk-block:nth-child(4) { animation-delay: 0.36s, 0.36s; }
+  .grid-bagian > .sk-block:nth-child(5), .sk-table .sk-line:nth-child(5) .sk-block, #loadingState > :nth-child(5), #skIsi > :nth-child(5), #daftarGuruList > .sk-block:nth-child(5) { animation-delay: 0.48s, 0.48s; }
+  .grid-bagian > .sk-block:nth-child(6), .sk-table .sk-line:nth-child(6) .sk-block, #loadingState > :nth-child(6), #skIsi > :nth-child(6), #daftarGuruList > .sk-block:nth-child(6) { animation-delay: 0.6s, 0.6s; }
+  .grid-bagian > .sk-block:nth-child(7), .sk-table .sk-line:nth-child(7) .sk-block, #loadingState > :nth-child(7), #skIsi > :nth-child(7), #daftarGuruList > .sk-block:nth-child(7) { animation-delay: 0.72s, 0.72s; }
+  .grid-bagian > .sk-block:nth-child(8), .sk-table .sk-line:nth-child(8) .sk-block, #loadingState > :nth-child(8), #skIsi > :nth-child(8), #daftarGuruList > .sk-block:nth-child(8) { animation-delay: 0.84s, 0.84s; }
+  .sk-first > :nth-child(2) { animation-delay: 0.05s; }
+  .sk-first > :nth-child(3) { animation-delay: 0.1s; }
+  .sk-first > :nth-child(4) { animation-delay: 0.15s; }
+  .sk-first > :nth-child(5) { animation-delay: 0.2s; }
+  .sk-first > :nth-child(6) { animation-delay: 0.25s; }
+  .sk-first > :nth-child(7) { animation-delay: 0.3s; }
+  .sk-first > :nth-child(8) { animation-delay: 0.35s; }
+  .sk-first > :nth-child(9) { animation-delay: 0.4s; }
+  .sk-first > :nth-child(10) { animation-delay: 0.45s; }
+  .sk-first > :nth-child(11) { animation-delay: 0.5s; }
+  .sk-first > :nth-child(12) { animation-delay: 0.55s; }
+  @media (prefers-reduced-motion: reduce) { .sk-reveal, .sk-first > *, .sk-was .table-wrap, .sk-was > p, #mainContent { animation: none !important; } }
 </style>
 </head>
 <body>
@@ -987,6 +303,9 @@
     <a href="#" onclick="goTo('lokasi.html')">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokasi
     </a>
+    <a href="#" onclick="goTo('kalender.html')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Kalender
+    </a>
     <div class="logout-link">
       <a href="#" onclick="logoutAction()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.7"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Keluar
@@ -1008,8 +327,8 @@
         <p style="margin-bottom: 16px;">Pelajari ilmu tentang ekonomi mulai dari konsep dasar hingga kebijakan ekonomi makro secara lengkap dari dasar hingga mahir.</p>
 
         <div class="status-row">
-          <span id="premiumStatusBadge" class="premium-indicator">Akun Standar</span>
-          <span id="limitCounter" class="limit-indicator">0/2 Hari Ini</span>
+          <span id="premiumStatusBadge" class="premium-indicator sk-pending">Akun Standar</span>
+          <span id="limitCounter" class="limit-indicator sk-pending">0/2 Hari Ini</span>
         </div>
       </div>
 
@@ -1021,7 +340,13 @@
           </svg>
           Daftar Materi
         </div>
-        <div id="listBagianGrid" class="grid-bagian"></div>
+        <div id="listBagianGrid" class="grid-bagian sk-first">
+          <span class="sk-block sk-row"></span>
+          <span class="sk-block sk-row"></span>
+          <span class="sk-block sk-row"></span>
+          <span class="sk-block sk-row"></span>
+          <span class="sk-block sk-row"></span>
+        </div>
       </div>
     </div>
 
@@ -1388,7 +713,13 @@ function saveLocalProgress() {
   localStorage.setItem('ekonomiOpened', JSON.stringify(openedIndexes));
 }
 
+
+// Skeleton shimmer: hapus penanda loading setelah data siap (+ pengaman 8 detik)
+function skDone() { document.querySelectorAll('.sk-pending').forEach(function (el) { el.classList.remove('sk-pending'); el.classList.add('sk-reveal'); }); setTimeout(function () { document.querySelectorAll('.sk-first').forEach(function (el) { el.classList.remove('sk-first'); }); }, 1500); }
+setTimeout(skDone, 8000);
+
 function updateUI() {
+  skDone();
   const badge = document.getElementById('premiumStatusBadge');
   const limitSpan = document.getElementById('limitCounter');
 
@@ -1423,6 +754,7 @@ function updateUI() {
 }
 
 function renderBagian() {
+  skDone();
   const container = document.getElementById('listBagianGrid');
   if (!container) return;
   container.innerHTML = '';
@@ -1816,5 +1148,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<script src="telepon.js"></script>
+<script src="translate.js"></script>
 </body>
 </html>

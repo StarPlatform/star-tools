@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>STools - Tabel Periodik</title>
+<link rel="icon" type="image/png" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body { font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; background:#F1F5F9; color:#0F172A; min-height:100vh; }
+body.dark { background:#0B1120; color:#F1F5F9; }
+.halaman { max-width:1280px; margin:0 auto; padding-bottom:40px; }
+
+.kepala { background:#fff; padding:14px 20px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #E2E8F0; position:sticky; top:0; z-index:20; }
+body.dark .kepala { background:#111827; border-bottom-color:#1E293B; }
+.tombol-ikon { width:40px; height:40px; background:#F8FAFE; border-radius:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; border:1px solid #E2E8F0; text-decoration:none; flex:none; }
+body.dark .tombol-ikon { background:#1E293B; border-color:#334155; }
+.tombol-ikon svg { stroke:#0F172A; width:20px; height:20px; }
+body.dark .tombol-ikon svg { stroke:#F1F5F9; }
+.judul { font-weight:700; font-size:20px; letter-spacing:-.3px; background:linear-gradient(135deg,#2563EB,#60A5FA); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+.badan { padding:14px 16px 0; display:flex; flex-direction:column; gap:12px; }
+.kartu { background:#fff; border:1px solid #E2E8F0; border-radius:22px; padding:14px 16px; }
+body.dark .kartu { background:#111827; border-color:#1E293B; }
+
+.baris-alat { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.cari { flex:1 1 220px; padding:11px 14px; border-radius:14px; border:1px solid #E2E8F0; background:#F8FAFE; color:#0F172A; font-size:14px; font-family:inherit; outline:none; min-width:0; }
+.cari:focus { border-color:#2563EB; }
+body.dark .cari { background:#1E293B; border-color:#334155; color:#F1F5F9; }
+.cari::placeholder { color:#94A3B8; }
+.mode { display:flex; background:#F1F5F9; border-radius:14px; padding:3px; gap:2px; }
+body.dark .mode { background:#1E293B; }
+.mode button { border:none; background:transparent; padding:8px 12px; border-radius:11px; font-size:13px; font-weight:600; font-family:inherit; color:#64748B; cursor:pointer; white-space:nowrap; }
+.mode button.aktif { background:#2563EB; color:#fff; }
+.zoom { display:flex; gap:6px; }
+.zoom button { width:38px; height:38px; border-radius:12px; border:1px solid #E2E8F0; background:#F8FAFE; color:#0F172A; font-size:18px; font-weight:700; cursor:pointer; font-family:inherit; }
+body.dark .zoom button { background:#1E293B; border-color:#334155; color:#F1F5F9; }
+
+.suhu { display:none; align-items:center; gap:12px; margin-top:12px; flex-wrap:wrap; }
+.suhu.tampil { display:flex; }
+.suhu label { font-size:13px; font-weight:600; }
+.suhu input[type=range] { flex:1 1 200px; accent-color:#2563EB; }
+.suhu output { font-size:14px; font-weight:700; color:#2563EB; min-width:96px; text-align:right; font-variant-numeric:tabular-nums; }
+.suhu .cepat { display:flex; gap:6px; flex-wrap:wrap; }
+.suhu .cepat button { border:1px solid #E2E8F0; background:#F8FAFE; color:#0F172A; border-radius:10px; padding:5px 10px; font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; }
+body.dark .suhu .cepat button { background:#1E293B; border-color:#334155; color:#F1F5F9; }
+
+.legenda { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.legenda button { display:flex; align-items:center; gap:7px; border:1px solid #E2E8F0; background:#F8FAFE; color:#0F172A; border-radius:999px; padding:6px 12px 6px 8px; font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; }
+body.dark .legenda button { background:#1E293B; border-color:#334155; color:#F1F5F9; }
+.legenda button.aktif { border-color:#2563EB; box-shadow:0 0 0 2px rgba(37,99,235,.25); }
+.legenda i { width:14px; height:14px; border-radius:5px; display:block; }
+.skala { height:12px; border-radius:6px; width:min(100%,360px); background:linear-gradient(90deg,hsl(215,85%,94%),hsl(215,85%,50%)); }
+body.dark .skala { background:linear-gradient(90deg,hsl(215,85%,18%),hsl(215,85%,58%)); }
+.skala-teks { display:flex; justify-content:space-between; width:min(100%,360px); font-size:11px; color:#64748B; margin-top:4px; }
+
+.gulir { overflow-x:auto; padding-bottom:6px; }
+.tabel { display:grid; grid-template-columns:repeat(18,var(--s)); grid-template-rows:repeat(7,var(--s)) 12px repeat(2,var(--s)); gap:3px; width:max-content; margin:0 auto; --s:40px; }
+.sel { border:none; border-radius:calc(var(--s)*.14); padding:2px 3px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; font-family:inherit; position:relative; transition:opacity .2s,transform .12s; min-width:0; }
+.sel:active { transform:scale(.93); }
+.sel .no { position:absolute; top:2px; left:4px; font-size:calc(var(--s)*.2); font-weight:600; opacity:.8; line-height:1; }
+.sel .sim { font-size:calc(var(--s)*.4); font-weight:800; line-height:1; }
+.sel .nm { font-size:calc(var(--s)*.15); font-weight:600; line-height:1.1; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-top:2px; }
+.sel.redup { opacity:.18; }
+.sel.cocok { box-shadow:0 0 0 2px #2563EB; z-index:2; }
+.jarak { pointer-events:none; }
+.penanda { border-radius:calc(var(--s)*.14); display:flex; align-items:center; justify-content:center; font-size:calc(var(--s)*.2); font-weight:700; opacity:.7; border:1px dashed currentColor; }
+.label-seri { grid-column:1 / span 2; display:flex; align-items:center; justify-content:flex-end; padding-right:6px; font-size:calc(var(--s)*.22); font-weight:700; color:#64748B; text-align:right; }
+
+.k-a { --w:#FEE2E2; --t:#B91C1C; --wd:#4C1D24; --td:#FCA5A5; }
+.k-t { --w:#FFEDD5; --t:#C2410C; --wd:#4A2511; --td:#FDBA74; }
+.k-r { --w:#FEF9C3; --t:#A16207; --wd:#3F3A12; --td:#FDE047; }
+.k-p { --w:#DCFCE7; --t:#15803D; --wd:#12361F; --td:#86EFAC; }
+.k-m { --w:#CCFBF1; --t:#0F766E; --wd:#11332F; --td:#5EEAD4; }
+.k-n { --w:#DBEAFE; --t:#1D4ED8; --wd:#172554; --td:#93C5FD; }
+.k-h { --w:#E0E7FF; --t:#4338CA; --wd:#1E1B4B; --td:#A5B4FC; }
+.k-g { --w:#F3E8FF; --t:#7E22CE; --wd:#2E1065; --td:#D8B4FE; }
+.k-l { --w:#FCE7F3; --t:#BE185D; --wd:#4A1530; --td:#F9A8D4; }
+.k-k { --w:#FFE4E6; --t:#BE123C; --wd:#4C1521; --td:#FDA4AF; }
+.k-u { --w:#E2E8F0; --t:#475569; --wd:#1E293B; --td:#94A3B8; }
+.w-s { --w:#E0E7FF; --t:#3730A3; --wd:#1E1B4B; --td:#A5B4FC; }
+.w-c { --w:#CCFBF1; --t:#0F766E; --wd:#11332F; --td:#5EEAD4; }
+.w-g { --w:#FEE2E2; --t:#B91C1C; --wd:#4C1D24; --td:#FCA5A5; }
+.w-u { --w:#E2E8F0; --t:#475569; --wd:#1E293B; --td:#94A3B8; }
+.warna { background:var(--w); color:var(--t); }
+body.dark .warna { background:var(--wd); color:var(--td); }
+.legenda .warna { background:var(--w); }
+body.dark .legenda .warna { background:var(--wd); }
+
+.lapisan { position:fixed; inset:0; background:rgba(15,23,42,.6); backdrop-filter:blur(4px); z-index:200; display:none; align-items:flex-end; justify-content:center; }
+.lapisan.aktif { display:flex; }
+.lembar { width:100%; max-width:560px; max-height:92vh; overflow-y:auto; background:#fff; color:#0F172A; border-radius:28px 28px 0 0; padding:18px 20px calc(24px + env(safe-area-inset-bottom,0px)); animation:naik .25s ease; }
+body.dark .lembar { background:#111827; color:#F1F5F9; }
+@keyframes naik { from { transform:translateY(40px); opacity:0; } to { transform:none; opacity:1; } }
+@media (min-width:700px) { .lapisan { align-items:center; padding:24px; } .lembar { border-radius:28px; } }
+.lembar-atas { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.lembar-atas button { width:38px; height:38px; border-radius:50%; border:1px solid #E2E8F0; background:#F8FAFE; cursor:pointer; color:#0F172A; font-size:18px; font-family:inherit; font-weight:700; }
+body.dark .lembar-atas button { background:#1E293B; border-color:#334155; color:#F1F5F9; }
+.lembar-atas .tengah { font-size:13px; color:#64748B; font-weight:600; }
+.pembuka { display:flex; gap:16px; align-items:center; }
+.besar { width:104px; height:104px; border-radius:22px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; flex:none; }
+.besar .no { position:absolute; top:8px; left:10px; font-size:14px; font-weight:700; }
+.besar .sim { font-size:44px; font-weight:800; line-height:1; }
+.besar .ms { position:absolute; bottom:7px; font-size:11px; font-weight:600; opacity:.85; }
+.pembuka h2 { font-size:24px; font-weight:800; letter-spacing:-.3px; }
+.pembuka .kat { display:inline-block; margin-top:6px; padding:4px 12px; border-radius:999px; font-size:12px; font-weight:700; }
+.bohr { display:flex; justify-content:center; margin:16px 0 4px; }
+.bohr svg { width:190px; height:190px; }
+.bohr .orbit { fill:none; stroke:#CBD5E1; stroke-width:1; }
+body.dark .bohr .orbit { stroke:#334155; }
+.bohr .elektron { fill:#2563EB; }
+.bohr .inti { fill:#F59E0B; }
+.bohr text { font-family:inherit; font-size:11px; font-weight:800; fill:#fff; text-anchor:middle; dominant-baseline:central; }
+.rincian { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+.rincian div { background:#F8FAFE; border:1px solid #E2E8F0; border-radius:14px; padding:10px 12px; min-width:0; }
+body.dark .rincian div { background:#1E293B; border-color:#334155; }
+.rincian .lebar { grid-column:1 / -1; }
+.rincian small { display:block; font-size:11px; color:#64748B; font-weight:600; margin-bottom:3px; }
+.rincian b { font-size:14px; font-weight:700; word-break:break-word; }
+.navigasi { display:flex; gap:10px; margin-top:16px; }
+.navigasi button { flex:1; padding:12px; border-radius:14px; border:1px solid #E2E8F0; background:#F8FAFE; color:#0F172A; font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; }
+body.dark .navigasi button { background:#1E293B; border-color:#334155; color:#F1F5F9; }
+.navigasi button:disabled { opacity:.4; }
+.catatan { font-size:12px; color:#64748B; line-height:1.6; text-align:center; padding:4px 20px 0; }
+</style>
+</head>
+<body>
+<div class="halaman">
+  <header class="kepala">
+    <a class="tombol-ikon" href="index.html" aria-label="Kembali"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></a>
+    <div class="judul">Tabel Periodik</div>
+  </header>
+
+  <div class="badan">
+    <div class="kartu">
+      <div class="baris-alat">
+        <input type="search" class="cari" id="cari" placeholder="Cari nama, lambang, atau nomor atom" autocomplete="off">
+        <div class="mode" id="mode">
+          <button data-mode="kategori" class="aktif">Golongan</button>
+          <button data-mode="wujud">Wujud</button>
+          <button data-mode="en">Keelektronegatifan</button>
+        </div>
+        <div class="zoom">
+          <button id="kecilkan" aria-label="Perkecil">−</button>
+          <button id="besarkan" aria-label="Perbesar">+</button>
+        </div>
+      </div>
+      <div class="suhu" id="suhu">
+        <label for="geserSuhu">Suhu</label>
+        <input type="range" id="geserSuhu" min="-273" max="5500" value="25" step="1">
+        <output id="nilaiSuhu">25 °C</output>
+        <div class="cepat">
+          <button data-suhu="-200">Nitrogen cair</button>
+          <button data-suhu="25">Suhu ruang</button>
+          <button data-suhu="100">Air mendidih</button>
+          <button data-suhu="1000">1.000 °C</button>
+        </div>
+      </div>
+      <div class="legenda" id="legenda"></div>
+    </div>
+
+    <div class="kartu">
+      <div class="gulir"><div class="tabel" id="tabel"></div></div>
+    </div>
+    <p class="catatan">Ketuk unsur untuk melihat detailnya. Nilai massa atom dalam kurung adalah nomor massa isotop paling stabil. Data berupa nilai pendekatan dari acuan umum.</p>
+  </div>
+</div>
+
+<div class="lapisan" id="lapisan">
+  <div class="lembar" id="lembar"></div>
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDgr_nHqvpMsiG4lBkYckzxRErkskXj_6E",
+  authDomain: "laporanstartools-c18b2.firebaseapp.com",
+  databaseURL: "https://laporanstartools-c18b2-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "laporanstartools-c18b2"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
+try {
+  if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+} catch (e) {}
+
+const KATEGORI = {
+  a: 'Logam alkali', t: 'Logam alkali tanah', r: 'Logam transisi', p: 'Logam pasca-transisi', m: 'Metaloid',
+  n: 'Nonlogam', h: 'Halogen', g: 'Gas mulia', l: 'Lantanida', k: 'Aktinida', u: 'Sifat belum diketahui'
+};
+const WUJUD = { s: 'Padat', c: 'Cair', g: 'Gas', u: 'Tidak diketahui' };
+const INTI = { He: [2], Ne: [2, 8], Ar: [2, 8, 8], Kr: [2, 8, 18, 8], Xe: [2, 8, 18, 18, 8], Rn: [2, 8, 18, 32, 18, 8] };
+
+const DATA = [
+'1|H|Hidrogen|1,008|n|1s1|g|2,20|-259|-253|Bahan bakar roket dan sel bahan bakar; unsur paling melimpah di alam semesta.',
+'2|He|Helium|4,0026|g|1s2|g|-|-272|-269|Pengisi balon udara dan pendingin pemindai MRI.',
+'3|Li|Litium|6,94|a|[He] 2s1|s|0,98|181|1342|Baterai isi ulang (litium-ion).',
+'4|Be|Berilium|9,0122|t|[He] 2s2|s|1,57|1287|2470|Paduan ringan untuk pesawat dan satelit.',
+'5|B|Boron|10,81|m|[He] 2s2 2p1|s|2,04|2077|4000|Kaca tahan panas dan bahan pembersih (boraks).',
+'6|C|Karbon|12,011|n|[He] 2s2 2p2|s|2,55|3550|4827|Dasar senyawa organik; grafit, intan, dan arang.',
+'7|N|Nitrogen|14,007|n|[He] 2s2 2p3|g|3,04|-210|-196|Pupuk (amonia) dan pengawet makanan.',
+'8|O|Oksigen|15,999|n|[He] 2s2 2p4|g|3,44|-218|-183|Pernapasan dan pembakaran.',
+'9|F|Fluorin|18,998|h|[He] 2s2 2p5|g|3,98|-220|-188|Pasta gigi (fluorida) dan pelapis Teflon.',
+'10|Ne|Neon|20,180|g|[He] 2s2 2p6|g|-|-249|-246|Lampu reklame.',
+'11|Na|Natrium|22,990|a|[Ne] 3s1|s|0,93|98|883|Garam dapur (NaCl) dan lampu uap natrium.',
+'12|Mg|Magnesium|24,305|t|[Ne] 3s2|s|1,31|650|1090|Paduan ringan dan inti klorofil.',
+'13|Al|Aluminium|26,982|p|[Ne] 3s2 3p1|s|1,61|660|2470|Kaleng, kemasan, dan rangka pesawat.',
+'14|Si|Silikon|28,085|m|[Ne] 3s2 3p2|s|1,90|1414|3265|Cip semikonduktor, panel surya, dan kaca.',
+'15|P|Fosfor|30,974|n|[Ne] 3s2 3p3|s|2,19|44|277|Pupuk dan kepala korek api.',
+'16|S|Belerang|32,06|n|[Ne] 3s2 3p4|s|2,58|115|445|Pembuatan asam sulfat dan vulkanisasi karet.',
+'17|Cl|Klorin|35,45|h|[Ne] 3s2 3p5|g|3,16|-101|-34|Disinfeksi air dan pemutih.',
+'18|Ar|Argon|39,948|g|[Ne] 3s2 3p6|g|-|-189|-186|Gas pelindung saat pengelasan dan lampu pijar.',
+'19|K|Kalium|39,098|a|[Ar] 4s1|s|0,82|64|759|Pupuk dan fungsi saraf.',
+'20|Ca|Kalsium|40,078|t|[Ar] 4s2|s|1,00|842|1484|Tulang, gigi, semen, dan kapur.',
+'21|Sc|Skandium|44,956|r|[Ar] 3d1 4s2|s|1,36|1541|2836|Paduan aluminium untuk peralatan olahraga.',
+'22|Ti|Titanium|47,867|r|[Ar] 3d2 4s2|s|1,54|1668|3287|Paduan ringan dan kuat; implan medis.',
+'23|V|Vanadium|50,942|r|[Ar] 3d3 4s2|s|1,63|1910|3407|Baja perkakas.',
+'24|Cr|Kromium|51,996|r|[Ar] 3d5 4s1|s|1,66|1907|2671|Pelapis krom dan baja tahan karat.',
+'25|Mn|Mangan|54,938|r|[Ar] 3d5 4s2|s|1,55|1246|2061|Campuran baja dan baterai.',
+'26|Fe|Besi|55,845|r|[Ar] 3d6 4s2|s|1,83|1538|2861|Baja dan struktur bangunan.',
+'27|Co|Kobalt|58,933|r|[Ar] 3d7 4s2|s|1,88|1495|2927|Magnet dan baterai.',
+'28|Ni|Nikel|58,693|r|[Ar] 3d8 4s2|s|1,91|1455|2913|Koin dan baja tahan karat.',
+'29|Cu|Tembaga|63,546|r|[Ar] 3d10 4s1|s|1,90|1085|2562|Kabel listrik dan pipa.',
+'30|Zn|Seng|65,38|r|[Ar] 3d10 4s2|s|1,65|420|907|Pelapis anti karat (galvanisasi) dan baterai.',
+'31|Ga|Galium|69,723|p|[Ar] 3d10 4s2 4p1|s|1,81|30|2204|Cip LED dan semikonduktor; meleleh di telapak tangan.',
+'32|Ge|Germanium|72,630|m|[Ar] 3d10 4s2 4p2|s|2,01|938|2833|Serat optik dan semikonduktor.',
+'33|As|Arsen|74,922|m|[Ar] 3d10 4s2 4p3|s|2,18|817|614|Semikonduktor; senyawanya beracun.',
+'34|Se|Selenium|78,971|n|[Ar] 3d10 4s2 4p4|s|2,55|221|685|Sel surya dan kaca berwarna.',
+'35|Br|Bromin|79,904|h|[Ar] 3d10 4s2 4p5|c|2,96|-7|59|Bahan tahan api.',
+'36|Kr|Kripton|83,798|g|[Ar] 3d10 4s2 4p6|g|3,00|-157|-153|Lampu dan laser.',
+'37|Rb|Rubidium|85,468|a|[Kr] 5s1|s|0,82|39|688|Jam atom.',
+'38|Sr|Stronsium|87,62|t|[Kr] 5s2|s|0,95|777|1382|Warna merah pada kembang api.',
+'39|Y|Itrium|88,906|r|[Kr] 4d1 5s2|s|1,22|1526|3345|Lampu LED putih dan laser.',
+'40|Zr|Zirkonium|91,224|r|[Kr] 4d2 5s2|s|1,33|1855|4409|Pelapis bahan bakar reaktor nuklir.',
+'41|Nb|Niobium|92,906|r|[Kr] 4d4 5s1|s|1,6|2477|4744|Magnet superkonduktor.',
+'42|Mo|Molibdenum|95,95|r|[Kr] 4d5 5s1|s|2,16|2623|4639|Baja paduan kuat.',
+'43|Tc|Teknesium|[98]|r|[Kr] 4d5 5s2|s|1,9|2157|4265|Pencitraan medis (radioaktif).',
+'44|Ru|Rutenium|101,07|r|[Kr] 4d7 5s1|s|2,2|2334|4150|Kontak listrik tahan aus.',
+'45|Rh|Rodium|102,91|r|[Kr] 4d8 5s1|s|2,28|1964|3695|Katalis knalpot kendaraan.',
+'46|Pd|Paladium|106,42|r|[Kr] 4d10|s|2,20|1555|2963|Katalis dan perhiasan.',
+'47|Ag|Perak|107,87|r|[Kr] 4d10 5s1|s|1,93|962|2162|Perhiasan, cermin, dan fotografi.',
+'48|Cd|Kadmium|112,41|r|[Kr] 4d10 5s2|s|1,69|321|767|Baterai nikel-kadmium (beracun).',
+'49|In|Indium|114,82|p|[Kr] 4d10 5s2 5p1|s|1,78|157|2072|Layar sentuh.',
+'50|Sn|Timah|118,71|p|[Kr] 4d10 5s2 5p2|s|1,96|232|2602|Solder dan pelapis kaleng.',
+'51|Sb|Antimon|121,76|m|[Kr] 4d10 5s2 5p3|s|2,05|631|1587|Bahan tahan api dan paduan timbal.',
+'52|Te|Telurium|127,60|m|[Kr] 4d10 5s2 5p4|s|2,1|450|988|Panel surya.',
+'53|I|Iodin|126,90|h|[Kr] 4d10 5s2 5p5|s|2,66|114|184|Antiseptik dan garam beryodium.',
+'54|Xe|Xenon|131,29|g|[Kr] 4d10 5s2 5p6|g|2,6|-112|-108|Lampu sorot dan mesin ion pesawat antariksa.',
+'55|Cs|Sesium|132,91|a|[Xe] 6s1|s|0,79|28|671|Jam atom.',
+'56|Ba|Barium|137,33|t|[Xe] 6s2|s|0,89|727|1897|Bahan kontras pada pemeriksaan sinar-X.',
+'57|La|Lantanum|138,91|l|[Xe] 5d1 6s2|s|1,10|920|3464|Lensa kamera dan baterai hibrida.',
+'58|Ce|Serium|140,12|l|[Xe] 4f1 5d1 6s2|s|1,12|795|3443|Poles kaca dan korek api.',
+'59|Pr|Praseodimium|140,91|l|[Xe] 4f3 6s2|s|1,13|935|3520|Magnet dan kaca pelindung las.',
+'60|Nd|Neodimium|144,24|l|[Xe] 4f4 6s2|s|1,14|1024|3074|Magnet kuat pada speaker dan motor listrik.',
+'61|Pm|Prometium|[145]|l|[Xe] 4f5 6s2|s|1,13|1042|3000|Baterai nuklir (radioaktif).',
+'62|Sm|Samarium|150,36|l|[Xe] 4f6 6s2|s|1,17|1072|1794|Magnet samarium-kobalt.',
+'63|Eu|Europium|151,96|l|[Xe] 4f7 6s2|s|1,2|826|1529|Fosfor merah pada layar dan uang kertas.',
+'64|Gd|Gadolinium|157,25|l|[Xe] 4f7 5d1 6s2|s|1,2|1312|3273|Bahan kontras MRI.',
+'65|Tb|Terbium|158,93|l|[Xe] 4f9 6s2|s|1,1|1356|3230|Fosfor hijau pada layar.',
+'66|Dy|Disprosium|162,50|l|[Xe] 4f10 6s2|s|1,22|1407|2567|Magnet pada motor kendaraan listrik.',
+'67|Ho|Holmium|164,93|l|[Xe] 4f11 6s2|s|1,23|1461|2720|Laser medis.',
+'68|Er|Erbium|167,26|l|[Xe] 4f12 6s2|s|1,24|1529|2868|Penguat sinyal serat optik.',
+'69|Tm|Tulium|168,93|l|[Xe] 4f13 6s2|s|1,25|1545|1950|Laser medis.',
+'70|Yb|Iterbium|173,05|l|[Xe] 4f14 6s2|s|1,1|824|1196|Jam atom.',
+'71|Lu|Lutesium|174,97|l|[Xe] 4f14 5d1 6s2|s|1,27|1652|3402|Detektor pada pemindai PET.',
+'72|Hf|Hafnium|178,49|r|[Xe] 4f14 5d2 6s2|s|1,3|2233|4603|Batang kendali reaktor nuklir.',
+'73|Ta|Tantalum|180,95|r|[Xe] 4f14 5d3 6s2|s|1,5|3017|5458|Kapasitor pada ponsel.',
+'74|W|Tungsten|183,84|r|[Xe] 4f14 5d4 6s2|s|2,36|3422|5555|Filamen lampu pijar.',
+'75|Re|Renium|186,21|r|[Xe] 4f14 5d5 6s2|s|1,9|3186|5596|Mesin jet.',
+'76|Os|Osmium|190,23|r|[Xe] 4f14 5d6 6s2|s|2,2|3033|5012|Ujung pena; unsur alami terpadat.',
+'77|Ir|Iridium|192,22|r|[Xe] 4f14 5d7 6s2|s|2,20|2446|4428|Busi dan alat ukur presisi.',
+'78|Pt|Platina|195,08|r|[Xe] 4f14 5d9 6s1|s|2,28|1768|3825|Katalis dan perhiasan.',
+'79|Au|Emas|196,97|r|[Xe] 4f14 5d10 6s1|s|2,54|1064|2856|Perhiasan dan elektronik.',
+'80|Hg|Raksa|200,59|r|[Xe] 4f14 5d10 6s2|c|2,00|-39|357|Termometer lama dan lampu (beracun).',
+'81|Tl|Talium|204,38|p|[Xe] 4f14 5d10 6s2 6p1|s|1,62|304|1473|Detektor inframerah (beracun).',
+'82|Pb|Timbal|207,2|p|[Xe] 4f14 5d10 6s2 6p2|s|1,87|327|1749|Aki dan perisai radiasi.',
+'83|Bi|Bismut|208,98|p|[Xe] 4f14 5d10 6s2 6p3|s|2,02|271|1564|Obat sakit lambung dan kosmetik.',
+'84|Po|Polonium|[209]|p|[Xe] 4f14 5d10 6s2 6p4|s|2,0|254|962|Penghilang listrik statis (radioaktif).',
+'85|At|Astatin|[210]|h|[Xe] 4f14 5d10 6s2 6p5|s|2,2|302|-|Unsur alami paling langka (radioaktif).',
+'86|Rn|Radon|[222]|g|[Xe] 4f14 5d10 6s2 6p6|g|2,2|-71|-62|Gas radioaktif hasil peluruhan uranium.',
+'87|Fr|Fransium|[223]|a|[Rn] 7s1|s|0,7|27|-|Sangat langka dan radioaktif.',
+'88|Ra|Radium|[226]|t|[Rn] 7s2|s|0,9|700|1737|Cat bercahaya zaman dahulu (radioaktif).',
+'89|Ac|Aktinium|[227]|k|[Rn] 6d1 7s2|s|1,1|1050|3200|Penelitian terapi kanker.',
+'90|Th|Torium|232,04|k|[Rn] 6d2 7s2|s|1,3|1750|4788|Calon bahan bakar nuklir.',
+'91|Pa|Protaktinium|231,04|k|[Rn] 5f2 6d1 7s2|s|1,5|1572|-|Penelitian geologi.',
+'92|U|Uranium|238,03|k|[Rn] 5f3 6d1 7s2|s|1,38|1135|4131|Bahan bakar reaktor nuklir.',
+'93|Np|Neptunium|[237]|k|[Rn] 5f4 6d1 7s2|s|1,36|644|-|Hasil samping reaktor nuklir.',
+'94|Pu|Plutonium|[244]|k|[Rn] 5f6 7s2|s|1,28|640|3228|Bahan bakar nuklir dan sumber daya pesawat antariksa.',
+'95|Am|Amerisium|[243]|k|[Rn] 5f7 7s2|s|1,3|1176|2011|Detektor asap.',
+'96|Cm|Kurium|[247]|k|[Rn] 5f7 6d1 7s2|s|1,3|1345|-|Sumber daya wahana antariksa.',
+'97|Bk|Berkelium|[247]|k|[Rn] 5f9 7s2|s|1,3|986|-|',
+'98|Cf|Kalifornium|[251]|k|[Rn] 5f10 7s2|s|1,3|900|-|Sumber neutron.',
+'99|Es|Einsteinium|[252]|k|[Rn] 5f11 7s2|s|1,3|860|-|',
+'100|Fm|Fermium|[257]|k|[Rn] 5f12 7s2|u|1,3|1527|-|',
+'101|Md|Mendelevium|[258]|k|[Rn] 5f13 7s2|u|1,3|827|-|',
+'102|No|Nobelium|[259]|k|[Rn] 5f14 7s2|u|1,3|827|-|',
+'103|Lr|Lawrensium|[266]|k|[Rn] 5f14 7s2 7p1|u|1,3|1627|-|',
+'104|Rf|Rutherfordium|[267]|r|[Rn] 5f14 6d2 7s2|u|-|-|-|',
+'105|Db|Dubnium|[268]|r|[Rn] 5f14 6d3 7s2|u|-|-|-|',
+'106|Sg|Seaborgium|[269]|r|[Rn] 5f14 6d4 7s2|u|-|-|-|',
+'107|Bh|Bohrium|[270]|r|[Rn] 5f14 6d5 7s2|u|-|-|-|',
+'108|Hs|Hasium|[277]|r|[Rn] 5f14 6d6 7s2|u|-|-|-|',
+'109|Mt|Meitnerium|[278]|u|[Rn] 5f14 6d7 7s2|u|-|-|-|',
+'110|Ds|Darmstadtium|[281]|u|[Rn] 5f14 6d8 7s2|u|-|-|-|',
+'111|Rg|Roentgenium|[282]|u|[Rn] 5f14 6d9 7s2|u|-|-|-|',
+'112|Cn|Kopernisium|[285]|u|[Rn] 5f14 6d10 7s2|u|-|-|-|',
+'113|Nh|Nihonium|[286]|u|[Rn] 5f14 6d10 7s2 7p1|u|-|-|-|',
+'114|Fl|Flerovium|[289]|u|[Rn] 5f14 6d10 7s2 7p2|u|-|-|-|',
+'115|Mc|Moskovium|[290]|u|[Rn] 5f14 6d10 7s2 7p3|u|-|-|-|',
+'116|Lv|Livermorium|[293]|u|[Rn] 5f14 6d10 7s2 7p4|u|-|-|-|',
+'117|Ts|Tenesin|[294]|u|[Rn] 5f14 6d10 7s2 7p5|u|-|-|-|',
+'118|Og|Oganeson|[294]|u|[Rn] 5f14 6d10 7s2 7p6|u|-|-|-|'
+].map(function(baris) {
+  const p = baris.split('|');
+  const angka = function(t) { return t === '-' ? null : Number(String(t).replace(',', '.')); };
+  const z = Number(p[0]);
+  const posisi = letakUnsur(z);
+  return {
+    z: z, sim: p[1], nama: p[2], massa: p[3], kat: p[4], konfig: p[5], wujud: p[6],
+    en: angka(p[7]), leleh: angka(p[8]), didih: angka(p[9]), guna: p[10],
+    periode: posisi.periode, golongan: posisi.golongan, baris: posisi.baris, kolom: posisi.kolom
+  };
+});
+
+function letakUnsur(z) {
+  if (z === 1) return { periode: 1, golongan: 1, baris: 1, kolom: 1 };
+  if (z === 2) return { periode: 1, golongan: 18, baris: 1, kolom: 18 };
+  if (z >= 57 && z <= 71) return { periode: 6, golongan: null, baris: 9, kolom: z - 54 };
+  if (z >= 89 && z <= 103) return { periode: 7, golongan: null, baris: 10, kolom: z - 86 };
+  let periode = 0;
+  let golongan = 0;
+  if (z <= 4) { periode = 2; golongan = z - 2; }
+  else if (z <= 10) { periode = 2; golongan = z + 8; }
+  else if (z <= 12) { periode = 3; golongan = z - 10; }
+  else if (z <= 18) { periode = 3; golongan = z; }
+  else if (z <= 36) { periode = 4; golongan = z - 18; }
+  else if (z <= 54) { periode = 5; golongan = z - 36; }
+  else if (z <= 56) { periode = 6; golongan = z - 54; }
+  else if (z <= 86) { periode = 6; golongan = z - 68; }
+  else if (z <= 88) { periode = 7; golongan = z - 86; }
+  else { periode = 7; golongan = z - 100; }
+  return { periode: periode, golongan: golongan, baris: periode, kolom: golongan };
+}
+
+const $ = function(id) { return document.getElementById(id); };
+let mode = 'kategori';
+let fokus = '';
+let kata = '';
+let suhu = 25;
+let ukuran = 40;
+let terpilih = 0;
+const sel = {};
+
+function esc(t) {
+  return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function angkaId(n) {
+  return Number(n).toLocaleString('id-ID');
+}
+
+function modeGelap() {
+  return document.body.classList.contains('dark');
+}
+
+function wujudPada(e, t) {
+  if (e.wujud === 'u') return 'u';
+  if (e.leleh == null) return e.wujud;
+  if (e.didih != null && e.didih < e.leleh) return t < e.didih ? 's' : 'g';
+  if (t < e.leleh) return 's';
+  if (e.didih == null) return 'c';
+  return t < e.didih ? 'c' : 'g';
+}
+
+function kelasWarna(e) {
+  if (mode === 'kategori') return 'k-' + e.kat;
+  if (mode === 'wujud') return 'w-' + wujudPada(e, suhu);
+  return 'w-u';
+}
+
+function kunciFokus(e) {
+  if (mode === 'kategori') return e.kat;
+  if (mode === 'wujud') return wujudPada(e, suhu);
+  return '';
+}
+
+function bangunTabel() {
+  const tabel = $('tabel');
+  tabel.innerHTML = '';
+  const tambahPenanda = function(baris, kolom, teks) {
+    const d = document.createElement('div');
+    d.className = 'penanda warna k-' + (baris === 6 ? 'l' : 'k');
+    d.style.gridRow = baris;
+    d.style.gridColumn = kolom;
+    d.textContent = teks;
+    tabel.appendChild(d);
+  };
+  tambahPenanda(6, 3, '57–71');
+  tambahPenanda(7, 3, '89–103');
+  const labelSeri = function(baris, teks) {
+    const d = document.createElement('div');
+    d.className = 'label-seri';
+    d.style.gridRow = baris;
+    d.textContent = teks;
+    tabel.appendChild(d);
+  };
+  labelSeri(9, 'Lantanida');
+  labelSeri(10, 'Aktinida');
+  DATA.forEach(function(e) {
+    const b = document.createElement('button');
+    b.className = 'sel warna';
+    b.style.gridRow = e.baris;
+    b.style.gridColumn = e.kolom;
+    b.setAttribute('aria-label', e.nama + ', nomor atom ' + e.z);
+    b.innerHTML = '<span class="no">' + e.z + '</span><span class="sim">' + esc(e.sim) + '</span><span class="nm">' + esc(e.nama) + '</span>';
+    b.addEventListener('click', function() { bukaDetail(e.z); });
+    tabel.appendChild(b);
+    sel[e.z] = b;
+  });
+  const spasi = document.createElement('div');
+  spasi.className = 'jarak';
+  spasi.style.gridRow = 8;
+  spasi.style.gridColumn = 1;
+  tabel.appendChild(spasi);
+}
+
+function warnaEn(e) {
+  if (e.en == null) return null;
+  const t = Math.min(1, Math.max(0, (e.en - 0.7) / 3.3));
+  if (modeGelap()) return { bg: 'hsl(215,85%,' + (18 + t * 40) + '%)', fg: '#fff' };
+  return { bg: 'hsl(215,85%,' + (94 - t * 44) + '%)', fg: t > 0.5 ? '#fff' : '#1E3A8A' };
+}
+
+function sudahCocok(e) {
+  if (!kata) return true;
+  const k = kata.toLowerCase();
+  return e.nama.toLowerCase().indexOf(k) !== -1 || e.sim.toLowerCase() === k || e.sim.toLowerCase().indexOf(k) === 0 || String(e.z) === k;
+}
+
+function segarkan() {
+  DATA.forEach(function(e) {
+    const b = sel[e.z];
+    b.className = 'sel warna ' + kelasWarna(e);
+    b.style.background = '';
+    b.style.color = '';
+    if (mode === 'en') {
+      const w = warnaEn(e);
+      if (w) { b.className = 'sel'; b.style.background = w.bg; b.style.color = w.fg; }
+      else b.className = 'sel warna w-u';
+    }
+    const cocokFokus = !fokus || kunciFokus(e) === fokus;
+    const cocokKata = sudahCocok(e);
+    if (!cocokFokus || !cocokKata) b.classList.add('redup');
+    if (kata && cocokKata) b.classList.add('cocok');
+  });
+  segarkanLegenda();
+}
+
+function segarkanLegenda() {
+  const wadah = $('legenda');
+  wadah.innerHTML = '';
+  if (mode === 'en') {
+    wadah.innerHTML = '<div><div class="skala"></div><div class="skala-teks"><span>Rendah (0,7)</span><span>Tinggi (3,98)</span></div></div>';
+    return;
+  }
+  const daftar = mode === 'kategori'
+    ? Object.keys(KATEGORI).map(function(k) { return { kunci: k, nama: KATEGORI[k], kelas: 'k-' + k }; })
+    : ['s', 'c', 'g', 'u'].map(function(k) { return { kunci: k, nama: WUJUD[k], kelas: 'w-' + k }; });
+  daftar.forEach(function(d) {
+    const b = document.createElement('button');
+    b.className = fokus === d.kunci ? 'aktif' : '';
+    b.innerHTML = '<i class="warna ' + d.kelas + '"></i>' + esc(d.nama);
+    b.addEventListener('click', function() {
+      fokus = fokus === d.kunci ? '' : d.kunci;
+      segarkan();
+    });
+    wadah.appendChild(b);
+  });
+}
+
+function aturUkuran() {
+  $('tabel').style.setProperty('--s', ukuran + 'px');
+}
+
+function ukuranAwal() {
+  const lebar = Math.min(window.innerWidth, 1280) - 64;
+  const muat = Math.floor((lebar - 17 * 3) / 18);
+  ukuran = Math.max(40, Math.min(64, muat));
+}
+
+function kulitElektron(konfig) {
+  let k = [];
+  konfig.split(' ').forEach(function(t) {
+    const inti = /^\[(\w+)\]$/.exec(t);
+    if (inti) { k = INTI[inti[1]].slice(); return; }
+    const q = /^(\d)([spdf])(\d+)$/.exec(t);
+    if (!q) return;
+    const n = Number(q[1]);
+    while (k.length < n) k.push(0);
+    k[n - 1] += Number(q[3]);
+  });
+  return k;
+}
+
+function konfigTampil(konfig) {
+  return konfig.split(' ').map(function(t) {
+    const q = /^(\d[spdf])(\d+)$/.exec(t);
+    return q ? esc(q[1]) + '<sup>' + q[2] + '</sup>' : esc(t);
+  }).join(' ');
+}
+
+function gambarBohr(e) {
+  const kulit = kulitElektron(e.konfig);
+  let svg = '<svg viewBox="0 0 200 200" role="img" aria-label="Susunan elektron per kulit">';
+  kulit.forEach(function(jumlah, i) {
+    const r = kulit.length === 1 ? 38 : 30 + i * (66 / (kulit.length - 1));
+    svg += '<circle class="orbit" cx="100" cy="100" r="' + r.toFixed(1) + '"/>';
+    for (let j = 0; j < jumlah; j++) {
+      const sudut = (j / jumlah) * Math.PI * 2 - Math.PI / 2 + i * 0.4;
+      const x = 100 + r * Math.cos(sudut);
+      const y = 100 + r * Math.sin(sudut);
+      svg += '<circle class="elektron" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="2.4"/>';
+    }
+  });
+  svg += '<circle class="inti" cx="100" cy="100" r="17"/><text x="100" y="100">' + esc(e.sim) + '</text></svg>';
+  return svg;
+}
+
+function bukaDetail(z) {
+  const e = DATA[z - 1];
+  terpilih = z;
+  const w = e.kat;
+  const tampilWujud = WUJUD[wujudPada(e, 25)];
+  const suhuTeks = function(n) { return n == null ? 'Tidak diketahui' : angkaId(n) + ' °C'; };
+  const kulit = kulitElektron(e.konfig);
+  let isi = '';
+  isi += '<div class="lembar-atas"><button id="sebelumnya" aria-label="Sebelumnya"' + (z === 1 ? ' disabled' : '') + '>‹</button><span class="tengah">Unsur ke-' + z + ' dari 118</span><button id="tutup" aria-label="Tutup">×</button></div>';
+  isi += '<div class="pembuka"><div class="besar warna k-' + w + '"><span class="no">' + e.z + '</span><span class="sim">' + esc(e.sim) + '</span><span class="ms">' + esc(e.massa) + '</span></div>';
+  isi += '<div><h2>' + esc(e.nama) + '</h2><span class="kat warna k-' + w + '">' + esc(KATEGORI[w]) + '</span></div></div>';
+  isi += '<div class="bohr">' + gambarBohr(e) + '</div>';
+  isi += '<div class="rincian">';
+  isi += '<div><small>Nomor atom</small><b>' + e.z + '</b></div>';
+  isi += '<div><small>Massa atom relatif</small><b>' + esc(e.massa) + '</b></div>';
+  isi += '<div><small>Periode</small><b>' + e.periode + '</b></div>';
+  isi += '<div><small>Golongan</small><b>' + (e.golongan == null ? (e.kat === 'l' ? 'Lantanida' : 'Aktinida') : e.golongan) + '</b></div>';
+  isi += '<div class="lebar"><small>Konfigurasi elektron</small><b>' + konfigTampil(e.konfig) + '</b></div>';
+  isi += '<div class="lebar"><small>Elektron per kulit</small><b>' + kulit.join(', ') + '</b></div>';
+  isi += '<div><small>Wujud (25 °C)</small><b>' + esc(tampilWujud) + '</b></div>';
+  isi += '<div><small>Keelektronegatifan</small><b>' + (e.en == null ? 'Tidak ada data' : String(e.en).replace('.', ',')) + '</b></div>';
+  isi += '<div><small>Titik leleh</small><b>' + suhuTeks(e.leleh) + '</b></div>';
+  isi += '<div><small>' + (e.didih != null && e.leleh != null && e.didih < e.leleh ? 'Titik menyublim' : 'Titik didih') + '</small><b>' + suhuTeks(e.didih) + '</b></div>';
+  if (e.guna) isi += '<div class="lebar"><small>Kegunaan</small><b>' + esc(e.guna) + '</b></div>';
+  isi += '</div>';
+  isi += '<div class="navigasi"><button id="sebelumnya2"' + (z === 1 ? ' disabled' : '') + '>‹ Sebelumnya</button><button id="berikutnya"' + (z === 118 ? ' disabled' : '') + '>Berikutnya ›</button></div>';
+  $('lembar').innerHTML = isi;
+  $('lapisan').classList.add('aktif');
+  $('tutup').addEventListener('click', tutupDetail);
+  $('sebelumnya').addEventListener('click', function() { if (terpilih > 1) bukaDetail(terpilih - 1); });
+  $('sebelumnya2').addEventListener('click', function() { if (terpilih > 1) bukaDetail(terpilih - 1); });
+  $('berikutnya').addEventListener('click', function() { if (terpilih < 118) bukaDetail(terpilih + 1); });
+}
+
+function tutupDetail() {
+  $('lapisan').classList.remove('aktif');
+  terpilih = 0;
+}
+
+function aturMode(m) {
+  mode = m;
+  fokus = '';
+  document.querySelectorAll('#mode button').forEach(function(b) {
+    b.classList.toggle('aktif', b.getAttribute('data-mode') === m);
+  });
+  $('suhu').classList.toggle('tampil', m === 'wujud');
+  segarkan();
+}
+
+function aturSuhu(n) {
+  suhu = Number(n);
+  $('geserSuhu').value = suhu;
+  $('nilaiSuhu').textContent = angkaId(suhu) + ' °C';
+  segarkan();
+}
+
+function mulai() {
+  ukuranAwal();
+  bangunTabel();
+  aturUkuran();
+  segarkan();
+  document.querySelectorAll('#mode button').forEach(function(b) {
+    b.addEventListener('click', function() { aturMode(b.getAttribute('data-mode')); });
+  });
+  $('cari').addEventListener('input', function() {
+    kata = this.value.trim();
+    segarkan();
+  });
+  $('cari').addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter' || !kata) return;
+    const hasil = DATA.filter(sudahCocok);
+    if (hasil.length) { bukaDetail(hasil[0].z); this.blur(); }
+  });
+  $('kecilkan').addEventListener('click', function() { ukuran = Math.max(28, ukuran - 6); aturUkuran(); });
+  $('besarkan').addEventListener('click', function() { ukuran = Math.min(90, ukuran + 6); aturUkuran(); });
+  $('geserSuhu').addEventListener('input', function() { aturSuhu(this.value); });
+  document.querySelectorAll('#suhu .cepat button').forEach(function(b) {
+    b.addEventListener('click', function() { aturSuhu(b.getAttribute('data-suhu')); });
+  });
+  $('lapisan').addEventListener('click', function(e) {
+    if (e.target === this) tutupDetail();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (!terpilih) return;
+    if (e.key === 'Escape') tutupDetail();
+    else if (e.key === 'ArrowLeft' && terpilih > 1) bukaDetail(terpilih - 1);
+    else if (e.key === 'ArrowRight' && terpilih < 118) bukaDetail(terpilih + 1);
+  });
+}
+
+mulai();
+</script>
+<script src="telepon.js"></script>
+</body>
+</html>
